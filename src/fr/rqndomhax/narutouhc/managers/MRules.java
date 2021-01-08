@@ -17,9 +17,9 @@ public class MRules {
     public boolean showRoleOnDeath = true;
     public int maxPlayers = 26;
     public final List<Roles> activedRoles = new ArrayList<>();
-    public String gameTitle;
-    public UUID gameHost;
-    public Set<UUID> gameCoHost;
+    public String gameTitle = "";
+    public UUID gameHost = null;
+    public Set<UUID> gameCoHost = new HashSet<>();
 
     public MRules() {
         activedRoles.addAll(Arrays.asList(Roles.values()));
