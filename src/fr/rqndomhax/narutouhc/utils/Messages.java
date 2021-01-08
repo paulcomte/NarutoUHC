@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.utils;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 public abstract class Messages {
 
@@ -24,4 +25,10 @@ public abstract class Messages {
 
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
 
+    public static void showHelp(CommandSender sender) {
+        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
+        sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
+        sender.sendMessage(CREDITS);
+        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
+    }
 }
