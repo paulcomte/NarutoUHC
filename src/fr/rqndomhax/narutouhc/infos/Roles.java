@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.role;
+package fr.rqndomhax.narutouhc.infos;
 
 public enum Roles {
 

@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.role.Roles;
+import fr.rqndomhax.narutouhc.infos.Roles;
 
 import java.util.List;
 
