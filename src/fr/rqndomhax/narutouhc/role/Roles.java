@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.role;
 
 public enum Roles {
-    
+
     MADARA(RoleType.SASUKE),
     SASUKE(RoleType.SASUKE),
 
@@ -38,6 +38,7 @@ public enum Roles {
 
     OROCHIMARU(RoleType.OROCHIMARU),
     KABUTO(RoleType.OROCHIMARU);
+    
     private final RoleType roleType;
 
     Roles(RoleType roleType) {

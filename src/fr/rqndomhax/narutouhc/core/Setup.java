@@ -9,9 +9,7 @@ package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.commands.CHelp;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
-import fr.rqndomhax.narutouhc.managers.MBorder;
-import fr.rqndomhax.narutouhc.managers.MGameInfo;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -19,7 +17,7 @@ import org.bukkit.plugin.PluginManager;
 public class Setup {
 
     private final Main main;
-    private MGameInfo GameInfo;
+    private MGame game;
 
     public Setup(Main main) {
         this.main = main;
@@ -37,7 +35,7 @@ public class Setup {
         registerCommands();
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
-        GameInfo = new MGameInfo(new MBorder(), new MRules());
+        game = new MGame(this);
         System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 
@@ -51,7 +49,7 @@ public class Setup {
         this.main.getCommand("help").setExecutor(new CHelp());
     }
 
-    public MGameInfo getGameInfo() {
-        return GameInfo;
+    public MGame getGame() {
+        return game;
     }
 }
