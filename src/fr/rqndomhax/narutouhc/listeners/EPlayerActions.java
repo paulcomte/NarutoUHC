@@ -25,9 +25,9 @@ public class EPlayerActions implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
 
-        if (!setup.getGameInfo().getmRules().showDeathMessage) return;
+        if (!setup.getGame().getGameInfo().getmRules().showDeathMessage) return;
 
-        if (setup.getGameInfo().getmRules().showRoleOnDeath)
+        if (setup.getGame().getGameInfo().getmRules().showRoleOnDeath)
             Bukkit.broadcastMessage(Messages.PLAYER_DEATH_WITH_ROLE
                     .replace("%player%", e.getEntity().getName())
                     .replace("%role%", "TODO"));
