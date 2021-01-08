@@ -9,9 +9,7 @@ package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class MRules {
 
@@ -19,6 +17,9 @@ public class MRules {
     public boolean showRoleOnDeath = true;
     public int maxPlayers = 26;
     public final List<Roles> activedRoles = new ArrayList<>();
+    public String gameTitle;
+    public UUID gameHost;
+    public Set<UUID> gameCoHost;
 
     public MRules() {
         activedRoles.addAll(Arrays.asList(Roles.values()));
