@@ -1,0 +1,6 @@
+name: NarutoUHC
+author: RqndomHax
+version: 0.1
+main: fr.rqndomhax.narutouhc.Main
+commands:
+  help:
