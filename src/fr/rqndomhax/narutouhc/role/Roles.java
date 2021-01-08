@@ -38,7 +38,7 @@ public enum Roles {
 
     OROCHIMARU(RoleType.OROCHIMARU),
     KABUTO(RoleType.OROCHIMARU);
-    
+
     private final RoleType roleType;
 
     Roles(RoleType roleType) {
