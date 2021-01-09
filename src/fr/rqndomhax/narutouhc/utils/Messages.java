@@ -19,10 +19,12 @@ public abstract class Messages {
     public static String PREFIX = ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.RESET;
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
+    public static String CREATING_WORLD = "[Naruto UHC] GENERATING MAP NO_PVP !";
     public static String PLUGIN_INIT_EVENTS = "[Naruto UHC] REGISTERING EVENTS !";
     public static String PLUGIN_INIT_COMMANDS = "[Naruto UHC] REGISTERING COMMANDS !";
     public static String PLUGIN_LAST_TASKS = "[Naruto UHC] FINISHING LAST TASKS !";
     public static String PLUGIN_INITIALIZED = "[Naruto UHC] PLUGIN INITIALIZED !";
+    public static String MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
 
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
@@ -38,6 +40,7 @@ public abstract class Messages {
     public static String ADMIN_ROLE_REMOVED = PREFIX + "Vous avez bien supprimé le rôle %role% du joueur %player% !";
 
     public static String PLAYER_DEATH_WITH_ROLE = PREFIX + "%player% est mort, son rôle était %role%.";
+    public static String PLAYER_DEATH_WITH_ROLE_NONE = PREFIX + "%player% est mort, il n'avait pas de rôle !";
     public static String PLAYER_DEATH_WITHOUT_ROLE = PREFIX + "%player% est mort.";
 
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";

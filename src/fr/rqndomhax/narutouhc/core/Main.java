@@ -16,11 +16,12 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         new Setup(this);
         super.onEnable();
+        Bukkit.getServer().setWhitelist(false);
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getOnlinePlayers().forEach(p -> p.kickPlayer("Server is reloading !"));
+        Bukkit.getServer().setWhitelist(true);
         super.onDisable();
     }
 }

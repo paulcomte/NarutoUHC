@@ -8,8 +8,11 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,8 +28,10 @@ public class EPlayerLogin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             setup.getGame().getGamePlayers().add(new MPlayer(e.getPlayer().getUniqueId()));
+            //e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 120, 0));
+        }
     }
 
     @EventHandler

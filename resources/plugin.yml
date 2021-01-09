@@ -4,3 +4,4 @@ version: 0.1
 main: fr.rqndomhax.narutouhc.core.Main
 commands:
   help:
+  tpnaruto:

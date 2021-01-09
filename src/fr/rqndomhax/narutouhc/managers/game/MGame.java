@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.MRules;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class MGame {
 
@@ -32,5 +33,13 @@ public class MGame {
 
     public Set<MPlayer> getGamePlayers() {
         return gamePlayers;
+    }
+
+    public MPlayer getMPlayer(UUID uuid) {
+        for (MPlayer player : gamePlayers) {
+            if (player.uuid.equals(uuid))
+                return player;
+        }
+        return null;
     }
 }
