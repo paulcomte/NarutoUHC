@@ -15,15 +15,11 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.plugin.PluginManager;
-
-import java.io.File;
-import java.io.IOException;
 
 public class Setup {
 
