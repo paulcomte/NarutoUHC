@@ -22,6 +22,7 @@ public abstract class Messages {
 
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est plus sur le serveur !";
     public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
+    public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
     public static String ADMIN_ROLE_ALREADY_GAVE = PREFIX + "Ce rôle a déjà été attribué à un joueur !";
     public static String ROLE_NOT_PRESENT = PREFIX + "Ce rôle n'a pas été activé";

@@ -14,6 +14,7 @@ import java.util.*;
 public class MRules {
 
     public boolean showDeathMessage = true;
+    public boolean adminRoles = true;
     public boolean showRoleOnDeath = true;
     public int maxPlayers = 26;
     public final List<Roles> activatedRoles = new ArrayList<>();

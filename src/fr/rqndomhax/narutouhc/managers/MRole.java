@@ -24,7 +24,7 @@ public class MRole {
 
     public MRole(Setup setup) {
         this.setup = setup;
-        availableRoles = setup.getGame().getGameInfo().getmRules().activedRoles;
+        availableRoles = setup.getGame().getGameInfo().getmRules().activatedRoles;
     }
 
     private void dispatchRoles() {
@@ -50,6 +50,8 @@ public class MRole {
     }
 
     public String removeAdminRole(MPlayer player) {
+        if (!setup.getGame().getGameInfo().getmRules().adminRoles)
+            return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;
         if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
@@ -63,6 +65,8 @@ public class MRole {
     }
 
     public String setAdminRole(MPlayer player, Roles role) {
+        if (!setup.getGame().getGameInfo().getmRules().adminRoles)
+            return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;
         if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
