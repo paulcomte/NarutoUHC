@@ -20,6 +20,7 @@ public class MRules {
     public String gameTitle = "";
     public UUID gameHost = null;
     public Set<UUID> gameCoHost = new HashSet<>();
+    public int rolesDispatching = 1800;
 
     public MRules() {
         activedRoles.addAll(Arrays.asList(Roles.values()));

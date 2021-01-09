@@ -52,4 +52,8 @@ public class Setup {
     public MGame getGame() {
         return game;
     }
+
+    public Main getMain() {
+        return main;
+    }
 }

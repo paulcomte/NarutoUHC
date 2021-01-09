@@ -12,5 +12,7 @@ public class MBorder {
     public int size = 3000;
     public int timeBeforeResize = 10;
     public int speed = 2;
+    public int xCenter = 0;
+    public int yCenter = 0;
 
 }

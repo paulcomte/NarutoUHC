@@ -14,7 +14,7 @@ import java.util.UUID;
 public class MPlayer {
 
     public final UUID uuid;
-    public Roles role;
+    public Roles role = null;
     public boolean hasRedeemed = false;
     public boolean isDead = false;
     public int kills = 0;
