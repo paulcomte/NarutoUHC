@@ -49,20 +49,7 @@ public class EPlayerActions implements Listener {
 
         player.deathInventory.saveInventory(e.getEntity());
         player.isDead = true;
-
-        if (setup.getGame().getGameInfo().getmRules().showRoleOnDeath) {
-            if (player.role != null) {
-                Bukkit.broadcastMessage(Messages.PLAYER_DEATH_WITH_ROLE
-                        .replace("%player%", e.getEntity().getName())
-                        .replace("%role%", player.role.name()));
-                return;
-            }
-            Bukkit.broadcastMessage(Messages.PLAYER_DEATH_WITH_ROLE_NONE
-                    .replace("%player%", e.getEntity().getName()));
-        }
-        else
-            Bukkit.broadcastMessage(Messages.PLAYER_DEATH_WITHOUT_ROLE
-                    .replace("%player", e.getEntity().getName()));
+        Messages.showDeath(player, setup.getGame().getGameInfo().getmRules().showRoleOnDeath);
 
     }
 }

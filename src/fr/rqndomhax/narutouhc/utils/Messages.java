@@ -41,11 +41,20 @@ public abstract class Messages {
     public static String ADMIN_ROLE_ADDED = PREFIX + "Vous avez bien ajouté le rôle %role% au joueur %player% !";
     public static String ADMIN_ROLE_REMOVED = PREFIX + "Vous avez bien supprimé le rôle %role% du joueur %player% !";
 
-    public static String PLAYER_DEATH_WITH_ROLE = PREFIX + "%player% est mort, son rôle était %role%.";
-    public static String PLAYER_DEATH_WITH_ROLE_NONE = PREFIX + "%player% est mort, il n'avait pas de rôle !";
-    public static String PLAYER_DEATH_WITHOUT_ROLE = PREFIX + "%player% est mort.";
+    public static String PLAYER_LEFT = "("+ ChatColor.DARK_RED + "-" + ChatColor.WHITE +") %player%";
+    public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "-" + ChatColor.WHITE +") %player%";
 
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
+
+    public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
+        if (player.role == null || showRoleOnDeath)
+            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + "est mort");
+        else
+            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + "est mort et il était "
+                + ChatColor.BOLD + "" + ChatColor.DARK_GREEN + player.role);
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
+    }
 
     public static void showHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
