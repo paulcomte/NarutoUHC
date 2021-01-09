@@ -23,6 +23,9 @@ public class MTime extends BukkitRunnable {
     @Override
     public void run() {
 
+        if (time == setup.getGame().getGameInfo().getmBorder().timeBeforeResize)
+            setup.getGame().getGameInfo().getmBorder().resizeBorder(setup);
+
         time++;
     }
 
