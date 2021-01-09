@@ -7,8 +7,12 @@
 
 package fr.rqndomhax.narutouhc.utils;
 
+import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.managers.MPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public abstract class Messages {
 
@@ -20,10 +24,14 @@ public abstract class Messages {
     public static String PLUGIN_LAST_TASKS = "[Naruto UHC] FINISHING LAST TASKS !";
     public static String PLUGIN_INITIALIZED = "[Naruto UHC] PLUGIN INITIALIZED !";
 
-    public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est plus sur le serveur !";
-    public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
-    public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
+    public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
+
+    public static String WB_TIME_BEFORE_BORDER_RESIZE = PREFIX + "Réduction de la bordure dans %time% s.";
+    public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
+
+    public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
+    public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
     public static String ADMIN_ROLE_ALREADY_GAVE = PREFIX + "Ce rôle a déjà été attribué à un joueur !";
     public static String ROLE_NOT_PRESENT = PREFIX + "Ce rôle n'a pas été activé";
     public static String ADMIN_ROLE_ADDED = PREFIX + "Vous avez bien ajouté le rôle %role% au joueur %player% !";
@@ -39,5 +47,14 @@ public abstract class Messages {
         sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
         sender.sendMessage(CREDITS);
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
+    }
+
+    public static void sendMessagesToPlayers(Setup setup, String message) {
+        for (MPlayer mPlayer : setup.getGame().getGamePlayers()) {
+            if (mPlayer == null) continue;
+            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            if (player == null) continue;
+            player.sendMessage(message);
+        }
     }
 }
