@@ -19,8 +19,8 @@ public class MBorder {
     public int defaultSize = 3000;
     public int maxSize = 100;
     public int timeBeforeResize = 600;
-    public int speed = 2;
-    public int damage = 1;
+    public double speed = 2;
+    public int damage = 3;
     public int xCenter = 0;
     public int yCenter = 0;
 
@@ -32,17 +32,19 @@ public class MBorder {
         wb.setCenter(xCenter, yCenter);
         wb.setSize(defaultSize);
         wb.setDamageAmount(damage);
+        wb.setWarningDistance(0);
 
         new BukkitRunnable() {
             @Override
             public void run() {
                 if (wb.getSize() == maxSize) {
                     wb.setDamageAmount(0);
+                    wb.setWarningDistance(0);
                     cancel();
                 }
-                wb.setSize(wb.getSize() - speed);
+                wb.setSize(wb.getSize() - speed/20);
             }
-        }.runTaskTimerAsynchronously(setup.getMain(), 0, 20);
+        }.runTaskTimerAsynchronously(setup.getMain(), 0, 0);
     }
 
 }

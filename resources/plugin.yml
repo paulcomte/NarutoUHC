@@ -5,3 +5,4 @@ main: fr.rqndomhax.narutouhc.core.Main
 commands:
   help:
   tpnaruto:
+  revive:

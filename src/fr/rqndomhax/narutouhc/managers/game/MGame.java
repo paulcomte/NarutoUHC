@@ -11,6 +11,8 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,13 @@ public class MGame {
 
     public Set<MPlayer> getGamePlayers() {
         return gamePlayers;
+    }
+
+    public MPlayer getMPlayer(String username) {
+        Player player = Bukkit.getPlayer(username);
+
+        if (player == null) return null;
+        return getMPlayer(player.getUniqueId());
     }
 
     public MPlayer getMPlayer(UUID uuid) {

@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.utils.PlayerInventoryManager;
 
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class MPlayer {
     public boolean hasRedeemed = false;
     public boolean isDead = false;
     public int kills = 0;
+    public final PlayerInventoryManager deathInventory = new PlayerInventoryManager();
 
     public MPlayer(UUID uuid) {
         this.uuid = uuid;

@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.commands.CHelp;
+import fr.rqndomhax.narutouhc.commands.CRevive;
 import fr.rqndomhax.narutouhc.commands.CTPNaruto;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
@@ -76,6 +77,7 @@ public class Setup {
     private void registerCommands() {
         this.main.getCommand("help").setExecutor(new CHelp());
         this.main.getCommand("tpnaruto").setExecutor(new CTPNaruto());
+        this.main.getCommand("revive").setExecutor(new CRevive(this));
     }
 
     public MGame getGame() {
