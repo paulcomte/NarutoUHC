@@ -15,11 +15,15 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.plugin.PluginManager;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Setup {
 
@@ -41,7 +45,7 @@ public class Setup {
         System.out.println(Messages.PLUGIN_INIT_COMMANDS);
         registerCommands();
 
-        System.out.println(Messages.CREATING_WORLD);
+        System.out.println(Messages.PLUGIN_CREATING_WORLDS);
         if (!registerWorlds()) {
             main.getPluginLoader().disablePlugin(main);
             return;
@@ -55,7 +59,28 @@ public class Setup {
     }
 
     private boolean registerWorlds() {
+
+        Bukkit.getWorlds().forEach(world -> Bukkit.unloadWorld(world.getName(), false));
+
+        if (!new File(Maps.NARUTO_UNIVERSE.name()).exists()) {
+            System.out.println(Messages.PLUGIN_MAP_NOT_PRESENT);
+            return false;
+        }
+
         new WorldCreator(Maps.NARUTO_UNIVERSE.name()).createWorld();
+
+        File noPvp = new File(Maps.NO_PVP.name());
+        if (noPvp.exists() && noPvp.isDirectory()) {
+            System.out.println(Messages.PLUGIN_DELETING_WORLD);
+            try {
+                FileUtils.deleteDirectory(noPvp);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(Messages.PLUGIN_INTERNAL_ERROR);
+                return false;
+            }
+        }
+
         WorldCreator wc = new WorldCreator(Maps.NO_PVP.name());
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.LARGE_BIOMES);

@@ -19,12 +19,14 @@ public abstract class Messages {
     public static String PREFIX = ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.RESET;
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
-    public static String CREATING_WORLD = "[Naruto UHC] GENERATING MAP NO_PVP !";
+    public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
+    public static String PLUGIN_DELETING_WORLD = "[Naruto UHC] DELETING OLD WORLD !";
+    public static String PLUGIN_INTERNAL_ERROR = "[Naruto UHC] AN INTERNAL ERROR HAS OCCURED !";
     public static String PLUGIN_INIT_EVENTS = "[Naruto UHC] REGISTERING EVENTS !";
     public static String PLUGIN_INIT_COMMANDS = "[Naruto UHC] REGISTERING COMMANDS !";
     public static String PLUGIN_LAST_TASKS = "[Naruto UHC] FINISHING LAST TASKS !";
     public static String PLUGIN_INITIALIZED = "[Naruto UHC] PLUGIN INITIALIZED !";
-    public static String MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
+    public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
 
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
