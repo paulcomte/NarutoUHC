@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.core;
 
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,12 +17,11 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         new Setup(this);
         super.onEnable();
-        Bukkit.getServer().setWhitelist(false);
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getServer().setWhitelist(true);
+        Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(Messages.SERVER_RELAODING));
         super.onDisable();
     }
 }

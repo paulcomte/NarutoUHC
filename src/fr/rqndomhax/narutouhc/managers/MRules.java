@@ -22,6 +22,7 @@ public class MRules {
     public UUID gameHost = null;
     public Set<UUID> gameCoHost = new HashSet<>();
     public int rolesDispatching = 1800;
+    public int playerDispatchingSize = 3000;
 
     public MRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));

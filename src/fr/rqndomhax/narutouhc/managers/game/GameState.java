@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.game;
 
 public enum GameState {
+    LOADING,
     LOBBY_WAITING,
     LOBBY_TELEPORTING,
     GAME_INVINCIBILITY,

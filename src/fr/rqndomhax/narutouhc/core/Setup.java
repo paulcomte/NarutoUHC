@@ -11,8 +11,11 @@ import fr.rqndomhax.narutouhc.commands.CHelp;
 import fr.rqndomhax.narutouhc.commands.CRevive;
 import fr.rqndomhax.narutouhc.commands.CTPNaruto;
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.listeners.ECancels;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
+import fr.rqndomhax.narutouhc.listeners.EScenarios;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.apache.commons.io.FileUtils;
@@ -38,6 +41,7 @@ public class Setup {
     private void setup() {
 
         System.out.println(Messages.PLUGIN_INIT_STARTED);
+        game = new MGame(this);
 
         System.out.println(Messages.PLUGIN_INIT_EVENTS);
         registerEvents();
@@ -52,15 +56,14 @@ public class Setup {
         }
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
-        game = new MGame(this);
-
-        System.out.println(Messages.PLUGIN_INITIALIZED);
+        game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
         game.getGameInfo().getmBorder().resizeBorder(this);
+        System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 
     private boolean registerWorlds() {
 
-        Bukkit.getWorlds().forEach(world -> Bukkit.unloadWorld(world.getName(), false));
+        Bukkit.getWorlds().forEach(worlds -> Bukkit.unloadWorld(worlds, true));
 
         if (!new File(Maps.NARUTO_UNIVERSE.name()).exists()) {
             System.out.println(Messages.PLUGIN_MAP_NOT_PRESENT);
@@ -93,6 +96,8 @@ public class Setup {
 
         pm.registerEvents(new EPlayerActions(this), main);
         pm.registerEvents(new EPlayerLogin(this), main);
+        pm.registerEvents(new ECancels(this), main);
+        pm.registerEvents(new EScenarios(this), main);
     }
 
     private void registerCommands() {

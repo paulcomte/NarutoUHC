@@ -33,4 +33,8 @@ public class MGameInfo {
     public GameState getGameState() {
         return gameState;
     }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

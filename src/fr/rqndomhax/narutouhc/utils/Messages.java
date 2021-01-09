@@ -26,6 +26,8 @@ public abstract class Messages {
     public static String PLUGIN_INIT_COMMANDS = "[Naruto UHC] REGISTERING COMMANDS !";
     public static String PLUGIN_LAST_TASKS = "[Naruto UHC] FINISHING LAST TASKS !";
     public static String PLUGIN_INITIALIZED = "[Naruto UHC] PLUGIN INITIALIZED !";
+    public static String SERVER_STARTING = "THE SERVER IS STARTING, PLEASE TRY AGAIN LATER !";
+    public static String SERVER_RELAODING = "THE SERVER IS RELOADING, PLEASE TRY AGAIN LATER !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
 
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
