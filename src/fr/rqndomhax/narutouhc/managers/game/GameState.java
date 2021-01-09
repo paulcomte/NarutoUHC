@@ -15,4 +15,14 @@ public enum GameState {
     GAME_PREPARATION,
     GAME_TELEPORTING,
     GAME_FINISHED;
+
+    public GameState nextGameState() {
+        GameState last = null;
+        for (GameState gameState : GameState.values()) {
+            if (last == this)
+                return gameState;
+            last = gameState;
+        }
+        return LOADING;
+    }
 }

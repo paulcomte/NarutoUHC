@@ -13,13 +13,12 @@ import fr.rqndomhax.narutouhc.managers.MRules;
 public class MGameInfo {
 
     private final MBorder mBorder;
-    private GameState gameState;
+    private GameState gameState = GameState.LOADING;
     private final MRules mRules;
 
     public MGameInfo(MBorder mBorder, MRules mRules) {
         this.mBorder = mBorder;
         this.mRules = mRules;
-        gameState = GameState.LOBBY_WAITING;
     }
 
     public MBorder getmBorder() {

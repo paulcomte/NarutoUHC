@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class MGameActions {
@@ -54,11 +55,13 @@ public abstract class MGameActions {
     }
 
     private static void placePlatform(Location center) {
+        byte color = (byte) (new Random().nextInt(14) + 1);
         World world = center.getWorld();
         for (double z = center.getZ() - 2 ; z < center.getZ() + 3 ; z++) {
             for (double x = center.getX() - 2 ; x < center.getX() + 3 ; x++) {
                 Block block = world.getBlockAt(new Location(world, x, center.getY() - 1, z));
                 block.setType(Material.STAINED_GLASS);
+                block.setData(color);
                 block.getState().update();
             }
         }

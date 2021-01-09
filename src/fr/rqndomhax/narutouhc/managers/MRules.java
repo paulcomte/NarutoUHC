@@ -23,6 +23,8 @@ public class MRules {
     public Set<UUID> gameCoHost = new HashSet<>();
     public int rolesDispatching = 1800;
     public int playerDispatchingSize = 3000;
+    public int invincibilityTime = 30;
+    public int teleportinTime = 10;
 
     public MRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));

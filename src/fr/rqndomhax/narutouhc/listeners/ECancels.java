@@ -8,13 +8,17 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import net.minecraft.server.v1_8_R3.IContainer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class ECancels implements Listener {
 
@@ -46,11 +50,27 @@ public class ECancels implements Listener {
         if (!(e.getEntity() instanceof Player)) return;
 
         GameState gameState = setup.getGame().getGameInfo().getGameState();
-       if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-           return;
-
-       e.setCancelled(true);
+       if (gameState.equals(GameState.GAME_PREPARATION))
+            e.setCancelled(true);
    }
 
+   @EventHandler
+   public void onDamage(EntityDamageEvent e) {
+       GameState gameState = setup.getGame().getGameInfo().getGameState();
+       if (gameState.equals(GameState.GAME_INVINCIBILITY) ||gameState.equals(GameState.LOBBY_WAITING)
+               || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.setCancelled(true);
+   }
+
+   @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+           return;
+       if (e.getTo().getY() > 110)
+           return;
+       MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
+       if (player == null) return;
+       e.setTo(player.location);
+   }
 
 }
