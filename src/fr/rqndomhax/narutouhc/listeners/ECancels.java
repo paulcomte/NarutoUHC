@@ -16,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -45,7 +46,7 @@ public class ECancels implements Listener {
             e.setCancelled(true);
     }
 
-   @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPvp(EntityDamageByEntityEvent e) {
 
         if (!(e.getEntity() instanceof Player)) return;
@@ -55,7 +56,7 @@ public class ECancels implements Listener {
             e.setCancelled(true);
    }
 
-   @EventHandler
+   @EventHandler(priority = EventPriority.HIGHEST)
    public void onDamage(EntityDamageEvent e) {
        GameState gameState = setup.getGame().getGameInfo().getGameState();
        if (gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)

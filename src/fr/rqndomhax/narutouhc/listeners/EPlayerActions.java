@@ -9,12 +9,14 @@ package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.tasks.TDeath;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class EPlayerActions implements Listener {
 
@@ -25,20 +27,39 @@ public class EPlayerActions implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e) {
+    public void onRespawn(PlayerRespawnEvent e) {
 
-        e.setDeathMessage("");
+        MPlayer mPlayer = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
 
-        if (!setup.getGame().getGameInfo().getmRules().showDeathMessage) return;
+        if (mPlayer == null) return;
 
-        MPlayer player = setup.getGame().getMPlayer(e.getEntity().getUniqueId());
+        if (!mPlayer.isDead) return;
 
-        if (player == null)
+        e.setRespawnLocation(mPlayer.deathLocation);
+    }
+
+    @EventHandler
+    public void onPlayerDeath(EntityDamageEvent e) {
+        if (!(e.getEntity() instanceof Player))
             return;
 
-        player.deathInventory.saveInventory(e.getEntity());
-        player.isDead = true;
-        Messages.showDeath(player, setup.getGame().getGameInfo().getmRules().showRoleOnDeath);
+        Player player = (Player) e.getEntity();
 
+        if (e.getFinalDamage() < player.getHealth())
+            return;
+
+        MPlayer mPlayer = setup.getGame().getMPlayer(player.getUniqueId());
+
+        if (mPlayer == null) return;
+
+        mPlayer.deathLocation = e.getEntity().getLocation();
+
+        e.setCancelled(true);
+
+        player.setGameMode(GameMode.SPECTATOR);
+
+        mPlayer.deathInventory.saveInventory(player);
+        mPlayer.isDead = true;
+        new TDeath(setup, mPlayer, setup.getGame().getMPlayer(e.getEntity().getUniqueId()), setup.getGame().getGameInfo().getmRules().timeBeforeDeath);
     }
 }

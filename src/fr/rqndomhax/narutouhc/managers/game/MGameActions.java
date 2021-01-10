@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers.game;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import org.bukkit.*;
@@ -100,6 +101,17 @@ public abstract class MGameActions {
         }
     }
 
+    public static void sendInfo(MPlayer mPlayer, int i) {
+
+        if (mPlayer == null) return;
+
+        Player player = Bukkit.getPlayer(mPlayer.uuid);
+        if (player == null) return;
+
+        player.playNote(player.getLocation(), Instrument.PIANO, Note.flat(1,  Note.Tone.A));
+        player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
+    }
+
     public static void sendInfos(Set<MPlayer> players, int i) {
         for (MPlayer mPlayer : players) {
 
@@ -111,6 +123,12 @@ public abstract class MGameActions {
                 player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
             }
         }
+    }
+
+    public static Location teleportToRandomLocation(Setup setup) {
+        World world = Bukkit.getWorld(setup.getGame().getGameInfo().getCurrentMap().name());
+        Location location = new Location(world, 0, 120, 0);
+        return location;
     }
 
 }

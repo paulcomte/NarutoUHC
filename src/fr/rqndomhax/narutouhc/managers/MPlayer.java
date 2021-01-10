@@ -11,6 +11,8 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.utils.PlayerInventoryManager;
 import org.bukkit.Location;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MPlayer {
@@ -19,9 +21,10 @@ public class MPlayer {
     public Roles role = null;
     public boolean hasRedeemed = false;
     public boolean isDead = false;
-    public int kills = 0;
+    public List<UUID> kills = new ArrayList<>();
     public final PlayerInventoryManager deathInventory;
     public Location location;
+    public Location deathLocation;
 
     public MPlayer(UUID uuid) {
         this.uuid = uuid;

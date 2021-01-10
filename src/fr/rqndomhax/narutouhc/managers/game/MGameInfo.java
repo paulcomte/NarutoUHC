@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.MTime;
@@ -18,6 +19,7 @@ public class MGameInfo {
 
     private final MBorder mBorder;
     private GameState gameState = GameState.LOADING;
+    private Maps currentMap = Maps.NO_PVP;
     private MTime mTime;
     private final MRules mRules;
 
@@ -55,5 +57,13 @@ public class MGameInfo {
         this.mTime = null;
         setup.getGame().getGameInfo().setGameState(GameState.LOBBY_WAITING);
         System.out.println("mtime deleted !");
+    }
+
+    public Maps getCurrentMap() {
+        return currentMap;
+    }
+
+    public void setCurrentMap(Maps currentMap) {
+        this.currentMap = currentMap;
     }
 }

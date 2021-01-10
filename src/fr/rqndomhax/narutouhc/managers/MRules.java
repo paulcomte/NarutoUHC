@@ -26,6 +26,7 @@ public class MRules {
     public int playerDispatchingSize = 3000;
     public int invincibilityDuration = 30;
     public int teleportingDuration = 10;
+    public int timeBeforeDeath = 5;
 
     public MRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));
