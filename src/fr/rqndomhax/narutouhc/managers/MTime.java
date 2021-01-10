@@ -11,8 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.tasks.TTeleporting;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import org.bukkit.*;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class MTime extends BukkitRunnable {

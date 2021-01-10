@@ -7,8 +7,6 @@
 
 package fr.rqndomhax.narutouhc.listeners;
 
-import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;

@@ -12,8 +12,6 @@ import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.MTime;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public class MGameInfo {
 
