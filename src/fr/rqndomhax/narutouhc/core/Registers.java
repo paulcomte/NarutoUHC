@@ -60,7 +60,7 @@ public class Registers {
 
         WorldCreator wc = new WorldCreator(Maps.NO_PVP.name());
         wc.environment(World.Environment.NORMAL);
-        wc.type(WorldType.LARGE_BIOMES);
+        wc.type(WorldType.NORMAL);
         wc.createWorld();
 
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(false);
