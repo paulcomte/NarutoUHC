@@ -10,7 +10,10 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.utils.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -26,6 +29,7 @@ public class EPlayerLogin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        e.getPlayer().getInventory().addItem(new ItemBuilder(Material.BOW).addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 100).toItemStack());
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOADING)) {
             e.getPlayer().kickPlayer(Messages.SERVER_STARTING);
             return;

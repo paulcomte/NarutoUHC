@@ -87,6 +87,10 @@ public class Setup {
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.LARGE_BIOMES);
         wc.createWorld();
+
+        Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(false);
+        Bukkit.getWorld(Maps.NO_PVP.name()).setPVP(false);
+
         return true;
     }
 

@@ -44,7 +44,6 @@ public class MGameInfo {
 
     public MTime startMTime(Setup setup) {
         if (this.mTime != null) return this.mTime;
-        System.out.println("creating new mtime !");
         MTime mTime = new MTime(setup);
         this.mTime = mTime;
         return mTime;
@@ -54,7 +53,6 @@ public class MGameInfo {
         mTime.cancel();
         this.mTime = null;
         setup.getGame().getGameInfo().setGameState(GameState.LOBBY_WAITING);
-        System.out.println("mtime deleted !");
     }
 
     public Maps getCurrentMap() {

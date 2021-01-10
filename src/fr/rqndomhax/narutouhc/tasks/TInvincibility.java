@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -35,7 +36,7 @@ public class TInvincibility extends BukkitRunnable {
                         .replace("%time%", String.valueOf(i)));
         }
         if (i == 0) {
-            setup.getGame().getGameInfo().setGameState(setup.getGame().getGameInfo().getGameState().nextGameState());
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
             Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
             cancel();
             return;

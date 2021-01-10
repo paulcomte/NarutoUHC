@@ -7,12 +7,10 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
-import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class MBorder {
 

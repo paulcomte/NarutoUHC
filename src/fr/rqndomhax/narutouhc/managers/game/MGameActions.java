@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -129,6 +130,13 @@ public abstract class MGameActions {
         World world = Bukkit.getWorld(setup.getGame().getGameInfo().getCurrentMap().name());
         Location location = new Location(world, 0, 120, 0);
         return location;
+    }
+
+    public static boolean isCancelled(GameState gameState, Entity entity) {
+        if (!(entity instanceof Player))
+            return false;
+        return gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
+                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING);
     }
 
 }
