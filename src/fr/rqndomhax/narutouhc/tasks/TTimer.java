@@ -26,6 +26,7 @@ public class TTimer extends BukkitRunnable {
     public void run() {
         if (i == 0) {
             setup.getGame().getGameInfo().setGameState(setup.getGame().getGameInfo().getGameState().nextGameState());
+            System.out.println("new gamestate = " + setup.getGame().getGameInfo().getGameState());
             cancel();
             return;
         }

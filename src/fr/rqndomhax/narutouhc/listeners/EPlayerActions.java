@@ -25,16 +25,6 @@ public class EPlayerActions implements Listener {
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e) {
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onBlockDestroy(BlockBreakEvent e) {
-        e.setCancelled(true);
-    }
-
-    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
 
         e.setDeathMessage("");

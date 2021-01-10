@@ -20,31 +20,19 @@ public class MBorder {
     public int maxSize = 100;
     public int timeBeforeResize = 600;
     public double speed = 2;
-    public int damage = 3;
+    public int damage = 20;
     public int xCenter = 0;
     public int yCenter = 0;
 
-    public void resizeBorder(Setup setup) {
+    public void resizeBorder() {
 
         World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
         WorldBorder wb = world.getWorldBorder();
 
         wb.setCenter(xCenter, yCenter);
         wb.setSize(defaultSize);
+        wb.setSize(maxSize, (long) ((defaultSize-maxSize)/speed));
         wb.setDamageAmount(damage);
-        wb.setWarningDistance(0);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (wb.getSize() == maxSize) {
-                    wb.setDamageAmount(0);
-                    wb.setWarningDistance(0);
-                    cancel();
-                }
-                wb.setSize(wb.getSize() - speed/20);
-            }
-        }.runTaskTimerAsynchronously(setup.getMain(), 0, 0);
     }
 
 }

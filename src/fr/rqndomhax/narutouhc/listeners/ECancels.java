@@ -31,17 +31,15 @@ public class ECancels implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         GameState gameState = setup.getGame().getGameInfo().getGameState();
-        if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-            return;
-        e.setCancelled(true);
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         GameState gameState = setup.getGame().getGameInfo().getGameState();
-        if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-            return;
-        e.setCancelled(true);
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.setCancelled(true);
     }
 
    @EventHandler
@@ -57,15 +55,15 @@ public class ECancels implements Listener {
    @EventHandler
    public void onDamage(EntityDamageEvent e) {
        GameState gameState = setup.getGame().getGameInfo().getGameState();
-       if (gameState.equals(GameState.GAME_INVINCIBILITY) ||gameState.equals(GameState.LOBBY_WAITING)
+       if (gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
             e.setCancelled(true);
    }
 
    @EventHandler
     public void onMove(PlayerMoveEvent e) {
-       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
-           return;
+       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+            return;
        if (e.getTo().getY() > 110)
            return;
        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());

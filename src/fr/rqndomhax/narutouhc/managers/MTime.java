@@ -44,7 +44,7 @@ public class MTime extends BukkitRunnable {
         if (r == 30 || r == 15 || r <= 5 && r > 0)
             Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE.replace("%time%", String.valueOf(r)));
         else if (time == setup.getGame().getGameInfo().getmBorder().timeBeforeResize) {
-            setup.getGame().getGameInfo().getmBorder().resizeBorder(setup);
+            setup.getGame().getGameInfo().getmBorder().resizeBorder();
             borderTaskFinished = true;
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
         }

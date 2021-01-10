@@ -56,9 +56,8 @@ public class Setup {
         }
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
-        getGame().getGameInfo().setGameState(getGame().getGameInfo().getGameState().nextGameState());
-        //game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
-        game.getGameInfo().getmBorder().resizeBorder(this);
+        game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
+        game.getGameInfo().getmBorder().resizeBorder();
         System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 
@@ -98,7 +97,7 @@ public class Setup {
         pm.registerEvents(new EPlayerActions(this), main);
         pm.registerEvents(new EPlayerLogin(this), main);
         pm.registerEvents(new ECancels(this), main);
-        pm.registerEvents(new EScenarios(this), main);
+        pm.registerEvents(new EScenarios(), main);
     }
 
     private void registerCommands() {

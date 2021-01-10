@@ -22,29 +22,13 @@ import java.util.List;
 
 public class EScenarios implements Listener {
 
-    private final Setup setup;
-
-    public EScenarios(Setup setup) {
-        this.setup = setup;
-    }
-
     @EventHandler
     public void onCraft(CraftItemEvent e) {
 
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
-        if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-            return;
-
-        
     }
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
-
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
-        if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-            return;
-
         switch(e.getEntityType()) {
             case CHICKEN:
                 updateDrop(e.getDrops(), Material.RAW_CHICKEN, Material.COOKED_CHICKEN);
@@ -74,11 +58,6 @@ public class EScenarios implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
-        if (!gameState.equals(GameState.LOBBY_WAITING) && !gameState.equals(GameState.LOBBY_TELEPORTING) && !gameState.equals(GameState.GAME_TELEPORTING))
-            return;
-
         if (!e.getBlock().getType().equals(Material.GRAVEL)
                 && !e.getBlock().getType().equals(Material.GOLD_ORE)
                 && !e.getBlock().getType().equals(Material.IRON_ORE))
@@ -103,5 +82,6 @@ public class EScenarios implements Listener {
             default:
                 break;
         }
+
     }
 }
