@@ -24,19 +24,18 @@ public class MRole {
 
     public MRole(Setup setup) {
         this.setup = setup;
-        availableRoles = setup.getGame().getGameInfo().getmRules().activatedRoles;
+        availableRoles = setup.getGame().getGameInfo().getMRules().activatedRoles;
     }
 
-    private void dispatchRoles() {
+    public void dispatchRoles() {
         for (MPlayer player : setup.getGame().getGamePlayers()) {
             if (availableRoles.get(0) == null) return;
-            if (adminRoles.contains(availableRoles.get(0))) {
+            if (adminRoles.contains(availableRoles.get(0)))
                 availableRoles.remove(0);
-                continue;
+            if (player.role == null) {
+                player.role = availableRoles.get(0);
+                availableRoles.remove(0);
             }
-            if (player.role != null) continue;
-            player.role = availableRoles.get(0);
-            availableRoles.remove(0);
         }
     }
 
@@ -50,7 +49,7 @@ public class MRole {
     }
 
     public String removeAdminRole(MPlayer player) {
-        if (!setup.getGame().getGameInfo().getmRules().adminRoles)
+        if (!setup.getGame().getGameInfo().getMRules().adminRoles)
             return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;
@@ -65,7 +64,7 @@ public class MRole {
     }
 
     public String setAdminRole(MPlayer player, Roles role) {
-        if (!setup.getGame().getGameInfo().getmRules().adminRoles)
+        if (!setup.getGame().getGameInfo().getMRules().adminRoles)
             return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;

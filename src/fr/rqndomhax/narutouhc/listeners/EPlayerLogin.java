@@ -10,11 +10,8 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.utils.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -37,7 +34,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameInfo().getmRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
+        if (setup.getGame().getGameInfo().getMRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
             e.setKickMessage(Messages.PLAYER_BANNED);
             return;
         }
@@ -49,8 +46,8 @@ public class EPlayerLogin implements Listener {
 
         e.setJoinMessage(Messages.PLAYER_JOIN.replace("%player%", e.getPlayer().getName()));
 
-        if (setup.getGame().getGameInfo().getmRules().gameHost == null)
-            setup.getGame().getGameInfo().getmRules().gameHost = e.getPlayer().getUniqueId();
+        if (setup.getGame().getGameInfo().getMRules().gameHost == null)
+            setup.getGame().getGameInfo().getMRules().gameHost = e.getPlayer().getUniqueId();
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             setup.getGame().getGamePlayers().add(new MPlayer(e.getPlayer().getUniqueId()));
@@ -64,7 +61,7 @@ public class EPlayerLogin implements Listener {
         e.setQuitMessage(Messages.PLAYER_LEFT.replace("%player%", e.getPlayer().getName()));
 
         if (Bukkit.getOnlinePlayers().size() == 1)
-            setup.getGame().getGameInfo().getmRules().gameHost = null;
+            setup.getGame().getGameInfo().getMRules().gameHost = null;
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
             setup.getGame().getGamePlayers().removeIf(p -> p.uuid == e.getPlayer().getUniqueId());

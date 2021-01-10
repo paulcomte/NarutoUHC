@@ -37,6 +37,8 @@ public abstract class Messages {
     public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminé dans %time% secondes";
     public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminé !";
 
+    public static String NARUTO_MAP_TP = PREFIX + "Téléportation sur l'univers de naruto dans %time% secondes !";
+
     public static String WB_TIME_BEFORE_BORDER_RESIZE = PREFIX + "Réduction de la bordure dans %time% s.";
     public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
 

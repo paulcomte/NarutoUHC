@@ -16,9 +16,8 @@ import fr.rqndomhax.narutouhc.listeners.ECancels;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.EScenarios;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -69,7 +68,7 @@ public class Registers {
         Bukkit.getWorld(Maps.NO_PVP.name()).setPVP(false);
 
         System.out.println(Messages.PLUGIN_GENERATING_LOBBY);
-        MGameActions.placeLobby();
+        MGameBuild.placeLobby();
 
         return true;
     }

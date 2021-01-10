@@ -47,7 +47,7 @@ public class TDeath extends BukkitRunnable {
             MGameActions.sendInfo(mPlayer, timeLeft);
 
         if (timeLeft == 0) {
-            Messages.showDeath(mPlayer, setup.getGame().getGameInfo().getmRules().showRoleOnDeath);
+            Messages.showDeath(mPlayer, setup.getGame().getGameInfo().getMRules().showRoleOnDeath);
             mPlayer.deathLocation.getWorld().strikeLightningEffect(mPlayer.deathLocation);
 
             Player player = Bukkit.getPlayer(mPlayer.uuid);

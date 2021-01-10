@@ -92,9 +92,9 @@ public class EPlayerActions implements Listener {
         mPlayer.isDead = true;
 
         if (killer != null)
-            new TDeath(setup, mPlayer, setup.getGame().getMPlayer(killer.getUniqueId()), setup.getGame().getGameInfo().getmRules().timeBeforeDeath);
+            new TDeath(setup, mPlayer, setup.getGame().getMPlayer(killer.getUniqueId()), setup.getGame().getGameInfo().getMRules().timeBeforeDeath);
         else
-            new TDeath(setup, mPlayer, null, setup.getGame().getGameInfo().getmRules().timeBeforeDeath);
+            new TDeath(setup, mPlayer, null, setup.getGame().getGameInfo().getMRules().timeBeforeDeath);
 
         System.out.println("true !");
         return true;

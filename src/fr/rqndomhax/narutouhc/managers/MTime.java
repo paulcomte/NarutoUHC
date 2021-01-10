@@ -8,22 +8,21 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.tasks.TTeleporting;
+import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MTime extends BukkitRunnable {
 
     private final Setup setup;
+    public int rawTime = 0;
     public int time = 0;
-
-    private int timeBeforeResize;
-    private int timeBeforeTP;
-    private int preparationTime;
-    private boolean borderTaskFinished = false;
-    private boolean hasTeleported = false;
 
     public MTime(Setup setup) {
         this.setup = setup;
@@ -32,55 +31,122 @@ public class MTime extends BukkitRunnable {
     }
 
     private void updateVars() {
-        timeBeforeTP = setup.getGame().getGameInfo().getmRules().startDuration;
-        timeBeforeResize = setup.getGame().getGameInfo().getmBorder().timeBeforeResize;
-        Bukkit.getWorlds().forEach(world -> world.setGameRuleValue("naturalRegeneration", String.valueOf(setup.getGame().getGameInfo().getmRules().naturalRegeneration)));
+        Bukkit.getWorlds().forEach(world -> world.setGameRuleValue("naturalRegeneration", String.valueOf(setup.getGame().getGameInfo().getMRules().naturalRegeneration)));
     }
 
     @Override
     public void run() {
 
-        if (!hasTeleported)
-            checkTeleport();
+        switch (setup.getGame().getGameInfo().getGameState()) {
+            case LOBBY_WAITING:
+                checkStart();
+                break;
+            case LOBBY_TELEPORTING:
+                checkTeleport();
+                break;
+            case GAME_INVINCIBILITY:
+                checkInvincibility();
+                break;
+            case GAME_PREPARATION:
+                checkPreparation();
+                break;
+            case GAME_TELEPORTING:
+                checkSecondTeleport();
+            default: break;
+        }
 
-        else if (!borderTaskFinished)
-            checkBorderTask();
+        if (rawTime == setup.getGame().getGameInfo().getMRules().rolesAnnounce)
+            setup.getRole().dispatchRoles();
 
         time++;
+        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
+            rawTime++;
+    }
+
+    private void checkSecondTeleport() {
+        int r = setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration - time;
+
+        if (r == 10 || r == 15 || r == 30 || r == 60 || r <= 5 && r > 0)
+            MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
+        else if (r == 0) {
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_INVINCIBILITY);
+            MGameBuild.removePlatform(setup.getGame().getGamePlayers());
+        }
+    }
+
+    private void checkPreparation() {
+        int r = setup.getGame().getGameInfo().getMRules().preparationTime - time;
+
+        if (r == 60 || r == 30 || r == 15 || r <= 5 && r > 0 || r == 10 || r == 5*60 || r == 10*60 || r == 30*60 || r == 60*60) {
+            if (r == 1)
+                Bukkit.broadcastMessage(Messages.NARUTO_MAP_TP.replace("%time%", String.valueOf(r))
+                        .replace("secondes", "seconde"));
+            else
+                Bukkit.broadcastMessage(Messages.NARUTO_MAP_TP.replace("%time%", String.valueOf(r)));
+        }
+        else if (r == 0) {
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_TELEPORTING);
+            time -= setup.getGame().getGameInfo().getMRules().preparationTime;
+        }
+    }
+
+    private void checkInvincibility() {
+        int r = setup.getGame().getGameInfo().getMRules().invincibilityFinished - time;
+
+        if (r == 30 || r == 60 || r == 15 || r == 10 || r <= 5 && r > 0) {
+            if (r == 1)
+                Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED_IN
+                        .replace("%time%", String.valueOf(r))
+                        .replace("secondes", "seconde"));
+            else
+                Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED_IN
+                        .replace("%time%", String.valueOf(r)));
+        }
+        if (r == 0) {
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
+            Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
+            time -= setup.getGame().getGameInfo().getMRules().invincibilityFinished;
+        }
+    }
+
+    private void checkStart() {
+        int r = setup.getGame().getGameInfo().getMRules().startDuration - time;
+
+        if (r == 60 ||r == 30 || r == 15 || r <= 5 && r > 0)
+            MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
+        else if (r == 0) {
+            setup.getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
+            MGameActions.teleportPlayers1(setup.getGame().getGameInfo().getMRules().playerDispatchingSize, setup.getGame().getGamePlayers());
+            time -= setup.getGame().getGameInfo().getMRules().startDuration;
+        }
     }
 
     private void checkTeleport() {
 
-        int r = timeBeforeTP - time;
+        int r = setup.getGame().getGameInfo().getMRules().teleportingDuration - time;
 
-        if (r == 30 || r == 15 || r <= 5 && r > 0)
+        if (r == 10 || r == 15 || r == 30 || r == 60 || r <= 5 && r > 0)
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
 
         else if (r == 0) {
-            new TTeleporting(setup, setup.getGame().getGameInfo().getmRules().teleportingDuration);
-            hasTeleported = true;
-            time -= timeBeforeTP;
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_INVINCIBILITY);
+            MGameBuild.removePlatform(setup.getGame().getGamePlayers());
+            time -= setup.getGame().getGameInfo().getMRules().startDuration;
         }
-
     }
 
     private void checkBorderTask() {
 
-        int r = timeBeforeResize - time;
+        int r = setup.getGame().getGameInfo().getMBorder().timeBeforeResize - time;
 
         if (r == 30 || r == 15 || r <= 5 && r > 0)
             Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE.replace("%time%", String.valueOf(r)));
 
         else if (r == 0) {
-            setup.getGame().getGameInfo().getmBorder().resizeBorder();
+            setup.getGame().getGameInfo().getMBorder().resizeBorder();
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
-            borderTaskFinished = true;
-            time -= timeBeforeResize;
+            time -= setup.getGame().getGameInfo().getMBorder().timeBeforeResize;
         }
-
-    }
-
-    private void checkPreparationTime() {
 
     }
 }

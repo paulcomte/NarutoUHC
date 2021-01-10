@@ -26,7 +26,7 @@ public class CHost implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        MRules rules = setup.getGame().getGameInfo().getmRules();
+        MRules rules = setup.getGame().getGameInfo().getMRules();
 
         if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
 

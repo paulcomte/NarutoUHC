@@ -26,11 +26,11 @@ public class MGameInfo {
         this.mRules = mRules;
     }
 
-    public MBorder getmBorder() {
+    public MBorder getMBorder() {
         return mBorder;
     }
 
-    public MRules getmRules() {
+    public MRules getMRules() {
         return mRules;
     }
 
@@ -42,11 +42,10 @@ public class MGameInfo {
         this.gameState = gameState;
     }
 
-    public MTime startMTime(Setup setup) {
-        if (this.mTime != null) return this.mTime;
-        MTime mTime = new MTime(setup);
-        this.mTime = mTime;
-        return mTime;
+    public void startMTime(Setup setup) {
+        if (this.mTime != null)
+            return;
+        this.mTime = new MTime(setup);
     }
 
     public void removeMTime(Setup setup) {

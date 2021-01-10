@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.core;
 
+import fr.rqndomhax.narutouhc.managers.MRole;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -16,6 +17,7 @@ public class Setup {
     private final Main main;
     private Registers registers;
     private MGame game;
+    private MRole role;
 
     public Setup(Main main) {
         this.main = main;
@@ -26,6 +28,7 @@ public class Setup {
 
         System.out.println(Messages.PLUGIN_INIT_STARTED);
         game = new MGame(this);
+        role = new MRole(this);
         registers = new Registers(this);
 
         System.out.println(Messages.PLUGIN_INIT_EVENTS);
@@ -51,5 +54,9 @@ public class Setup {
 
     public Main getMain() {
         return main;
+    }
+
+    public MRole getRole() {
+        return role;
     }
 }

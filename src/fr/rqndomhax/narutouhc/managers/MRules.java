@@ -24,10 +24,18 @@ public class MRules {
     public Set<UUID> gameCoHost = new HashSet<>();
     public Set<UUID> bannedPlayers = new HashSet<>();
     public int rolesDispatching = 1800;
-    public int startDuration = 60;
     public int playerDispatchingSize = 3000;
-    public int invincibilityDuration = 30;
+
+    public int startDuration = 10;
+
+    public int invincibilityFinished = 30;
+    public int preparationTime = 30*60;
+    public int rolesAnnounce = 35*60;
+
     public int teleportingDuration = 10;
+    public int narutoTeleportingDuration = 10;
+
+
     public int timeBeforeDeath = 5;
 
     public MRules() {

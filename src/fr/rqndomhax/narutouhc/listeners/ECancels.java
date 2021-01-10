@@ -56,7 +56,7 @@ public class ECancels implements Listener {
             return;
        if (e.getTo().getY() > 110)
            return;
-       
+
        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
        if (player == null) return;
 
