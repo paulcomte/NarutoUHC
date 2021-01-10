@@ -14,15 +14,17 @@ import java.util.*;
 public class MRules {
 
     public boolean showDeathMessage = true;
-    public boolean adminRoles = true;
     public boolean showRoleOnDeath = true;
+    public boolean adminRoles = true;
+    public boolean naturalRegeneration = false;
     public int maxPlayers = 26;
     public final List<Roles> activatedRoles = new ArrayList<>();
     public String gameTitle = "";
     public UUID gameHost = null;
     public Set<UUID> gameCoHost = new HashSet<>();
+    public Set<UUID> bannedPlayers = new HashSet<>();
     public int rolesDispatching = 1800;
-    public int startDuration = 10;
+    public int startDuration = 60;
     public int playerDispatchingSize = 3000;
     public int invincibilityDuration = 30;
     public int teleportingDuration = 10;

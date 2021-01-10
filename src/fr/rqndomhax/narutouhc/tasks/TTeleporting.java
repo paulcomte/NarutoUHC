@@ -22,6 +22,7 @@ public class TTeleporting extends BukkitRunnable {
         this.i = i;
         runTaskTimer(setup.getMain(), 0, 20);
         MGameActions.teleportPlayers1(setup.getGame().getGameInfo().getmRules().playerDispatchingSize, setup.getGame().getGamePlayers());
+        MGameActions.removeLobby();
     }
 
     @Override

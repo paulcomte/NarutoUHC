@@ -34,6 +34,7 @@ public class MTime extends BukkitRunnable {
     private void updateVars() {
         timeBeforeTP = setup.getGame().getGameInfo().getmRules().startDuration;
         timeBeforeResize = setup.getGame().getGameInfo().getmBorder().timeBeforeResize;
+        Bukkit.getWorlds().forEach(world -> world.setGameRuleValue("naturalRegeneration", String.valueOf(setup.getGame().getGameInfo().getmRules().naturalRegeneration)));
     }
 
     @Override

@@ -20,6 +20,7 @@ public abstract class Messages {
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
+    public static String PLUGIN_GENERATING_LOBBY = "[Naruto UHC] GENERATING LOBBY !";
     public static String PLUGIN_DELETING_WORLD = "[Naruto UHC] DELETING OLD WORLD !";
     public static String PLUGIN_INTERNAL_ERROR = "[Naruto UHC] AN INTERNAL ERROR HAS OCCURED !";
     public static String PLUGIN_INIT_EVENTS = "[Naruto UHC] REGISTERING EVENTS !";
@@ -47,9 +48,39 @@ public abstract class Messages {
     public static String ADMIN_ROLE_REMOVED = PREFIX + "Vous avez bien supprimé le rôle %role% du joueur %player% !";
 
     public static String PLAYER_LEFT = "("+ ChatColor.DARK_RED + "-" + ChatColor.WHITE +") %player%";
-    public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "-" + ChatColor.WHITE +") %player%";
+    public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "+" + ChatColor.WHITE +") %player%";
 
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
+
+    public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette commande !";
+
+    public static String HOST_NEED_OFFLINE = PREFIX + "L'hôte %player% doit être déconnecté afin d'effectuer cette commande !";
+    public static String HOST_NOW_SET = PREFIX + "Le joueur %player% est maintenant l'hôte de la partie !";
+    public static String HOST_SET = PREFIX + "Vous êtes maintenant l'hôte de la partie !";
+
+    public static String HOST_USAGE_SET = PREFIX + "Veuillez respecter la syntaxe suivante : /h set <player>";
+    public static String HOST_USAGE_DELETE = PREFIX + "Veuillez respecter la syntaxe suivante : /h delete <player>";
+    public static String HOST_USAGE_PROMOTE = PREFIX + "Veuillez respecter la syntaxe suivante : /h promote <player>";
+    public static String HOST_USAGE_BAN = PREFIX + "Veuillez respecter la syntaxe suivante : /h ban <player>";
+    public static String HOST_USAGE_UNBAN = PREFIX + "Veuillez respecter la syntaxe suivante : /h unban <player>";
+    public static String HOST_USAGE_KICK = PREFIX + "Veuillez respecter la syntaxe suivante : /h kick <player>";
+    public static String HOST_USAGE_AN = PREFIX + "Veuillez respecter la syntaxe suivante : /h an <texte>";
+
+    public static String PLAYER_NOT_CONNECTED = PREFIX + "Le joueur %player% n'est pas en ligne !";
+
+    public static String PLAYER_BANNED = PREFIX + "Vous avez été banni(e) de la partie !";
+    public static String PLAYER_NOT_BANNED = PREFIX + "Le joueur %player% n'est pas banni(e) !";
+
+    public static String PLAYER_NOW_BANNED = PREFIX + "Le joueur %player% a été banni(e) avec succès !";
+    public static String PLAYER_NOW_UNBANNED = PREFIX + "Le joueur %player% n'est maintenant plus banni(e)";
+
+    public static String PLAYER_KICKED = PREFIX + "Vous avez été expulsé(e) de cette partie !";
+    public static String PLAYER_NOW_KICKED = PREFIX + "Le joueur %player% a été expulsé(e) avec succès !";
+
+    public static String HOST_ALREADY_NOT_CO_HOST = PREFIX + "Le joueur %player% n'est pas un co-hôte !";
+    public static String HOST_ALREADY_CO_HOST = PREFIX + "Le joueur %player% est déjà un co-hôte !";
+    public static String HOST_NOW_CO_HOST = PREFIX + "Le joueur %player% est maintenant un co-hôte !";
+    public static String HOST_NOW_DELETED_CO_HOST = PREFIX + "Le joueur %player% n'est plus un co-hôte !";
 
     public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
@@ -59,6 +90,10 @@ public abstract class Messages {
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
                 + ChatColor.BOLD + "" + ChatColor.DARK_GREEN + player.role);
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
+    }
+
+    public static void showHostHelp(CommandSender sender) {
+
     }
 
     public static void showHelp(CommandSender sender) {

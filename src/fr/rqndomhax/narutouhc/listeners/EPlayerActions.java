@@ -76,7 +76,7 @@ public class EPlayerActions implements Listener {
             return;
 
         if (MGameActions.isCancelled(setup.getGame().getGameInfo().getGameState(), e.getEntity()))
-            e.setCancelled(true);
+            return;
 
         e.setCancelled(createDeath(player, setup.getGame().getMPlayer(player.getUniqueId()), null));
     }
@@ -96,6 +96,7 @@ public class EPlayerActions implements Listener {
         else
             new TDeath(setup, mPlayer, null, setup.getGame().getGameInfo().getmRules().timeBeforeDeath);
 
+        System.out.println("true !");
         return true;
     }
 }

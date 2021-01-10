@@ -6,3 +6,5 @@ commands:
   help:
   tpnaruto:
   revive:
+  host:
+    aliases: [h]

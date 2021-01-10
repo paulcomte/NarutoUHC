@@ -10,11 +10,13 @@ package fr.rqndomhax.narutouhc.core;
 import fr.rqndomhax.narutouhc.commands.CHelp;
 import fr.rqndomhax.narutouhc.commands.CRevive;
 import fr.rqndomhax.narutouhc.commands.CTPNaruto;
+import fr.rqndomhax.narutouhc.commands.host.CHost;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.ECancels;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.EScenarios;
+import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.apache.commons.io.FileUtils;
@@ -66,6 +68,9 @@ public class Registers {
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(false);
         Bukkit.getWorld(Maps.NO_PVP.name()).setPVP(false);
 
+        System.out.println(Messages.PLUGIN_GENERATING_LOBBY);
+        MGameActions.placeLobby();
+
         return true;
     }
 
@@ -82,5 +87,6 @@ public class Registers {
         setup.getMain().getCommand("help").setExecutor(new CHelp());
         setup.getMain().getCommand("tpnaruto").setExecutor(new CTPNaruto());
         setup.getMain().getCommand("revive").setExecutor(new CRevive(setup));
+        setup.getMain().getCommand("host").setExecutor(new CHost(setup));
     }
 }
