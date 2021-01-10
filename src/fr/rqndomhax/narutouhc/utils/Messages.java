@@ -33,6 +33,9 @@ public abstract class Messages {
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
 
+    public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminé dans %time% secondes";
+    public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminé !";
+
     public static String WB_TIME_BEFORE_BORDER_RESIZE = PREFIX + "Réduction de la bordure dans %time% s.";
     public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
 

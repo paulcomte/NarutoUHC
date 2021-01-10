@@ -57,7 +57,6 @@ public class Setup {
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
         game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
-        game.getGameInfo().getmBorder().resizeBorder();
         System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 

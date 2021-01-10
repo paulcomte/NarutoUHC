@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.MTime;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.tasks.TTeleporting;
@@ -37,16 +38,14 @@ public class EPlayerLogin implements Listener {
         }
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             setup.getGame().getGamePlayers().add(new MPlayer(e.getPlayer().getUniqueId()));
-            new TTeleporting(setup, 15);
-            e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 120, 0));
-            setup.getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
+            setup.getGame().getGameInfo().startMTime(setup);
         }
-        MGameActions.teleportPlayers1(setup.getGame().getGameInfo().getmRules().playerDispatchingSize, setup.getGame().getGamePlayers());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
             setup.getGame().getGamePlayers().removeIf(p -> p.uuid == e.getPlayer().getUniqueId());
+        setup.getGame().getGameInfo().removeMTime(setup);
     }
 }

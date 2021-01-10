@@ -100,4 +100,17 @@ public abstract class MGameActions {
         }
     }
 
+    public static void sendInfos(Set<MPlayer> players, int i) {
+        for (MPlayer mPlayer : players) {
+
+            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            if (player == null) continue;
+
+            if (i != 0) {
+                player.playNote(player.getLocation(), Instrument.PIANO, Note.flat(1,  Note.Tone.A));
+                player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
+            }
+        }
+    }
+
 }

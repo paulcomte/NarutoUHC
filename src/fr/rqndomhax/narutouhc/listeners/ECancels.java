@@ -8,9 +8,12 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import net.minecraft.server.v1_8_R3.IContainer;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -68,7 +71,11 @@ public class ECancels implements Listener {
            return;
        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
        if (player == null) return;
-       e.setTo(player.location);
+
+       if (player.location != null)
+           e.setTo(player.location);
+       else
+           e.setTo(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 120, 0));
    }
 
 }

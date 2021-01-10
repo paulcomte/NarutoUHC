@@ -20,10 +20,11 @@ public class MPlayer {
     public boolean hasRedeemed = false;
     public boolean isDead = false;
     public int kills = 0;
-    public final PlayerInventoryManager deathInventory = new PlayerInventoryManager();
+    public final PlayerInventoryManager deathInventory;
     public Location location;
 
     public MPlayer(UUID uuid) {
         this.uuid = uuid;
+        deathInventory = new PlayerInventoryManager();
     }
 }
