@@ -21,6 +21,7 @@ public class MTime extends BukkitRunnable {
 
     private int timeBeforeResize;
     private int timeBeforeTP;
+    private int preparationTime;
     private boolean borderTaskFinished = false;
     private boolean hasTeleported = false;
 
@@ -75,6 +76,10 @@ public class MTime extends BukkitRunnable {
             borderTaskFinished = true;
             time -= timeBeforeResize;
         }
+
+    }
+
+    private void checkPreparationTime() {
 
     }
 }
