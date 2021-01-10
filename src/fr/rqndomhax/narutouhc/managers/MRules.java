@@ -17,6 +17,7 @@ public class MRules {
     public boolean showRoleOnDeath = true;
     public boolean adminRoles = true;
     public boolean naturalRegeneration = false;
+    public boolean allowWhispers = true;
     public int maxPlayers = 26;
     public final List<Roles> activatedRoles = new ArrayList<>();
     public String gameTitle = "";

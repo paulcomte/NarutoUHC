@@ -8,3 +8,7 @@ commands:
   revive:
   host:
     aliases: [h]
+  msg:
+    aliases:
+      - whisper
+      - tell

@@ -58,12 +58,14 @@ public class CHost implements CommandExecutor {
             case "set":
                 return HManager.setHost(rules, args, sender);
             default:
-                if (sender instanceof Player
-                        && !rules.gameHost.equals(((Player) sender).getUniqueId())
-                        && !rules.gameCoHost.contains(((Player) sender).getUniqueId()))
-                    Messages.showHostHelp(sender);
+                if (sender instanceof Player) {
+                    if ((rules.gameHost.equals(((Player) sender).getUniqueId()) || rules.gameCoHost.contains(((Player) sender).getUniqueId())))
+                        Messages.showHostHelp(sender);
+                    else
+                        sender.sendMessage(Messages.COMMAND_ONLY_HOST);
+                }
                 else
-                    sender.sendMessage(Messages.COMMAND_ONLY_HOST);
+                    Messages.showHostHelp(sender);
                 return false;
         }
 

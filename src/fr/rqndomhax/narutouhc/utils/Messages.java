@@ -31,6 +31,8 @@ public abstract class Messages {
     public static String SERVER_RELAODING = "THE SERVER IS RELOADING !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
 
+    public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
+
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
 
@@ -67,6 +69,7 @@ public abstract class Messages {
     public static String HOST_USAGE_UNBAN = PREFIX + "Veuillez respecter la syntaxe suivante : /h unban <player>";
     public static String HOST_USAGE_KICK = PREFIX + "Veuillez respecter la syntaxe suivante : /h kick <player>";
     public static String HOST_USAGE_AN = PREFIX + "Veuillez respecter la syntaxe suivante : /h an <texte>";
+    public static String PLAYER_USAGE_WHISPER = PREFIX + "Veuillez respecter la syntaxe suivante : /msg <player> <message>";
 
     public static String PLAYER_NOT_CONNECTED = PREFIX + "Le joueur %player% n'est pas en ligne !";
 
