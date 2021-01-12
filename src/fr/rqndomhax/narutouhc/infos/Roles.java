@@ -7,45 +7,54 @@
 
 package fr.rqndomhax.narutouhc.infos;
 
+import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
+import fr.rqndomhax.narutouhc.managers.role.shinobi.*;
+
 public enum Roles {
 
-    MADARA(RoleType.SASUKE),
-    SASUKE(RoleType.SASUKE),
+    MADARA(RoleType.SASUKE, null),
+    SASUKE(RoleType.SASUKE, null),
 
-    DANZO(RoleType.DANZO),
+    DANZO(RoleType.DANZO, null),
 
-    DEIDARA(RoleType.AKATSUKI),
-    NAGATO(RoleType.AKATSUKI),
-    Kakuzu(RoleType.AKATSUKI),
-    KISAME(RoleType.AKATSUKI),
-    OBITO(RoleType.AKATSUKI),
-    KONAN(RoleType.AKATSUKI),
-    HIDAN(RoleType.AKATSUKI),
+    DEIDARA(RoleType.AKATSUKI, null),
+    NAGATO(RoleType.AKATSUKI, null),
+    Kakuzu(RoleType.AKATSUKI, null),
+    KISAME(RoleType.AKATSUKI, null),
+    OBITO(RoleType.AKATSUKI, null),
+    KONAN(RoleType.AKATSUKI, null),
+    HIDAN(RoleType.AKATSUKI, null),
 
-    NARUTO(RoleType.SHINOBI),
-    KAKASHI_HATAKE(RoleType.SHINOBI),
-    SHIKAMARU(RoleType.SHINOBI),
-    HINATA(RoleType.SHINOBI),
-    MINATO(RoleType.SHINOBI),
-    GAI(RoleType.SHINOBI),
-    NEJI(RoleType.SHINOBI),
-    SHISUI(RoleType.SHINOBI),
-    SAKURA(RoleType.SHINOBI),
-    ITACHI(RoleType.SHINOBI),
-    KILLER_BEE(RoleType.SHINOBI),
-    GAARA(RoleType.SHINOBI),
-    FU(RoleType.SHINOBI),
+    NARUTO(RoleType.SHINOBI, Naruto.class),
+    KAKASHI_HATAKE(RoleType.SHINOBI, KakashiHatake.class),
+    SHIKAMARU(RoleType.SHINOBI, Shikamaru.class),
+    HINATA(RoleType.SHINOBI, Hinata.class),
+    MINATO(RoleType.SHINOBI, Minato.class),
+    GAI(RoleType.SHINOBI, Gai.class),
+    NEJI(RoleType.SHINOBI, Neji.class),
+    SHISUI(RoleType.SHINOBI, Shishui.class),
+    SAKURA(RoleType.SHINOBI, Sakura.class),
+    ITACHI(RoleType.SHINOBI, Itachi.class),
+    KILLER_BEE(RoleType.SHINOBI, KillerBee.class),
+    GAARA(RoleType.SHINOBI, Gaara.class),
+    FU(RoleType.SHINOBI, Fu.class),
 
-    OROCHIMARU(RoleType.OROCHIMARU),
-    KABUTO(RoleType.OROCHIMARU);
+    OROCHIMARU(RoleType.OROCHIMARU, null),
+    KABUTO(RoleType.OROCHIMARU, null);
 
     private final RoleType roleType;
+    private final Class<? extends RoleInfo> roleInfo;
 
-    Roles(RoleType roleType) {
+    Roles(RoleType roleType, Class<? extends RoleInfo> roleInfo) {
         this.roleType = roleType;
+        this.roleInfo = roleInfo;
     }
 
     public RoleType getRoleType() {
         return roleType;
+    }
+
+    public Class<? extends RoleInfo> getRoleInfo() {
+        return roleInfo;
     }
 }

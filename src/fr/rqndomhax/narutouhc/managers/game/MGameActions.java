@@ -11,7 +11,6 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import org.bukkit.*;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -19,10 +18,14 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 public abstract class MGameActions {
+
+    public static void addKill(MPlayer killer, MPlayer killed) {
+        if (killer.kills.size() != 0)
+            killer.kills.add(killed.uuid);
+    }
 
     public static void teleportPlayers1(int playerDispatchingSize, Set<MPlayer> players) {
 

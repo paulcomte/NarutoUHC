@@ -8,8 +8,10 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.role.shinobi.Naruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -50,7 +52,14 @@ public class EPlayerLogin implements Listener {
             setup.getGame().getGameInfo().getMRules().gameHost = e.getPlayer().getUniqueId();
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
-            setup.getGame().getGamePlayers().add(new MPlayer(e.getPlayer().getUniqueId()));
+            MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
+            setup.getGame().getGamePlayers().add(mPlayer);
+            setup.getRole().setAdminRole(mPlayer, Roles.NARUTO);
+            mPlayer.role.onRoleGiven();
+            mPlayer.role.onClaim();
+            mPlayer.role.onClaim();
+            mPlayer.role.onClaim();
+            mPlayer.role.onClaim();
             setup.getGame().getGameInfo().startMTime(setup);
         }
     }

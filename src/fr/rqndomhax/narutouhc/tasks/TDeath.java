@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -55,7 +56,7 @@ public class TDeath extends BukkitRunnable {
                 player.setHealth(0);
 
             if (killer != null)
-                killer.kills.add(mPlayer.uuid);
+                MGameActions.addKill(killer, mPlayer);
             cancel();
         }
 

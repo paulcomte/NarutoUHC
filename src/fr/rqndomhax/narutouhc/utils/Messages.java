@@ -34,7 +34,8 @@ public abstract class Messages {
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
 
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
-    public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby";
+    public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
+    public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
 
     public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminé dans %time% secondes";
     public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminé !";
@@ -47,7 +48,7 @@ public abstract class Messages {
     public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
     public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
     public static String ADMIN_ROLE_ALREADY_GAVE = PREFIX + "Ce rôle a déjà été attribué à un joueur !";
-    public static String ROLE_NOT_PRESENT = PREFIX + "Ce rôle n'a pas été activé";
+    public static String ROLE_NOT_PRESENT = PREFIX + "Ce rôle n'a pas été activé !";
     public static String ADMIN_ROLE_ADDED = PREFIX + "Vous avez bien ajouté le rôle %role% au joueur %player% !";
     public static String ADMIN_ROLE_REMOVED = PREFIX + "Vous avez bien supprimé le rôle %role% du joueur %player% !";
 
@@ -79,6 +80,8 @@ public abstract class Messages {
     public static String PLAYER_NOW_BANNED = PREFIX + "Le joueur %player% a été banni(e) avec succès !";
     public static String PLAYER_NOW_UNBANNED = PREFIX + "Le joueur %player% n'est maintenant plus banni(e)";
 
+    public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont étés soignés !";
+
     public static String PLAYER_KICKED = PREFIX + "Vous avez été expulsé(e) de cette partie !";
     public static String PLAYER_NOW_KICKED = PREFIX + "Le joueur %player% a été expulsé(e) avec succès !";
 
@@ -86,6 +89,10 @@ public abstract class Messages {
     public static String HOST_ALREADY_CO_HOST = PREFIX + "Le joueur %player% est déjà un co-hôte !";
     public static String HOST_NOW_CO_HOST = PREFIX + "Le joueur %player% est maintenant un co-hôte !";
     public static String HOST_NOW_DELETED_CO_HOST = PREFIX + "Le joueur %player% n'est plus un co-hôte !";
+
+    public static String ROLE_NO_ITEMS = PREFIX + "Votre rôle ne dispose d'aucun équipement supplémentaire !";
+    public static String ROLE_ITEMS_NEED_SPACE = PREFIX + "Votre inventaire doit avoir la place nécessaire pour récupérer %n% objets";
+    public static String ROLE_ITEMS_OBTAINED = PREFIX + "Vous avez reçu l'équipement de votre rôle !";
 
     public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");

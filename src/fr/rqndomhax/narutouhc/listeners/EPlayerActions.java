@@ -42,17 +42,10 @@ public class EPlayerActions implements Listener {
 
     @EventHandler
     public void onPlayerDeath(EntityDamageByEntityEvent e) {
-
-        if (!(e.getEntity() instanceof Player))
-            return;
+        if (e.isCancelled()) return;
+        if (!(e.getEntity() instanceof Player) || e.getFinalDamage() < ((Player) e).getHealth()) return;
 
         Player player = (Player) e.getEntity();
-
-        if (e.getFinalDamage() < player.getHealth())
-            return;
-
-        if (MGameActions.isCancelled(setup.getGame().getGameInfo().getGameState(), e.getEntity()))
-            return;
 
         if (e.getDamager() instanceof Player)
             e.setCancelled(createDeath(player, setup.getGame().getMPlayer(player.getUniqueId()), (Player) e.getDamager()));
@@ -66,17 +59,10 @@ public class EPlayerActions implements Listener {
 
     @EventHandler
     public void onPlayerDeath(EntityDamageEvent e) {
-
-        if (!(e.getEntity() instanceof Player))
-            return;
+        if (e.isCancelled()) return;
+        if (!(e.getEntity() instanceof Player) && e.getFinalDamage() < ((Player) e).getHealth()) return;
 
         Player player = (Player) e.getEntity();
-
-        if (e.getFinalDamage() < player.getHealth())
-            return;
-
-        if (MGameActions.isCancelled(setup.getGame().getGameInfo().getGameState(), e.getEntity()))
-            return;
 
         e.setCancelled(createDeath(player, setup.getGame().getMPlayer(player.getUniqueId()), null));
     }
@@ -96,7 +82,6 @@ public class EPlayerActions implements Listener {
         else
             new TDeath(setup, mPlayer, null, setup.getGame().getGameInfo().getMRules().timeBeforeDeath);
 
-        System.out.println("true !");
         return true;
     }
 }

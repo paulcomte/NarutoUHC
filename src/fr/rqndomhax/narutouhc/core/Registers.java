@@ -7,10 +7,7 @@
 
 package fr.rqndomhax.narutouhc.core;
 
-import fr.rqndomhax.narutouhc.commands.CHelp;
-import fr.rqndomhax.narutouhc.commands.CRevive;
-import fr.rqndomhax.narutouhc.commands.CTPNaruto;
-import fr.rqndomhax.narutouhc.commands.CWhisper;
+import fr.rqndomhax.narutouhc.commands.*;
 import fr.rqndomhax.narutouhc.commands.host.CHost;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.ECancels;
@@ -89,5 +86,6 @@ public class Registers {
         setup.getMain().getCommand("revive").setExecutor(new CRevive(setup));
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
         setup.getMain().getCommand("host").setExecutor(new CHost(setup));
+        setup.getMain().getCommand("heal").setExecutor(new CHeal(setup));
     }
 }

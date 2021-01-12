@@ -8,6 +8,8 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.managers.role.Role;
+import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.PlayerInventoryManager;
 import org.bukkit.Location;
 
@@ -18,7 +20,7 @@ import java.util.UUID;
 public class MPlayer {
 
     public final UUID uuid;
-    public Roles role = null;
+    public RoleInfo role = null;
     public boolean hasRedeemed = false;
     public boolean isDead = false;
     public List<UUID> kills = new ArrayList<>();
