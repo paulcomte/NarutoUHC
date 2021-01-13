@@ -21,7 +21,6 @@ public class MPlayer {
 
     public final UUID uuid;
     public RoleInfo role = null;
-    public boolean hasRedeemed = false;
     public boolean isDead = false;
     public List<UUID> kills = new ArrayList<>();
     public final PlayerInventoryManager deathInventory;

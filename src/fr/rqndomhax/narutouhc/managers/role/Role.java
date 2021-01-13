@@ -7,14 +7,9 @@
 
 package fr.rqndomhax.narutouhc.managers.role;
 
-import fr.rqndomhax.narutouhc.infos.RoleType;
-import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 
 public interface Role {
-
-    Roles role = null;
-    RoleType roleType = null;
 
     void onRoleGiven();
 
@@ -33,5 +28,9 @@ public interface Role {
     void onKill(MPlayer killed);
 
     void onDeath();
+
+    void onPlayerDeath(MPlayer dead);
+
+    void onPlayerJoin();
 
 }

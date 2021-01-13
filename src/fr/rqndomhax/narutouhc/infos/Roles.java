@@ -12,18 +12,18 @@ import fr.rqndomhax.narutouhc.managers.role.shinobi.*;
 
 public enum Roles {
 
-    MADARA(RoleType.SASUKE, null),
-    SASUKE(RoleType.SASUKE, null),
+    MADARA(RoleType.SASUKE, Naruto.class),
+    SASUKE(RoleType.SASUKE, Naruto.class),
 
-    DANZO(RoleType.DANZO, null),
+    DANZO(RoleType.DANZO, Naruto.class),
 
-    DEIDARA(RoleType.AKATSUKI, null),
-    NAGATO(RoleType.AKATSUKI, null),
-    Kakuzu(RoleType.AKATSUKI, null),
-    KISAME(RoleType.AKATSUKI, null),
-    OBITO(RoleType.AKATSUKI, null),
-    KONAN(RoleType.AKATSUKI, null),
-    HIDAN(RoleType.AKATSUKI, null),
+    DEIDARA(RoleType.AKATSUKI, Naruto.class),
+    NAGATO(RoleType.AKATSUKI, Naruto.class),
+    Kakuzu(RoleType.AKATSUKI, Naruto.class),
+    KISAME(RoleType.AKATSUKI, Naruto.class),
+    OBITO(RoleType.AKATSUKI, Naruto.class),
+    KONAN(RoleType.AKATSUKI, Naruto.class),
+    HIDAN(RoleType.AKATSUKI, Naruto.class),
 
     NARUTO(RoleType.SHINOBI, Naruto.class),
     KAKASHI_HATAKE(RoleType.SHINOBI, KakashiHatake.class),
@@ -39,8 +39,8 @@ public enum Roles {
     GAARA(RoleType.SHINOBI, Gaara.class),
     FU(RoleType.SHINOBI, Fu.class),
 
-    OROCHIMARU(RoleType.OROCHIMARU, null),
-    KABUTO(RoleType.OROCHIMARU, null);
+    OROCHIMARU(RoleType.OROCHIMARU, Naruto.class),
+    KABUTO(RoleType.OROCHIMARU, Naruto.class);
 
     private final RoleType roleType;
     private final Class<? extends RoleInfo> roleInfo;

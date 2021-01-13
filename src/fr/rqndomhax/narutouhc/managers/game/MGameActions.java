@@ -100,11 +100,4 @@ public abstract class MGameActions {
         return location;
     }
 
-    public static boolean isCancelled(GameState gameState, Entity entity) {
-        if (!(entity instanceof Player))
-            return false;
-        return gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
-                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING);
-    }
-
 }

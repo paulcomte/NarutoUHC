@@ -29,12 +29,6 @@ public class Naruto extends RoleInfo {
     }
 
     @Override
-    public void onRoleGiven() {
-        onDesc();
-        giveEffects();
-    }
-
-    @Override
     public void onClaim() {
         Player player = Bukkit.getPlayer(getMPlayer().uuid);
         if (player == null) return;
@@ -50,13 +44,8 @@ public class Naruto extends RoleInfo {
             return;
         }
 
-        player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1).toItemStack());
+        player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.FIRE_ASPECT, 1).toItemStack());
         hasClaimed = true;
-    }
-
-    @Override
-    public void onChose() {
-
     }
 
     @Override
@@ -69,11 +58,6 @@ public class Naruto extends RoleInfo {
     }
 
     @Override
-    public void onHit(MPlayer mPlayer) {
-
-    }
-
-    @Override
     public void onDesc() {
         Player player = Bukkit.getPlayer(getMPlayer().uuid);
         if (player == null) return;
@@ -82,21 +66,6 @@ public class Naruto extends RoleInfo {
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire vous disposez des effets speed 1 et fire resistance permanent ainsi qu'un livre fire aspect 1.");
         player.sendMessage("En plus de cela, si Sasuke choisit de rejoindre l'akatsuki, vous obtiendrez l'effect strength 1 permanent.");
-    }
-
-    @Override
-    public void onCommand() {
-
-    }
-
-    @Override
-    public void onKill(MPlayer killed) {
-
-    }
-
-    @Override
-    public void onDeath() {
-
     }
 
 }

@@ -22,6 +22,62 @@ public abstract class RoleInfo implements Role {
         this.role = role;
     }
 
+    @Override
+    public void onRoleGiven() {
+        onDesc();
+        giveEffects();
+    }
+
+    @Override
+    public void onClaim() {
+
+    }
+
+    @Override
+    public void onChose() {
+
+    }
+
+    @Override
+    public void giveEffects() {
+
+    }
+
+    @Override
+    public void onHit(MPlayer mPlayer) {
+
+    }
+
+    @Override
+    public void onDesc() {
+
+    }
+
+    @Override
+    public void onCommand() {
+
+    }
+
+    @Override
+    public void onKill(MPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath() {
+
+    }
+
+    @Override
+    public void onPlayerDeath(MPlayer mPlayer) {
+
+    }
+
+    @Override
+    public void onPlayerJoin() {
+
+    }
+
     public Roles getRole() {
         return role;
     }

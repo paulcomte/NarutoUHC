@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
@@ -25,12 +26,6 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
-    public void onRoleGiven() {
-        onDesc();
-        giveEffects();
-    }
-
-    @Override
     public void onClaim() {
         Player player = Bukkit.getPlayer(getMPlayer().uuid);
         if (player == null) return;
@@ -39,13 +34,9 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
-    public void onChose() {
-
-    }
-
-    @Override
     public void giveEffects() {
-
+        if (stolenRole != null)
+            stolenRole.giveEffects();
     }
 
     @Override
@@ -75,16 +66,19 @@ public class KakashiHatake extends RoleInfo {
 
     @Override
     public void onCommand() {
-
+        if (stolenRole != null)
+            stolenRole.onCommand();
     }
 
     @Override
     public void onKill(MPlayer killed) {
-
+        if (stolenRole != null)
+            stolenRole.onKill(killed);
     }
 
     @Override
     public void onDeath() {
-
+        if (stolenRole != null)
+            stolenRole.onDeath();
     }
 }

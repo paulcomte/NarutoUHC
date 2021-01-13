@@ -54,12 +54,6 @@ public class EPlayerLogin implements Listener {
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
-            setup.getRole().setAdminRole(mPlayer, Roles.NARUTO);
-            mPlayer.role.onRoleGiven();
-            mPlayer.role.onClaim();
-            mPlayer.role.onClaim();
-            mPlayer.role.onClaim();
-            mPlayer.role.onClaim();
             setup.getGame().getGameInfo().startMTime(setup);
         }
     }

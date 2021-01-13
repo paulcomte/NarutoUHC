@@ -9,26 +9,33 @@ package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.List;
 
 public class TDeath extends BukkitRunnable {
 
     private final Setup setup;
     private final MPlayer mPlayer;
     private final MPlayer killer;
+    private final int droppedExp;
+    private final List<ItemStack> drops;
     public int timeLeft;
 
-    public TDeath(Setup setup, MPlayer mPlayer, MPlayer killer, int timeLeft) {
+    public TDeath(Setup setup, MPlayer mPlayer, MPlayer killer, int timeLeft, int droppedExp, List<ItemStack> drops) {
         this.setup = setup;
         this.mPlayer = mPlayer;
         this.killer = killer;
         this.timeLeft = timeLeft;
-        runTaskTimerAsynchronously(setup.getMain(), 0, 20);
+        this.droppedExp = droppedExp;
+        this.drops = drops;
+        runTaskTimer(setup.getMain(), 0, 20);
     }
 
     @Override
@@ -50,6 +57,9 @@ public class TDeath extends BukkitRunnable {
         if (timeLeft == 0) {
             Messages.showDeath(mPlayer, setup.getGame().getGameInfo().getMRules().showRoleOnDeath);
             mPlayer.deathLocation.getWorld().strikeLightningEffect(mPlayer.deathLocation);
+            drops.forEach(System.out::println);
+            drops.forEach(drop -> mPlayer.deathLocation.getWorld().dropItemNaturally(mPlayer.deathLocation, drop));
+            mPlayer.deathLocation.getWorld().spawn(mPlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
 
             Player player = Bukkit.getPlayer(mPlayer.uuid);
             if (player != null)

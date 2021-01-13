@@ -17,6 +17,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Random;
 
 public class EScenarios implements Listener {
 
@@ -61,25 +62,28 @@ public class EScenarios implements Listener {
                 && !e.getBlock().getType().equals(Material.IRON_ORE))
             return;
 
-        e.setCancelled(true);
-        e.getBlock().setType(Material.AIR);
-        e.getBlock().getState().update();
-
         switch (e.getBlock().getType()) {
             case GOLD_ORE:
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GOLD_INGOT));
                 e.getBlock().getWorld().spawn(e.getBlock().getLocation(), ExperienceOrb.class).setExperience(3);
                 break;
             case IRON_ORE:
-                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_ORE));
+                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_INGOT));
                 e.getBlock().getWorld().spawn(e.getBlock().getLocation(), ExperienceOrb.class).setExperience(3);
                 break;
             case GRAVEL:
-                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.FLINT));
+                int prob = new Random().nextInt(101);
+                if (prob >= 65)
+                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.FLINT));
+                else
+                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GRAVEL));
                 break;
             default:
                 break;
         }
+
+        e.getBlock().setType(Material.AIR);
+        e.getBlock().getState().update();
 
     }
 }

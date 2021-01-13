@@ -18,6 +18,7 @@ public class MRules {
     public boolean adminRoles = true;
     public boolean naturalRegeneration = false;
     public boolean allowWhispers = true;
+    public boolean allowChat = false;
     public int maxPlayers = 26;
     public final List<Roles> activatedRoles = new ArrayList<>();
     public String gameTitle = "";
@@ -29,15 +30,15 @@ public class MRules {
 
     public int startDuration = 10;
 
-    public int invincibilityFinished = 30;
-    public int preparationTime = 30*60;
-    public int rolesAnnounce = 35*60;
+    public int invincibilityFinished = 1;
+    public int preparationTime = 1;
+    public int rolesAnnounce = 1;
 
-    public int teleportingDuration = 10;
-    public int narutoTeleportingDuration = 10;
+    public int teleportingDuration = 1;
+    public int narutoTeleportingDuration = 1;
 
 
-    public int timeBeforeDeath = 5;
+    public int timeBeforeDeath = 10;
 
     public MRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));
