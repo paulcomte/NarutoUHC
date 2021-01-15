@@ -16,12 +16,13 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.EScenarios;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
@@ -39,8 +40,19 @@ public class Registers {
 
         Bukkit.getWorlds().forEach(worlds -> Bukkit.unloadWorld(worlds, true));
 
-        if (!new File(Maps.NARUTO_UNIVERSE.name()).exists()) {
+        File narutoMap = new File("original/" + Maps.NARUTO_UNIVERSE.name());
+
+        if (!narutoMap.exists()) {
             System.out.println(Messages.PLUGIN_MAP_NOT_PRESENT);
+            return false;
+        }
+
+        try {
+            FileUtils.deleteDirectory(new File(Maps.NARUTO_UNIVERSE.name()));
+            FileUtils.copyDirectory(narutoMap, new File(Maps.NARUTO_UNIVERSE.name()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(Messages.PLUGIN_INTERNAL_ERROR);
             return false;
         }
 

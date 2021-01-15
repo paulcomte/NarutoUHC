@@ -30,6 +30,7 @@ public abstract class Messages {
     public static String SERVER_STARTING = "THE SERVER IS STARTING, PLEASE TRY AGAIN LATER !";
     public static String SERVER_RELAODING = "THE SERVER IS RELOADING !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
+    public static String PLUGIN_MAP_CANNOT_DELETE = "[Naruto UHC] The server can't delete the old naruto map !";
 
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
 
