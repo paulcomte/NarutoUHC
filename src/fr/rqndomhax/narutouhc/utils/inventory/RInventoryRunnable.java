@@ -21,7 +21,6 @@ public final class RInventoryRunnable {
         this.uuid = UUID.randomUUID();
     }
 
-
     public UUID getUuid() { return uuid; }
     public int getDelay() { return delay; }
     public Runnable getRunnable() {

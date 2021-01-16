@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.core;
 import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
+import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
 import fr.rqndomhax.narutouhc.utils.Messages;
 
 public class Setup {
@@ -18,6 +19,7 @@ public class Setup {
     private Registers registers;
     private MGame game;
     private MRole role;
+    private GameScoreboard gameScoreboard;
 
     public Setup(Main main) {
         this.main = main;
@@ -44,7 +46,9 @@ public class Setup {
         }
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
-        game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
+        gameScoreboard = new GameScoreboard(this);
+        gameScoreboard.runBoard();
+        game.getGameInfo().setGameState(GameState.GAME_PVP);
         System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 
@@ -58,5 +62,9 @@ public class Setup {
 
     public MRole getRole() {
         return role;
+    }
+
+    public GameScoreboard getGameScoreboard() {
+        return gameScoreboard;
     }
 }

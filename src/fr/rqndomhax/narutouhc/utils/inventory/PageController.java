@@ -28,8 +28,8 @@ public final class PageController {
         this.board = new int[]{};
     }
 
-    public void setBoard(int slotfrom, int lenth, int width){
-        this.board = this.rInventory.getBoard(slotfrom, lenth, width);
+    public void setBoard(int slotFrom, int length, int width){
+        this.board = this.rInventory.getBoard(slotFrom, length, width);
     }
     public void setBoard(int... ints){
         this.board = ints;

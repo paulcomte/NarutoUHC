@@ -21,5 +21,4 @@ public final class RInventoryTaskData {
     public Map<UUID, Integer> getRunnableMap() {
         return runnableMap;
     }
-
 }

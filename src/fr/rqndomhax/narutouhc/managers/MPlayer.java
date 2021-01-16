@@ -7,8 +7,6 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
-import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.role.Role;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.PlayerInventoryManager;
 import org.bukkit.Location;

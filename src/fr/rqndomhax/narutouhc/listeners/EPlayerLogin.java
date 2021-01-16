@@ -8,10 +8,8 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.role.shinobi.Naruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -48,13 +46,14 @@ public class EPlayerLogin implements Listener {
 
         e.setJoinMessage(Messages.PLAYER_JOIN.replace("%player%", e.getPlayer().getName()));
 
+        setup.getGameScoreboard().newGameScoreboard(e.getPlayer());
+
         if (setup.getGame().getGameInfo().getMRules().gameHost == null)
             setup.getGame().getGameInfo().getMRules().gameHost = e.getPlayer().getUniqueId();
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
-            setup.getGame().getGameInfo().startMTime(setup);
         }
     }
 
@@ -63,11 +62,12 @@ public class EPlayerLogin implements Listener {
 
         e.setQuitMessage(Messages.PLAYER_LEFT.replace("%player%", e.getPlayer().getName()));
 
+        setup.getGameScoreboard().removeGameScoreboard(e.getPlayer());
+
         if (Bukkit.getOnlinePlayers().size() == 1)
             setup.getGame().getGameInfo().getMRules().gameHost = null;
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
             setup.getGame().getGamePlayers().removeIf(p -> p.uuid == e.getPlayer().getUniqueId());
-        setup.getGame().getGameInfo().removeMTime(setup);
     }
 }

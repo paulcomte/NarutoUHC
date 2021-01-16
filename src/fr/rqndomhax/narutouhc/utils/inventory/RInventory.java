@@ -39,7 +39,6 @@ public abstract class RInventory implements InventoryHolder {
         this.runnableList = new ArrayList<>();
     }
 
-
     public RInventory(Player owner, String name, InventoryType inventoryType) {
         this.owner = owner;
         this.inventory = Bukkit.createInventory(this, inventoryType, name);
@@ -57,7 +56,6 @@ public abstract class RInventory implements InventoryHolder {
         int slot = inventory.firstEmpty();
         this.setItem(slot, itemStack, consumer);
     }
-
 
     public void setItem(int slot, ItemStack itemStack){
         this.mapShare.remove(slot);
@@ -135,7 +133,6 @@ public abstract class RInventory implements InventoryHolder {
 
     protected void onClose(InventoryCloseEvent event){ }
     protected void onOpen(InventoryOpenEvent event){ }
-
 
     @Override
     public Inventory getInventory() {

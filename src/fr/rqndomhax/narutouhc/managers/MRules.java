@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
+import org.bukkit.ChatColor;
 
 import java.util.*;
 
@@ -20,8 +21,9 @@ public class MRules {
     public boolean allowWhispers = true;
     public boolean allowChat = false;
     public int maxPlayers = 26;
+    public int groupSize = 6;
     public final List<Roles> activatedRoles = new ArrayList<>();
-    public String gameTitle = "";
+    public String gameTitle = ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC";
     public UUID gameHost = null;
     public Set<UUID> gameCoHost = new HashSet<>();
     public Set<UUID> bannedPlayers = new HashSet<>();
@@ -30,12 +32,12 @@ public class MRules {
 
     public int startDuration = 10;
 
-    public int invincibilityFinished = 1;
-    public int preparationTime = 1;
-    public int rolesAnnounce = 1;
+    public int invincibilityFinished = 30;
+    public int preparationTime = 40*60;
+    public int rolesAnnounce = 35*60;
 
-    public int teleportingDuration = 1;
-    public int narutoTeleportingDuration = 1;
+    public int teleportingDuration = 15;
+    public int narutoTeleportingDuration = 15;
 
 
     public int timeBeforeDeath = 10;

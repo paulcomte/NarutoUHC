@@ -66,7 +66,8 @@ public class MTime extends BukkitRunnable {
         }
 
         time++;
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PREPARATION) ||
+                setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PVP) )
             rawTime++;
     }
 

@@ -61,4 +61,8 @@ public class MGameInfo {
     public void setCurrentMap(Maps currentMap) {
         this.currentMap = currentMap;
     }
+
+    public MTime getMTime() {
+        return mTime;
+    }
 }
