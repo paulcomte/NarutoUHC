@@ -7,9 +7,9 @@
 
 package fr.rqndomhax.narutouhc.core;
 
-import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
+import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
 import fr.rqndomhax.narutouhc.utils.Messages;
 

@@ -7,7 +7,6 @@
 
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
-import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;

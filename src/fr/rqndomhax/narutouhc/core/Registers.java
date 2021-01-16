@@ -16,13 +16,11 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.EScenarios;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;

@@ -17,9 +17,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class MTime extends BukkitRunnable {
 
     private final Setup setup;
