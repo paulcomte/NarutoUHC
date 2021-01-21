@@ -9,7 +9,10 @@ package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.utils.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -22,11 +25,59 @@ import java.util.Set;
 public abstract class MGameActions {
 
     public static void addKill(MPlayer killer, MPlayer killed) {
-        if (killer.kills.size() != 0)
-            killer.kills.add(killed.uuid);
+        killer.kills.add(killed.uuid);
     }
 
-    public static void teleportPlayers1(int playerDispatchingSize, Set<MPlayer> players) {
+    public static void clearPlayer(Player player) {
+        player.closeInventory();
+
+        player.getInventory().clear();
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
+
+        player.setFoodLevel(20);
+        player.setHealth(player.getMaxHealth());
+
+        player.setTotalExperience(0);
+
+        for (PotionEffect effect : player.getActivePotionEffects())
+            player.removePotionEffect(effect.getType());
+
+        player.updateInventory();
+    }
+
+    public static void clearPlayerLobby(Setup setup, Player player) {
+        clearPlayer(player);
+        player.setGameMode(GameMode.ADVENTURE);
+        MRules rules = setup.getGame().getGameInfo().getMRules();
+        if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId())) {
+            player.getInventory().setItem(4, IInfos.MAIN_HOST_ITEM);
+            player.updateInventory();
+        }
+        else {
+            if (rules.startInventoryInEdit.equals(player.getUniqueId()))
+                rules.startInventoryInEdit = null;
+            if (rules.deathInventoryInEdit.equals(player.getUniqueId()))
+                rules.deathInventory = null;
+        }
+    }
+
+    public static void giveStartInventory(Setup setup) {
+        for (MPlayer mPlayer : setup.getGame().getGamePlayers()) {
+            Player player = Bukkit.getPlayer(mPlayer.uuid);
+
+            if (player != null)
+                InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().startInventory, player);
+        }
+    }
+
+    public static void teleportPlayers1(Setup setup) {
+
+        Set<MPlayer> players = setup.getGame().getGamePlayers();
+
+        giveStartInventory(setup);
 
         giveNightVision(players);
 
@@ -34,7 +85,7 @@ public abstract class MGameActions {
 
         double delta = (2 * Math.PI) / players.size();
         double angle = 0;
-        int radius = playerDispatchingSize / 2;
+        int radius = setup.getGame().getGameInfo().getMRules().playerDispatchingSize / 2;
 
         for (int i = 0 ; i < players.size() ; i++) {
             locations.add(new Location(Bukkit.getWorld(Maps.NO_PVP.name()),

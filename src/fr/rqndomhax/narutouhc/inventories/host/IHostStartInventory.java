@@ -37,7 +37,7 @@ public class IHostStartInventory extends RInventory {
         for (Integer glass : black)
             this.setItem(glass, IInfos.BLACK_GLASS_BORDER);
         for (int i = 3 ; i <= 5 ; this.setItem(i, IInfos.BARS), i += 2);
-        this.setItem(4, IInfos.INVENTORIES_HOST_START);
+        this.setItem(4, IInfos.INVENTORIES_HOST_BEGINNING);
         for (int i = 49 ; i <= 51 ; this.setItem(i, IInfos.BARS), i++);
         this.setItem(52, IInfos.INVENTORIES_EDIT, editInventory());
         this.setItem(53, IInfos.RETURN_ITEM, e -> {
@@ -63,6 +63,7 @@ public class IHostStartInventory extends RInventory {
             player.setGameMode(GameMode.CREATIVE);
             InventoryManager.clearInventory(player);
             InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().startInventory, player);
+            player.sendMessage(Messages.HOST_INVENTORY_EDIT);
         };
     }
 

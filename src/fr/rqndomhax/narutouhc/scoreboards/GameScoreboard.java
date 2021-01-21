@@ -30,15 +30,15 @@ public class GameScoreboard {
         this.setup = setup;
     }
 
-    public void newGameScoreboard(Player p) {
-        FastBoard fb = new FastBoard(p);
+    public void newGameScoreboard(Player player) {
+        FastBoard fb = new FastBoard(player);
         fb.updateTitle(setup.getGame().getGameInfo().getMRules().gameTitle);
 
-        boards.put(p.getUniqueId(), fb);
+        boards.put(player.getUniqueId(), fb);
     }
 
-    public void removeGameScoreboard(Player p) {
-        boards.remove(p.getUniqueId());
+    public void removeGameScoreboard(Player player) {
+        boards.remove(player.getUniqueId());
     }
 
     private void updateBoard(FastBoard board) {

@@ -144,7 +144,7 @@ public class MTime extends BukkitRunnable {
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
-            MGameActions.teleportPlayers1(setup.getGame().getGameInfo().getMRules().playerDispatchingSize, setup.getGame().getGamePlayers());
+            MGameActions.teleportPlayers1(setup);
             MGameBuild.removeLobby();
             time -= setup.getGame().getGameInfo().getMRules().startDuration;
         }

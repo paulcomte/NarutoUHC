@@ -27,6 +27,9 @@ public abstract class IInfos {
     public static ItemStack RETURN_ITEM = new ItemBuilder(Material.REDSTONE).setName(ChatColor.GOLD + "Retour").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public static ItemStack BARS = new ItemBuilder(Material.IRON_FENCE).setName(" ").toItemStack();
 
+    // IHOSTITEM
+    public static ItemStack MAIN_HOST_ITEM = new ItemBuilder(Material.REDSTONE_COMPARATOR).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().setName(MAIN_HOST_NAME).toItemStack();
+
     // IHOST
     public static ItemStack MAIN_HOST_CONFIGS = new ItemBuilder(Material.ENDER_CHEST).setName(ChatColor.GREEN + "Configurations").toItemStack();
     public static ItemStack MAIN_HOST_SCENARIOS = new ItemBuilder(Material.GOLDEN_APPLE, 1, (byte) 1).setName(ChatColor.GREEN + "Scénarios").toItemStack();
@@ -40,7 +43,7 @@ public abstract class IInfos {
     public static ItemStack MAIN_HOST_STOP = new ItemBuilder(Material.REDSTONE).setName(ChatColor.DARK_RED + "Arrêter").toItemStack();
 
     // IHost - Inventories
-    public static ItemStack INVENTORIES_HOST_START = new ItemBuilder(Material.CHEST).setName(ChatColor.GREEN + "Inventaire de départ").toItemStack();
+    public static ItemStack INVENTORIES_HOST_BEGINNING = new ItemBuilder(Material.CHEST).setName(ChatColor.GREEN + "Inventaire de départ").toItemStack();
     public static ItemStack INVENTORIES_HOST_DEATH = new ItemBuilder(Material.CHEST).setName(ChatColor.DARK_GRAY + "Inventaire de mort").toItemStack();
     public static ItemStack INVENTORIES_EDIT = new ItemBuilder(Material.SLIME_BALL).setName(ChatColor.GREEN + "Editer").toItemStack();
 

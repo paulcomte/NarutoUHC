@@ -10,8 +10,10 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -54,8 +56,12 @@ public class EPlayerLogin implements Listener {
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
+            MGameActions.clearPlayerLobby(setup, e.getPlayer());
         }
-
+        else {
+            MGameActions.clearPlayer(e.getPlayer());
+            e.getPlayer().setGameMode(GameMode.SPECTATOR);
+        }
     }
 
     @EventHandler
@@ -69,6 +75,6 @@ public class EPlayerLogin implements Listener {
             setup.getGame().getGameInfo().getMRules().gameHost = null;
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
-            setup.getGame().getGamePlayers().removeIf(p -> p.uuid == e.getPlayer().getUniqueId());
+            setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
     }
 }

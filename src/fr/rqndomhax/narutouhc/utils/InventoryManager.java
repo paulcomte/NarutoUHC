@@ -30,6 +30,7 @@ public abstract class InventoryManager {
         player.getInventory().setChestplate(null);
         player.getInventory().setLeggings(null);
         player.getInventory().setBoots(null);
+        player.updateInventory();
     }
 
     public static void clearInventory(Player player) {
@@ -40,6 +41,7 @@ public abstract class InventoryManager {
         player.getInventory().setChestplate(null);
         player.getInventory().setLeggings(null);
         player.getInventory().setBoots(null);
+        player.updateInventory();
     }
 
     public static void giveInventory(ItemStack[] items, Player player) {
@@ -56,5 +58,6 @@ public abstract class InventoryManager {
         player.getInventory().setChestplate(items[37]);
         player.getInventory().setLeggings(items[38]);
         player.getInventory().setBoots(items[39]);
+        player.updateInventory();
     }
 }

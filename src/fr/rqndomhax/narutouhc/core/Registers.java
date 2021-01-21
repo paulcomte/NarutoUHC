@@ -98,5 +98,7 @@ public class Registers {
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
         setup.getMain().getCommand("host").setExecutor(new CHost(setup));
         setup.getMain().getCommand("heal").setExecutor(new CHeal(setup));
+        setup.getMain().getCommand("save").setExecutor(new CSave(setup));
+        setup.getMain().getCommand("cancel").setExecutor(new CCancel(setup));
     }
 }

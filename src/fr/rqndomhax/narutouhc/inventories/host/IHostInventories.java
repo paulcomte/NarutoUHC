@@ -31,7 +31,7 @@ public class IHostInventories extends RInventory {
 
         this.setItem(4, IInfos.MAIN_HOST_INVENTORIES);
 
-        this.setItem(30, IInfos.INVENTORIES_HOST_START, getStartInventory());
+        this.setItem(30, IInfos.INVENTORIES_HOST_BEGINNING, getStartInventory());
 
         this.setItem(31, IInfos.BARS);
 

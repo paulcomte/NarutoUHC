@@ -70,6 +70,7 @@ public class IHostDeathInventory extends RInventory {
             player.setGameMode(GameMode.CREATIVE);
             InventoryManager.clearInventory(player);
             InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().deathInventory, player);
+            player.sendMessage(Messages.HOST_INVENTORY_EDIT);
         };
     }
 

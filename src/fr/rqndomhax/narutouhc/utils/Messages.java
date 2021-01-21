@@ -34,6 +34,7 @@ public abstract class Messages {
 
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
 
+    public static String NEED_PLAYER = PREFIX + "Seul un joueur peut effectuer cette action !";
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
@@ -59,6 +60,13 @@ public abstract class Messages {
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
 
     public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette commande !";
+
+    public static String HOST_INVENTORY_BEGINNING_SAVED = PREFIX + "L'inventaire de départ a bien été mis à jour !";
+    public static String HOST_INVENTORY_DEATH_SAVED = PREFIX + "L'inventaire de mort a bien été mis à jour !";
+    public static String HOST_INVENTORY_CANCEL = PREFIX + "L'inventaire n'a pas été mis à jour !";
+    public static String HOST_INVENTORY_EDIT = "Modification de l'inventaire\n/save pour sauvegarder l'inventaire\n/cancel pour annuler la modification de l'inventaire";
+    public static String HOST_INVENTORY_NOT_EDIT = PREFIX + "Vous n'éditez aucun inventaire !";
+
 
     public static String HOST_NEED_OFFLINE = PREFIX + "L'hôte %player% doit être déconnecté afin d'effectuer cette commande !";
     public static String HOST_NOW_SET = PREFIX + "Le joueur %player% est maintenant l'hôte de la partie !";
