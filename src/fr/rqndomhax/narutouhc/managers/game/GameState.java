@@ -14,7 +14,8 @@ public enum GameState {
     GAME_INVINCIBILITY,
     GAME_PREPARATION,
     GAME_TELEPORTING,
-    GAME_PVP,
+    GAME_BORDER,
+    GAME_MEETUP,
     GAME_FINISHED;
 
     public GameState nextGameState() {

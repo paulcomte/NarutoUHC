@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
-import fr.rqndomhax.narutouhc.utils.PlayerInventoryManager;
 import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,11 @@ public class MPlayer {
     public RoleInfo role = null;
     public boolean isDead = false;
     public List<UUID> kills = new ArrayList<>();
-    public final PlayerInventoryManager deathInventory;
+    public ItemStack[] inventory = new ItemStack[40];
     public Location location;
     public Location deathLocation;
 
     public MPlayer(UUID uuid) {
         this.uuid = uuid;
-        deathInventory = new PlayerInventoryManager();
     }
 }

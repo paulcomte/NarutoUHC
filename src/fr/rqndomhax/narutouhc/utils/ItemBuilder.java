@@ -48,6 +48,13 @@ public class ItemBuilder {
         return this;
     }
 
+    public String getName() {
+        ItemMeta im = is.getItemMeta();
+        String name = "";
+        name += im.getDisplayName();
+        return name;
+    }
+
     public ItemBuilder addStoredEnchant(Enchantment ench, int level) {
         if (is.getType() != Material.ENCHANTED_BOOK) return this;
 

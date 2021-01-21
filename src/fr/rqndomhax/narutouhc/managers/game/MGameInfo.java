@@ -48,10 +48,9 @@ public class MGameInfo {
         this.mTime = new MTime(setup);
     }
 
-    public void removeMTime(Setup setup) {
+    public void removeMTime() {
         mTime.cancel();
         this.mTime = null;
-        setup.getGame().getGameInfo().setGameState(GameState.LOBBY_WAITING);
     }
 
     public Maps getCurrentMap() {

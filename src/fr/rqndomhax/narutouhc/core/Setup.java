@@ -12,11 +12,16 @@ import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
+import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
+import fr.rqndomhax.narutouhc.utils.inventory.RInventoryTask;
+import org.bukkit.Bukkit;
 
 public class Setup {
 
     private final Main main;
     private Registers registers;
+    private RInventoryManager rInventoryManager;
     private MGame game;
     private MRole role;
     private GameScoreboard gameScoreboard;
@@ -47,8 +52,11 @@ public class Setup {
 
         System.out.println(Messages.PLUGIN_LAST_TASKS);
         gameScoreboard = new GameScoreboard(this);
+        rInventoryManager = new RInventoryManager();
+        Bukkit.getPluginManager().registerEvents(new RInventoryHandler(main, rInventoryManager), main);
+        new RInventoryTask(rInventoryManager).runTaskTimer(main, 0, 1);
         gameScoreboard.runBoard();
-        game.getGameInfo().setGameState(GameState.GAME_PVP);
+        game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
         System.out.println(Messages.PLUGIN_INITIALIZED);
     }
 

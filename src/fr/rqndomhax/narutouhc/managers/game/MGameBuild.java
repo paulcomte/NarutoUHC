@@ -80,12 +80,12 @@ public abstract class MGameBuild {
         World world = Bukkit.getWorld(Maps.NO_PVP.name());
         int boundaries = 19;
         byte color = (byte) (new Random().nextInt(14) + 1);
-        Location center = new Location(world, 0, 120, 0);
+        Location center = new Location(world, 0, 230, 0);
 
         Block block = world.getBlockAt(center);
         block.setType(Material.STAINED_GLASS);
         block.setData((byte) (new Random().nextInt(14) + 1));
-        setCage(block, boundaries, 126, center);
+        setCage(block, boundaries, 235, center);
         block.setType(Material.AIR);
         block.getState().update();
     }
@@ -94,11 +94,11 @@ public abstract class MGameBuild {
 
         World world = Bukkit.getWorld(Maps.NO_PVP.name());
         int boundaries = 19;
-        Location center = new Location(world, 0, 120, 0);
+        Location center = new Location(world, 0, 230, 0);
 
         Block block = world.getBlockAt(center);
         block.setType(Material.AIR);
-        setCage(block, boundaries, 126, center);
+        setCage(block, boundaries, 235, center);
     }
 
 }

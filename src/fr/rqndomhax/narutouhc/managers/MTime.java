@@ -22,6 +22,7 @@ public class MTime extends BukkitRunnable {
     private final Setup setup;
     public int rawTime = 0;
     public int time = 0;
+    public int episode = 1;
 
     public MTime(Setup setup) {
         this.setup = setup;
@@ -51,6 +52,10 @@ public class MTime extends BukkitRunnable {
                 break;
             case GAME_TELEPORTING:
                 checkSecondTeleport();
+                break;
+            case GAME_MEETUP:
+                checkBorder();
+                break;
             default: break;
         }
 
@@ -64,8 +69,25 @@ public class MTime extends BukkitRunnable {
 
         time++;
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PREPARATION) ||
-                setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PVP) )
+                setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_MEETUP))
             rawTime++;
+    }
+
+    private void checkBorder() {
+        int r = setup.getGame().getGameInfo().getMBorder().timeBeforeResize - time;
+
+        if (r == 60 || r == 30 || r == 15 || r <= 5 && r > 0 || r == 10 || r == 5*60 || r == 10*60 || r == 30*60 || r == 60*60) {
+            if (r == 1)
+                Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE.replace("%time%", String.valueOf(r))
+                        .replace("secondes", "seconde"));
+            else
+                Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE.replace("%time%", String.valueOf(r)));
+        }
+        else if (r == 0) {
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_MEETUP);
+            Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
+            time -= setup.getGame().getGameInfo().getMRules().preparationTime;
+        }
     }
 
     private void checkSecondTeleport() {
@@ -74,7 +96,7 @@ public class MTime extends BukkitRunnable {
         if (r == 10 || r == 15 || r == 30 || r == 60 || r <= 5 && r > 0)
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
         else if (r == 0) {
-            setup.getGame().getGameInfo().setGameState(GameState.GAME_PVP);
+            setup.getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
             MGameBuild.removePlatform(setup.getGame().getGamePlayers());
         }
     }
@@ -140,20 +162,5 @@ public class MTime extends BukkitRunnable {
             MGameBuild.removePlatform(setup.getGame().getGamePlayers());
             time -= setup.getGame().getGameInfo().getMRules().startDuration;
         }
-    }
-
-    private void checkBorderTask() {
-
-        int r = setup.getGame().getGameInfo().getMBorder().timeBeforeResize - time;
-
-        if (r == 30 || r == 15 || r <= 5 && r > 0)
-            Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE.replace("%time%", String.valueOf(r)));
-
-        else if (r == 0) {
-            setup.getGame().getGameInfo().getMBorder().resizeBorder();
-            Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
-            time -= setup.getGame().getGameInfo().getMBorder().timeBeforeResize;
-        }
-
     }
 }

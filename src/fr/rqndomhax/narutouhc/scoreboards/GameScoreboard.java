@@ -8,7 +8,6 @@
 package fr.rqndomhax.narutouhc.scoreboards;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
@@ -44,38 +43,32 @@ public class GameScoreboard {
 
     private void updateBoard(FastBoard board) {
 
-        String separator = ChatColor.BOLD + "" + ChatColor.UNDERLINE + "            \n";
-        ChatColor colorPrefix = ChatColor.YELLOW;
-
-        board.updateLine(0, separator);
-        MRules rules = setup.getGame().getGameInfo().getMRules();
-        if (rules.gameHost != null)
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
-        else
-            board.updateLine(2, colorPrefix + "➤ Host : " + ChatColor.WHITE + "Aucun");
-        board.updateLine(3, colorPrefix + "➤ Groupes : " + ChatColor.WHITE + rules.groupSize);
-        board.updateLine(4, separator);
-        board.updateLine(5, colorPrefix + "➤ Episode : ");
-        board.updateLine(6, separator);
-        board.updateLine(7, colorPrefix + "➤ PvP : " + (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PVP) ? ChatColor.GREEN + "✔" : ChatColor.DARK_RED + "✘"));
-        board.updateLine(8, colorPrefix + "➤ Bordure : " + setup.getGame().getGameInfo().getMBorder().timeBeforeResize);
-        if (setup.getGame().getGameInfo().getMTime() != null)
-            board.updateLine(9, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().rawTime);
-        else
-            board.updateLine(9, colorPrefix + "➤ Temps : " + ChatColor.WHITE + "00:00");
-        board.updateLine(10, separator);
+        ChatColor colorPrefix = ChatColor.DARK_BLUE;
         MPlayer mPlayer = setup.getGame().getMPlayer(board.getPlayer().getUniqueId());
-        if (mPlayer != null) {
-            board.updateLine(11, colorPrefix + "➤ Rôle : " + ChatColor.WHITE + (mPlayer.role == null ? "Aucun" : mPlayer.role.getRole().name().toLowerCase()));
-            board.updateLine(12, colorPrefix + "➤ Kills : " + ChatColor.WHITE + mPlayer.kills.size());
+        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameState state = setup.getGame().getGameInfo().getGameState();
+
+        switch (state) {
+            case GAME_BORDER:
+            case GAME_MEETUP:
+            case GAME_FINISHED:
+                GameScoreboardManager.updateNarutoBoard(setup, board);
+                break;
+            case LOBBY_WAITING:
+            case LOBBY_TELEPORTING:
+                GameScoreboardManager.updateLobbyBoard(setup, board);
+                break;
+            case GAME_INVINCIBILITY:
+            case GAME_PREPARATION:
+            case GAME_TELEPORTING:
+                GameScoreboardManager.updatePreparationBoard(setup, board);
+                break;
+            default:
+                GameScoreboardManager.updateLobbyBoard(setup, board);
+                break;
         }
-        else {
-            board.updateLine(11, colorPrefix + "➤ Rôle : " + ChatColor.WHITE + "Spectateur");
-            board.updateLine(12, colorPrefix + "➤ Kills : " + ChatColor.WHITE + "0");
-        }
-        board.updateLine(13, separator);
-        board.updateLine(14, colorPrefix + "➤ Bordure : " + ChatColor.WHITE + Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder().getSize());
-        board.updateLine(15, separator);
+
+
     }
 
     public void runBoard() {

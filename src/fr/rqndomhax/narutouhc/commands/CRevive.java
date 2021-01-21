@@ -8,8 +8,10 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.utils.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -28,6 +30,8 @@ public class CRevive implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
+        ((Player) sender).openInventory(new IHost(setup, ((Player) sender)).getInventory());
+
         if (args.length != 1)
             return false;
 
@@ -39,7 +43,7 @@ public class CRevive implements CommandExecutor {
 
         Player player = Bukkit.getPlayer(mPlayer.uuid);
 
-        mPlayer.deathInventory.giveInventory(player);
+        InventoryManager.giveInventory(mPlayer.inventory, player);
         mPlayer.isDead = false;
         player.setGameMode(GameMode.SURVIVAL);
         player.teleport(MGameActions.teleportToRandomLocation(setup));

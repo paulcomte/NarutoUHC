@@ -5,7 +5,12 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.inventories;
+package fr.rqndomhax.narutouhc.managers.rules;
 
-public class IHost {
+public enum Scenarios {
+
+    CAT_EYES,
+    CUTCLEAN,
+    REVIVE_BEFORETP,
+
 }

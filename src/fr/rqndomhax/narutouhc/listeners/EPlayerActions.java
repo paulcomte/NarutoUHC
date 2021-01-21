@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
+import fr.rqndomhax.narutouhc.utils.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,7 +52,7 @@ public class EPlayerActions implements Listener {
 
         mPlayer.deathLocation = player.getLocation();
 
-        mPlayer.deathInventory.saveInventory(player);
+        InventoryManager.saveInventory(mPlayer.inventory, player);
         mPlayer.isDead = true;
 
         if (player.getKiller() != null)

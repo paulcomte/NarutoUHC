@@ -10,11 +10,9 @@ package fr.rqndomhax.narutouhc.utils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInventoryManager {
+public abstract class InventoryManager {
 
-    private ItemStack[] items = new ItemStack[40];
-
-    public void saveInventory(Player player) {
+    public static void saveInventory(ItemStack[] items, Player player)  {
         for(int slot = 0; slot < 36; slot++){
             ItemStack item = player.getInventory().getItem(slot);
             if(item != null){
@@ -34,7 +32,17 @@ public class PlayerInventoryManager {
         player.getInventory().setBoots(null);
     }
 
-    public void giveInventory(Player player) {
+    public static void clearInventory(Player player) {
+        for (int slot = 0 ; slot < 36 ; slot++)
+            player.getInventory().setItem(slot, null);
+
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
+    }
+
+    public static void giveInventory(ItemStack[] items, Player player) {
         player.getInventory().clear();
 
         for(int slot = 0; slot < 36; slot++){

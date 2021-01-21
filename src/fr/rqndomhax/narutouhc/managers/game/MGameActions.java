@@ -38,7 +38,7 @@ public abstract class MGameActions {
 
         for (int i = 0 ; i < players.size() ; i++) {
             locations.add(new Location(Bukkit.getWorld(Maps.NO_PVP.name()),
-                    radius * Math.sin(angle) + 0.500, 120, radius * Math.cos(angle) + 0.500));
+                    radius * Math.sin(angle) + 0.500, 230, radius * Math.cos(angle) + 0.500));
             angle += delta;
             MGameBuild.placePlatform(locations.get(i));
         }
@@ -95,7 +95,7 @@ public abstract class MGameActions {
 
     public static Location teleportToRandomLocation(Setup setup) {
         World world = Bukkit.getWorld(setup.getGame().getGameInfo().getCurrentMap().name());
-        Location location = new Location(world, 0, 120, 0);
+        Location location = new Location(world, 0, world.getHighestBlockYAt(0, 0), 0);
         return location;
     }
 

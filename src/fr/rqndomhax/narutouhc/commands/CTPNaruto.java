@@ -7,7 +7,6 @@
 
 package fr.rqndomhax.narutouhc.commands;
 
-import fr.rqndomhax.narutouhc.infos.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -22,7 +21,8 @@ public class CTPNaruto implements CommandExecutor {
         if (!(sender instanceof Player))
             return false;
         Player player = (Player) sender;
-        player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, 120, 0));
+        //player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, 120, 0));
+        player.teleport(new Location(Bukkit.getWorld("world"), -228, 151, 228));
         return true;
     }
 

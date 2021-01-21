@@ -64,7 +64,7 @@ public class ECancels implements Listener {
     public void onMove(PlayerMoveEvent e) {
        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
             return;
-       if (e.getTo().getY() > 110)
+       if (e.getTo().getY() > 220)
            return;
 
        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
@@ -73,7 +73,7 @@ public class ECancels implements Listener {
        if (player.location != null)
            e.setTo(player.location);
        else
-           e.setTo(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 120, 0));
+           e.setTo(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
    }
 
 }

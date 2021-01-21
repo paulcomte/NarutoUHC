@@ -55,6 +55,7 @@ public class EPlayerLogin implements Listener {
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
         }
+
     }
 
     @EventHandler

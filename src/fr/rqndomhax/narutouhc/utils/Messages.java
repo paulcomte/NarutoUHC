@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 public abstract class Messages {
 
-    public static String PREFIX = ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.RESET;
+    public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.RESET;
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
@@ -73,6 +73,8 @@ public abstract class Messages {
     public static String HOST_USAGE_AN = PREFIX + "Veuillez respecter la syntaxe suivante : /h an <texte>";
     public static String PLAYER_USAGE_WHISPER = PREFIX + "Veuillez respecter la syntaxe suivante : /msg <player> <message>";
 
+    public static String HOST_INVENTORY_ALREADY_IN_EDIT = PREFIX + "Cette inventaire est déjà en cours de modification !";
+    
     public static String PLAYER_NOT_CONNECTED = PREFIX + "Le joueur %player% n'est pas en ligne !";
 
     public static String PLAYER_BANNED = PREFIX + "Vous avez été banni(e) de la partie !";
