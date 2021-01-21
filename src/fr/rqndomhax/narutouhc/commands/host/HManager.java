@@ -43,7 +43,7 @@ public abstract class HManager {
         }
 
         if (Bukkit.getPlayer(rules.gameHost) != null) {
-            sender.sendMessage(Messages.HOST_NEED_OFFLINE);
+            sender.sendMessage(Messages.HOST_NEED_OFFLINE.replace("%player%", Bukkit.getPlayer(rules.gameHost).getName()));
             return false;
         }
 

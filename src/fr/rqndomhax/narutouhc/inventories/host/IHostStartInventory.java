@@ -53,6 +53,11 @@ public class IHostStartInventory extends RInventory {
 
         return e -> {
 
+            if (!mRules.gameHost.equals(player.getUniqueId()) && !mRules.gameCoHost.contains(player.getUniqueId())) {
+                player.sendMessage(Messages.COMMAND_ONLY_HOST);
+                return;
+            }
+
             if (mRules.startInventoryInEdit != null) {
                 player.sendMessage(Messages.HOST_INVENTORY_ALREADY_IN_EDIT);
                 return;

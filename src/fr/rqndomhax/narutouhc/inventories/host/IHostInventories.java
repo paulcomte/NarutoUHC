@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
+import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -38,8 +39,10 @@ public class IHostInventories extends RInventory {
         this.setItem(32, IInfos.INVENTORIES_HOST_DEATH, getDeathInventory());
 
         this.setItem(49, IInfos.RETURN_ITEM, e -> {
+            MRules rules = setup.getGame().getGameInfo().getMRules();
             player.closeInventory();
-            player.openInventory(new IHost(setup, player).getInventory());
+            if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
+                player.openInventory(new IHost(setup, player).getInventory());
         });
     }
 

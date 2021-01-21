@@ -20,6 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class MGameActions {
@@ -57,9 +58,9 @@ public abstract class MGameActions {
             player.updateInventory();
         }
         else {
-            if (rules.startInventoryInEdit.equals(player.getUniqueId()))
+            if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId()))
                 rules.startInventoryInEdit = null;
-            if (rules.deathInventoryInEdit.equals(player.getUniqueId()))
+            if (rules.startInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))
                 rules.deathInventory = null;
         }
     }
@@ -103,6 +104,7 @@ public abstract class MGameActions {
             if (player == null) continue;
 
             player.teleport(locations.get(0));
+            player.setGameMode(GameMode.SURVIVAL);
             mPlayer.location = locations.get(0);
             locations.remove(0);
 
@@ -144,10 +146,11 @@ public abstract class MGameActions {
         }
     }
 
-    public static Location teleportToRandomLocation(Setup setup) {
-        World world = Bukkit.getWorld(setup.getGame().getGameInfo().getCurrentMap().name());
-        Location location = new Location(world, 0, world.getHighestBlockYAt(0, 0), 0);
-        return location;
+    public static Location teleportToRandomLocation() {
+        World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
+        int x = new Random().nextInt((int) (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize() / 2));
+        int z = new Random().nextInt((int) (world.getWorldBorder().getCenter().getZ() + world.getWorldBorder().getSize() / 2));
+        return new Location(world, x, world.getHighestBlockYAt(x, z), z);
     }
 
 }

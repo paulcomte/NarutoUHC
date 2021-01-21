@@ -47,8 +47,16 @@ public class EPlayerActions implements Listener {
 
         player.setGameMode(GameMode.SPECTATOR);
 
-        if (mPlayer == null) return;
-        if (mPlayer.isDead) return;
+        if (mPlayer == null) {
+            e.setDroppedExp(0);
+            e.getDrops().clear();
+            return;
+        }
+        if (mPlayer.isDead) {
+            e.setDroppedExp(0);
+            e.getDrops().clear();
+            return;
+        }
 
         mPlayer.deathLocation = player.getLocation();
 

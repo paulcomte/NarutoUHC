@@ -29,6 +29,7 @@ public class IHost extends RInventory {
 
         IInfos.placeInvBorders(this.getInventory());
         this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openHostConfig());
+        this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
         this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
         this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
         this.setItem(31, IInfos.MAIN_HOST_ROLES, openRolesConfig());
@@ -36,6 +37,13 @@ public class IHost extends RInventory {
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
             this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
+    }
+
+    private Consumer<InventoryClickEvent> openScenariosConfig() {
+        return e -> {
+            player.closeInventory();
+            player.openInventory(new IHostScenarios(setup, player).getInventory());
+        };
     }
 
     private Consumer<InventoryClickEvent> onButtonClick(boolean isStarting) {

@@ -7,17 +7,28 @@
 
 package fr.rqndomhax.narutouhc.utils;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class InventoryManager {
 
+    public static void dropInventory(ItemStack[] items, Location dropLocation, boolean dropNaturally) {
+        for(int slot = 0; slot < 36; slot++){
+            ItemStack item = items[slot];
+            if(item != null){
+                if (dropNaturally)
+                    dropLocation.getWorld().dropItemNaturally(dropLocation, item);
+                else
+                    dropLocation.getWorld().dropItem(dropLocation, item);
+            }
+        }
+    }
+
     public static void saveInventory(ItemStack[] items, Player player)  {
         for(int slot = 0; slot < 36; slot++){
             ItemStack item = player.getInventory().getItem(slot);
-            if(item != null){
                 items[slot] = item;
-            }
         }
 
         items[36] = player.getInventory().getHelmet();
@@ -49,9 +60,7 @@ public abstract class InventoryManager {
 
         for(int slot = 0; slot < 36; slot++){
             ItemStack item = items[slot];
-            if(item != null){
-                player.getInventory().setItem(slot, item);
-            }
+            player.getInventory().setItem(slot, item);
         }
 
         player.getInventory().setHelmet(items[36]);

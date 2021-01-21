@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class MTime extends BukkitRunnable {
@@ -59,7 +60,7 @@ public class MTime extends BukkitRunnable {
             default: break;
         }
 
-        if (rawTime == setup.getGame().getGameInfo().getMRules().rolesAnnounce) {
+        if (rawTime == setup.getGame().getGameInfo().getMRules().rolesAnnounce * 60) {
             setup.getRole().dispatchRoles();
             for (MPlayer gamePlayer : setup.getGame().getGamePlayers()) {
                 if (gamePlayer.role == null) continue;
@@ -102,7 +103,7 @@ public class MTime extends BukkitRunnable {
     }
 
     private void checkPreparation() {
-        int r = setup.getGame().getGameInfo().getMRules().preparationTime - time;
+        int r = (setup.getGame().getGameInfo().getMRules().preparationTime * 60) - time;
 
         if (r == 60 || r == 30 || r == 15 || r <= 5 && r > 0 || r == 10 || r == 5*60 || r == 10*60 || r == 30*60 || r == 60*60) {
             if (r == 1)
@@ -140,12 +141,15 @@ public class MTime extends BukkitRunnable {
     private void checkStart() {
         int r = setup.getGame().getGameInfo().getMRules().startDuration - time;
 
-        if (r == 60 ||r == 30 || r == 15 || r <= 5 && r > 0)
+        if (r == 60 ||r == 30 || r == 15 || r == 10 || r <= 5 && r > 0)
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
             MGameActions.teleportPlayers1(setup);
             MGameBuild.removeLobby();
+            WorldBorder border = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder();
+            border.setSize(setup.getGame().getGameInfo().getMBorder().defaultSize);
+            border.setCenter(setup.getGame().getGameInfo().getMBorder().xCenter, setup.getGame().getGameInfo().getMBorder().zCenter);
             time -= setup.getGame().getGameInfo().getMRules().startDuration;
         }
     }

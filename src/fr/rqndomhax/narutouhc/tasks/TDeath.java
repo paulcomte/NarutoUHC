@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.tasks;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.utils.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ExperienceOrb;
@@ -57,9 +58,9 @@ public class TDeath extends BukkitRunnable {
         if (timeLeft == 0) {
             Messages.showDeath(mPlayer, setup.getGame().getGameInfo().getMRules().showRoleOnDeath);
             mPlayer.deathLocation.getWorld().strikeLightningEffect(mPlayer.deathLocation);
-            drops.forEach(System.out::println);
             drops.forEach(drop -> mPlayer.deathLocation.getWorld().dropItemNaturally(mPlayer.deathLocation, drop));
             mPlayer.deathLocation.getWorld().spawn(mPlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
+            InventoryManager.dropInventory(setup.getGame().getGameInfo().getMRules().deathInventory, mPlayer.deathLocation, true);
 
             Player player = Bukkit.getPlayer(mPlayer.uuid);
             if (player != null)

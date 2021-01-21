@@ -59,12 +59,12 @@ public abstract class Messages {
 
     public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
 
-    public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette commande !";
+    public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette action !";
 
     public static String HOST_INVENTORY_BEGINNING_SAVED = PREFIX + "L'inventaire de départ a bien été mis à jour !";
     public static String HOST_INVENTORY_DEATH_SAVED = PREFIX + "L'inventaire de mort a bien été mis à jour !";
     public static String HOST_INVENTORY_CANCEL = PREFIX + "L'inventaire n'a pas été mis à jour !";
-    public static String HOST_INVENTORY_EDIT = "Modification de l'inventaire\n/save pour sauvegarder l'inventaire\n/cancel pour annuler la modification de l'inventaire";
+    public static String HOST_INVENTORY_EDIT = PREFIX + "Modification de l'inventaire\n" + ChatColor.GREEN + "/save pour sauvegarder l'inventaire\n" + ChatColor.RED + "/cancel pour annuler la modification de l'inventaire";
     public static String HOST_INVENTORY_NOT_EDIT = PREFIX + "Vous n'éditez aucun inventaire !";
 
 
@@ -92,6 +92,10 @@ public abstract class Messages {
     public static String PLAYER_NOW_UNBANNED = PREFIX + "Le joueur %player% n'est maintenant plus banni(e)";
 
     public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont étés soignés !";
+    public static String PLAYER_NOT_PLAYING = PREFIX + "Ce joueur ne joue pas au sein de la partie !";
+    public static String PLAYER_NOT_DEAD = PREFIX + "Ce joueur n'est pas mort !";
+    public static String PLAYER_RESURRECTED = PREFIX + "Vous avez été ressuscité !";
+    public static String PLAYER_NOW_RESURRECTED = PREFIX + "Vous avez ressuscité %player% !";
 
     public static String PLAYER_KICKED = PREFIX + "Vous avez été expulsé(e) de cette partie !";
     public static String PLAYER_NOW_KICKED = PREFIX + "Le joueur %player% a été expulsé(e) avec succès !";
@@ -121,10 +125,10 @@ public abstract class Messages {
     }
 
     public static void showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
         sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
         sender.sendMessage(CREDITS);
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.DARK_AQUA + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + "-----");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
     }
 
     public static void sendMessagesToPlayers(Setup setup, String message) {

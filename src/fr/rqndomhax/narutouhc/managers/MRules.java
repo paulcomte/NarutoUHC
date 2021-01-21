@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -44,8 +45,8 @@ public class MRules {
     public int startDuration = 10;
 
     public int invincibilityFinished = 30;
-    public int preparationTime = 40*60;
-    public int rolesAnnounce = 35*60;
+    public int preparationTime = 40;
+    public int rolesAnnounce = 35;
 
     public int teleportingDuration = 15;
     public int narutoTeleportingDuration = 15;
@@ -54,5 +55,6 @@ public class MRules {
 
     public MRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));
+        deathInventory[0] = new ItemStack(Material.GOLDEN_APPLE);
     }
 }

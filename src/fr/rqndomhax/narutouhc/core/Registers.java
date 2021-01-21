@@ -10,10 +10,7 @@ package fr.rqndomhax.narutouhc.core;
 import fr.rqndomhax.narutouhc.commands.*;
 import fr.rqndomhax.narutouhc.commands.host.CHost;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.listeners.ECancels;
-import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
-import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
-import fr.rqndomhax.narutouhc.listeners.EScenarios;
+import fr.rqndomhax.narutouhc.listeners.*;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.apache.commons.io.FileUtils;
@@ -89,10 +86,13 @@ public class Registers {
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
         pm.registerEvents(new EScenarios(), setup.getMain());
+        pm.registerEvents(new ELobbyCancel(setup), setup.getMain());
     }
 
     public void registerCommands() {
         setup.getMain().getCommand("help").setExecutor(new CHelp());
+        setup.getMain().getCommand("rules").setExecutor(new CRules(setup));
+        setup.getMain().getCommand("inventory").setExecutor(new CInventory(setup));
         setup.getMain().getCommand("tpnaruto").setExecutor(new CTPNaruto());
         setup.getMain().getCommand("revive").setExecutor(new CRevive(setup));
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
