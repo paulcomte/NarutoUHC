@@ -4,7 +4,7 @@
  *  Author : RqndomHax
  *  Github: https://github.com/RqndomHax
  */
-
+/*+
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
@@ -22,8 +22,8 @@ public class MTime extends BukkitRunnable {
 
     private final Setup setup;
     public int rawTime = 0;
-    public int time = 0;
     public int episode = 1;
+    public int rawEpisode = 0;
 
     public MTime(Setup setup) {
         this.setup = setup;
@@ -37,30 +37,16 @@ public class MTime extends BukkitRunnable {
 
     @Override
     public void run() {
+        checkStart();
+        checkTeleport();
+        checkInvincibility();
+        checkPreparation();
+        checkSecondTeleport();
+        checkBorder();
+        setup.getGame().getGameInfo().getMRules().preparationTime--;
+        setup.getGame().getGameInfo().getMRules().rolesAnnounce--;
 
-        switch (setup.getGame().getGameInfo().getGameState()) {
-            case LOBBY_WAITING:
-                checkStart();
-                break;
-            case LOBBY_TELEPORTING:
-                checkTeleport();
-                break;
-            case GAME_INVINCIBILITY:
-                checkInvincibility();
-                break;
-            case GAME_PREPARATION:
-                checkPreparation();
-                break;
-            case GAME_TELEPORTING:
-                checkSecondTeleport();
-                break;
-            case GAME_MEETUP:
-                checkBorder();
-                break;
-            default: break;
-        }
-
-        if (rawTime == setup.getGame().getGameInfo().getMRules().rolesAnnounce * 60) {
+        if (setup.getGame().getGameInfo().getMRules().rolesAnnounce == 0) {
             setup.getRole().dispatchRoles();
             for (MPlayer gamePlayer : setup.getGame().getGamePlayers()) {
                 if (gamePlayer.role == null) continue;
@@ -68,14 +54,39 @@ public class MTime extends BukkitRunnable {
             }
         }
 
-        time++;
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_PREPARATION) ||
-                setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_MEETUP))
+                setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_MEETUP)) {
             rawTime++;
+            rawEpisode++;
+        }
+        checkEpisode();
+    }
+
+    private void checkEpisode() {
+        if (rawEpisode == 1170)
+            Bukkit.broadcastMessage(Messages.EPISODE_FINISHED_30S);
+        else if (rawEpisode == 1200)
+            Bukkit.broadcastMessage(Messages.EPISODE_FINISHED.replace("%episode%", String.valueOf(episode)));
+        else if (rawEpisode == 1201) {
+            episode++;
+            for (MPlayer player : setup.getGame().getGamePlayers()) {
+                if (player.isDead) continue;
+                if (player.role == null) continue;
+                player.role.onNewEpisode(episode);
+            }
+            Bukkit.broadcastMessage(Messages.EPISODE_STARTED.replace("%episode%", String.valueOf(episode)));
+            rawEpisode = 0;
+        }
     }
 
     private void checkBorder() {
-        int r = setup.getGame().getGameInfo().getMBorder().timeBeforeResize - time;
+        if (setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration > 0)
+            return;
+        if (setup.getGame().getGameInfo().getMBorder().timeBeforeResize < 0)
+            return;
+        setup.getGame().getGameInfo().getMBorder().timeBeforeResize--;
+
+        int r = setup.getGame().getGameInfo().getMBorder().timeBeforeResize;
 
         if (r == 60 || r == 30 || r == 15 || r <= 5 && r > 0 || r == 10 || r == 5*60 || r == 10*60 || r == 30*60 || r == 60*60) {
             if (r == 1)
@@ -87,23 +98,36 @@ public class MTime extends BukkitRunnable {
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.GAME_MEETUP);
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
-            time -= setup.getGame().getGameInfo().getMRules().preparationTime;
+            setup.getGame().getGameInfo().getMBorder().timeBeforeResize--;
         }
     }
 
     private void checkSecondTeleport() {
-        int r = setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration - time;
+        if (setup.getGame().getGameInfo().getMRules().preparationTime > 0)
+            return;
+        if (setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration < 0)
+            return;
+        setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration--;
+
+        int r = setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration;
 
         if (r == 10 || r == 15 || r == 30 || r == 60 || r <= 5 && r > 0)
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
             MGameBuild.removePlatform(setup.getGame().getGamePlayers());
+            setup.getGame().getGameInfo().getMRules().narutoTeleportingDuration--;
         }
     }
 
     private void checkPreparation() {
-        int r = (setup.getGame().getGameInfo().getMRules().preparationTime * 60) - time;
+        if (setup.getGame().getGameInfo().getMRules().invincibilityTime > 0)
+            return;
+        if (setup.getGame().getGameInfo().getMRules().preparationTime < 0)
+            return;
+        setup.getGame().getGameInfo().getMRules().preparationTime--;
+
+        int r = setup.getGame().getGameInfo().getMRules().preparationTime;
 
         if (r == 60 || r == 30 || r == 15 || r <= 5 && r > 0 || r == 10 || r == 5*60 || r == 10*60 || r == 30*60 || r == 60*60) {
             if (r == 1)
@@ -115,12 +139,18 @@ public class MTime extends BukkitRunnable {
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.GAME_TELEPORTING);
             Bukkit.getOnlinePlayers().forEach(player -> player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getHighestBlockAt(0, 0).getY(), 0)));
-            time -= setup.getGame().getGameInfo().getMRules().preparationTime;
+            setup.getGame().getGameInfo().getMRules().preparationTime--;
         }
     }
 
     private void checkInvincibility() {
-        int r = setup.getGame().getGameInfo().getMRules().invincibilityFinished - time;
+        if (setup.getGame().getGameInfo().getMRules().teleportingDuration > 0)
+            return;
+        if (setup.getGame().getGameInfo().getMRules().invincibilityTime < 0)
+            return;
+        setup.getGame().getGameInfo().getMRules().invincibilityTime--;
+
+        int r = setup.getGame().getGameInfo().getMRules().invincibilityTime;
 
         if (r == 30 || r == 60 || r == 15 || r == 10 || r <= 5 && r > 0) {
             if (r == 1)
@@ -134,29 +164,18 @@ public class MTime extends BukkitRunnable {
         if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
             Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
-            time -= setup.getGame().getGameInfo().getMRules().invincibilityFinished;
-        }
-    }
-
-    private void checkStart() {
-        int r = setup.getGame().getGameInfo().getMRules().startDuration - time;
-
-        if (r == 60 ||r == 30 || r == 15 || r == 10 || r <= 5 && r > 0)
-            MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
-        else if (r == 0) {
-            setup.getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
-            MGameActions.teleportPlayers1(setup);
-            MGameBuild.removeLobby();
-            WorldBorder border = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder();
-            border.setSize(setup.getGame().getGameInfo().getMBorder().defaultSize);
-            border.setCenter(setup.getGame().getGameInfo().getMBorder().xCenter, setup.getGame().getGameInfo().getMBorder().zCenter);
-            time -= setup.getGame().getGameInfo().getMRules().startDuration;
+            setup.getGame().getGameInfo().getMRules().invincibilityTime--;
         }
     }
 
     private void checkTeleport() {
+        if (setup.getGame().getGameInfo().getMRules().startDuration > 0)
+            return;
+        if (setup.getGame().getGameInfo().getMRules().teleportingDuration < 0)
+            return;
+        setup.getGame().getGameInfo().getMRules().teleportingDuration--;
 
-        int r = setup.getGame().getGameInfo().getMRules().teleportingDuration - time;
+        int r = setup.getGame().getGameInfo().getMRules().teleportingDuration;
 
         if (r == 10 || r == 15 || r == 30 || r == 60 || r <= 5 && r > 0)
             MGameActions.sendInfos(setup.getGame().getGamePlayers(), r);
@@ -164,7 +183,8 @@ public class MTime extends BukkitRunnable {
         else if (r == 0) {
             setup.getGame().getGameInfo().setGameState(GameState.GAME_INVINCIBILITY);
             MGameBuild.removePlatform(setup.getGame().getGamePlayers());
-            time -= setup.getGame().getGameInfo().getMRules().startDuration;
+            setup.getGame().getGameInfo().getMRules().startDuration--;
         }
     }
 }
+*/

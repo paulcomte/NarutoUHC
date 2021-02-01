@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
+import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -15,21 +16,20 @@ import org.bukkit.WorldBorder;
 public class MBorder {
 
     public int defaultSize = 3000;
-    public int maxSize = 100;
-    public int timeBeforeResize = 6;
+    public int finalSize = 100;
+    public int timeBeforeResize = 30*60;
     public double speed = 2;
-    public int damage = 20;
-    public int xCenter = 0;
-    public int zCenter = 0;
+    public double damage = 20;
+    public BorderCenter center = BorderCenter.KONOHA;
 
     public void resizeBorder() {
 
         World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
         WorldBorder wb = world.getWorldBorder();
 
-        wb.setCenter(xCenter, zCenter);
+        wb.setCenter(center.getX(), center.getZ());
         wb.setSize(defaultSize);
-        wb.setSize(maxSize, (long) ((defaultSize-maxSize)/speed));
+        wb.setSize(finalSize, (long) ((defaultSize- finalSize)/speed));
         wb.setDamageAmount(damage);
     }
 

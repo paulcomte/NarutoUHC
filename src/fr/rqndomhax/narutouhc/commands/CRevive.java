@@ -8,10 +8,10 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.utils.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -33,6 +33,16 @@ public class CRevive implements CommandExecutor {
 
         if (args.length != 1)
             return false;
+
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            MRules rules = setup.getGame().getGameInfo().getMRules();
+
+            if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
+                player.sendMessage(Messages.COMMAND_ONLY_HOST);
+                return false;
+            }
+        }
 
         MPlayer mPlayer = setup.getGame().getMPlayer(args[0]);
 

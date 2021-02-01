@@ -8,12 +8,13 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.inventories.host.IHostDeathInventory;
-import fr.rqndomhax.narutouhc.inventories.host.IHostStartInventory;
+import fr.rqndomhax.narutouhc.inventories.host.IHost;
+import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostDeathInventory;
+import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostStartInventory;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.utils.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -54,7 +55,9 @@ public class CSave implements CommandExecutor {
             MGameActions.clearPlayerLobby(setup, player);
             rules.startInventoryInEdit = null;
             player.sendMessage(Messages.HOST_INVENTORY_BEGINNING_SAVED);
-            player.openInventory(new IHostStartInventory(setup, player).getInventory());
+            IHost host = new IHost(setup, player);
+            player.openInventory(host.getInventory());
+            new IHostStartInventory(setup, player, host);
             return true;
         }
         else if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId())) {
@@ -62,7 +65,9 @@ public class CSave implements CommandExecutor {
             MGameActions.clearPlayerLobby(setup, player);
             rules.deathInventoryInEdit = null;
             player.sendMessage(Messages.HOST_INVENTORY_DEATH_SAVED);
-            player.openInventory(new IHostDeathInventory(setup, player).getInventory());
+            IHost host = new IHost(setup, player);
+            player.openInventory(host.getInventory());
+            new IHostDeathInventory(setup, player, host);
             return true;
         }
         else {

@@ -7,7 +7,10 @@
 
 package fr.rqndomhax.narutouhc.commands.host;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -27,13 +30,20 @@ public abstract class HManager {
             return null;
         }
 
-        return Bukkit.getPlayer(args[1]);
+        Player player = Bukkit.getPlayer(args[1]);
+        if (player == null) {
+            sender.sendMessage(Messages.PLAYER_NOT_CONNECTED.replace("%player%", args[1]));
+            return null;
+        }
+        return player;
     }
 
-    public static boolean setHost(MRules rules, String[] args, CommandSender sender) {
+    public static boolean setHost(Setup setup, String[] args, CommandSender sender) {
 
-        if (!sender.isOp()) {
-            sender.sendMessage(Messages.COMMAND_ONLY_HOST);
+        MRules rules = setup.getGame().getGameInfo().getMRules();
+
+        if (sender instanceof Player) {
+            sender.sendMessage(Messages.COMMAND_ONLY_CONSOLE);
             return false;
         }
 
@@ -56,6 +66,8 @@ public abstract class HManager {
 
         rules.gameHost = player.getUniqueId();
         player.sendMessage(Messages.HOST_SET);
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(setup, player);
         sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", player.getName()));
 
         return true;

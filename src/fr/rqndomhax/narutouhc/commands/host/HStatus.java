@@ -22,11 +22,8 @@ public abstract class HStatus {
 
         Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_KICK);
 
-        if (target == null) {
-            if (args.length == 2)
-                sender.sendMessage(Messages.PLAYER_NOT_CONNECTED.replace("%player%", args[1]));
+        if (target == null)
             return false;
-        }
 
 
         target.kickPlayer(Messages.PLAYER_KICKED);
@@ -39,11 +36,8 @@ public abstract class HStatus {
 
         Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_BAN);
 
-        if (target == null) {
-            if (args.length == 2)
-                sender.sendMessage(Messages.PLAYER_NOT_CONNECTED.replace("%player%", args[1]));
+        if (target == null)
             return false;
-        }
 
         rules.bannedPlayers.add(target.getUniqueId());
         target.kickPlayer(Messages.PLAYER_BANNED);
@@ -56,9 +50,8 @@ public abstract class HStatus {
 
         Player player = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_UNBAN);
 
-        if (player != null || args.length != 2) {
-            if (args.length == 2)
-                sender.sendMessage(Messages.PLAYER_NOT_BANNED.replace("%player%", player.getName()));;
+        if (player != null) {
+            sender.sendMessage(Messages.PLAYER_NOT_BANNED.replace("%player%", player.getName()));;
             return false;
         }
 

@@ -12,7 +12,7 @@ import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
-import fr.rqndomhax.narutouhc.utils.ItemBuilder;
+import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
@@ -24,24 +24,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class IHostRoles extends RInventory {
+public class IHostRoles {
 
     private final Setup setup;
     private final Player player;
     private IHostRolesPage page;
+    private final RInventory inventory;
 
-    public IHostRoles(Setup setup, Player player, IHostRolesPage page) {
-        super(null, IInfos.MAIN_HOST_ROLES_NAME, 9*6);
+    public IHostRoles(Setup setup, Player player, IHostRolesPage page, RInventory inventory) {
         this.setup = setup;
         this.player = player;
         this.page = page;
+        this.inventory = inventory;
 
         update(page);
     }
 
     private void update(IHostRolesPage page) {
         this.page = page;
-        for (int i = 0 ; i < this.getInventory().getSize() ; this.setItem(i, null), i++);
+        for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
+        inventory.setItem(4, new ItemBuilder(IInfos.MAIN_HOST_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
         switch (page) {
             case AKATSUKI:
                 addAkatsukiItems();
@@ -67,16 +69,16 @@ public class IHostRoles extends RInventory {
         List<Integer> roles = new ArrayList<>(Arrays.asList(21, 22, 23, 29, 30, 31, 32, 33, 38, 39, 40, 41, 42));
 
         for (Integer i : black)
-            this.setItem(i, IInfos.BLACK_GLASS_BORDER);
+            inventory.setItem(i, IInfos.BLACK_GLASS_BORDER);
         for (Integer i : orange)
-            this.setItem(i, IInfos.ORANGE_GLASS_BORDER);
+            inventory.setItem(i, IInfos.ORANGE_GLASS_BORDER);
         for (Integer i : bars)
-            this.setItem(i, IInfos.BARS);
-        this.setItem(10, new ItemBuilder(IInfos.HOST_SHINOBI_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.SHINOBI));
-        this.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
-        this.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
-        this.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
-        this.setItem(49, IInfos.RETURN_ITEM, returnMain());
+            inventory.setItem(i, IInfos.BARS);
+        inventory.setItem(10, new ItemBuilder(IInfos.HOST_SHINOBI_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.SHINOBI));
+        inventory.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
+        inventory.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
+        inventory.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
+        inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
             if (!role.getRoleType().equals(RoleType.SHINOBI))
@@ -94,7 +96,7 @@ public class IHostRoles extends RInventory {
             else
                 itemName.append(ChatColor.DARK_RED + " ✘");
 
-            this.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.SHINOBI));
+            inventory.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.SHINOBI));
             roles.remove(0);
         }
     }
@@ -106,16 +108,16 @@ public class IHostRoles extends RInventory {
         List<Integer> roles = new ArrayList<>(Arrays.asList(22, 29, 30, 31, 32, 33, 40));
 
         for (Integer i : black)
-            this.setItem(i, IInfos.BLACK_GLASS_BORDER);
+            inventory.setItem(i, IInfos.BLACK_GLASS_BORDER);
         for (Integer i : orange)
-            this.setItem(i, IInfos.ORANGE_GLASS_BORDER);
+            inventory.setItem(i, IInfos.ORANGE_GLASS_BORDER);
         for (Integer i : bars)
-            this.setItem(i, IInfos.BARS);
-        this.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
-        this.setItem(12, new ItemBuilder(IInfos.HOST_AKATSUKI_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.AKATSUKI));
-        this.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
-        this.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
-        this.setItem(49, IInfos.RETURN_ITEM, returnMain());
+            inventory.setItem(i, IInfos.BARS);
+        inventory.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
+        inventory.setItem(12, new ItemBuilder(IInfos.HOST_AKATSUKI_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.AKATSUKI));
+        inventory.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
+        inventory.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
+        inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
             if (!role.getRoleType().equals(RoleType.AKATSUKI))
@@ -133,7 +135,7 @@ public class IHostRoles extends RInventory {
             else
                 itemName.append(ChatColor.DARK_RED + " ✘");
 
-            this.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.AKATSUKI));
+            inventory.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.AKATSUKI));
             roles.remove(0);
         }
     }
@@ -145,16 +147,16 @@ public class IHostRoles extends RInventory {
         List<Integer> roles = new ArrayList<>(Arrays.asList(30, 32));
 
         for (Integer i : black)
-            this.setItem(i, IInfos.BLACK_GLASS_BORDER);
+            inventory.setItem(i, IInfos.BLACK_GLASS_BORDER);
         for (Integer i : orange)
-            this.setItem(i, IInfos.ORANGE_GLASS_BORDER);
+            inventory.setItem(i, IInfos.ORANGE_GLASS_BORDER);
         for (Integer i : bars)
-            this.setItem(i, IInfos.BARS);
-        this.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
-        this.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
-        this.setItem(14, new ItemBuilder(IInfos.HOST_OROCHIMARU_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.OROCHIMARU));
-        this.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
-        this.setItem(49, IInfos.RETURN_ITEM, returnMain());
+            inventory.setItem(i, IInfos.BARS);
+        inventory.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
+        inventory.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
+        inventory.setItem(14, new ItemBuilder(IInfos.HOST_OROCHIMARU_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.OROCHIMARU));
+        inventory.setItem(16, IInfos.HOST_SOLO_ROLES, updateOnClick(IHostRolesPage.SOLOS));
+        inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
             if (!role.getRoleType().equals(RoleType.OROCHIMARU))
@@ -172,7 +174,7 @@ public class IHostRoles extends RInventory {
             else
                 itemName.append(ChatColor.DARK_RED + " ✘");
 
-            this.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.OROCHIMARU));
+            inventory.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.OROCHIMARU));
             roles.remove(0);
         }
     }
@@ -184,16 +186,16 @@ public class IHostRoles extends RInventory {
         List<Integer> roles = new ArrayList<>(Arrays.asList(29, 31, 33));
 
         for (Integer i : black)
-            this.setItem(i, IInfos.BLACK_GLASS_BORDER);
+            inventory.setItem(i, IInfos.BLACK_GLASS_BORDER);
         for (Integer i : orange)
-            this.setItem(i, IInfos.ORANGE_GLASS_BORDER);
+            inventory.setItem(i, IInfos.ORANGE_GLASS_BORDER);
         for (Integer i : bars)
-            this.setItem(i, IInfos.BARS);
-        this.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
-        this.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
-        this.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
-        this.setItem(16, new ItemBuilder(IInfos.HOST_SOLO_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.SOLOS));
-        this.setItem(49, IInfos.RETURN_ITEM, returnMain());
+            inventory.setItem(i, IInfos.BARS);
+        inventory.setItem(10, IInfos.HOST_SHINOBI_ROLES, updateOnClick(IHostRolesPage.SHINOBI));
+        inventory.setItem(12, IInfos.HOST_AKATSUKI_ROLES, updateOnClick(IHostRolesPage.AKATSUKI));
+        inventory.setItem(14, IInfos.HOST_OROCHIMARU_ROLES, updateOnClick(IHostRolesPage.OROCHIMARU));
+        inventory.setItem(16, new ItemBuilder(IInfos.HOST_SOLO_ROLES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateOnClick(IHostRolesPage.SOLOS));
+        inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
             if (!role.getRoleType().equals(RoleType.DANZO) && !role.getRoleType().equals(RoleType.SASUKE))
@@ -211,7 +213,7 @@ public class IHostRoles extends RInventory {
             else
                 itemName.append(ChatColor.DARK_RED + " ✘");
 
-            this.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.SOLOS));
+            inventory.setItem(roles.get(0), item.setName(itemName.toString()).toItemStack(), updateRole(role, IHostRolesPage.SOLOS));
             roles.remove(0);
         }
     }

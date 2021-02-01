@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.commands.host;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.CommandSender;
@@ -18,31 +19,33 @@ public abstract class HRank {
 
         Player coHost = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_PROMOTE);
 
-        if (coHost == null) {
-            if (args.length == 2)
-                sender.sendMessage(Messages.PLAYER_NOT_CONNECTED.replace("%player%", args[1]));
+        if (coHost == null)
             return false;
-        }
 
         if (rules.gameCoHost.contains(coHost.getUniqueId())) {
             sender.sendMessage(Messages.HOST_ALREADY_CO_HOST.replace("%player%", coHost.getName()));
             return false;
         }
 
+        if (rules.gameCoHost.size() >= rules.maxCoHost) {
+            sender.sendMessage(Messages.HOST_TOO_MANY_CO_HOST);
+            return false;
+        }
+
         rules.gameCoHost.add(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_CO_HOST.replace("%player%", coHost.getName()));
+        coHost.sendMessage(Messages.HOST_PROMOTED);
         return true;
     }
 
-    public static boolean deleteHost(MRules rules, String[] args, CommandSender sender) {
+    public static boolean deleteHost(Setup setup, String[] args, CommandSender sender) {
+
+        MRules rules = setup.getGame().getGameInfo().getMRules();
 
         Player coHost = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_DELETE);
 
-        if (coHost == null) {
-            if (args.length == 2)
-                sender.sendMessage(Messages.PLAYER_NOT_CONNECTED.replace("%player%", args[1]));
+        if (coHost == null)
             return false;
-        }
 
         if (!rules.gameCoHost.contains(coHost.getUniqueId())) {
             sender.sendMessage(Messages.HOST_ALREADY_CO_HOST.replace("%player%", coHost.getName()));
@@ -51,6 +54,7 @@ public abstract class HRank {
 
         rules.gameCoHost.remove(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_DELETED_CO_HOST.replace("%player%", coHost.getName()));
+        coHost.sendMessage(Messages.HOST_DEMOTED);
         return true;
     }
 

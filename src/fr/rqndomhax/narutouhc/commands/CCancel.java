@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.inventories.host.IHostDeathInventory;
-import fr.rqndomhax.narutouhc.inventories.host.IHostStartInventory;
+import fr.rqndomhax.narutouhc.inventories.host.IHost;
+import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostDeathInventory;
+import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostStartInventory;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
@@ -51,14 +52,18 @@ public class CCancel implements CommandExecutor {
         if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId())) {
             rules.startInventoryInEdit = null;
             MGameActions.clearPlayerLobby(setup, player);
-            player.openInventory(new IHostStartInventory(setup, player).getInventory());
+            IHost host = new IHost(setup, player);
+            player.openInventory(host.getInventory());
+            new IHostStartInventory(setup, player, host);
             player.sendMessage(Messages.HOST_INVENTORY_CANCEL);
             return true;
         }
         else if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId())) {
             rules.deathInventoryInEdit = null;
             MGameActions.clearPlayerLobby(setup, player);
-            player.openInventory(new IHostDeathInventory(setup, player).getInventory());
+            IHost host = new IHost(setup, player);
+            player.openInventory(host.getInventory());
+            new IHostDeathInventory(setup, player, host);
             player.sendMessage(Messages.HOST_INVENTORY_CANCEL);
             return true;
         }

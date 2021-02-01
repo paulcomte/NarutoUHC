@@ -1,4 +1,11 @@
-package fr.rqndomhax.narutouhc.utils;
+/*
+ * Copyright (c) 2021.
+ *  Discord : _Paul#6918
+ *  Author : RqndomHax
+ *  Github: https://github.com/RqndomHax
+ */
+
+package fr.rqndomhax.narutouhc.utils.builders;
 
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -140,6 +147,13 @@ public class ItemBuilder {
     public ItemBuilder hideEnchants(){
         ItemMeta meta = is.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        is.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder addItemFlag(ItemFlag flag) {
+        ItemMeta meta = is.getItemMeta();
+        meta.addItemFlags(flag);
         is.setItemMeta(meta);
         return this;
     }

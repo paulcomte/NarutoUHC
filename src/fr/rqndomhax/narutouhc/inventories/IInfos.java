@@ -9,23 +9,30 @@ package fr.rqndomhax.narutouhc.inventories;
 
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.ItemBuilder;
+import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class IInfos {
 
-    public static String MAIN_HOST_NAME = ChatColor.DARK_GRAY + "Configuration du " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC";
-    public static String MAIN_HOST_ROLES_NAME = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Rôles";
+    public static String MAIN_HOST_NAME = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Configuration";
+    public static String ENCHANT_HOST = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Forge des dieux";
+
     public static ItemStack ORANGE_GLASS_BORDER = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 1).setName(" ").toItemStack();
     public static ItemStack BLACK_GLASS_BORDER = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 15).setName(" ").toItemStack();
 
     public static ItemStack RETURN_ITEM = new ItemBuilder(Material.REDSTONE).setName(ChatColor.GOLD + "Retour").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public static ItemStack BARS = new ItemBuilder(Material.IRON_FENCE).setName(" ").toItemStack();
+
+    // IHOST CONFIG
+    public static ItemStack HOST_WHITELIST = new ItemBuilder(Material.BOOK_AND_QUILL).toItemStack();
+    public static ItemStack HOST_SPECTATORS = new ItemBuilder(Material.GHAST_TEAR).toItemStack();
+    public static ItemStack HOST_SPECTATORS_AFTER_BORDER = new ItemBuilder(Material.BARRIER).toItemStack();
 
     // IHOSTITEM
     public static ItemStack MAIN_HOST_ITEM = new ItemBuilder(Material.REDSTONE_COMPARATOR).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().setName(MAIN_HOST_NAME).toItemStack();
@@ -35,8 +42,8 @@ public abstract class IInfos {
     public static ItemStack MAIN_HOST_SCENARIOS = new ItemBuilder(Material.GOLDEN_APPLE, 1, (byte) 1).setName(ChatColor.GREEN + "Scénarios").toItemStack();
     public static ItemStack MAIN_HOST_BORDER_CONFIG = new ItemBuilder(Material.BEDROCK).setName(ChatColor.GREEN + "Configuration de la bordure").toItemStack();
     public static ItemStack MAIN_HOST_INVENTORIES = new ItemBuilder(Material.CHEST).setName(ChatColor.GREEN + "Inventaires").toItemStack();
-    public static ItemStack MAIN_HOST_WORLD = new ItemBuilder(Material.MAP).setName(ChatColor.GREEN + "Gestion des mondes").toItemStack();
-    public static ItemStack MAIN_HOST_ROLES = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName(ChatColor.GREEN + "Gestion des rôles").toItemStack();
+    public static ItemStack MAIN_HOST_WORLD = new ItemBuilder(Material.MAP).setName(ChatColor.GREEN + "Gestion des mondes").addItemFlag(ItemFlag.HIDE_POTION_EFFECTS).toItemStack();
+    public static ItemStack MAIN_HOST_ROLES = new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 1).setName(ChatColor.GREEN + "Gestion des rôles").toItemStack();
     public static ItemStack MAIN_HOST_TIMERS = new ItemBuilder(Material.BEACON).setName(ChatColor.GREEN + "Timers").toItemStack();
     public static ItemStack MAIN_HOST_HOST = new ItemBuilder(Material.ANVIL).setName(ChatColor.GREEN + "Configuration du host").toItemStack();
     public static ItemStack MAIN_HOST_START = new ItemBuilder(Material.INK_SACK, 1, (byte) 10).setName(ChatColor.DARK_GREEN + "Lancer").toItemStack();
@@ -47,7 +54,6 @@ public abstract class IInfos {
     public static ItemStack INVENTORIES_HOST_DEATH = new ItemBuilder(Material.CHEST).setName(ChatColor.DARK_GRAY + "Inventaire de mort").toItemStack();
     public static ItemStack INVENTORIES_EDIT = new ItemBuilder(Material.SLIME_BALL).setName(ChatColor.GREEN + "Editer").toItemStack();
 
-
     // IHOST - World
     public static ItemStack WORLD_HOST_DROPS = new ItemBuilder(Material.FEATHER).setName(ChatColor.GRAY + "Drops").toItemStack();
 
@@ -56,6 +62,12 @@ public abstract class IInfos {
     public static ItemStack HOST_AKATSUKI_ROLES = new ItemBuilder(Material.NAME_TAG).setName("L'alliance akatsuki").toItemStack();
     public static ItemStack HOST_OROCHIMARU_ROLES = new ItemBuilder(Material.FIREWORK_CHARGE).setName("Le camp Orochimaru").toItemStack();
     public static ItemStack HOST_SOLO_ROLES = new ItemBuilder(Material.EYE_OF_ENDER).setName("Les solos").toItemStack();
+
+    // IHOST - Border
+    public static ItemStack HOST_BORDER_CENTER = new ItemBuilder(Material.COMPASS).setName(ChatColor.GREEN + "Centre").toItemStack();
+    public static ItemStack HOST_BORDER_ACTIVATION = new ItemBuilder(Material.WATCH).setName(ChatColor.GREEN + "Activation").toItemStack();
+    public static ItemStack HOST_BORDER_SIZE = new ItemBuilder(Material.HOPPER).setName(ChatColor.GREEN + "Taille").toItemStack();
+    public static ItemStack HOST_BORDER_SPEED_AND_DAMAGE = new ItemBuilder(Material.FEATHER).setName(ChatColor.GREEN + "Rapidité et dégâts").toItemStack();
 
     public static void setInventoryContent(Inventory inventory, ItemStack[] items) {
         for (int slots = 0 ; slots < 36 ; slots++)

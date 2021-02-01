@@ -8,7 +8,8 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.inventories.host.IHostInventories;
+import fr.rqndomhax.narutouhc.inventories.host.IHost;
+import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostInventories;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.Command;
@@ -39,7 +40,10 @@ public class CInventory implements CommandExecutor {
             return false;
         }
 
-        player.openInventory(new IHostInventories(setup, player).getInventory());
+        IHost host = new IHost(setup, player);
+        player.openInventory(host.getInventory());
+        new IHostInventories(setup, player, host);
+
         return true;
     }
 

@@ -8,23 +8,18 @@
 package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import org.bukkit.entity.Player;
 
-public class IHostScenarios {
+public class IHostEnchant extends RInventory {
 
     private final Setup setup;
     private final Player player;
-    private final RInventory inventory;
 
-    public IHostScenarios(Setup setup, Player player, RInventory inventory) {
+    public IHostEnchant(Setup setup, Player player) {
+        super(null, IInfos.ENCHANT_HOST, 9*6);
         this.setup = setup;
         this.player = player;
-        this.inventory = inventory;
-
-        for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
-
-        player.updateInventory();
     }
-
 }

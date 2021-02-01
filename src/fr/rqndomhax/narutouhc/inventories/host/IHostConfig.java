@@ -8,18 +8,103 @@
 package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.inventories.IInfos;
+import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
-public class IHostConfig extends RInventory {
+import java.util.function.Consumer;
+
+public class IHostConfig {
 
     private final Setup setup;
     private final Player player;
+    private final RInventory inventory;
 
-    public IHostConfig(Setup setup, Player player) {
-        super(player, "", 9*6);
+    public IHostConfig(Setup setup, Player player, RInventory inventory) {
+        this.inventory = inventory;
         this.setup = setup;
         this.player = player;
+
+        updateInventory();
+    }
+
+    private void updateInventory() {
+        for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
+
+        int[] bars = new int[]{3, 5, 48, 50};
+
+        for (Integer i : bars)
+            inventory.setItem(i, IInfos.BARS);
+
+        inventory.setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        IInfos.placeInvBorders(inventory.getInventory());
+
+        inventory.setItem(13, getSpectators(), changeSpectators());
+
+        inventory.setItem(29, getBorderDisconnects(), changeBorderDisconnects());
+
+        OfflinePlayer offlineHost = Bukkit.getOfflinePlayer(setup.getGame().getGameInfo().getMRules().gameHost);
+
+        inventory.setItem(31, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName("Host: " + offlineHost.getName()).setSkullOwner(offlineHost.getName()).toItemStack());
+
+        inventory.setItem(33, getWhitelist(), changeWhitelist());
+
+        inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
+            MRules rules = setup.getGame().getGameInfo().getMRules();
+            player.closeInventory();
+            if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
+                player.openInventory(new IHost(setup, player).getInventory());
+        });
+
+        player.updateInventory();
+    }
+
+    private ItemStack getBorderDisconnects() {
+        if (setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder)
+            return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+        return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.DARK_RED + " ✘").toItemStack();
+    }
+
+    private Consumer<InventoryClickEvent> changeBorderDisconnects() {
+        return e -> {
+            setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder = !setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder;
+            updateInventory();
+        };
+    }
+
+    private ItemStack getSpectators() {
+        if (setup.getGame().getGameInfo().getMRules().allowSpectators)
+            return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+        return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.DARK_RED + " ✘").toItemStack();
+    }
+
+    private Consumer<InventoryClickEvent> changeSpectators() {
+        return e -> {
+            setup.getGame().getGameInfo().getMRules().allowSpectators = !setup.getGame().getGameInfo().getMRules().allowSpectators;
+            updateInventory();
+        };
+    }
+
+    private ItemStack getWhitelist() {
+        if (setup.getGame().getGameInfo().getMRules().hasWhitelist)
+            return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+        return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.DARK_RED + " ✘").toItemStack();
+    }
+
+    private Consumer<InventoryClickEvent> changeWhitelist() {
+        return e -> {
+            setup.getGame().getGameInfo().getMRules().hasWhitelist = !setup.getGame().getGameInfo().getMRules().hasWhitelist;
+            updateInventory();
+        };
     }
 
 }

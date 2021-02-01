@@ -20,7 +20,7 @@ public abstract class MGameStatus {
 
     private static void showWin(Setup setup) {
         setup.getGame().getGameInfo().setGameState(GameState.GAME_FINISHED);
-        setup.getGame().getGameInfo().removeMTime();
+        setup.getGame().getGameInfo().removeTask();
     }
 
 }

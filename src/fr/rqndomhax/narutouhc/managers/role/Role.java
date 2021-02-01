@@ -33,4 +33,6 @@ public interface Role {
 
     void onPlayerJoin();
 
+    void onNewEpisode(int episode);
+
 }

@@ -78,6 +78,11 @@ public abstract class RoleInfo implements Role {
 
     }
 
+    @Override
+    public void onNewEpisode(int episode) {
+
+    }
+
     public Roles getRole() {
         return role;
     }

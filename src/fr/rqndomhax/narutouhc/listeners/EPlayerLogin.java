@@ -76,6 +76,8 @@ public class EPlayerLogin implements Listener {
         if (Bukkit.getOnlinePlayers().size() == 1)
             setup.getGame().getGameInfo().getMRules().gameHost = null;
 
+        setup.getGame().getGameInfo().getMRules().gameCoHost.remove(e.getPlayer().getUniqueId());
+
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
             setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
     }

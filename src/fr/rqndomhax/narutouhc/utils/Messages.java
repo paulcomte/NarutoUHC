@@ -35,6 +35,7 @@ public abstract class Messages {
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
 
     public static String NEED_PLAYER = PREFIX + "Seul un joueur peut effectuer cette action !";
+    public static String NEED_ITEM_IN_HAND = PREFIX + "Vous devez tenir un objet en main !";
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
@@ -57,9 +58,13 @@ public abstract class Messages {
     public static String PLAYER_LEFT = "("+ ChatColor.DARK_RED + "-" + ChatColor.WHITE +") %player%";
     public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "+" + ChatColor.WHITE +") %player%";
 
-    public static String CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
+    public static String GAME_DESIGNER_CREDITS = "Game mode designed by Syknos - Laynoks - RqndomHax";
+    public static String HELPER_CREDITS = "Special thanks to, Spat', Losgateaux";
+    public static String DEV_CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
 
     public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette action !";
+    public static String COMMAND_ONLY_CONSOLE = PREFIX + "Seul la console peut effectuer cette action !";
+
 
     public static String HOST_INVENTORY_BEGINNING_SAVED = PREFIX + "L'inventaire de départ a bien été mis à jour !";
     public static String HOST_INVENTORY_DEATH_SAVED = PREFIX + "L'inventaire de mort a bien été mis à jour !";
@@ -100,15 +105,25 @@ public abstract class Messages {
     public static String PLAYER_KICKED = PREFIX + "Vous avez été expulsé(e) de cette partie !";
     public static String PLAYER_NOW_KICKED = PREFIX + "Le joueur %player% a été expulsé(e) avec succès !";
 
+    public static String HOST_TOO_MANY_CO_HOST = PREFIX + "Le nombre maximum de co-hôte a déjà été atteint !";
     public static String HOST_ALREADY_NOT_CO_HOST = PREFIX + "Le joueur %player% n'est pas un co-hôte !";
     public static String HOST_ALREADY_CO_HOST = PREFIX + "Le joueur %player% est déjà un co-hôte !";
     public static String HOST_NOW_CO_HOST = PREFIX + "Le joueur %player% est maintenant un co-hôte !";
     public static String HOST_NOW_DELETED_CO_HOST = PREFIX + "Le joueur %player% n'est plus un co-hôte !";
+    public static String HOST_DEMOTED = PREFIX + "Vous avez perdu votre rang de co-hôte !";
+    public static String HOST_PROMOTED = PREFIX + "Vous êtes maintenant un co-hôte !";
 
     public static String ROLE_NO_ITEMS = PREFIX + "Votre rôle ne dispose d'aucun équipement supplémentaire !";
     public static String ROLE_ITEMS_NEED_SPACE = PREFIX + "Votre inventaire doit avoir la place nécessaire pour récupérer %n% objets";
     public static String ROLE_ITEMS_OBTAINED = PREFIX + "Vous avez reçu l'équipement de votre rôle !";
     public static String ROLE_NO_MORE_USES = PREFIX + "Votre rôle ne dispose d'aucune utilisation restante !";
+
+    public static String FORCE_WRONG_MAP_BORDER = PREFIX + "Vous ne pouvez pas forcer la bordure sur cette map !";
+    public static String ALREADY_ACTIVATED = PREFIX + "Le %info% a déjà été activé !";
+
+    public static String EPISODE_STARTED = PREFIX + "Début de l'épisode %episode% !";
+    public static String EPISODE_FINISHED_30S = PREFIX + "L'épisode %episode% se termine dans 30 secondes !";
+    public static String EPISODE_FINISHED = PREFIX + "Fin de l'épisode %episode% !";
 
     public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
@@ -127,7 +142,9 @@ public abstract class Messages {
     public static void showHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
         sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
-        sender.sendMessage(CREDITS);
+        sender.sendMessage(GAME_DESIGNER_CREDITS);
+        sender.sendMessage(HELPER_CREDITS);
+        sender.sendMessage(DEV_CREDITS);
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
     }
 

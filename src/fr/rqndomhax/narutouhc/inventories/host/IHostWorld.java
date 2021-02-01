@@ -21,31 +21,39 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.function.Consumer;
 
-public class IHostWorld extends RInventory {
+public class IHostWorld {
 
     private final Setup setup;
     private final Player player;
+    private final RInventory inventory;
 
-    public IHostWorld(Setup setup, Player player) {
-        super(null, "", 9*6);
+    public IHostWorld(Setup setup, Player player, RInventory inventory) {
+        this.inventory = inventory;
         this.setup = setup;
         this.player = player;
 
-        IInfos.placeInvBorders(this.getInventory());
+        updateInventory();
+    }
 
-        this.setItem(13, IInfos.getWorldHostAbsorption(setup.getGame().getGameInfo().getMRules()), getAbsorption());
+    private void updateInventory() {
+        for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
 
-        this.setItem(20, IInfos.WORLD_HOST_DROPS);
+        IInfos.placeInvBorders(inventory.getInventory());
 
-        this.setItem(24, IInfos.getWorldHostDifficulty(), changeDifficulty());
+        inventory.setItem(13, IInfos.getWorldHostAbsorption(setup.getGame().getGameInfo().getMRules()), getAbsorption());
 
-        this.setItem(31, IInfos.getWorldDayCycle(setup.getGame().getGameInfo().getMRules()), changeDayCycle());
+        inventory.setItem(20, IInfos.WORLD_HOST_DROPS);
 
-        this.setItem(49, IInfos.RETURN_ITEM, e -> {
+        inventory.setItem(24, IInfos.getWorldHostDifficulty(), changeDifficulty());
+
+        inventory.setItem(31, IInfos.getWorldDayCycle(setup.getGame().getGameInfo().getMRules()), changeDayCycle());
+
+        inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
             player.closeInventory();
             player.openInventory(new IHost(setup, player).getInventory());
         });
 
+        player.updateInventory();
     }
 
     private Consumer<InventoryClickEvent> changeDayCycle() {
@@ -75,7 +83,7 @@ public class IHostWorld extends RInventory {
                 default: break;
             }
 
-            this.setItem(31, IInfos.getWorldDayCycle(mRules), changeDayCycle());
+            inventory.setItem(31, IInfos.getWorldDayCycle(mRules), changeDayCycle());
         };
 
     }
@@ -128,7 +136,7 @@ public class IHostWorld extends RInventory {
                     break;
                 default: break;
             }
-            this.setItem(24, IInfos.getWorldHostDifficulty(), changeDifficulty());
+            inventory.setItem(24, IInfos.getWorldHostDifficulty(), changeDifficulty());
             player.updateInventory();
         };
     }
@@ -148,7 +156,7 @@ public class IHostWorld extends RInventory {
                 mRules.absorption = mRules.absorption + 1;
             if (e.isRightClick())
                 mRules.absorption = mRules.absorption - 1;
-            this.setItem(13, IInfos.getWorldHostAbsorption(mRules), getAbsorption());
+            inventory.setItem(13, IInfos.getWorldHostAbsorption(mRules), getAbsorption());
         };
     }
 

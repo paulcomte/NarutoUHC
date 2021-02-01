@@ -11,14 +11,14 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.managers.MTime;
+import fr.rqndomhax.narutouhc.tasks.TMain;
 
 public class MGameInfo {
 
     private final MBorder mBorder;
     private GameState gameState = GameState.LOADING;
     private Maps currentMap = Maps.NO_PVP;
-    private MTime mTime;
+    private TMain mainTask;
     private final MRules mRules;
 
     public MGameInfo(MBorder mBorder, MRules mRules) {
@@ -42,15 +42,18 @@ public class MGameInfo {
         this.gameState = gameState;
     }
 
-    public void startMTime(Setup setup) {
-        if (this.mTime != null)
+    public void startTask(Setup setup) {
+        if (this.mainTask != null)
             return;
-        this.mTime = new MTime(setup);
+        this.mainTask = new TMain(setup);
     }
 
-    public void removeMTime() {
-        mTime.cancel();
-        this.mTime = null;
+    public void removeTask() {
+        if (this.mainTask == null)
+            return;
+        mainTask.isAlive = false;
+        mainTask.cancel();
+        this.mainTask = null;
     }
 
     public Maps getCurrentMap() {
@@ -61,7 +64,7 @@ public class MGameInfo {
         this.currentMap = currentMap;
     }
 
-    public MTime getMTime() {
-        return mTime;
+    public TMain getMainTask() {
+        return mainTask;
     }
 }

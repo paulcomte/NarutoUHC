@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.utils;
+package fr.rqndomhax.narutouhc.utils.builders;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;

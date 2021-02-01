@@ -31,10 +31,10 @@ public class CRules implements CommandExecutor {
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
         sender.sendMessage(ChatColor.DARK_AQUA + "Annonce des rôles : " + ChatColor.GOLD + rules.rolesAnnounce + ChatColor.DARK_AQUA + " minutes.");
         sender.sendMessage(ChatColor.DARK_AQUA + "Temps de préparation : " + ChatColor.GOLD + rules.preparationTime + ChatColor.DARK_AQUA + " minutes.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Temps avant bordure : " + ChatColor.GOLD + border.timeBeforeResize + ChatColor.DARK_AQUA + " minutes.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "Temps avant bordure : " + ChatColor.GOLD + border.timeBeforeResize / 60 + ChatColor.DARK_AQUA + " minutes.");
         sender.sendMessage(ChatColor.DARK_AQUA + "Taille de la bordure original : " + ChatColor.GOLD + border.defaultSize + ChatColor.DARK_AQUA + " blocks.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Taille de la bordure final : " + ChatColor.GOLD + border.maxSize + ChatColor.DARK_AQUA + " blocks.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Centre de la bordure : " + ChatColor.GOLD + border.xCenter + ChatColor.DARK_AQUA + " / " + ChatColor.GOLD + border.zCenter);
+        sender.sendMessage(ChatColor.DARK_AQUA + "Taille de la bordure final : " + ChatColor.GOLD + border.finalSize + ChatColor.DARK_AQUA + " blocks.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "Centre de la bordure : " + ChatColor.GOLD + border.center.getX() + ChatColor.DARK_AQUA + " / " + ChatColor.GOLD + border.center.getZ());
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
         return true;
     }

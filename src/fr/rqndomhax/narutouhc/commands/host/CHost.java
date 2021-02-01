@@ -43,7 +43,7 @@ public class CHost implements CommandExecutor {
         switch (args[0]) {
             case "del":
             case "delete":
-                return HRank.deleteHost(rules, args, sender);
+                return HRank.deleteHost(setup, args, sender);
             case "promote":
                 return HRank.promoteHost(rules, args, sender);
             case "ban":
@@ -56,7 +56,7 @@ public class CHost implements CommandExecutor {
             case "say":
                 return HManager.sendAnnounce(rules, args, sender);
             case "set":
-                return HManager.setHost(rules, args, sender);
+                return HManager.setHost(setup, args, sender);
             default:
                 if (sender instanceof Player) {
                     if ((rules.gameHost.equals(((Player) sender).getUniqueId()) || rules.gameCoHost.contains(((Player) sender).getUniqueId())))

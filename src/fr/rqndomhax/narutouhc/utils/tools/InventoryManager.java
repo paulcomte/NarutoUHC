@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.utils;
+package fr.rqndomhax.narutouhc.utils.tools;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

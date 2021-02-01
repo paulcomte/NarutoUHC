@@ -12,7 +12,8 @@ import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.title.Title;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -133,16 +134,15 @@ public abstract class MGameActions {
         player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
     }
 
-    public static void sendInfos(Set<MPlayer> players, int i) {
+    public static void sendInfos(Set<MPlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
         for (MPlayer mPlayer : players) {
 
             Player player = Bukkit.getPlayer(mPlayer.uuid);
             if (player == null) continue;
 
-            if (i != 0) {
-                player.playNote(player.getLocation(), Instrument.PIANO, Note.flat(1,  Note.Tone.A));
-                player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
-            }
+            new Title(title, desc, 3, 20, 2).send(player);
+            if (playNote)
+                player.playNote(player.getLocation(), instrument, Note.flat(octave,  tone));
         }
     }
 

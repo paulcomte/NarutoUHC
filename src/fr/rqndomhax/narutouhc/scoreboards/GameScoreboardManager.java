@@ -45,14 +45,14 @@ public abstract class GameScoreboardManager {
         if (mPlayer != null) {
             board.updateLine(3, colorPrefix + "➤ Rôle : " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
             board.updateLine(4, "");
-            board.updateLine(5, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().rawTime);
+            board.updateLine(5, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
             board.updateLine(6, "");
-            board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().episode);
+            board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
             return;
         }
-        board.updateLine(3, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().rawTime);
+        board.updateLine(3, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
         board.updateLine(4, "");
-        board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().episode);
+        board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
     }
 
     public static void updateNarutoBoard(Setup setup, FastBoard board) {
@@ -75,7 +75,7 @@ public abstract class GameScoreboardManager {
             board.updateLine(6, "");
             board.updateLine(7, colorPrefix + "➤ Kills : " + ChatColor.WHITE + mPlayer.kills.size());
             board.updateLine(8, "");
-            board.updateLine(9, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMTime().rawTime);
+            board.updateLine(9, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
             board.updateLine(10, "");
             World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
             if (world.getWorldBorder().getSize() == setup.getGame().getGameInfo().getMBorder().defaultSize)
