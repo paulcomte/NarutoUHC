@@ -10,7 +10,7 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
-import fr.rqndomhax.narutouhc.utils.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
