@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.inventories.host.border.IHostBorder;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostInventories;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRoles;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRolesPage;
+import fr.rqndomhax.narutouhc.inventories.host.world.IHostWorld;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import org.bukkit.ChatColor;

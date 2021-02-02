@@ -11,9 +11,9 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.tools.Banners;
 import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.Banners;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,9 +25,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class IHostBorderStats {
+
     private final Setup setup;
     private final Player player;
     private final RInventory inventory;
+    DecimalFormat format = new DecimalFormat("#.#");
 
     public IHostBorderStats(Setup setup, Player player, RInventory inventory) {
         this.inventory = inventory;
@@ -107,8 +109,6 @@ public class IHostBorderStats {
         }
 
         MBorder border = setup.getGame().getGameInfo().getMBorder();
-        DecimalFormat format = new DecimalFormat("#.#");
-
         if (border.speed > 1)
             inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Vitesse de la bordure: " + ChatColor.DARK_AQUA + format.format(border.speed) + ChatColor.GREEN + " blocks/sec").toItemStack());
         else

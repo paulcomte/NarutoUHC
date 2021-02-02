@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.commands.*;
 import fr.rqndomhax.narutouhc.commands.host.CHost;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.*;
+import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.apache.commons.io.FileUtils;
@@ -85,7 +86,9 @@ public class Registers {
         pm.registerEvents(new EPlayerActions(setup), setup.getMain());
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
-        pm.registerEvents(new EScenarios(), setup.getMain());
+
+        pm.registerEvents(new SCutClean(setup), setup.getMain());
+
         pm.registerEvents(new ELobbyCancel(setup), setup.getMain());
     }
 

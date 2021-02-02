@@ -56,6 +56,8 @@ public abstract class IInfos {
 
     // IHOST - World
     public static ItemStack WORLD_HOST_DROPS = new ItemBuilder(Material.FEATHER).setName(ChatColor.GRAY + "Drops").toItemStack();
+    public static ItemStack WORLD_HOST_DAY_CYCLE = new ItemBuilder(Material.WATCH).setName(ChatColor.GREEN + "Cycle jour/nuit").toItemStack();
+    public static ItemStack WORLD_HOST_DIFFICULTY = new ItemBuilder(Material.DEAD_BUSH).setName(ChatColor.GREEN + "Difficulté").toItemStack();
 
     // IHOST - Roles
     public static ItemStack HOST_SHINOBI_ROLES = new ItemBuilder(Material.BLAZE_POWDER).setName("L'alliance shinobi").toItemStack();
@@ -69,39 +71,18 @@ public abstract class IInfos {
     public static ItemStack HOST_BORDER_SIZE = new ItemBuilder(Material.HOPPER).setName(ChatColor.GREEN + "Taille").toItemStack();
     public static ItemStack HOST_BORDER_SPEED_AND_DAMAGE = new ItemBuilder(Material.FEATHER).setName(ChatColor.GREEN + "Rapidité et dégâts").toItemStack();
 
+    // IHOST - Timer
+    public static ItemStack HOST_TIMER_ROLES = new ItemStack(Material.SKULL_ITEM, 1, (byte) 1);
+    public static ItemStack HOST_TIMER_TELEPORT = new ItemStack(Material.DIAMOND_SWORD);
+
     public static void setInventoryContent(Inventory inventory, ItemStack[] items) {
-        for (int slots = 0 ; slots < 36 ; slots++)
+        for (int slots = 0; slots < 36; slots++)
             if (items[slots] != null)
-                inventory.setItem(slots+9, items[slots]);
+                inventory.setItem(slots + 9, items[slots]);
         inventory.setItem(45, items[36]);
         inventory.setItem(46, items[37]);
         inventory.setItem(47, items[38]);
         inventory.setItem(48, items[39]);
-    }
-
-
-    public static ItemStack getWorldHostDifficulty() {
-        ItemBuilder item = new ItemBuilder(Material.DEAD_BUSH).setName(ChatColor.RED + "Difficulté du monde");
-        switch (Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getDifficulty()) {
-            case EASY:
-                return item.setLore(ChatColor.DARK_PURPLE + "Difficulté : " + ChatColor.GREEN + "Facile").toItemStack();
-            case NORMAL:
-                return item.setLore(ChatColor.DARK_PURPLE + "Difficulté : " + ChatColor.DARK_GREEN + "Normal").toItemStack();
-            case HARD:
-                return item.setLore(ChatColor.DARK_PURPLE + "Difficulté : " + ChatColor.DARK_RED + "Difficile").toItemStack();
-            case PEACEFUL:
-                return item.setLore(ChatColor.DARK_PURPLE + "Difficulté : " + ChatColor.AQUA + "Paisible").toItemStack();
-            default:
-                return item.setLore(ChatColor.DARK_PURPLE + "Difficulté : " + ChatColor.WHITE + "Aucune").toItemStack();
-        }
-    }
-
-    public static ItemStack getWorldDayCycle(MRules mRules) {
-        return new ItemBuilder(Material.WATCH).setName(ChatColor.DARK_AQUA + "Cycle jour/nuit").setLore(mRules.dayCycle.getDescription()).toItemStack();
-    }
-
-    public static ItemStack getWorldHostAbsorption(MRules mRules) {
-        return new ItemBuilder(Material.GOLDEN_APPLE).setName(ChatColor.YELLOW + "Absorption").setLore(String.valueOf(mRules.absorption)).toItemStack();
     }
 
     public static void placeInvBorders(Inventory inventory) {

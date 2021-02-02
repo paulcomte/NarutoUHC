@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
+import fr.rqndomhax.narutouhc.managers.rules.Drops;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -41,10 +42,8 @@ public class MRules {
     public ItemStack[] deathInventory = new ItemStack[40];
 
     public final List<Roles> activatedRoles = new ArrayList<>();
-    public final List<Scenarios> activatedScenarios = new ArrayList<>();
-
-    public int absorption = 4;
-    public int maxAbsorption = 10;
+    public final List<Scenarios> activatedScenarios = new ArrayList<>(Arrays.asList(Scenarios.values()));
+    public final List<Drops> drops = new ArrayList<>(Arrays.asList(Drops.values()));
 
     public DayCycle dayCycle = DayCycle.NORMAL;
 
@@ -61,8 +60,8 @@ public class MRules {
     public int startDuration = 10;
 
     public int invincibilityTime = 30;
-    public int preparationTime = 40;
-    public int rolesAnnounce = 35;
+    public int preparationTime = 40*60;
+    public int rolesAnnounce = 35*60;
 
     public int teleportingDuration = 15;
     public int narutoTeleportingDuration = 15;

@@ -12,5 +12,6 @@ public enum Scenarios {
     CAT_EYES,
     CUTCLEAN,
     REVIVE_BEFORETP,
+    FINAL_HEAL_TELEPORT;
 
 }
