@@ -72,7 +72,7 @@ public class GameScoreboard {
     }
 
     public void runBoard() {
-        Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(setup.getMain(), () -> {
+        Bukkit.getServer().getScheduler().runTaskTimer(setup.getMain(), () -> {
             for (FastBoard board : boards.values()) {
 
                 updateBoard(board);

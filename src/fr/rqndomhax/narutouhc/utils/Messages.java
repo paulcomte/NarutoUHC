@@ -40,13 +40,17 @@ public abstract class Messages {
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
 
-    public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminé dans %time% secondes";
-    public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminé !";
+    public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminée dans %time% secondes";
+    public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminer !";
 
-    public static String NARUTO_MAP_TP = PREFIX + "Téléportation sur l'univers de naruto dans %time% secondes !";
+    public static String NARUTO_MAP_TP = PREFIX + "Téléportation dans l'univers de naruto dans %time% secondes !";
+    public static String NARUTO_MAP_TPING = PREFIX + "Téléportation dans l'univers de naruto !";
 
-    public static String WB_TIME_BEFORE_BORDER_RESIZE = PREFIX + "Réduction de la bordure dans %time% s.";
+    public static String WB_TIME_BEFORE_BORDER_RESIZE = PREFIX + "Réduction de la bordure dans %time% secondes !";
     public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
+
+    public static String ROLES_ANNOUNCE_IN = PREFIX + "Annonce des rôles dans %time% secondes";
+    public static String ROLES_ANNOUNCED = PREFIX + "Les rôles ont étés annoncés !";
 
     public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
     public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
@@ -121,9 +125,8 @@ public abstract class Messages {
     public static String FORCE_WRONG_MAP_BORDER = PREFIX + "Vous ne pouvez pas forcer la bordure sur cette map !";
     public static String ALREADY_ACTIVATED = PREFIX + "Le %info% a déjà été activé !";
 
-    public static String EPISODE_STARTED = PREFIX + "Début de l'épisode %episode% !";
     public static String EPISODE_FINISHED_30S = PREFIX + "L'épisode %episode% se termine dans 30 secondes !";
-    public static String EPISODE_FINISHED = PREFIX + "Fin de l'épisode %episode% !";
+    public static String EPISODE_FINISHED = ChatColor.BLACK + "-------- Fin Episode %episode% --------";
 
     public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");

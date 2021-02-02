@@ -7,20 +7,23 @@
 
 package fr.rqndomhax.narutouhc.tasks;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
 public enum Tasks {
 
     START(TStart.class),
-    WAIT(TWait.class);
+    WAIT(TPlatform.class),
+    INVINCIBILITY(TInvincibility.class),
+    PREPARATION(TPreparation.class),
+    TELEPORTATION(TTeleportation.class),
+    BORDER(TBorder.class),
+    MEETUP(TMeetup.class);
 
-    private final Class<? extends BukkitRunnable> runnable;
+    private final Class<? extends Task> runnable;
 
-    Tasks(Class<? extends BukkitRunnable> runnable) {
+    Tasks(Class<? extends Task> runnable) {
         this.runnable = runnable;
     }
 
-    public Class<? extends BukkitRunnable> getRunnable() {
+    public Class<? extends Task> getRunnable() {
         return runnable;
     }
 }

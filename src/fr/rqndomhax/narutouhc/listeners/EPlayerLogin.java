@@ -37,7 +37,7 @@ public class EPlayerLogin implements Listener {
         }
 
         if (setup.getGame().getGameInfo().getMRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
-            e.setKickMessage(Messages.PLAYER_BANNED);
+            e.disallow(PlayerLoginEvent.Result.KICK_BANNED, Messages.PLAYER_BANNED);
             return;
         }
 

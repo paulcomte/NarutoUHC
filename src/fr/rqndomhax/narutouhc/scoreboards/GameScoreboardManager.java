@@ -24,9 +24,9 @@ public abstract class GameScoreboardManager {
         board.updateTitle(setup.getGame().getGameInfo().getMRules().gameTitle);
         board.updateLine(0, "");
         if (setup.getGame().getGameInfo().getMRules().gameHost != null)
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + Bukkit.getOfflinePlayer(setup.getGame().getGameInfo().getMRules().gameHost).getName());
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(setup.getGame().getGameInfo().getMRules().gameHost).getName());
         else
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + "Aucun");
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + "Aucun");
     }
 
     public static void updatePreparationBoard(Setup setup, FastBoard board) {
@@ -36,23 +36,23 @@ public abstract class GameScoreboardManager {
         board.updateTitle(rules.gameTitle);
         board.updateLine(0, "");
         if (rules.gameHost != null)
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
         else
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + "Aucun");
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + "Aucun");
 
         board.updateLine(2, "");
 
         if (mPlayer != null) {
-            board.updateLine(3, colorPrefix + "➤ Rôle : " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
+            board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
             board.updateLine(4, "");
-            board.updateLine(5, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
+            board.updateLine(5, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
             board.updateLine(6, "");
-            board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
+            board.updateLine(7, colorPrefix + "➤ Episode: " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
             return;
         }
-        board.updateLine(3, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
+        board.updateLine(3, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
         board.updateLine(4, "");
-        board.updateLine(5, colorPrefix + "➤ Episode : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
+        board.updateLine(5, colorPrefix + "➤ Episode: " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
     }
 
     public static void updateNarutoBoard(Setup setup, FastBoard board) {
@@ -62,33 +62,69 @@ public abstract class GameScoreboardManager {
         board.updateTitle(rules.gameTitle);
         board.updateLine(0, "");
         if (rules.gameHost != null)
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
         else
-            board.updateLine(1, colorPrefix + "➤ Host : " + ChatColor.WHITE + "Aucun");
+            board.updateLine(1, colorPrefix + "➤ Host: " + ChatColor.WHITE + "Aucun");
 
         board.updateLine(2, "");
-        board.updateLine(3, colorPrefix + "➤ Groupes : " + ChatColor.WHITE + rules.groupSize);
+        board.updateLine(3, colorPrefix + "➤ Groupes: " + ChatColor.WHITE + rules.groupSize);
         board.updateLine(4, "");
 
+        World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
         if (mPlayer != null) {
-            board.updateLine(5, colorPrefix + "➤ Rôle : " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
+            board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
             board.updateLine(6, "");
-            board.updateLine(7, colorPrefix + "➤ Kills : " + ChatColor.WHITE + mPlayer.kills.size());
+            board.updateLine(7, colorPrefix + "➤ Kills: " + ChatColor.WHITE + mPlayer.kills.size());
             board.updateLine(8, "");
-            board.updateLine(9, colorPrefix + "➤ Temps : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().time);
+            board.updateLine(9, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
             board.updateLine(10, "");
-            World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
             if (world.getWorldBorder().getSize() == setup.getGame().getGameInfo().getMBorder().defaultSize)
-                board.updateLine(11, colorPrefix + "➤ Bordure : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMBorder().timeBeforeResize);
+                board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMBorder().timeBeforeResize));
             else
-                board.updateLine(11, colorPrefix + "➤ Bordure : " + ChatColor.WHITE + (world.getWorldBorder().getCenter().getX() - world.getWorldBorder().getSize()) + "/" + (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize()));
+                board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + (world.getWorldBorder().getCenter().getX() - world.getWorldBorder().getSize()) + "/" + (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize()));
+        }
+        else {
+            board.updateLine(5, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
+            board.updateLine(6, "");
+            if (world.getWorldBorder().getSize() == setup.getGame().getGameInfo().getMBorder().defaultSize)
+                board.updateLine(7, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMBorder().timeBeforeResize));
+            else
+                board.updateLine(7, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + (world.getWorldBorder().getCenter().getX() - world.getWorldBorder().getSize()) + "/" + (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize()));
+            board.updateLine(8, "");
+            board.updateLine(5, colorPrefix + "➤ Episode: " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
+        }
+    }
 
+    private static String getFormattedTime(int time) {
+        int hours = 0;
+        int mins = 0;
+        StringBuilder sb = new StringBuilder();
+
+        while (time - 60*60 >= 0) {
+            hours++;
+            time -= 60*60;
         }
 
-        board.updateLine(10, "");
+        while (time - 60 >= 0) {
+            mins++;
+            time -= 60;
+        }
 
-        board.updateLine(11, colorPrefix + "➤ Bordure : " + ChatColor.WHITE + setup.getGame().getGameInfo().getMBorder().timeBeforeResize);
+        if (hours != 0) {
+            if (hours < 10)
+                sb.append("0");
+            sb.append(hours);
+            sb.append(":");
+        }
 
+        if (mins < 10)
+            sb.append("0");
+        sb.append(mins);
+        sb.append(":");
+        if (time < 10)
+            sb.append("0");
+        sb.append(time);
+        return sb.toString();
     }
 
 }

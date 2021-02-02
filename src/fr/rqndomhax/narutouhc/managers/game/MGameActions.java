@@ -75,6 +75,10 @@ public abstract class MGameActions {
         }
     }
 
+    public static void teleportPlayers2(Setup setup) {
+        
+    }
+
     public static void teleportPlayers1(Setup setup) {
 
         Set<MPlayer> players = setup.getGame().getGamePlayers();

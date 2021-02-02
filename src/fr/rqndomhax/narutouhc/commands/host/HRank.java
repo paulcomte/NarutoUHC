@@ -9,15 +9,19 @@ package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public abstract class HRank {
 
-    public static boolean promoteHost(MRules rules, String[] args, CommandSender sender) {
+    public static boolean promoteHost(Setup setup, String[] args, CommandSender sender) {
 
+        MRules rules = setup.getGame().getGameInfo().getMRules();
         Player coHost = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_PROMOTE);
+
 
         if (coHost == null)
             return false;
@@ -35,6 +39,8 @@ public abstract class HRank {
         rules.gameCoHost.add(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_CO_HOST.replace("%player%", coHost.getName()));
         coHost.sendMessage(Messages.HOST_PROMOTED);
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(setup, coHost);
         return true;
     }
 
@@ -55,6 +61,8 @@ public abstract class HRank {
         rules.gameCoHost.remove(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_DELETED_CO_HOST.replace("%player%", coHost.getName()));
         coHost.sendMessage(Messages.HOST_DEMOTED);
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(setup, coHost);
         return true;
     }
 

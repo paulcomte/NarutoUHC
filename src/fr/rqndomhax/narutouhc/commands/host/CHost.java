@@ -45,7 +45,7 @@ public class CHost implements CommandExecutor {
             case "delete":
                 return HRank.deleteHost(setup, args, sender);
             case "promote":
-                return HRank.promoteHost(rules, args, sender);
+                return HRank.promoteHost(setup, args, sender);
             case "ban":
                 return HStatus.banPlayer(rules, args, sender);
             case "unban":

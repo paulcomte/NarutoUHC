@@ -35,8 +35,8 @@ public class IHost extends RInventory {
         this.player = player;
 
         IInfos.placeInvBorders(this.getInventory());
-        this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openHostConfigs());
-        this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
+        this.setItem(4, IInfos.MAIN_HOST_CONFIGS);
+        this.setItem(11, IInfos.MAIN_HOST_SCENARIOS);
         this.setItem(15, IInfos.MAIN_HOST_BORDER_CONFIG, openBorderConfig());
         this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
         this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
