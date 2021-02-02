@@ -7,10 +7,7 @@
 
 package fr.rqndomhax.narutouhc.inventories;
 
-import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

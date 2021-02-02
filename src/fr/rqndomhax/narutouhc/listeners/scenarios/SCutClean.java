@@ -18,7 +18,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Random;
 
 public class SCutClean implements Listener {
 
@@ -66,8 +65,7 @@ public class SCutClean implements Listener {
         if (!setup.getGame().getGameInfo().getMRules().activatedScenarios.contains(Scenarios.CUTCLEAN))
             return;
 
-        if (!e.getBlock().getType().equals(Material.GRAVEL)
-                && !e.getBlock().getType().equals(Material.GOLD_ORE)
+        if (!e.getBlock().getType().equals(Material.GOLD_ORE)
                 && !e.getBlock().getType().equals(Material.IRON_ORE))
             return;
 
@@ -83,13 +81,6 @@ public class SCutClean implements Listener {
                     return;
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_INGOT));
                 e.getBlock().getWorld().spawn(e.getBlock().getLocation(), ExperienceOrb.class).setExperience(3);
-                break;
-            case GRAVEL:
-                int prob = new Random().nextInt(101);
-                if (prob >= 65)
-                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.FLINT));
-                else
-                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GRAVEL));
                 break;
             default:
                 break;
