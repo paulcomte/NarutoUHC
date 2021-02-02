@@ -43,7 +43,13 @@ public abstract class GameScoreboardManager {
         board.updateLine(2, "");
 
         if (mPlayer != null) {
-            board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
+            if (mPlayer.role == null)
+                if (setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time > 0)
+                    board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time));
+                else
+                    board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + "?");
+            else
+                board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + mPlayer.role.getRole().name().toLowerCase());
             board.updateLine(4, "");
             board.updateLine(5, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
             board.updateLine(6, "");
@@ -72,7 +78,13 @@ public abstract class GameScoreboardManager {
 
         World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
         if (mPlayer != null) {
-            board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + (mPlayer.role == null ? "?" : mPlayer.role.getRole().name().toLowerCase()));
+            if (mPlayer.role == null)
+                if (setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time > 0)
+                    board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time));
+                else
+                    board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + "?");
+            else
+                board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + mPlayer.role.getRole().name().toLowerCase());board.updateLine(6, "");
             board.updateLine(6, "");
             board.updateLine(7, colorPrefix + "➤ Kills: " + ChatColor.WHITE + mPlayer.kills.size());
             board.updateLine(8, "");
