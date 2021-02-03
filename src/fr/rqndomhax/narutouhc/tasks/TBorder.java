@@ -14,11 +14,12 @@ import org.bukkit.Bukkit;
 public class TBorder implements Task {
 
     private final TMain mainTask;
-    int time = 0;
+    public int remainingTime = 0;
 
     public TBorder(TMain mainTask) {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
+        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMBorder().timeBeforeResize;
         loop();
     }
 
@@ -27,39 +28,34 @@ public class TBorder implements Task {
         if (mainTask == null || !mainTask.isAlive)
             return;
 
-        int r = mainTask.getSetup().getGame().getGameInfo().getMBorder().timeBeforeResize;
-
-        if (r < 0) {
-            mainTask.lastTaskFinished = true;
-            return;
-        }
-
-        if (r == 45*60 || r == 30*60 || r == 15*60 || r == 10*60 || r == 5*60 || r == 60) {
-            if (r == 60)
+        if (remainingTime == 45*60 || remainingTime == 30*60 || remainingTime == 15*60 || remainingTime == 10*60 || remainingTime == 5*60 || remainingTime == 60) {
+            if (remainingTime == 60)
                 Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE
-                        .replace("%time%", String.valueOf(r/60))
+                        .replace("%time%", String.valueOf(remainingTime/60))
                         .replace("secondes", "minute"));
             else
                 Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE
-                        .replace("%time%", String.valueOf(r/60))
+                        .replace("%time%", String.valueOf(remainingTime/60))
                         .replace("secondes", "minutes"));
         }
 
-        if (r == 45 ||r == 30 || r == 15 || r == 10 || r <= 5 && r > 0) {
-            if (r == 1)
+        if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0) {
+            if (remainingTime == 1)
                 Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE
-                        .replace("%time%", String.valueOf(r))
+                        .replace("%time%", String.valueOf(remainingTime))
                         .replace("secondes", "seconde"));
             else
                 Bukkit.broadcastMessage(Messages.WB_TIME_BEFORE_BORDER_RESIZE
-                        .replace("%time%", String.valueOf(r)));
+                        .replace("%time%", String.valueOf(remainingTime)));
         }
 
-        if (r == 0) {
+        if (remainingTime == 0) {
+            mainTask.getSetup().getGame().getGameInfo().getMBorder().resizeBorder();
             mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_MEETUP);
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
+            mainTask.lastTaskFinished = true;
         }
+        remainingTime--;
         mainTask.time++;
-        mainTask.getSetup().getGame().getGameInfo().getMBorder().timeBeforeResize--;
     }
 }

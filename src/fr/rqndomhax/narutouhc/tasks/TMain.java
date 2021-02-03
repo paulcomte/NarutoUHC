@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,11 +25,11 @@ public class TMain extends BukkitRunnable {
     public boolean lastTaskFinished = true;
     public boolean isAlive = true;
     public boolean hasRoles = false;
-    List<Tasks> remainingTasks = new ArrayList<>();
-    Task task = null;
+    public List<Tasks> remainingTasks = new ArrayList<>();
+    public Task task = null;
     int rawTime = 0;
     public int time = 0;
-    int roleRemainingTime = 0;
+    public int roleRemainingTime = 0;
     public int episode = 0;
 
     public TMain(Setup setup) {
@@ -54,6 +55,7 @@ public class TMain extends BukkitRunnable {
         else
             if (task != null)
                 task.loop();
+        MGameStatus.checkWin(setup);
         rawTime++;
     }
 

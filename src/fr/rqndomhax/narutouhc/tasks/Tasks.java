@@ -14,6 +14,7 @@ public enum Tasks {
     INVINCIBILITY(TInvincibility.class),
     PREPARATION(TPreparation.class),
     TELEPORTATION(TTeleportation.class),
+    TELEPORTATION_INVINCIBILITY(TTeleportationInvincibility.class),
     BORDER(TBorder.class),
     MEETUP(TMeetup.class);
 

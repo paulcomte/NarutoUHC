@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
@@ -42,7 +43,7 @@ public class MRules {
     public ItemStack[] deathInventory = new ItemStack[40];
 
     public final List<Roles> activatedRoles = new ArrayList<>();
-    public final List<Scenarios> activatedScenarios = new ArrayList<>(Arrays.asList(Scenarios.values()));
+    public final Set<Scenarios> activatedScenarios = new HashSet<>(Arrays.asList(Scenarios.values()));
     public final List<Drops> drops = new ArrayList<>(Arrays.asList(Drops.values()));
 
     public DayCycle dayCycle = DayCycle.NORMAL;
@@ -53,6 +54,7 @@ public class MRules {
     public int maxCoHost = 3;
     public Set<UUID> bannedPlayers = new HashSet<>();
     public Set<UUID> whitelistedPlayers = new HashSet<>();
+    public Maps currentMap = Maps.NO_PVP;
 
     public int rolesDispatching = 1800;
     public int playerDispatchingSize = 5000;

@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -37,6 +38,17 @@ public class Hinata extends RoleInfo {
     @Override
     public void onPlayerJoin() {
         giveEffects();
+    }
+
+    @Override
+    public void onDesc() {
+        Player player = Bukkit.getPlayer(getMPlayer().uuid);
+        if (player == null) return;
+
+        player.sendMessage("Vous êtes Hinata.");
+        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na hinata\" qui affichera une liste de joueurs présents dans un rayon de 50 blocks.");
+        player.sendMessage("Utilisations restantes : " + ChatColor.GREEN + commandUses);
     }
 
     @Override

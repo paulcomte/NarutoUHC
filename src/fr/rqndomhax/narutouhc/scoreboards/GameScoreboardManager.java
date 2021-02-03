@@ -11,14 +11,18 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.tasks.TBorder;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 
+import java.text.DecimalFormat;
+
 public abstract class GameScoreboardManager {
 
     private static final ChatColor colorPrefix = ChatColor.DARK_BLUE;
+    static DecimalFormat format = new DecimalFormat("#");
 
     public static void updateLobbyBoard(Setup setup, FastBoard board) {
         board.updateTitle(setup.getGame().getGameInfo().getMRules().gameTitle);
@@ -45,7 +49,7 @@ public abstract class GameScoreboardManager {
         if (mPlayer != null) {
             if (mPlayer.role == null)
                 if (setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time > 0)
-                    board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time));
+                    board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().roleRemainingTime - setup.getGame().getGameInfo().getMainTask().time));
                 else
                     board.updateLine(3, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + "?");
             else
@@ -80,7 +84,7 @@ public abstract class GameScoreboardManager {
         if (mPlayer != null) {
             if (mPlayer.role == null)
                 if (setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time > 0)
-                    board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMRules().rolesAnnounce - setup.getGame().getGameInfo().getMainTask().time));
+                    board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().roleRemainingTime - setup.getGame().getGameInfo().getMainTask().time));
                 else
                     board.updateLine(5, colorPrefix + "➤ Rôle: " + ChatColor.WHITE + "?");
             else
@@ -91,9 +95,12 @@ public abstract class GameScoreboardManager {
             board.updateLine(9, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
             board.updateLine(10, "");
             if (world.getWorldBorder().getSize() == setup.getGame().getGameInfo().getMBorder().defaultSize)
-                board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMBorder().timeBeforeResize));
+                if (setup.getGame().getGameInfo().getMainTask().task.getClass() == TBorder.class)
+                    board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(((TBorder) setup.getGame().getGameInfo().getMainTask().task).remainingTime));
+                else
+                    board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMBorder().timeBeforeResize));
             else
-                board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + (world.getWorldBorder().getCenter().getX() - world.getWorldBorder().getSize()) + "/" + (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize()));
+                board.updateLine(11, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + format.format(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder().getSize()));
         }
         else {
             board.updateLine(5, colorPrefix + "➤ Temps: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMainTask().time));
@@ -101,7 +108,7 @@ public abstract class GameScoreboardManager {
             if (world.getWorldBorder().getSize() == setup.getGame().getGameInfo().getMBorder().defaultSize)
                 board.updateLine(7, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + getFormattedTime(setup.getGame().getGameInfo().getMBorder().timeBeforeResize));
             else
-                board.updateLine(7, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + (world.getWorldBorder().getCenter().getX() - world.getWorldBorder().getSize()) + "/" + (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize()));
+                board.updateLine(7, colorPrefix + "➤ Bordure: " + ChatColor.WHITE + format.format(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder().getSize()));
             board.updateLine(8, "");
             board.updateLine(5, colorPrefix + "➤ Episode: " + ChatColor.WHITE + setup.getGame().getGameInfo().getMainTask().episode);
         }

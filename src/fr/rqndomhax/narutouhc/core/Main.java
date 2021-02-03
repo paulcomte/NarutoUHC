@@ -7,8 +7,8 @@
 
 package fr.rqndomhax.narutouhc.core;
 
-import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -21,7 +21,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(Messages.SERVER_RELAODING));
+        for (Player player : Bukkit.getOnlinePlayers())
+            player.kickPlayer("Server reloading");
         super.onDisable();
     }
 }

@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -63,9 +64,9 @@ public class Naruto extends RoleInfo {
         if (player == null) return;
 
         player.sendMessage("Vous êtes Naruto.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire vous disposez des effets speed 1 et fire resistance permanent ainsi qu'un livre fire aspect 1.");
-        player.sendMessage("En plus de cela, si Sasuke choisit de rejoindre l'akatsuki, vous obtiendrez l'effect strength 1 permanent.");
+        player.sendMessage("Votre but est de gagner avec " + ChatColor.LIGHT_PURPLE + "l'alliance shinobi.");
+        player.sendMessage("Pour ce faire vous disposez des effets" + ChatColor.AQUA + "speed 1 et " + ChatColor.GOLD + "fire resistance" + ChatColor.RESET + " permanent ainsi qu'un livre " + ChatColor.GOLD + "fire aspect 1" + ChatColor.RESET + ".");
+        player.sendMessage("En plus de cela, si " + ChatColor.DARK_PURPLE + "Sasuke" + ChatColor.RESET + " choisit de rejoindre l'akatsuki, vous obtiendrez l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + " permanent.");
     }
 
 }

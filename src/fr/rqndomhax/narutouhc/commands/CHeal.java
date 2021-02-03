@@ -49,8 +49,8 @@ public class CHeal implements CommandExecutor {
 
             if (player.getHealth() < player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());
-            if (player.getFoodLevel() < 20)
-                player.setFoodLevel(20);
+            if (player.getFoodLevel() < 30)
+                player.setFoodLevel(30);
         }
 
         Bukkit.broadcastMessage(Messages.PLAYERS_HEALED);

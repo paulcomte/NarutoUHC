@@ -11,12 +11,12 @@ import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
+import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import org.bukkit.*;
 
 public class TStart implements Task {
 
     private final TMain mainTask;
-    int time = 0;
     int remainingTime = 0;
 
     public TStart(TMain mainTask) {
@@ -33,23 +33,69 @@ public class TStart implements Task {
         if (mainTask == null || !mainTask.isAlive)
             return;
 
-        int r = remainingTime - time;
-        if (r < 0) {
+        if (remainingTime < 0) {
             mainTask.lastTaskFinished = true;
             return;
         }
 
-        if (r == 45 ||r == 30 || r == 15 || r == 10 || r <= 5 && r > 0)
-            MGameActions.sendInfos(mainTask.getSetup().getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage dans " + ChatColor.RED + r + ChatColor.DARK_AQUA + "s", Instrument.STICKS, true, 0, Note.Tone.F);
-        if (r == 0) {
+        if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0)
+            MGameActions.sendInfos(mainTask.getSetup().getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage dans " + ChatColor.RED + remainingTime + ChatColor.DARK_AQUA + "s", Instrument.STICKS, true, 0, Note.Tone.F);
+        if (remainingTime == 0) {
             MGameActions.sendInfos(mainTask.getSetup().getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Téléportation...", Instrument.BASS_DRUM, true, 1, Note.Tone.E);
             mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
             MGameActions.teleportPlayers1(mainTask.getSetup());
             MGameBuild.removeLobby();
-            WorldBorder border = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).getWorldBorder();
+            World naruto = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
+            World nopvp = Bukkit.getWorld(Maps.NO_PVP.name());
+            WorldBorder border = naruto.getWorldBorder();
             border.setSize(mainTask.getSetup().getGame().getGameInfo().getMBorder().defaultSize);
             border.setCenter(mainTask.getSetup().getGame().getGameInfo().getMBorder().center.getX(), mainTask.getSetup().getGame().getGameInfo().getMBorder().center.getZ());
+
+            naruto.setGameRuleValue("doEntityDrops", "true");
+            nopvp.setGameRuleValue("doEntityDrops", "true");
+
+            naruto.setGameRuleValue("doFireTick", "true");
+            nopvp.setGameRuleValue("doFireTick", "true");
+
+            naruto.setGameRuleValue("doMobLoot", "true");
+            nopvp.setGameRuleValue("doMobLoot", "true");
+
+            naruto.setGameRuleValue("doMobSpawning", "true");
+            nopvp.setGameRuleValue("doMobSpawning", "true");
+
+            naruto.setGameRuleValue("doTileDrops", "true");
+            nopvp.setGameRuleValue("doTileDrops", "true");
+
+            naruto.setGameRuleValue("keepInventory", "false");
+            nopvp.setGameRuleValue("keepInventory", "false");
+
+            naruto.setGameRuleValue("mobGriefing", "true");
+            nopvp.setGameRuleValue("mobGriefing", "true");
+
+            naruto.setGameRuleValue("reducedDebugInfo", "false");
+            nopvp.setGameRuleValue("reducedDebugInfo", "false");
+
+            naruto.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().naturalRegeneration));
+            nopvp.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().naturalRegeneration));
+
+            naruto.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)));
+            nopvp.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)));
+
+            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NIGHT)) {
+                nopvp.setTime(18000);
+                naruto.setTime(18000);
+            }
+            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.DAY)) {
+                nopvp.setTime(6000);
+                naruto.setTime(6000);
+            }
+            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)) {
+                nopvp.setTime(0);
+                naruto.setTime(0);
+            }
+
+            mainTask.getSetup().getGame().getGameInfo().getMRules().currentMap = Maps.NO_PVP;
         }
-        time++;
+        remainingTime--;
     }
 }

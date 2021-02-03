@@ -7,16 +7,17 @@
 
 package fr.rqndomhax.narutouhc.tasks;
 
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 
-public class TInvincibility implements Task {
+public class TTeleportationInvincibility implements Task {
 
     private final TMain mainTask;
     private int remainingTime = 0;
 
-    public TInvincibility(TMain mainTask) {
+    public TTeleportationInvincibility(TMain mainTask) {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityTime;
@@ -44,7 +45,8 @@ public class TInvincibility implements Task {
                         .replace("%time%", String.valueOf(remainingTime)));
         }
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
+            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
+            Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
             Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
         }
         remainingTime--;

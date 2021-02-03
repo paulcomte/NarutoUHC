@@ -63,11 +63,11 @@ public class CRevive implements CommandExecutor {
         return true;
     }
 
-    public static void revive(Player player, MPlayer mPlayer) {
+    public void revive(Player player, MPlayer mPlayer) {
         InventoryManager.giveInventory(mPlayer.inventory, player);
         mPlayer.isDead = false;
         player.setGameMode(GameMode.SURVIVAL);
-        player.teleport(MGameActions.teleportToRandomLocation());
+        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameInfo().getMRules().currentMap.name())));
         player.sendMessage(Messages.PLAYER_RESURRECTED);
     }
 }

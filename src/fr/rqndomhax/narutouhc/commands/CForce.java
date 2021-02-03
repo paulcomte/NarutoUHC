@@ -10,6 +10,9 @@ package fr.rqndomhax.narutouhc.commands;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.tasks.TBorder;
+import fr.rqndomhax.narutouhc.tasks.TMain;
+import fr.rqndomhax.narutouhc.tasks.TPreparation;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -40,6 +43,10 @@ public class CForce implements CommandExecutor {
                 player.sendMessage(Messages.NOT_IN_GAME);
                 return false;
             }
+            if (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_FINISHED)) {
+                player.sendMessage(Messages.GAME_FINISHED);
+                return false;
+            }
         }
 
         if (args.length != 1 || args[0].equalsIgnoreCase("help")) {
@@ -66,23 +73,77 @@ public class CForce implements CommandExecutor {
     private boolean forceBorder(CommandSender sender) {
         GameState gameState = setup.getGame().getGameInfo().getGameState();
 
-        if (setup.getGame().getGameInfo().getMBorder().timeBeforeResize <= 5) {
-
+        if (gameState.equals(GameState.GAME_MEETUP)) {
+            sender.sendMessage(Messages.BORDER_ALREADY_ACTIVATED);
+            return false;
         }
-
-        if (gameState.equals(GameState.GAME_PREPARATION) || gameState.equals(GameState.GAME_INVINCIBILITY)) {
+        if (!gameState.equals(GameState.GAME_BORDER)) {
             sender.sendMessage(Messages.FORCE_WRONG_MAP_BORDER);
             return false;
         }
+        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
+
+        if (mainTask == null || mainTask.task.getClass() != TBorder.class) {
+            sender.sendMessage(Messages.BORDER_ALREADY_ACTIVATED);
+            return false;
+        }
+
+        TBorder border = (TBorder) mainTask.task;
+
+        if (border.remainingTime <= 10) {
+            sender.sendMessage(Messages.BORDER_ALREADY_ACTIVATED);
+            return false;
+        }
+
+
+        border.remainingTime = 10;
         return true;
     }
 
     private boolean forceRole(CommandSender sender) {
+        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
+
+        if (mainTask.hasRoles) {
+            sender.sendMessage(Messages.ROLES_ALREADY_ACTIVATED);
+            return false;
+        }
+
+        if (mainTask.roleRemainingTime - mainTask.time <= 10) {
+            sender.sendMessage(Messages.ROLES_ALREADY_ACTIVATED);
+            return false;
+        }
+
+        mainTask.roleRemainingTime = mainTask.time + 10;
         return true;
     }
 
     private boolean forceTeleport(CommandSender sender) {
+        GameState gameState = setup.getGame().getGameInfo().getGameState();
 
+        if (gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY) || gameState.equals(GameState.GAME_BORDER) || gameState.equals(GameState.GAME_MEETUP)) {
+            sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
+            return false;
+        }
+        if (!gameState.equals(GameState.GAME_PREPARATION)) {
+            sender.sendMessage(Messages.TELEPORT_FORCE_WRONG);
+            return false;
+        }
+        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
+
+        if (mainTask == null || mainTask.task.getClass() != TPreparation.class) {
+            sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
+            return false;
+        }
+
+        TPreparation preparation = (TPreparation) mainTask.task;
+
+        if (preparation.remainingTime <= 10) {
+            sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
+            return false;
+        }
+
+
+        preparation.remainingTime = 10;
         return true;
     }
 }

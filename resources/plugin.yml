@@ -2,6 +2,7 @@ name: NarutoUHC
 author: RqndomHax
 version: 0.1
 main: fr.rqndomhax.narutouhc.core.Main
+load: POSTWORLD
 commands:
   help:
   rules:
@@ -17,3 +18,5 @@ commands:
   heal:
   save:
   cancel:
+  force:
+  enchant:

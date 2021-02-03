@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
+import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.utils.title.Title;
@@ -17,7 +18,6 @@ import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +39,8 @@ public abstract class MGameActions {
         player.getInventory().setLeggings(null);
         player.getInventory().setBoots(null);
 
-        player.setFoodLevel(20);
+        player.setFoodLevel(30);
         player.setHealth(player.getMaxHealth());
-
-        player.setTotalExperience(0);
 
         for (PotionEffect effect : player.getActivePotionEffects())
             player.removePotionEffect(effect.getType());
@@ -75,27 +73,16 @@ public abstract class MGameActions {
         }
     }
 
-    public static void teleportPlayers2(Setup setup) {
-        
-    }
-
-    public static void teleportPlayers1(Setup setup) {
-
-        Set<MPlayer> players = setup.getGame().getGamePlayers();
-
-        giveStartInventory(setup);
-
-        giveNightVision(players);
-
+    public static void teleportPlayers(World world, int size, Set<MPlayer> players, int xCenter, int zCenter) {
         List<Location> locations = new ArrayList<>();
 
         double delta = (2 * Math.PI) / players.size();
         double angle = 0;
-        int radius = setup.getGame().getGameInfo().getMRules().playerDispatchingSize / 2;
+        int radius = size / 2;
 
         for (int i = 0 ; i < players.size() ; i++) {
-            locations.add(new Location(Bukkit.getWorld(Maps.NO_PVP.name()),
-                    radius * Math.sin(angle) + 0.500, 230, radius * Math.cos(angle) + 0.500));
+            locations.add(new Location(world,
+                    xCenter + (radius * Math.sin(angle) + 0.500), 230, zCenter + (radius * Math.cos(angle) + 0.500)));
             angle += delta;
             MGameBuild.placePlatform(locations.get(i));
         }
@@ -109,22 +96,26 @@ public abstract class MGameActions {
             if (player == null) continue;
 
             player.teleport(locations.get(0));
-            player.setGameMode(GameMode.SURVIVAL);
             mPlayer.location = locations.get(0);
             locations.remove(0);
-
+            player.setGameMode(GameMode.SURVIVAL);
         }
     }
 
-    private static void giveNightVision(Set<MPlayer> players) {
-        for (MPlayer mPlayer : players) {
+    public static void teleportPlayers2(Setup setup) {
 
-            if (mPlayer == null) continue;
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
-            if (player == null) continue;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000, 0, false, false));
+        MBorder border = setup.getGame().getGameInfo().getMBorder();
+        teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ());
 
-        }
+    }
+
+    public static void teleportPlayers1(Setup setup) {
+
+        giveStartInventory(setup);
+
+        World world = Bukkit.getWorld(Maps.NO_PVP.name());
+
+        teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers(), 0, 0);
     }
 
     public static void sendInfo(MPlayer mPlayer, int i) {
@@ -150,11 +141,33 @@ public abstract class MGameActions {
         }
     }
 
-    public static Location teleportToRandomLocation() {
-        World world = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
-        int x = new Random().nextInt((int) (world.getWorldBorder().getCenter().getX() + world.getWorldBorder().getSize() / 2));
-        int z = new Random().nextInt((int) (world.getWorldBorder().getCenter().getZ() + world.getWorldBorder().getSize() / 2));
-        return new Location(world, x, world.getHighestBlockYAt(x, z), z);
+    public static Location teleportToRandomLocation(World world) {
+        return teleportToRandomLocation(world, 0);
+    }
+
+        public static Location teleportToRandomLocation(World world, int i) {
+        int xcenter = (int) world.getWorldBorder().getCenter().getX();
+        int zcenter = (int) world.getWorldBorder().getCenter().getZ();
+
+        int x = new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) - xcenter;
+        int z = new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) - zcenter;
+
+
+        Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
+        if (i == 100)
+            return location;
+        if (location.getBlock() == null)
+            return teleportToRandomLocation(world, ++i);
+
+        Material type = location.getBlock().getType();
+        if (type == null || (!type.equals(Material.GRASS)
+                && !type.equals(Material.DIRT)
+                && !type.equals(Material.STONE)
+                && !type.equals(Material.LEAVES)
+                && !type.equals(Material.LEAVES_2)
+                && !type.equals(Material.SAND)))
+            return teleportToRandomLocation(world, ++i);
+        return location;
     }
 
 }

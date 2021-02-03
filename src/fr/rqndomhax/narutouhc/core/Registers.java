@@ -17,7 +17,9 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
+import fr.rqndomhax.narutouhc.utils.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.WorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -39,6 +41,8 @@ public class Registers {
     public boolean registerWorlds() {
 
         Bukkit.getWorlds().forEach(worlds -> Bukkit.unloadWorld(worlds, true));
+
+        WorldManager.deletePlayerData(new File("."));
 
         File narutoMap = new File("original/" + Maps.NARUTO_UNIVERSE.name());
 
@@ -73,9 +77,15 @@ public class Registers {
         WorldCreator wc = new WorldCreator(Maps.NO_PVP.name());
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.NORMAL);
+        BiomeSwapper.init();
         wc.createWorld();
 
-        Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(false);
+        World noPVP = Bukkit.getWorld(Maps.NO_PVP.name());
+
+        noPVP.getWorldBorder().setCenter(0, 0);
+        noPVP.getWorldBorder().setSize(20000);
+
+        noPVP.setPVP(false);
         Bukkit.getWorld(Maps.NO_PVP.name()).setPVP(false);
 
         System.out.println(Messages.PLUGIN_GENERATING_LOBBY);
@@ -108,5 +118,7 @@ public class Registers {
         setup.getMain().getCommand("heal").setExecutor(new CHeal(setup));
         setup.getMain().getCommand("save").setExecutor(new CSave(setup));
         setup.getMain().getCommand("cancel").setExecutor(new CCancel(setup));
+        setup.getMain().getCommand("force").setExecutor(new CForce(setup));
+        setup.getMain().getCommand("enchant").setExecutor(new CEnchant(setup));
     }
 }

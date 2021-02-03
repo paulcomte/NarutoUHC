@@ -30,8 +30,6 @@ public abstract class Messages {
     public static String SERVER_STARTING = "THE SERVER IS STARTING, PLEASE TRY AGAIN LATER !";
     public static String SERVER_RELAODING = "THE SERVER IS RELOADING !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
-    public static String PLUGIN_MAP_CANNOT_DELETE = "[Naruto UHC] The server can't delete the old naruto map !";
-
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
 
     public static String NEED_PLAYER = PREFIX + "Seul un joueur peut effectuer cette action !";
@@ -39,6 +37,7 @@ public abstract class Messages {
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
+    public static String GAME_FINISHED = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie est terminée !";
 
     public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminée dans %time% secondes";
     public static String INVINCIBILITY_FINISHED = PREFIX + "La phase d'invincibilité vient de se terminer !";
@@ -50,7 +49,7 @@ public abstract class Messages {
     public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
 
     public static String ROLES_ANNOUNCE_IN = PREFIX + "Annonce des rôles dans %time% secondes";
-    public static String ROLES_ANNOUNCED = PREFIX + "Les rôles ont étés annoncés !";
+    public static String ROLES_ANNOUNCED = PREFIX + "Les rôles ont été annoncés !";
 
     public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
     public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";
@@ -100,7 +99,7 @@ public abstract class Messages {
     public static String PLAYER_NOW_BANNED = PREFIX + "Le joueur %player% a été banni(e) avec succès !";
     public static String PLAYER_NOW_UNBANNED = PREFIX + "Le joueur %player% n'est maintenant plus banni(e)";
 
-    public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont étés soignés !";
+    public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont été soignés !";
     public static String PLAYER_NOT_PLAYING = PREFIX + "Ce joueur ne joue pas au sein de la partie !";
     public static String PLAYER_NOT_DEAD = PREFIX + "Ce joueur n'est pas mort !";
     public static String PLAYER_RESURRECTED = PREFIX + "Vous avez été ressuscité !";
@@ -122,19 +121,22 @@ public abstract class Messages {
     public static String ROLE_ITEMS_OBTAINED = PREFIX + "Vous avez reçu l'équipement de votre rôle !";
     public static String ROLE_NO_MORE_USES = PREFIX + "Votre rôle ne dispose d'aucune utilisation restante !";
 
-    public static String FORCE_WRONG_MAP_BORDER = PREFIX + "Vous ne pouvez pas forcer la bordure sur cette map !";
-    public static String ALREADY_ACTIVATED = PREFIX + "Le %info% a déjà été activé !";
+    public static String FORCE_WRONG_MAP_BORDER = PREFIX + "Vous ne pouvez pas forcer la bordure !";
+    public static String BORDER_ALREADY_ACTIVATED = PREFIX + "La bordure a déjà été activée !";
+    public static String ROLES_ALREADY_ACTIVATED = PREFIX + "L'annonce des rôles a déjà activée !";
+    public static String TELEPORT_ALREADY_ACTIVATED = PREFIX + "La téléportation dans l'univers de naruto a déjà été activée !";
+    public static String TELEPORT_FORCE_WRONG = PREFIX + "Vous devez être en phase de préparation pour forcer la téléportation !";
 
     public static String EPISODE_FINISHED_30S = PREFIX + "L'épisode %episode% se termine dans 30 secondes !";
     public static String EPISODE_FINISHED = ChatColor.BLACK + "-------- Fin Episode %episode% --------";
 
     public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
-        if (player.role == null || showRoleOnDeath)
+        if (player.role == null || !showRoleOnDeath)
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort");
         else
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
-                + ChatColor.BOLD + "" + ChatColor.DARK_GREEN + player.role);
+                + ChatColor.BOLD + player.role.toString().toLowerCase());
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
     }
 

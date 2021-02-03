@@ -9,6 +9,9 @@ package fr.rqndomhax.narutouhc.managers.role;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public abstract class RoleInfo implements Role {
 
@@ -30,7 +33,10 @@ public abstract class RoleInfo implements Role {
 
     @Override
     public void onClaim() {
+        Player player = Bukkit.getPlayer(getMPlayer().uuid);
+        if (player == null) return;
 
+        player.sendMessage(Messages.ROLE_NO_ITEMS);
     }
 
     @Override

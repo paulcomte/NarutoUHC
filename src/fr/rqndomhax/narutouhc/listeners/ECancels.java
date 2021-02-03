@@ -50,19 +50,19 @@ public class ECancels implements Listener {
             return;
         GameState gameState = setup.getGame().getGameInfo().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
-                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING));
+                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
         GameState gameState = setup.getGame().getGameInfo().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
-                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING));
+                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
 
    @EventHandler
     public void onMove(PlayerMoveEvent e) {
-       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
             return;
        if (e.getTo().getY() > 220)
            return;

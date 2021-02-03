@@ -8,12 +8,14 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -57,6 +59,8 @@ public class EPlayerLogin implements Listener {
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
             MGameActions.clearPlayerLobby(setup, e.getPlayer());
+            e.getPlayer().spigot().respawn();
+            e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
             return;
         }
         if (setup.getGame().getMPlayer(e.getPlayer().getUniqueId()) == null) {
@@ -78,7 +82,13 @@ public class EPlayerLogin implements Listener {
 
         setup.getGame().getGameInfo().getMRules().gameCoHost.remove(e.getPlayer().getUniqueId());
 
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
             setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
+            return;
+        }
+
+        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
+        if (player == null || player.isDead)
+            return;
     }
 }

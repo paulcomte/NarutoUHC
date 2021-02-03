@@ -19,7 +19,7 @@ public class MBorder {
     public int finalSize = 100;
     public int timeBeforeResize = 30*60;
     public double speed = 2;
-    public double damage = 20;
+    public double damage = 2;
     public BorderCenter center = BorderCenter.KONOHA;
 
     public void resizeBorder() {

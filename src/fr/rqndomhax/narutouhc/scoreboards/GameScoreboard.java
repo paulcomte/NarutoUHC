@@ -49,6 +49,7 @@ public class GameScoreboard {
         GameState state = setup.getGame().getGameInfo().getGameState();
 
         switch (state) {
+            case GAME_TELEPORTATION_INVINCIBILITY:
             case GAME_BORDER:
             case GAME_MEETUP:
             case GAME_FINISHED:

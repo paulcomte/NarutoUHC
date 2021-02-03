@@ -10,8 +10,8 @@ package fr.rqndomhax.narutouhc.managers.role.shinobi;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
-import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,14 +22,6 @@ public class KakashiHatake extends RoleInfo {
 
     public KakashiHatake(MPlayer mPlayer) {
         super(mPlayer, Roles.KAKASHI_HATAKE);
-    }
-
-    @Override
-    public void onClaim() {
-        Player player = Bukkit.getPlayer(getMPlayer().uuid);
-        if (player == null) return;
-
-        player.sendMessage(Messages.ROLE_NO_ITEMS);
     }
 
     @Override
@@ -60,7 +52,7 @@ public class KakashiHatake extends RoleInfo {
         player.sendMessage("Vous êtes Kakashi.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, Vous obtiendrez le pouvoir de la première personne que vous touchez.");
-        player.sendMessage("Même si vous obtenez la capacité d’un autre clan, vous resterez tout de même membre de l’alliance shinobi");
+        player.sendMessage("Même si vous obtenez la capacité d’un autre clan, vous resterez tout de même membre de " + ChatColor.LIGHT_PURPLE + "l’alliance shinobi" + ChatColor.RESET + ".");
     }
 
     @Override
