@@ -15,10 +15,10 @@ import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRoles;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRolesPage;
 import fr.rqndomhax.narutouhc.inventories.host.world.IHostWorld;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
-import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Instrument;
+import org.bukkit.Note;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 

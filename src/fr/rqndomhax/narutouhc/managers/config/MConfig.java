@@ -7,7 +7,6 @@
 
 package fr.rqndomhax.narutouhc.managers.config;
 
-import com.google.common.collect.Sets;
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MRules;
@@ -17,10 +16,8 @@ import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.FileManager;
 import fr.rqndomhax.narutouhc.utils.tools.BukkitSerializer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public abstract class MConfig {

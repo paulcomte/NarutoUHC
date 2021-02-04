@@ -8,12 +8,9 @@
 package fr.rqndomhax.narutouhc.scoreboards;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

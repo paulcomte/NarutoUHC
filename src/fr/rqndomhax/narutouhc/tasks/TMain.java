@@ -8,11 +8,8 @@
 package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
-import fr.rqndomhax.narutouhc.utils.Messages;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.InvocationTargetException;

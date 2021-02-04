@@ -8,11 +8,8 @@
 package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MRules;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
-import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.tasks.TMain;
 
 public class MGameInfo {

@@ -8,7 +8,6 @@
 package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
-import fr.rqndomhax.narutouhc.managers.config.HostConfigBuilder;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;

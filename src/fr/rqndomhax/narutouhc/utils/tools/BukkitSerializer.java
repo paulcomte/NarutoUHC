@@ -11,11 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Base64;
-import java.util.List;
-import java.util.Set;
 
 public abstract class BukkitSerializer {
 
