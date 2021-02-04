@@ -68,7 +68,12 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGamePlayer(e.getPlayer().getUniqueId()) == null) {
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
+
+        if (gamePlayer != null)
+                MVillagers.deleteVillager(gamePlayer);
+
+        else {
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId() && !player.getGameMode().equals(GameMode.SPECTATOR)).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
