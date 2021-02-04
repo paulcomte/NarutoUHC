@@ -86,7 +86,7 @@ public class Registers {
         noPVP.getWorldBorder().setSize(20000);
 
         noPVP.setPVP(false);
-        Bukkit.getWorld(Maps.NO_PVP.name()).setPVP(false);
+        Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
 
         System.out.println(Messages.PLUGIN_GENERATING_LOBBY);
         MGameBuild.placeLobby();

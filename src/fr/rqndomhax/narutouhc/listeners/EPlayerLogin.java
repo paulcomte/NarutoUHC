@@ -13,9 +13,7 @@ import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -56,10 +54,13 @@ public class EPlayerLogin implements Listener {
             setup.getGame().getGameInfo().getMRules().gameHost = e.getPlayer().getUniqueId();
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
+            if (setup.getGame().getGameInfo().getMainTask() != null) {
+                MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
+                setup.getGame().getGameInfo().removeTask();
+            }
             MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
             setup.getGame().getGamePlayers().add(mPlayer);
             MGameActions.clearPlayerLobby(setup, e.getPlayer());
-            e.getPlayer().spigot().respawn();
             e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
             return;
         }
@@ -83,6 +84,10 @@ public class EPlayerLogin implements Listener {
         setup.getGame().getGameInfo().getMRules().gameCoHost.remove(e.getPlayer().getUniqueId());
 
         if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
+            if (setup.getGame().getGameInfo().getMainTask() != null) {
+                MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
+                setup.getGame().getGameInfo().removeTask();
+            }
             setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
             return;
         }

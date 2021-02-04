@@ -105,7 +105,7 @@ public class IHostBorderSize {
             n++;
         }
 
-        MBorder border = setup.getGame().getGameInfo().getMBorder();
+        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
 
         inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Taille de départ: " + ChatColor.DARK_AQUA + border.defaultSize + ChatColor.GREEN + " blocks").toItemStack());
         inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Taille finale: " + ChatColor.DARK_AQUA + border.finalSize + ChatColor.GREEN + " blocks").toItemStack());
@@ -121,7 +121,7 @@ public class IHostBorderSize {
 
     private Consumer<InventoryClickEvent> updateFinalBorderSize(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMBorder();
+            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
             if (isNegative) {
                 if (n == 0)
                     if (border.finalSize - 20 <= 50)
@@ -153,7 +153,7 @@ public class IHostBorderSize {
 
     private Consumer<InventoryClickEvent> updateDefaultBorderSize(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMBorder();
+            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
             if (isNegative) {
                 if (n == 0 || n == 3)
                     if (border.defaultSize - 20 <= 50)

@@ -7,10 +7,14 @@
 
 package fr.rqndomhax.narutouhc.core;
 
+import fr.rqndomhax.narutouhc.managers.config.HostConfig;
+import fr.rqndomhax.narutouhc.managers.config.HostConfigBuilder;
+import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGame;
 import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
+import fr.rqndomhax.narutouhc.utils.FileManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
@@ -22,6 +26,7 @@ public class Setup {
     private final Main main;
     private Registers registers;
     private RInventoryManager rInventoryManager;
+    private FileManager fileManager;
     private MGame game;
     private MRole role;
     private GameScoreboard gameScoreboard;
@@ -55,6 +60,10 @@ public class Setup {
         rInventoryManager = new RInventoryManager();
         Bukkit.getPluginManager().registerEvents(new RInventoryHandler(main, rInventoryManager), main);
         new RInventoryTask(rInventoryManager).runTaskTimer(main, 0, 1);
+        fileManager = new FileManager(main);
+        MConfig.init(fileManager, main.getDataFolder());
+        HostConfig config = MConfig.loadConfig("configs/default.cfg");
+        config.getRules().activatedRoles.forEach(e -> System.out.println(e.name()));
         gameScoreboard.runBoard();
         game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
         System.out.println(Messages.PLUGIN_INITIALIZED);

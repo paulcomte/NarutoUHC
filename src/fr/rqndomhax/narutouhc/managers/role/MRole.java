@@ -16,17 +16,19 @@ import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class MRole {
 
     private final Setup setup;
-    private final List<Roles> availableRoles;
+    private final List<Roles> availableRoles = new ArrayList<>();
     private final List<Roles> adminRoles = new ArrayList<>();
 
     public MRole(Setup setup) {
         this.setup = setup;
-        availableRoles = setup.getGame().getGameInfo().getMRules().activatedRoles;
+        availableRoles.addAll(setup.getGame().getGameInfo().getMRules().activatedRoles);
     }
 
     public void dispatchRoles() {

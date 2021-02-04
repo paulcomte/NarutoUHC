@@ -83,13 +83,13 @@ public class IHostBorderActivation {
                 n++;
             }
         }
-        if (setup.getGame().getGameInfo().getMBorder().timeBeforeResize == 60) {
+        if (setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize == 60) {
             inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + "1" + ChatColor.GREEN + " min").toItemStack());
             inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + "1" + ChatColor.GREEN + " min").toItemStack());
         }
         else {
-            inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMBorder().timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
-            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMBorder().timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
+            inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
+            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
         }
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
@@ -103,7 +103,7 @@ public class IHostBorderActivation {
 
     private Consumer<InventoryClickEvent> updateActivation(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMBorder();
+            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
             if (isNegative) {
                 if (n == 0 || n == 3)
                     if (border.timeBeforeResize - 10*60 <= 60)

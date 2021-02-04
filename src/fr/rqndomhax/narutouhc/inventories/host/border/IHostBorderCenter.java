@@ -47,7 +47,7 @@ public class IHostBorderCenter {
         IInfos.placeInvBorders(inventory.getInventory());
 
         for (BorderCenter center : BorderCenter.values()) {
-            if (setup.getGame().getGameInfo().getMBorder().center == center)
+            if (setup.getGame().getGameInfo().getMRules().mBorder.center == center)
                 inventory.setItem(centers[n], new ItemBuilder(center.getItem().clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateCenter(center));
             else
                 inventory.setItem(centers[n], center.getItem(), updateCenter(center));
@@ -65,7 +65,7 @@ public class IHostBorderCenter {
 
     private Consumer<InventoryClickEvent> updateCenter(BorderCenter center) {
         return e -> {
-            setup.getGame().getGameInfo().getMBorder().center = center;
+            setup.getGame().getGameInfo().getMRules().mBorder.center = center;
             updateInventory();
         };
     }

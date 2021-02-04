@@ -17,9 +17,10 @@ public class TPreparation implements Task {
     public int remainingTime = 0;
 
     public TPreparation(TMain mainTask) {
+        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().preparationTime;
+        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().preparationDuration;
         loop();
     }
 
@@ -50,7 +51,6 @@ public class TPreparation implements Task {
         }
 
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_TELEPORTING);
             Bukkit.broadcastMessage(Messages.NARUTO_MAP_TPING);
             mainTask.lastTaskFinished = true;
         }

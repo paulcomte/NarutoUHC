@@ -108,15 +108,15 @@ public class IHostBorderStats {
             n++;
         }
 
-        MBorder border = setup.getGame().getGameInfo().getMBorder();
+        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
         if (border.speed > 1)
             inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Vitesse de la bordure: " + ChatColor.DARK_AQUA + format.format(border.speed) + ChatColor.GREEN + " blocks/sec").toItemStack());
         else
             inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Vitesse de la bordure: " + ChatColor.DARK_AQUA + format.format(border.speed) + ChatColor.GREEN + " block/sec").toItemStack());
-        if (border.damage > 1)
-            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Dégâts de la bordure: " + ChatColor.DARK_AQUA + format.format(border.damage) + ChatColor.GREEN + " coeurs/sec").toItemStack());
+        if (border.damages > 1)
+            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Dégâts de la bordure: " + ChatColor.DARK_AQUA + format.format(border.damages) + ChatColor.GREEN + " coeurs/sec").toItemStack());
         else
-            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Dégâts de la bordure: " + ChatColor.DARK_AQUA + format.format(border.damage) + ChatColor.GREEN + " coeur/sec").toItemStack());
+            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Dégâts de la bordure: " + ChatColor.DARK_AQUA + format.format(border.damages) + ChatColor.GREEN + " coeur/sec").toItemStack());
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
             MRules rules = setup.getGame().getGameInfo().getMRules();
@@ -129,7 +129,7 @@ public class IHostBorderStats {
 
     private Consumer<InventoryClickEvent> updateSpeed(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMBorder();
+            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
             if (isNegative) {
                 if (n == 0)
                     if (border.speed - 5d <= 0.5d)
@@ -170,40 +170,40 @@ public class IHostBorderStats {
 
     private Consumer<InventoryClickEvent> updateDamage(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMBorder();
+            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
             if (isNegative) {
                 if (n == 0)
-                    if (border.damage - 5d <= 0.1d)
-                        border.damage = 0.1d;
+                    if (border.damages - 5d <= 0.1d)
+                        border.damages = 0.1d;
                     else
-                        border.damage -= 5d;
+                        border.damages -= 5d;
                 if (n == 1)
-                    if (border.damage - 1d <= 0.1d)
-                        border.damage = 0.1d;
+                    if (border.damages - 1d <= 0.1d)
+                        border.damages = 0.1d;
                     else
-                        border.damage -= 1d;
+                        border.damages -= 1d;
                 if (n == 2)
-                    if (border.damage - 0.1d <= 0.1d)
-                        border.damage = 0.1d;
+                    if (border.damages - 0.1d <= 0.1d)
+                        border.damages = 0.1d;
                     else
-                        border.damage -= 0.1d;
+                        border.damages -= 0.1d;
             }
             else {
                 if (n == 3)
-                    if (border.damage + 0.1d >= 20d)
-                        border.damage = 20d;
+                    if (border.damages + 0.1d >= 20d)
+                        border.damages = 20d;
                     else
-                        border.damage += 0.1d;
+                        border.damages += 0.1d;
                 if (n == 4)
-                    if (border.damage + 1d >= 20d)
-                        border.damage = 20d;
+                    if (border.damages + 1d >= 20d)
+                        border.damages = 20d;
                     else
-                        border.damage += 1d;
+                        border.damages += 1d;
                 if (n == 5)
-                    if (border.damage + 5d >= 20d)
-                        border.damage = 20d;
+                    if (border.damages + 5d >= 20d)
+                        border.damages = 20d;
                     else
-                        border.damage += 5d;
+                        border.damages += 5d;
             }
             updateInventory();
         };

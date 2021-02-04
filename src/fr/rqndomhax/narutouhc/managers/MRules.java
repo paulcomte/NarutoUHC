@@ -20,10 +20,12 @@ import java.util.*;
 
 public class MRules {
 
+    public MBorder mBorder = new MBorder();
+
     public UUID startInventoryInEdit = null;
     public UUID deathInventoryInEdit = null;
 
-    public boolean showDeathMessage = true;
+    public boolean showDeathMessages = true;
     public boolean showRoleOnDeath = true;
 
     public boolean allowSpectators = true;
@@ -36,15 +38,14 @@ public class MRules {
     public boolean allowWhispers = true;
     public boolean allowChat = false;
 
-    public int maxPlayers = 26;
-    public int groupSize = 6;
+    public int maxGroupSize = 5;
 
     public ItemStack[] startInventory = new ItemStack[40];
     public ItemStack[] deathInventory = new ItemStack[40];
 
-    public final List<Roles> activatedRoles = new ArrayList<>();
-    public final Set<Scenarios> activatedScenarios = new HashSet<>(Arrays.asList(Scenarios.values()));
-    public final List<Drops> drops = new ArrayList<>(Arrays.asList(Drops.values()));
+    public Set<Roles> activatedRoles = new HashSet<>();
+    public Set<Scenarios> activatedScenarios = new HashSet<>();
+    public Set<Drops> drops = new HashSet<>(Arrays.asList(Drops.values()));
 
     public DayCycle dayCycle = DayCycle.NORMAL;
 
@@ -56,13 +57,10 @@ public class MRules {
     public Set<UUID> whitelistedPlayers = new HashSet<>();
     public Maps currentMap = Maps.NO_PVP;
 
-    public int rolesDispatching = 1800;
-    public int playerDispatchingSize = 5000;
-
     public int startDuration = 10;
 
-    public int invincibilityTime = 30;
-    public int preparationTime = 40*60;
+    public int invincibilityDuration = 30;
+    public int preparationDuration = 40*60;
     public int rolesAnnounce = 35*60;
 
     public int teleportingDuration = 15;

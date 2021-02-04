@@ -11,6 +11,8 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.MBorder;
 import fr.rqndomhax.narutouhc.managers.MPlayer;
 import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
+import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -26,7 +28,7 @@ public class MGame {
 
     public MGame(Setup setup) {
         this.setup = setup;
-        gameInfo = new MGameInfo(new MBorder(), new MRules());
+        gameInfo = new MGameInfo(new HostConfig(new MRules(), "Default", ConfigLogos.DEFAULT, "default.cfg"));
     }
 
     public MGameInfo getGameInfo() {

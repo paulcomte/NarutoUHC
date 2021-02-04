@@ -89,6 +89,9 @@ public abstract class Messages {
     public static String HOST_USAGE_AN = PREFIX + "Veuillez respecter la syntaxe suivante : /h an <texte>";
     public static String PLAYER_USAGE_WHISPER = PREFIX + "Veuillez respecter la syntaxe suivante : /msg <player> <message>";
 
+    public static String HOST_NEED_ANOTHER_TEAM = PREFIX + "Vous devez avoir un minimum de 2 camps différents.";
+    public static String HOST_NEED_MORE_PLAYERS = PREFIX + "Vous devez avoir le même nombre de joueur que de rôle afin de lancer la partie.";
+
     public static String HOST_INVENTORY_ALREADY_IN_EDIT = PREFIX + "Cette inventaire est déjà en cours de modification !";
     
     public static String PLAYER_NOT_CONNECTED = PREFIX + "Le joueur %player% n'est pas en ligne !";

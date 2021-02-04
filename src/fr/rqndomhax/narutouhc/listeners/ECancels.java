@@ -62,8 +62,11 @@ public class ECancels implements Listener {
 
    @EventHandler
     public void onMove(PlayerMoveEvent e) {
-       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING) && !setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
+       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING)
+               && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)
+               && !setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
             return;
+
        if (e.getTo().getY() > 220)
            return;
 

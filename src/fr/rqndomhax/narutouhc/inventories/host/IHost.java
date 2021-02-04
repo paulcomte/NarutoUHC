@@ -15,10 +15,10 @@ import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRoles;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRolesPage;
 import fr.rqndomhax.narutouhc.inventories.host.world.IHostWorld;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
-import org.bukkit.ChatColor;
-import org.bukkit.Instrument;
-import org.bukkit.Note;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -36,7 +36,7 @@ public class IHost extends RInventory {
 
         IInfos.placeInvBorders(this.getInventory());
         this.setItem(4, IInfos.MAIN_HOST_CONFIGS);
-        this.setItem(11, IInfos.MAIN_HOST_SCENARIOS);
+        this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
         this.setItem(15, IInfos.MAIN_HOST_BORDER_CONFIG, openBorderConfig());
         this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
         this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
@@ -47,6 +47,12 @@ public class IHost extends RInventory {
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
             this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
+    }
+
+    private Consumer<InventoryClickEvent> openScenariosConfig() {
+        return e -> {
+            new IHostScenarios(setup, player, this);
+        };
     }
 
     private Consumer<InventoryClickEvent> openHostConfig() {
@@ -67,12 +73,6 @@ public class IHost extends RInventory {
         };
     }
 
-    private Consumer<InventoryClickEvent> openScenariosConfig() {
-        return e -> {
-            new IHostScenarios(setup, player, this);
-        };
-    }
-
     private Consumer<InventoryClickEvent> onButtonClick(boolean isStarting) {
         return e -> {
             if (isStarting) {
@@ -80,7 +80,18 @@ public class IHost extends RInventory {
                 this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
             }
-            else {
+            else {/* TODO REPLACE
+                if (Bukkit.getOnlinePlayers().size() != setup.getGame().getGameInfo().getMRules().activatedRoles.size()) {
+                    player.sendMessage(Messages.HOST_NEED_MORE_PLAYERS);
+                    player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
+                    return;
+                }
+                if (!MGameStatus.hasAtLeastOneDifferentCamp(setup)) {
+                    player.sendMessage(Messages.HOST_NEED_ANOTHER_TEAM);
+                    player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
+                    return;
+                }
+                */
                 setup.getGame().getGameInfo().startTask(setup);
                 this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
             }

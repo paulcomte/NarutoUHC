@@ -19,7 +19,7 @@ public class MBorder {
     public int finalSize = 100;
     public int timeBeforeResize = 30*60;
     public double speed = 2;
-    public double damage = 2;
+    public double damages = 2;
     public BorderCenter center = BorderCenter.KONOHA;
 
     public void resizeBorder() {
@@ -30,7 +30,7 @@ public class MBorder {
         wb.setCenter(center.getX(), center.getZ());
         wb.setSize(defaultSize);
         wb.setSize(finalSize, (long) ((defaultSize- finalSize)/speed));
-        wb.setDamageAmount(damage);
+        wb.setDamageAmount(damages);
     }
 
 }

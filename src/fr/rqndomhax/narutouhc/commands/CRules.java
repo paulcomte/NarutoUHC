@@ -26,7 +26,7 @@ public class CRules implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         MRules rules = setup.getGame().getGameInfo().getMRules();
-        MBorder border = setup.getGame().getGameInfo().getMBorder();
+        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
 
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
 
@@ -35,10 +35,10 @@ public class CRules implements CommandExecutor {
         else
             sender.sendMessage(ChatColor.DARK_AQUA + "Annonce des rôles : " + ChatColor.GOLD + rules.rolesAnnounce / 60 + ChatColor.DARK_AQUA + " minute.");
 
-        if (rules.preparationTime > 60)
-            sender.sendMessage(ChatColor.DARK_AQUA + "Temps de préparation : " + ChatColor.GOLD + rules.preparationTime / 60 + ChatColor.DARK_AQUA + " minutes.");
+        if (rules.preparationDuration > 60)
+            sender.sendMessage(ChatColor.DARK_AQUA + "Temps de préparation : " + ChatColor.GOLD + rules.preparationDuration / 60 + ChatColor.DARK_AQUA + " minutes.");
         else
-            sender.sendMessage(ChatColor.DARK_AQUA + "Temps de préparation : " + ChatColor.GOLD + rules.preparationTime / 60 + ChatColor.DARK_AQUA + " minute.");
+            sender.sendMessage(ChatColor.DARK_AQUA + "Temps de préparation : " + ChatColor.GOLD + rules.preparationDuration / 60 + ChatColor.DARK_AQUA + " minute.");
 
         if (border.timeBeforeResize > 60)
             sender.sendMessage(ChatColor.DARK_AQUA + "Temps avant bordure : " + ChatColor.GOLD + border.timeBeforeResize / 60 + ChatColor.DARK_AQUA + " minutes.");

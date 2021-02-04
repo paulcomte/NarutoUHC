@@ -14,12 +14,13 @@ import org.bukkit.Bukkit;
 public class TBorder implements Task {
 
     private final TMain mainTask;
-    public int remainingTime = 0;
+    public int remainingTime;
 
     public TBorder(TMain mainTask) {
+        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMBorder().timeBeforeResize;
+        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.timeBeforeResize;
         loop();
     }
 
@@ -50,8 +51,7 @@ public class TBorder implements Task {
         }
 
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().getMBorder().resizeBorder();
-            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_MEETUP);
+            mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.resizeBorder();
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
             mainTask.lastTaskFinished = true;
         }

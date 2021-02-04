@@ -76,10 +76,10 @@ public class IHostTimer {
         else
             inventory.setItem(22, new ItemBuilder(IInfos.HOST_TIMER_ROLES.clone()).setName(ChatColor.GREEN + "Annonce des rôles: " + ChatColor.DARK_AQUA + rules.rolesAnnounce / 60 + ChatColor.GREEN + " min").toItemStack());
 
-        if (rules.preparationTime > 60)
-            inventory.setItem(31, new ItemBuilder(IInfos.HOST_TIMER_TELEPORT.clone()).setName(ChatColor.GREEN + "Préparation: " + ChatColor.DARK_AQUA + rules.preparationTime / 60 + ChatColor.GREEN + " mins").toItemStack());
+        if (rules.preparationDuration > 60)
+            inventory.setItem(31, new ItemBuilder(IInfos.HOST_TIMER_TELEPORT.clone()).setName(ChatColor.GREEN + "Préparation: " + ChatColor.DARK_AQUA + rules.preparationDuration / 60 + ChatColor.GREEN + " mins").toItemStack());
         else
-            inventory.setItem(31, new ItemBuilder(IInfos.HOST_TIMER_TELEPORT.clone()).setName(ChatColor.GREEN + "Préparation: " + ChatColor.DARK_AQUA + rules.preparationTime / 60 + ChatColor.GREEN + " min").toItemStack());
+            inventory.setItem(31, new ItemBuilder(IInfos.HOST_TIMER_TELEPORT.clone()).setName(ChatColor.GREEN + "Préparation: " + ChatColor.DARK_AQUA + rules.preparationDuration / 60 + ChatColor.GREEN + " min").toItemStack());
 
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
@@ -129,35 +129,35 @@ public class IHostTimer {
             }
             else {
                 if (n == 0)
-                    if (rules.preparationTime - 10 * 60 <= 60)
-                        rules.preparationTime = 60;
+                    if (rules.preparationDuration - 10 * 60 <= 60)
+                        rules.preparationDuration = 60;
                     else
-                        rules.preparationTime -= 10 * 60;
+                        rules.preparationDuration -= 10 * 60;
                 if (n == 1)
-                    if (rules.preparationTime - 5 * 60 <= 60)
-                        rules.preparationTime = 60;
+                    if (rules.preparationDuration - 5 * 60 <= 60)
+                        rules.preparationDuration = 60;
                     else
-                        rules.preparationTime -= 5 * 60;
+                        rules.preparationDuration -= 5 * 60;
                 if (n == 2)
-                    if (rules.preparationTime - 60 <= 60)
-                        rules.preparationTime = 60;
+                    if (rules.preparationDuration - 60 <= 60)
+                        rules.preparationDuration = 60;
                     else
-                        rules.preparationTime -= 60;
+                        rules.preparationDuration -= 60;
                 if (n == 3)
-                    if (rules.preparationTime + 60 >= 120 * 60)
-                        rules.preparationTime = 120 * 60;
+                    if (rules.preparationDuration + 60 >= 120 * 60)
+                        rules.preparationDuration = 120 * 60;
                     else
-                        rules.preparationTime += 60;
+                        rules.preparationDuration += 60;
                 if (n == 4)
-                    if (rules.preparationTime + 5 * 60 >= 120 * 60)
-                        rules.preparationTime = 120 * 60;
+                    if (rules.preparationDuration + 5 * 60 >= 120 * 60)
+                        rules.preparationDuration = 120 * 60;
                     else
-                        rules.preparationTime += 5 * 60;
+                        rules.preparationDuration += 5 * 60;
                 if (n == 5)
-                    if (rules.preparationTime + 10 * 60 >= 120 * 60)
-                        rules.preparationTime = 120 * 60;
+                    if (rules.preparationDuration + 10 * 60 >= 120 * 60)
+                        rules.preparationDuration = 120 * 60;
                     else
-                        rules.preparationTime += 10 * 60;
+                        rules.preparationDuration += 10 * 60;
             }
 
             updateInventory();

@@ -18,9 +18,10 @@ public class TTeleportationInvincibility implements Task {
     private int remainingTime = 0;
 
     public TTeleportationInvincibility(TMain mainTask) {
+        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_TELEPORTATION_INVINCIBILITY);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityTime;
+        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityDuration;
         mainTask.episode++;
         loop();
     }
@@ -29,11 +30,6 @@ public class TTeleportationInvincibility implements Task {
     public void loop() {
         if (mainTask == null || !mainTask.isAlive)
             return;
-
-        if (remainingTime < 0) {
-            mainTask.lastTaskFinished = true;
-            return;
-        }
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0) {
             if (remainingTime == 1)
@@ -45,9 +41,9 @@ public class TTeleportationInvincibility implements Task {
                         .replace("%time%", String.valueOf(remainingTime)));
         }
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
             Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
             Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
+            mainTask.lastTaskFinished = true;
         }
         remainingTime--;
         mainTask.time++;

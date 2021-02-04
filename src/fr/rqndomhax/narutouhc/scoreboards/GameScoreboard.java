@@ -43,9 +43,6 @@ public class GameScoreboard {
 
     private void updateBoard(FastBoard board) {
 
-        ChatColor colorPrefix = ChatColor.DARK_BLUE;
-        MPlayer mPlayer = setup.getGame().getMPlayer(board.getPlayer().getUniqueId());
-        MRules rules = setup.getGame().getGameInfo().getMRules();
         GameState state = setup.getGame().getGameInfo().getGameState();
 
         switch (state) {
@@ -53,7 +50,10 @@ public class GameScoreboard {
             case GAME_BORDER:
             case GAME_MEETUP:
             case GAME_FINISHED:
-                GameScoreboardManager.updateNarutoBoard(setup, board);
+                if (setup.getGame().getGameInfo().getMainTask() == null)
+                    GameScoreboardManager.updateLobbyBoard(setup, board);
+                else
+                    GameScoreboardManager.updateNarutoBoard(setup, board);
                 break;
             case LOBBY_WAITING:
             case LOBBY_TELEPORTING:

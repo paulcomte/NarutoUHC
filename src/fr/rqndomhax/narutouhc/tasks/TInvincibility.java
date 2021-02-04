@@ -14,12 +14,13 @@ import org.bukkit.Bukkit;
 public class TInvincibility implements Task {
 
     private final TMain mainTask;
-    private int remainingTime = 0;
+    private int remainingTime;
 
     public TInvincibility(TMain mainTask) {
+        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_INVINCIBILITY);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityTime;
+        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityDuration;
         mainTask.episode++;
         loop();
     }
@@ -28,11 +29,6 @@ public class TInvincibility implements Task {
     public void loop() {
         if (mainTask == null || !mainTask.isAlive)
             return;
-
-        if (remainingTime < 0) {
-            mainTask.lastTaskFinished = true;
-            return;
-        }
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0) {
             if (remainingTime == 1)
@@ -44,8 +40,8 @@ public class TInvincibility implements Task {
                         .replace("%time%", String.valueOf(remainingTime)));
         }
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
             Bukkit.broadcastMessage(Messages.INVINCIBILITY_FINISHED);
+            mainTask.lastTaskFinished = true;
         }
         remainingTime--;
         mainTask.time++;

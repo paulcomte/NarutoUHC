@@ -104,14 +104,12 @@ public abstract class MGameActions {
 
     public static void teleportPlayers2(Setup setup) {
 
-        MBorder border = setup.getGame().getGameInfo().getMBorder();
+        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
         teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ());
 
     }
 
     public static void teleportPlayers1(Setup setup) {
-
-        giveStartInventory(setup);
 
         World world = Bukkit.getWorld(Maps.NO_PVP.name());
 
@@ -126,7 +124,7 @@ public abstract class MGameActions {
         if (player == null) return;
 
         player.playNote(player.getLocation(), Instrument.PIANO, Note.flat(1,  Note.Tone.A));
-        player.sendTitle(ChatColor.GOLD + String.valueOf(i), "");
+        new Title(ChatColor.GOLD + String.valueOf(i), "", 3, 20, 2).send(player);
     }
 
     public static void sendInfos(Set<MPlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
