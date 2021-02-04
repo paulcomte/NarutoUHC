@@ -9,11 +9,11 @@ package fr.rqndomhax.narutouhc.inventories.host.border;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MBorder;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameBorder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.Banners;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -105,13 +105,13 @@ public class IHostBorderSize {
             n++;
         }
 
-        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
+        GameBorder border = setup.getGame().getGameRules().gameBorder;
 
         inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Taille de départ: " + ChatColor.DARK_AQUA + border.defaultSize + ChatColor.GREEN + " blocks").toItemStack());
         inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Taille finale: " + ChatColor.DARK_AQUA + border.finalSize + ChatColor.GREEN + " blocks").toItemStack());
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
             if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
                 new IHostBorder(setup, player, inventory);
         });
@@ -121,7 +121,7 @@ public class IHostBorderSize {
 
     private Consumer<InventoryClickEvent> updateFinalBorderSize(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
+            GameBorder border = setup.getGame().getGameRules().gameBorder;
             if (isNegative) {
                 if (n == 0)
                     if (border.finalSize - 20 <= 50)
@@ -153,7 +153,7 @@ public class IHostBorderSize {
 
     private Consumer<InventoryClickEvent> updateDefaultBorderSize(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
+            GameBorder border = setup.getGame().getGameRules().gameBorder;
             if (isNegative) {
                 if (n == 0 || n == 3)
                     if (border.defaultSize - 20 <= 50)

@@ -21,9 +21,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class MRules {
+public class GameRules {
 
-    public MBorder mBorder = new MBorder();
+    public GameBorder gameBorder = new GameBorder();
 
     public UUID startInventoryInEdit = null;
     public UUID deathInventoryInEdit = null;
@@ -71,7 +71,7 @@ public class MRules {
 
     public int timeBeforeDeath = 10;
 
-    public MRules() {
+    public GameRules() {
         activatedRoles.addAll(Arrays.asList(Roles.values()));
         deathInventory[0] = new ItemStack(Material.GOLDEN_APPLE);
     }

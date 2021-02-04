@@ -17,16 +17,16 @@ public class TPreparation implements Task {
     public int remainingTime = 0;
 
     public TPreparation(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_PREPARATION);
+        mainTask.getSetup().getGame().setGameState(GameState.GAME_PREPARATION);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().preparationDuration;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().preparationDuration;
         loop();
     }
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45*60 || remainingTime == 30*60 || remainingTime == 15*60 || remainingTime == 10*60 || remainingTime == 5*60 || remainingTime == 60) {

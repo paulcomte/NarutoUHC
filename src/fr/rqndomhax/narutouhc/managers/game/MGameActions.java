@@ -10,9 +10,9 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MBorder;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameBorder;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
@@ -26,7 +26,7 @@ import java.util.Set;
 
 public abstract class MGameActions {
 
-    public static void addKill(MPlayer killer, MPlayer killed) {
+    public static void addKill(GamePlayer killer, GamePlayer killed) {
         killer.kills.add(killed.uuid);
     }
 
@@ -48,32 +48,36 @@ public abstract class MGameActions {
         player.updateInventory();
     }
 
-    public static void clearPlayerLobby(Setup setup, Player player) {
+    public static void clearPlayerLobby(GameRules rules, Player player) {
+
         clearPlayer(player);
+
         player.setGameMode(GameMode.ADVENTURE);
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+
         if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId())) {
             player.getInventory().setItem(4, IInfos.MAIN_HOST_ITEM);
             player.updateInventory();
         }
+
         else {
             if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId()))
                 rules.startInventoryInEdit = null;
             if (rules.startInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))
                 rules.deathInventory = null;
         }
+
     }
 
     public static void giveStartInventory(Setup setup) {
-        for (MPlayer mPlayer : setup.getGame().getGamePlayers()) {
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
 
             if (player != null)
-                InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().startInventory, player);
+                InventoryManager.giveInventory(setup.getGame().getGameRules().startInventory, player);
         }
     }
 
-    public static void teleportPlayers(World world, int size, Set<MPlayer> players, int xCenter, int zCenter) {
+    public static void teleportPlayers(World world, int size, Set<GamePlayer> players, int xCenter, int zCenter) {
         List<Location> locations = new ArrayList<>();
 
         double delta = (2 * Math.PI) / players.size();
@@ -87,16 +91,16 @@ public abstract class MGameActions {
             MGameBuild.placePlatform(locations.get(i));
         }
 
-        for (MPlayer mPlayer : players) {
+        for (GamePlayer gamePlayer : players) {
 
             if (locations.get(0) == null) return;
-            if (mPlayer == null) continue;
+            if (gamePlayer == null) continue;
 
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player == null) continue;
 
             player.teleport(locations.get(0));
-            mPlayer.location = locations.get(0);
+            gamePlayer.location = locations.get(0);
             locations.remove(0);
             player.setGameMode(GameMode.SURVIVAL);
         }
@@ -104,7 +108,7 @@ public abstract class MGameActions {
 
     public static void teleportPlayers2(Setup setup) {
 
-        MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
+        GameBorder border = setup.getGame().getGameRules().gameBorder;
         teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ());
 
     }
@@ -116,21 +120,21 @@ public abstract class MGameActions {
         teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers(), 0, 0);
     }
 
-    public static void sendInfo(MPlayer mPlayer, int i) {
+    public static void sendInfo(GamePlayer gamePlayer, int i) {
 
-        if (mPlayer == null) return;
+        if (gamePlayer == null) return;
 
-        Player player = Bukkit.getPlayer(mPlayer.uuid);
+        Player player = Bukkit.getPlayer(gamePlayer.uuid);
         if (player == null) return;
 
         player.playNote(player.getLocation(), Instrument.PIANO, Note.flat(1,  Note.Tone.A));
         new Title(ChatColor.GOLD + String.valueOf(i), "", 3, 20, 2).send(player);
     }
 
-    public static void sendInfos(Set<MPlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
-        for (MPlayer mPlayer : players) {
+    public static void sendInfos(Set<GamePlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
+        for (GamePlayer gamePlayer : players) {
 
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player == null) continue;
 
             new Title(title, desc, 3, 20, 2).send(player);

@@ -9,10 +9,10 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.Banners;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -69,7 +69,7 @@ public class IHostTimer {
             }
         }
 
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameRules rules = setup.getGame().getGameRules();
 
         if (rules.rolesAnnounce > 60)
             inventory.setItem(22, new ItemBuilder(IInfos.HOST_TIMER_ROLES.clone()).setName(ChatColor.GREEN + "Annonce des rôles: " + ChatColor.DARK_AQUA + rules.rolesAnnounce / 60 + ChatColor.GREEN + " mins").toItemStack());
@@ -93,7 +93,7 @@ public class IHostTimer {
     private Consumer<InventoryClickEvent> updateTimer(int row, int n) {
         return e -> {
 
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
 
             if (row == 0) {
                 if (n == 0)

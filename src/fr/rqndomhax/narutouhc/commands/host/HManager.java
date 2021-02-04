@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 
 public abstract class HManager {
 
-    public static Player checkCommandArgs(MRules rules, String[] args, CommandSender sender, String usage) {
+    public static Player checkCommandArgs(GameRules rules, String[] args, CommandSender sender, String usage) {
 
         if (sender instanceof Player && !rules.gameHost.equals(((Player) sender).getUniqueId())) {
             sender.sendMessage(Messages.COMMAND_ONLY_HOST);
@@ -40,7 +40,7 @@ public abstract class HManager {
 
     public static boolean setHost(Setup setup, String[] args, CommandSender sender) {
 
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameRules rules = setup.getGame().getGameRules();
 
         if (sender instanceof Player) {
             sender.sendMessage(Messages.COMMAND_ONLY_CONSOLE);
@@ -66,14 +66,14 @@ public abstract class HManager {
 
         rules.gameHost = player.getUniqueId();
         player.sendMessage(Messages.HOST_SET);
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
-            MGameActions.clearPlayerLobby(setup, player);
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
         sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", player.getName()));
 
         return true;
     }
 
-    public static boolean sendAnnounce(MRules rules, String[] args, CommandSender sender) {
+    public static boolean sendAnnounce(GameRules rules, String[] args, CommandSender sender) {
 
         if (sender instanceof Player
                 && !rules.gameHost.equals(((Player) sender).getUniqueId())

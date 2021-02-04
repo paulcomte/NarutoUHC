@@ -9,11 +9,11 @@ package fr.rqndomhax.narutouhc.inventories.host.border;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MBorder;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameBorder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.Banners;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -83,17 +83,17 @@ public class IHostBorderActivation {
                 n++;
             }
         }
-        if (setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize == 60) {
+        if (setup.getGame().getGameRules().gameBorder.timeBeforeResize == 60) {
             inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + "1" + ChatColor.GREEN + " min").toItemStack());
             inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + "1" + ChatColor.GREEN + " min").toItemStack());
         }
         else {
-            inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
-            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameInfo().getMRules().mBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
+            inventory.setItem(22, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameRules().gameBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
+            inventory.setItem(31, new ItemBuilder(Material.IRON_FENCE).setName(ChatColor.GREEN + "Temps: " + ChatColor.DARK_AQUA + setup.getGame().getGameRules().gameBorder.timeBeforeResize / 60 + ChatColor.GREEN + " mins").toItemStack());
         }
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
             if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
                 new IHostBorder(setup, player, inventory);
         });
@@ -103,7 +103,7 @@ public class IHostBorderActivation {
 
     private Consumer<InventoryClickEvent> updateActivation(boolean isNegative, int n) {
         return e -> {
-            MBorder border = setup.getGame().getGameInfo().getMRules().mBorder;
+            GameBorder border = setup.getGame().getGameRules().gameBorder;
             if (isNegative) {
                 if (n == 0 || n == 3)
                     if (border.timeBeforeResize - 10*60 <= 60)

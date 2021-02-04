@@ -43,7 +43,7 @@ public class IHost extends RInventory {
         this.setItem(31, IInfos.MAIN_HOST_ROLES, openRolesConfig());
         this.setItem(38, IInfos.MAIN_HOST_TIMERS, openTimerConfig());
         this.setItem(42, IInfos.MAIN_HOST_HOST, openHostConfig());
-        if (setup.getGame().getGameInfo().getMainTask() == null)
+        if (setup.getGame().getMainTask() == null)
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
             this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
@@ -76,7 +76,7 @@ public class IHost extends RInventory {
     private Consumer<InventoryClickEvent> onButtonClick(boolean isStarting) {
         return e -> {
             if (isStarting) {
-                setup.getGame().getGameInfo().removeTask();
+                setup.getGame().removeTask();
                 this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
             }
@@ -92,7 +92,7 @@ public class IHost extends RInventory {
                     return;
                 }
                 */
-                setup.getGame().getGameInfo().startTask(setup);
+                setup.getGame().startTask(setup);
                 this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
             }
             player.updateInventory();

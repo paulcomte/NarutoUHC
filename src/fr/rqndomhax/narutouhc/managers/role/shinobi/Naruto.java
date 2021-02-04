@@ -8,10 +8,10 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,8 +25,8 @@ import java.util.Objects;
 
 public class Naruto extends RoleInfo {
 
-    public Naruto(MPlayer mPlayer) {
-        super(mPlayer, Roles.NARUTO);
+    public Naruto(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.NARUTO);
     }
 
     @Override

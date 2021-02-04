@@ -17,9 +17,9 @@ import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
-import fr.rqndomhax.narutouhc.utils.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.WorldManager;
+import fr.rqndomhax.narutouhc.utils.tools.BiomeSwapper;
+import fr.rqndomhax.narutouhc.utils.tools.WorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -29,6 +29,7 @@ import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class Registers {
 
@@ -47,7 +48,7 @@ public class Registers {
         File narutoMap = new File("original/" + Maps.NARUTO_UNIVERSE.name());
 
         if (!narutoMap.exists()) {
-            System.out.println(Messages.PLUGIN_MAP_NOT_PRESENT);
+            Bukkit.getLogger().log(Level.SEVERE, Messages.PLUGIN_MAP_NOT_PRESENT);
             return false;
         }
 
@@ -56,7 +57,7 @@ public class Registers {
             FileUtils.copyDirectory(narutoMap, new File(Maps.NARUTO_UNIVERSE.name()));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println(Messages.PLUGIN_INTERNAL_ERROR);
+            Bukkit.getLogger().log(Level.SEVERE, Messages.PLUGIN_INTERNAL_ERROR);
             return false;
         }
 
@@ -64,12 +65,12 @@ public class Registers {
 
         File noPvp = new File(Maps.NO_PVP.name());
         if (noPvp.exists() && noPvp.isDirectory()) {
-            System.out.println(Messages.PLUGIN_DELETING_WORLD);
+            Bukkit.getLogger().log(Level.SEVERE, Messages.PLUGIN_DELETING_WORLD);
             try {
                 FileUtils.deleteDirectory(noPvp);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println(Messages.PLUGIN_INTERNAL_ERROR);
+                Bukkit.getLogger().log(Level.SEVERE, Messages.PLUGIN_INTERNAL_ERROR);
                 return false;
             }
         }
@@ -88,7 +89,7 @@ public class Registers {
         noPVP.setPVP(false);
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
 
-        System.out.println(Messages.PLUGIN_GENERATING_LOBBY);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
         MGameBuild.placeLobby();
 
         return true;

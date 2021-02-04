@@ -8,12 +8,12 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 
 public class Minato extends RoleInfo {
 
-    public Minato(MPlayer mPlayer) {
-        super(mPlayer, Roles.MINATO);
+    public Minato(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.MINATO);
     }
 }

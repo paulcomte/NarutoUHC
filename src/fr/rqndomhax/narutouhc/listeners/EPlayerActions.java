@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
@@ -33,40 +33,40 @@ public class EPlayerActions implements Listener {
     public void onPlayerHitEvent(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
         if (!(e.getDamager() instanceof Player)) return;
-        MPlayer mPlayer = setup.getGame().getMPlayer(e.getDamager().getUniqueId());
-        if (mPlayer == null) return;
-        if (mPlayer.role == null) return;
-        mPlayer.role.onHit(setup.getGame().getMPlayer(e.getEntity().getUniqueId()));
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getDamager().getUniqueId());
+        if (gamePlayer == null) return;
+        if (gamePlayer.role == null) return;
+        gamePlayer.role.onHit(setup.getGame().getGamePlayer(e.getEntity().getUniqueId()));
     }
 
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent e) {
         e.setDeathMessage("");
         Player player = e.getEntity();
-        MPlayer mPlayer = setup.getGame().getMPlayer(player.getUniqueId());
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
         player.setGameMode(GameMode.SPECTATOR);
 
-        if (mPlayer == null) {
+        if (gamePlayer == null) {
             e.setDroppedExp(0);
             e.getDrops().clear();
             return;
         }
-        if (mPlayer.isDead) {
+        if (gamePlayer.isDead) {
             e.setDroppedExp(0);
             e.getDrops().clear();
             return;
         }
 
-        mPlayer.deathLocation = player.getLocation();
+        gamePlayer.deathLocation = player.getLocation();
 
-        InventoryManager.saveInventory(mPlayer.inventory, player);
-        mPlayer.isDead = true;
+        InventoryManager.saveInventory(gamePlayer.inventory, player);
+        gamePlayer.isDead = true;
 
         if (player.getKiller() != null)
-            new TDeath(setup, mPlayer, setup.getGame().getMPlayer(player.getKiller().getUniqueId()), setup.getGame().getGameInfo().getMRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
+            new TDeath(setup, gamePlayer, setup.getGame().getGamePlayer(player.getKiller().getUniqueId()), setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
         else
-            new TDeath(setup, mPlayer, null, setup.getGame().getGameInfo().getMRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
+            new TDeath(setup, gamePlayer, null, setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
 
         e.getDrops().clear();
         e.setDroppedExp(0);
@@ -75,13 +75,13 @@ public class EPlayerActions implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
 
-        MPlayer mPlayer = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
-        if (mPlayer == null) return;
+        if (gamePlayer == null) return;
 
-        if (!mPlayer.isDead) return;
+        if (!gamePlayer.isDead) return;
 
-        e.setRespawnLocation(mPlayer.deathLocation);
+        e.setRespawnLocation(gamePlayer.deathLocation);
     }
 
 

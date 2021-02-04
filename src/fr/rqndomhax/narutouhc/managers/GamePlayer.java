@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MPlayer {
+public class GamePlayer {
 
     public final UUID uuid;
     public RoleInfo role = null;
@@ -25,7 +25,7 @@ public class MPlayer {
     public Location location;
     public Location deathLocation;
 
-    public MPlayer(UUID uuid) {
+    public GamePlayer(UUID uuid) {
         this.uuid = uuid;
     }
 }

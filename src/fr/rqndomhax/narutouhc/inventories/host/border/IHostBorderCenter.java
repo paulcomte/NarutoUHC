@@ -10,9 +10,9 @@ package fr.rqndomhax.narutouhc.inventories.host.border;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -47,7 +47,7 @@ public class IHostBorderCenter {
         IInfos.placeInvBorders(inventory.getInventory());
 
         for (BorderCenter center : BorderCenter.values()) {
-            if (setup.getGame().getGameInfo().getMRules().mBorder.center == center)
+            if (setup.getGame().getGameRules().gameBorder.center == center)
                 inventory.setItem(centers[n], new ItemBuilder(center.getItem().clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), updateCenter(center));
             else
                 inventory.setItem(centers[n], center.getItem(), updateCenter(center));
@@ -55,7 +55,7 @@ public class IHostBorderCenter {
         }
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
             if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
                 new IHostBorder(setup, player, inventory);
         });
@@ -65,7 +65,7 @@ public class IHostBorderCenter {
 
     private Consumer<InventoryClickEvent> updateCenter(BorderCenter center) {
         return e -> {
-            setup.getGame().getGameInfo().getMRules().mBorder.center = center;
+            setup.getGame().getGameRules().gameBorder.center = center;
             updateInventory();
         };
     }

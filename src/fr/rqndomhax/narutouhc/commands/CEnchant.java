@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.host.IHostEnchant;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.Command;
@@ -34,14 +34,14 @@ public class CEnchant implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameRules rules = setup.getGame().getGameRules();
 
         if (!rules.gameCoHost.contains(player.getUniqueId()) && !rules.gameHost.equals(player.getUniqueId())) {
             player.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
         }
 
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
             player.sendMessage(Messages.NOT_IN_LOBBY);
             return false;
         }

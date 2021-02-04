@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -22,14 +22,14 @@ public class Hinata extends RoleInfo {
     public int commandUses = 2;
     public boolean isNarutoDead = false;
 
-    public Hinata(MPlayer mPlayer) {
-        super(mPlayer, Roles.HINATA);
+    public Hinata(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.HINATA);
     }
 
     @Override
-    public void onPlayerDeath(MPlayer mPlayer) {
-        if (mPlayer.role == null) return;
-        if (!mPlayer.role.getRole().equals(Roles.NARUTO)) {
+    public void onPlayerDeath(GamePlayer gamePlayer) {
+        if (gamePlayer.role == null) return;
+        if (!gamePlayer.role.getRole().equals(Roles.NARUTO)) {
             isNarutoDead = true;
             giveEffects();
         }

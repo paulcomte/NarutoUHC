@@ -30,7 +30,7 @@ public class ELobbyCancel implements Listener {
     public void onItemClick(PlayerInteractEvent e) {
         if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !e.getAction().equals(Action.RIGHT_CLICK_AIR))
             return;
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
             return;
         if (e.getItem() == null || !e.getItem().equals(IInfos.MAIN_HOST_ITEM))
             return;
@@ -40,7 +40,7 @@ public class ELobbyCancel implements Listener {
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
             return;
         if (e.getItemDrop().getItemStack().equals(IInfos.MAIN_HOST_ITEM))
             e.setCancelled(true);
@@ -48,7 +48,7 @@ public class ELobbyCancel implements Listener {
 
     @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent e) {
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
             return;
         if (e.getCurrentItem() == null)
             return;

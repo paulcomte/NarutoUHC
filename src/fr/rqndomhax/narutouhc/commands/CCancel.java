@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostDeathInventory;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostStartInventory;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -36,7 +36,12 @@ public class CCancel implements CommandExecutor {
             return false;
         }
 
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameRules rules = setup.getGame().getGameRules();
+
+        if (rules == null) {
+            sender.sendMessage(Messages.HOST_NEED_MORE_PLAYERS);
+        }
+
         Player player = (Player) sender;
 
         if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
@@ -44,14 +49,14 @@ public class CCancel implements CommandExecutor {
             return false;
         }
 
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
             player.sendMessage(Messages.NOT_IN_LOBBY);
             return false;
         }
 
         if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId())) {
             rules.startInventoryInEdit = null;
-            MGameActions.clearPlayerLobby(setup, player);
+            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
             IHost host = new IHost(setup, player);
             player.openInventory(host.getInventory());
             new IHostStartInventory(setup, player, host);
@@ -60,7 +65,7 @@ public class CCancel implements CommandExecutor {
         }
         else if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId())) {
             rules.deathInventoryInEdit = null;
-            MGameActions.clearPlayerLobby(setup, player);
+            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
             IHost host = new IHost(setup, player);
             player.openInventory(host.getInventory());
             new IHostDeathInventory(setup, player, host);

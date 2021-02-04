@@ -10,8 +10,8 @@ package fr.rqndomhax.narutouhc.inventories.host.world;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -51,7 +51,7 @@ public class IHostWorldDayCycle {
             StringBuilder description = new StringBuilder();
             ItemBuilder item = new ItemBuilder(dayCycle.getItem().clone());
 
-            if (setup.getGame().getGameInfo().getMRules().dayCycle.equals(dayCycle)) {
+            if (setup.getGame().getGameRules().dayCycle.equals(dayCycle)) {
                 item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants();
                 description.append(ChatColor.LIGHT_PURPLE + "➤ ");
             }
@@ -70,7 +70,7 @@ public class IHostWorldDayCycle {
 
     private Consumer<InventoryClickEvent> updateDayCycle(DayCycle cycle) {
         return e -> {
-            setup.getGame().getGameInfo().getMRules().dayCycle = cycle;
+            setup.getGame().getGameRules().dayCycle = cycle;
             updateInventory();
         };
     }

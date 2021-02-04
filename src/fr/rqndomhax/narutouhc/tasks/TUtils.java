@@ -7,7 +7,7 @@
 
 package fr.rqndomhax.narutouhc.tasks;
 
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 
@@ -24,7 +24,7 @@ public abstract class TUtils {
         if (remaining == 0) {
             Bukkit.broadcastMessage(Messages.EPISODE_FINISHED.replace("%episode%", String.valueOf(mainTask.episode)));
             mainTask.episode++;
-            for (MPlayer player : mainTask.getSetup().getGame().getGamePlayers()) {
+            for (GamePlayer player : mainTask.getSetup().getGame().getGamePlayers()) {
                 if (player.isDead) continue;
                 if (player.role == null) continue;
                 player.role.onNewEpisode(mainTask.episode);
@@ -59,7 +59,7 @@ public abstract class TUtils {
         }
 
         if (r == 0) {
-            mainTask.getSetup().getRole().dispatchRoles();
+            mainTask.getSetup().getGame().getGameRole().dispatchRoles();
             mainTask.hasRoles = true;
             Bukkit.broadcastMessage(Messages.ROLES_ANNOUNCED);
         }

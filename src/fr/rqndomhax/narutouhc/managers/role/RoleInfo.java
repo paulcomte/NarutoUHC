@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.role;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,12 +16,12 @@ import org.bukkit.entity.Player;
 public abstract class RoleInfo implements Role {
 
     private final Roles role;
-    private final MPlayer mPlayer;
+    private final GamePlayer gamePlayer;
 
     public boolean hasClaimed = false;
 
-    public RoleInfo(MPlayer mPlayer, Roles role) {
-        this.mPlayer = mPlayer;
+    public RoleInfo(GamePlayer gamePlayer, Roles role) {
+        this.gamePlayer = gamePlayer;
         this.role = role;
     }
 
@@ -50,7 +50,7 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
-    public void onHit(MPlayer mPlayer) {
+    public void onHit(GamePlayer gamePlayer) {
 
     }
 
@@ -65,7 +65,7 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
-    public void onKill(MPlayer killed) {
+    public void onKill(GamePlayer killed) {
 
     }
 
@@ -75,7 +75,7 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
-    public void onPlayerDeath(MPlayer mPlayer) {
+    public void onPlayerDeath(GamePlayer gamePlayer) {
 
     }
 
@@ -93,7 +93,7 @@ public abstract class RoleInfo implements Role {
         return role;
     }
 
-    public MPlayer getMPlayer() {
-        return mPlayer;
+    public GamePlayer getMPlayer() {
+        return gamePlayer;
     }
 }

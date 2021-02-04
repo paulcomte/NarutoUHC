@@ -9,9 +9,9 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -52,14 +52,14 @@ public class IHostConfig {
 
         inventory.setItem(29, getBorderDisconnects(), changeBorderDisconnects());
 
-        OfflinePlayer offlineHost = Bukkit.getOfflinePlayer(setup.getGame().getGameInfo().getMRules().gameHost);
+        OfflinePlayer offlineHost = Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost);
 
         inventory.setItem(31, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName("Host: " + offlineHost.getName()).setSkullOwner(offlineHost.getName()).toItemStack());
 
         inventory.setItem(33, getWhitelist(), changeWhitelist());
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
             player.closeInventory();
             if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());
@@ -69,40 +69,40 @@ public class IHostConfig {
     }
 
     private ItemStack getBorderDisconnects() {
-        if (setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder)
+        if (setup.getGame().getGameRules().spectatorsAfterBorder)
             return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 
     private Consumer<InventoryClickEvent> changeBorderDisconnects() {
         return e -> {
-            setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder = !setup.getGame().getGameInfo().getMRules().spectatorsAfterBorder;
+            setup.getGame().getGameRules().spectatorsAfterBorder = !setup.getGame().getGameRules().spectatorsAfterBorder;
             updateInventory();
         };
     }
 
     private ItemStack getSpectators() {
-        if (setup.getGame().getGameInfo().getMRules().allowSpectators)
+        if (setup.getGame().getGameRules().allowSpectators)
             return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 
     private Consumer<InventoryClickEvent> changeSpectators() {
         return e -> {
-            setup.getGame().getGameInfo().getMRules().allowSpectators = !setup.getGame().getGameInfo().getMRules().allowSpectators;
+            setup.getGame().getGameRules().allowSpectators = !setup.getGame().getGameRules().allowSpectators;
             updateInventory();
         };
     }
 
     private ItemStack getWhitelist() {
-        if (setup.getGame().getGameInfo().getMRules().hasWhitelist)
+        if (setup.getGame().getGameRules().hasWhitelist)
             return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 
     private Consumer<InventoryClickEvent> changeWhitelist() {
         return e -> {
-            setup.getGame().getGameInfo().getMRules().hasWhitelist = !setup.getGame().getGameInfo().getMRules().hasWhitelist;
+            setup.getGame().getGameRules().hasWhitelist = !setup.getGame().getGameRules().hasWhitelist;
             updateInventory();
         };
     }

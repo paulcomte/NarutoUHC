@@ -7,7 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers.role;
 
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 
 public interface Role {
 
@@ -19,17 +19,17 @@ public interface Role {
 
     void giveEffects();
 
-    void onHit(MPlayer mPlayer);
+    void onHit(GamePlayer gamePlayer);
 
     void onDesc();
 
     void onCommand();
 
-    void onKill(MPlayer killed);
+    void onKill(GamePlayer killed);
 
     void onDeath();
 
-    void onPlayerDeath(MPlayer dead);
+    void onPlayerDeath(GamePlayer dead);
 
     void onPlayerJoin();
 

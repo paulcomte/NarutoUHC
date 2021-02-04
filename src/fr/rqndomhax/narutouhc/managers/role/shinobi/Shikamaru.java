@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -20,8 +20,8 @@ public class Shikamaru extends RoleInfo {
     int commandUses = 2;
     boolean commandUsed = false;
 
-    public Shikamaru(MPlayer mPlayer) {
-        super(mPlayer, Roles.SHIKAMARU);
+    public Shikamaru(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.SHIKAMARU);
     }
 
     @Override

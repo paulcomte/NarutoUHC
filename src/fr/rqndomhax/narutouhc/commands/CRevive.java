@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -36,7 +36,7 @@ public class CRevive implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
 
             if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
@@ -44,30 +44,30 @@ public class CRevive implements CommandExecutor {
             }
         }
 
-        MPlayer mPlayer = setup.getGame().getMPlayer(args[0]);
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(args[0]);
 
-        if (mPlayer == null) {
+        if (gamePlayer == null) {
             sender.sendMessage(Messages.PLAYER_NOT_PLAYING);
             return false;
         }
 
-        if (!mPlayer.isDead) {
+        if (!gamePlayer.isDead) {
             sender.sendMessage(Messages.PLAYER_NOT_DEAD);
             return false;
         }
 
-        Player player = Bukkit.getPlayer(mPlayer.uuid);
+        Player player = Bukkit.getPlayer(gamePlayer.uuid);
 
-        revive(player, mPlayer);
+        revive(player, gamePlayer);
         sender.sendMessage(Messages.PLAYER_NOW_RESURRECTED.replace("%player%", player.getName()));
         return true;
     }
 
-    public void revive(Player player, MPlayer mPlayer) {
-        InventoryManager.giveInventory(mPlayer.inventory, player);
-        mPlayer.isDead = false;
+    public void revive(Player player, GamePlayer gamePlayer) {
+        InventoryManager.giveInventory(gamePlayer.inventory, player);
+        gamePlayer.isDead = false;
         player.setGameMode(GameMode.SURVIVAL);
-        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameInfo().getMRules().currentMap.name())));
+        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
         player.sendMessage(Messages.PLAYER_RESURRECTED);
     }
 }

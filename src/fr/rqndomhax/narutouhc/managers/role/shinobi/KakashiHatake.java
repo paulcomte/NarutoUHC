@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,8 +20,8 @@ public class KakashiHatake extends RoleInfo {
 
     private RoleInfo stolenRole = null;
 
-    public KakashiHatake(MPlayer mPlayer) {
-        super(mPlayer, Roles.KAKASHI_HATAKE);
+    public KakashiHatake(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.KAKASHI_HATAKE);
     }
 
     @Override
@@ -31,12 +31,12 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
-    public void onHit(MPlayer mPlayer) {
-        if (mPlayer == null || stolenRole != null) return;
+    public void onHit(GamePlayer gamePlayer) {
+        if (gamePlayer == null || stolenRole != null) return;
 
-        if (mPlayer.equals(getMPlayer())) return;
+        if (gamePlayer.equals(getMPlayer())) return;
         try {
-            stolenRole = (RoleInfo) mPlayer.role.getRole().getRoleInfo().getDeclaredConstructors()[0].newInstance(getMPlayer());
+            stolenRole = (RoleInfo) gamePlayer.role.getRole().getRoleInfo().getDeclaredConstructors()[0].newInstance(getMPlayer());
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
-    public void onKill(MPlayer killed) {
+    public void onKill(GamePlayer killed) {
         if (stolenRole != null)
             stolenRole.onKill(killed);
     }

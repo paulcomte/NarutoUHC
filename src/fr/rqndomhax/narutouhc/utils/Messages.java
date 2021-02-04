@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.utils;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 public abstract class Messages {
 
-    public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.RESET;
+    public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC ❚" + ChatColor.RESET;
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
@@ -31,6 +31,10 @@ public abstract class Messages {
     public static String SERVER_RELAODING = "THE SERVER IS RELOADING !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
+    public static String CANNOT_CREATE_VILLAGER = "[Naruto UHC] CANNOT SPAWN NPC !";
+    public static String CANNOT_INIT = "[Naruto UHC] AN ERROR HAS OCCURRED DURING PLUGIN INITIALIZATION !";
+
+    public static String CANNOT_LOAD_CONFIG = PREFIX + "Chargement de la configuration impossible !";
 
     public static String NEED_PLAYER = PREFIX + "Seul un joueur peut effectuer cette action !";
     public static String NEED_ITEM_IN_HAND = PREFIX + "Vous devez tenir un objet en main !";
@@ -133,13 +137,13 @@ public abstract class Messages {
     public static String EPISODE_FINISHED_30S = PREFIX + "L'épisode %episode% se termine dans 30 secondes !";
     public static String EPISODE_FINISHED = ChatColor.BLACK + "-------- Fin Episode %episode% --------";
 
-    public static void showDeath(MPlayer player, boolean showRoleOnDeath) {
+    public static void showDeath(GamePlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
         if (player.role == null || !showRoleOnDeath)
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort");
         else
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
-                + ChatColor.BOLD + player.role.toString().toLowerCase());
+                + ChatColor.BOLD + player.role.getRole().name().toLowerCase());
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
     }
 
@@ -157,9 +161,9 @@ public abstract class Messages {
     }
 
     public static void sendMessagesToPlayers(Setup setup, String message) {
-        for (MPlayer mPlayer : setup.getGame().getGamePlayers()) {
-            if (mPlayer == null) continue;
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
+            if (gamePlayer == null) continue;
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player == null) continue;
             player.sendMessage(message);
         }

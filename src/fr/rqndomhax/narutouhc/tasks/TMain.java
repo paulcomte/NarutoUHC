@@ -21,7 +21,6 @@ public class TMain extends BukkitRunnable {
 
     private final Setup setup;
     public boolean lastTaskFinished = true;
-    public boolean isAlive = true;
     public boolean hasRoles = false;
     public boolean lobbyRemoved = false;
     public List<Tasks> remainingTasks = new ArrayList<>();
@@ -34,12 +33,11 @@ public class TMain extends BukkitRunnable {
     public TMain(Setup setup) {
         this.setup = setup;
         remainingTasks.addAll(Arrays.asList(Tasks.values()));
-        if (setup.getGame().getGameInfo().getMRules().activatedScenarios.contains(Scenarios.MEETUP)) {
+        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.MEETUP)) {
             remainingTasks.remove(Tasks.WAIT);
             remainingTasks.remove(Tasks.INVINCIBILITY);
             remainingTasks.remove(Tasks.PREPARATION);
         }
-        roleRemainingTime = setup.getGame().getGameInfo().getMRules().rolesAnnounce;
         runTaskTimer(setup.getMain(), 0, 20);
     }
 

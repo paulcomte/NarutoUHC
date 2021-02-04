@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,14 +32,14 @@ public class ECancels implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameState gameState = setup.getGame().getGameState();
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
             e.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameState gameState = setup.getGame().getGameState();
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
             e.setCancelled(true);
     }
@@ -48,29 +48,30 @@ public class ECancels implements Listener {
     public void onEntityDamage(EntityDamageEvent e) {
         if (!(e.getEntity() instanceof Player))
             return;
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameState gameState = setup.getGame().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
                 || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameState gameState = setup.getGame().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
                 || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
 
    @EventHandler
     public void onMove(PlayerMoveEvent e) {
-       if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING)
-               && !setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)
-               && !setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_TELEPORTING))
+       GameState gameState = setup.getGame().getGameState();
+       if (!gameState.equals(GameState.LOBBY_TELEPORTING)
+               && !gameState.equals(GameState.LOBBY_WAITING)
+               && !gameState.equals(GameState.GAME_TELEPORTING))
             return;
 
        if (e.getTo().getY() > 220)
            return;
 
-       MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
+       GamePlayer player = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
        if (player == null) return;
 
        if (player.location != null)

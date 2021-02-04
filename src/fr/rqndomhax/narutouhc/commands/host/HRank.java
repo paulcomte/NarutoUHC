@@ -7,8 +7,7 @@
 
 package fr.rqndomhax.narutouhc.commands.host;
 
-import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -17,11 +16,8 @@ import org.bukkit.entity.Player;
 
 public abstract class HRank {
 
-    public static boolean promoteHost(Setup setup, String[] args, CommandSender sender) {
-
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+    public static boolean promoteHost(GameRules rules, GameState gameState, String[] args, CommandSender sender) {
         Player coHost = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_PROMOTE);
-
 
         if (coHost == null)
             return false;
@@ -39,14 +35,12 @@ public abstract class HRank {
         rules.gameCoHost.add(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_CO_HOST.replace("%player%", coHost.getName()));
         coHost.sendMessage(Messages.HOST_PROMOTED);
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
-            MGameActions.clearPlayerLobby(setup, coHost);
+        if (gameState.equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(rules, coHost);
         return true;
     }
 
-    public static boolean deleteHost(Setup setup, String[] args, CommandSender sender) {
-
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+    public static boolean deleteHost(GameRules rules, GameState gameState, String[] args, CommandSender sender) {
 
         Player coHost = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_DELETE);
 
@@ -61,8 +55,8 @@ public abstract class HRank {
         rules.gameCoHost.remove(coHost.getUniqueId());
         sender.sendMessage(Messages.HOST_NOW_DELETED_CO_HOST.replace("%player%", coHost.getName()));
         coHost.sendMessage(Messages.HOST_DEMOTED);
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
-            MGameActions.clearPlayerLobby(setup, coHost);
+        if (gameState.equals(GameState.LOBBY_WAITING))
+            MGameActions.clearPlayerLobby(rules, coHost);
         return true;
     }
 

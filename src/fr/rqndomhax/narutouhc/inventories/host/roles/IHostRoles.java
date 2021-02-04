@@ -12,8 +12,8 @@ import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -89,7 +89,7 @@ public class IHostRoles {
             StringBuilder itemName = new StringBuilder();
 
             itemName.append(role.getItem().getItemMeta().getDisplayName());
-            if (setup.getGame().getGameInfo().getMRules().activatedRoles.contains(role)) {
+            if (setup.getGame().getGameRules().activatedRoles.contains(role)) {
                 itemName.append(ChatColor.GREEN + " ✔");
                 item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants();
             }
@@ -128,7 +128,7 @@ public class IHostRoles {
             StringBuilder itemName = new StringBuilder();
 
             itemName.append(role.getItem().getItemMeta().getDisplayName());
-            if (setup.getGame().getGameInfo().getMRules().activatedRoles.contains(role)) {
+            if (setup.getGame().getGameRules().activatedRoles.contains(role)) {
                 itemName.append(ChatColor.GREEN + " ✔");
                 item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants();
             }
@@ -167,7 +167,7 @@ public class IHostRoles {
             StringBuilder itemName = new StringBuilder();
 
             itemName.append(role.getItem().getItemMeta().getDisplayName());
-            if (setup.getGame().getGameInfo().getMRules().activatedRoles.contains(role)) {
+            if (setup.getGame().getGameRules().activatedRoles.contains(role)) {
                 itemName.append(ChatColor.GREEN + " ✔");
                 item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants();
             }
@@ -206,7 +206,7 @@ public class IHostRoles {
             StringBuilder itemName = new StringBuilder();
 
             itemName.append(role.getItem().getItemMeta().getDisplayName());
-            if (setup.getGame().getGameInfo().getMRules().activatedRoles.contains(role)) {
+            if (setup.getGame().getGameRules().activatedRoles.contains(role)) {
                 itemName.append(ChatColor.GREEN + " ✔");
                 item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants();
             }
@@ -227,10 +227,10 @@ public class IHostRoles {
 
     private Consumer<InventoryClickEvent> updateRole(Roles role, IHostRolesPage page) {
         return e -> {
-            if (setup.getGame().getGameInfo().getMRules().activatedRoles.contains(role))
-                setup.getGame().getGameInfo().getMRules().activatedRoles.remove(role);
+            if (setup.getGame().getGameRules().activatedRoles.contains(role))
+                setup.getGame().getGameRules().activatedRoles.remove(role);
             else
-                setup.getGame().getGameInfo().getMRules().activatedRoles.add(role);
+                setup.getGame().getGameRules().activatedRoles.add(role);
             update(page);
         };
     }

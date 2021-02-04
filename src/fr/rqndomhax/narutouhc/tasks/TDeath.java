@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -23,15 +23,15 @@ import java.util.List;
 public class TDeath extends BukkitRunnable {
 
     private final Setup setup;
-    private final MPlayer mPlayer;
-    private final MPlayer killer;
+    private final GamePlayer gamePlayer;
+    private final GamePlayer killer;
     private final int droppedExp;
     private final List<ItemStack> drops;
     public int timeLeft;
 
-    public TDeath(Setup setup, MPlayer mPlayer, MPlayer killer, int timeLeft, int droppedExp, List<ItemStack> drops) {
+    public TDeath(Setup setup, GamePlayer gamePlayer, GamePlayer killer, int timeLeft, int droppedExp, List<ItemStack> drops) {
         this.setup = setup;
-        this.mPlayer = mPlayer;
+        this.gamePlayer = gamePlayer;
         this.killer = killer;
         this.timeLeft = timeLeft;
         this.droppedExp = droppedExp;
@@ -42,32 +42,32 @@ public class TDeath extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (mPlayer == null) {
+        if (gamePlayer == null) {
             cancel();
             return;
         }
 
-        if (!mPlayer.isDead) {
+        if (!gamePlayer.isDead) {
             cancel();
             return;
         }
 
         if (timeLeft <= 5 && timeLeft > 0 || timeLeft == 10 || timeLeft == 15 || timeLeft == 30 || timeLeft == 60)
-            MGameActions.sendInfo(mPlayer, timeLeft);
+            MGameActions.sendInfo(gamePlayer, timeLeft);
 
         if (timeLeft == 0) {
-            Messages.showDeath(mPlayer, setup.getGame().getGameInfo().getMRules().showRoleOnDeath);
-            mPlayer.deathLocation.getWorld().strikeLightningEffect(mPlayer.deathLocation);
-            drops.forEach(drop -> mPlayer.deathLocation.getWorld().dropItemNaturally(mPlayer.deathLocation, drop));
-            mPlayer.deathLocation.getWorld().spawn(mPlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
-            InventoryManager.dropInventory(setup.getGame().getGameInfo().getMRules().deathInventory, mPlayer.deathLocation, true);
+            Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
+            gamePlayer.deathLocation.getWorld().strikeLightningEffect(gamePlayer.deathLocation);
+            drops.forEach(drop -> gamePlayer.deathLocation.getWorld().dropItemNaturally(gamePlayer.deathLocation, drop));
+            gamePlayer.deathLocation.getWorld().spawn(gamePlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
+            InventoryManager.dropInventory(setup.getGame().getGameRules().deathInventory, gamePlayer.deathLocation, true);
 
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player != null)
                 player.setHealth(0);
 
             if (killer != null)
-                MGameActions.addKill(killer, mPlayer);
+                MGameActions.addKill(killer, gamePlayer);
             cancel();
         }
 

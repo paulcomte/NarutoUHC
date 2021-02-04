@@ -8,13 +8,13 @@
 package fr.rqndomhax.narutouhc.managers.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
 
 public class Neji extends RoleInfo {
 
-    public Neji(MPlayer mPlayer) {
-        super(mPlayer, Roles.NEJI);
+    public Neji(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.NEJI);
     }
 
 }

@@ -13,7 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
-public class MBorder {
+public class GameBorder {
 
     public int defaultSize = 3000;
     public int finalSize = 100;

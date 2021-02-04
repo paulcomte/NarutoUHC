@@ -7,9 +7,9 @@
 
 package fr.rqndomhax.narutouhc.managers.role;
 
-import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.Game;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -18,19 +18,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MRole {
+public class GameRole {
 
-    private final Setup setup;
+    private final Game game;
     private final List<Roles> availableRoles = new ArrayList<>();
     private final List<Roles> adminRoles = new ArrayList<>();
 
-    public MRole(Setup setup) {
-        this.setup = setup;
-        availableRoles.addAll(setup.getGame().getGameInfo().getMRules().activatedRoles);
+    public GameRole(Game game) {
+        this.game = game;
+        availableRoles.addAll(game.getGameRules().activatedRoles);
     }
 
     public void dispatchRoles() {
-        for (MPlayer player : setup.getGame().getGamePlayers()) {
+        for (GamePlayer player : game.getGamePlayers()) {
             if (availableRoles.get(0) == null) return;
             if (adminRoles.contains(availableRoles.get(0)))
                 availableRoles.remove(0);
@@ -46,7 +46,7 @@ public class MRole {
     }
 
     public void autoUpdateAdminRoles() {
-        for (MPlayer player : setup.getGame().getGamePlayers()) {
+        for (GamePlayer player : game.getGamePlayers()) {
             if (player.role == null) continue;
             if (availableRoles.contains(player.role.getRole())) continue;
             adminRoles.remove(player.role.getRole());
@@ -54,12 +54,12 @@ public class MRole {
         }
     }
 
-    public String removeAdminRole(MPlayer player) {
-        if (!setup.getGame().getGameInfo().getMRules().adminRoles)
+    public String removeAdminRole(GamePlayer player) {
+        if (!game.getGameRules().adminRoles)
             return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (!game.getGameState().equals(GameState.LOBBY_WAITING))
             return Messages.NOT_IN_LOBBY;
         if (player.role == null)
             return Messages.ADMIN_PLAYER_ROLE_NOT_PRESENT;
@@ -69,12 +69,12 @@ public class MRole {
         return Messages.ADMIN_ROLE_REMOVED.replace("%role%", role.name()).replace("%player%", Bukkit.getOfflinePlayer(player.uuid).getName());
     }
 
-    public String setAdminRole(MPlayer player, Roles role) {
-        if (!setup.getGame().getGameInfo().getMRules().adminRoles)
+    public String setAdminRole(GamePlayer player, Roles role) {
+        if (!game.getGameRules().adminRoles)
             return Messages.ADMIN_ROLES_NOT_ENABLE;
         if (player == null)
             return Messages.PLAYER_NOT_EXIST;
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING))
+        if (!game.getGameState().equals(GameState.LOBBY_WAITING))
             return Messages.NOT_IN_LOBBY;
         if (!availableRoles.contains(role))
             return Messages.ROLE_NOT_PRESENT;

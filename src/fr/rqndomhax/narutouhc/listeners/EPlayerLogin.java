@@ -9,7 +9,8 @@ package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -31,12 +32,12 @@ public class EPlayerLogin implements Listener {
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent e) {
 
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOADING)) {
+        if (setup.getGame().getGameState().equals(GameState.LOADING)) {
             e.setKickMessage(Messages.SERVER_STARTING);
             return;
         }
 
-        if (setup.getGame().getGameInfo().getMRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
+        if (setup.getGame().getGameRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
             e.disallow(PlayerLoginEvent.Result.KICK_BANNED, Messages.PLAYER_BANNED);
             return;
         }
@@ -50,24 +51,27 @@ public class EPlayerLogin implements Listener {
 
         setup.getGameScoreboard().newGameScoreboard(e.getPlayer());
 
-        if (setup.getGame().getGameInfo().getMRules().gameHost == null)
-            setup.getGame().getGameInfo().getMRules().gameHost = e.getPlayer().getUniqueId();
+        if (setup.getGame().getGameRules().gameHost == null)
+            setup.getGame().getGameRules().gameHost = e.getPlayer().getUniqueId();
 
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
-            if (setup.getGame().getGameInfo().getMainTask() != null) {
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
+            if (setup.getGame().getMainTask() != null) {
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
-                setup.getGame().getGameInfo().removeTask();
+                setup.getGame().removeTask();
             }
-            MPlayer mPlayer = new MPlayer(e.getPlayer().getUniqueId());
-            setup.getGame().getGamePlayers().add(mPlayer);
-            MGameActions.clearPlayerLobby(setup, e.getPlayer());
+
+            GamePlayer gamePlayer = new GamePlayer(e.getPlayer().getUniqueId());
+            setup.getGame().getGamePlayers().add(gamePlayer);
+            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), e.getPlayer());
+
             e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
             return;
         }
-        if (setup.getGame().getMPlayer(e.getPlayer().getUniqueId()) == null) {
+
+        if (setup.getGame().getGamePlayer(e.getPlayer().getUniqueId()) == null) {
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId()).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId() && !player.getGameMode().equals(GameMode.SPECTATOR)).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
         }
     }
 
@@ -79,21 +83,21 @@ public class EPlayerLogin implements Listener {
         setup.getGameScoreboard().removeGameScoreboard(e.getPlayer());
 
         if (Bukkit.getOnlinePlayers().size() == 1)
-            setup.getGame().getGameInfo().getMRules().gameHost = null;
+            setup.getGame().getGameRules().gameHost = null;
 
-        setup.getGame().getGameInfo().getMRules().gameCoHost.remove(e.getPlayer().getUniqueId());
+        setup.getGame().getGameRules().gameCoHost.remove(e.getPlayer().getUniqueId());
 
-        if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
-            if (setup.getGame().getGameInfo().getMainTask() != null) {
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
+            if (setup.getGame().getMainTask() != null) {
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
-                setup.getGame().getGameInfo().removeTask();
+                setup.getGame().removeTask();
             }
             setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
             return;
         }
 
-        MPlayer player = setup.getGame().getMPlayer(e.getPlayer().getUniqueId());
-        if (player == null || player.isDead)
-            return;
+        GamePlayer player = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
+        if (player != null && !player.isDead)
+            MVillagers.createVillager(e.getPlayer().getLocation(), player);
     }
 }

@@ -14,7 +14,7 @@ public class TMeetup implements Task {
     private final TMain mainTask;
 
     public TMeetup(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_MEETUP);
+        mainTask.getSetup().getGame().setGameState(GameState.GAME_MEETUP);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         loop();
@@ -22,7 +22,7 @@ public class TMeetup implements Task {
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
         mainTask.time++;
     }

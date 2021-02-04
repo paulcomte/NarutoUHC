@@ -21,11 +21,11 @@ public class TTeleportation implements Task {
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_TELEPORTING);
+        mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().narutoTeleportingDuration;
-        mainTask.getSetup().getGame().getGameInfo().getMRules().currentMap = Maps.NARUTO_UNIVERSE;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().narutoTeleportingDuration;
+        mainTask.getSetup().getGame().getGameRules().currentMap = Maps.NARUTO_UNIVERSE;
         MGameActions.teleportPlayers2(mainTask.getSetup());
         if (!mainTask.lobbyRemoved) {
             MGameBuild.removeLobby();
@@ -36,7 +36,7 @@ public class TTeleportation implements Task {
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0)

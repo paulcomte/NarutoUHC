@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.utils.builders;
+package fr.rqndomhax.narutouhc.utils.tools;
 
 import org.bukkit.Color;
 import org.bukkit.DyeColor;

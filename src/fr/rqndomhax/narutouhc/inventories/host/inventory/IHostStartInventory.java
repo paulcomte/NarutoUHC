@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.host.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -44,32 +44,32 @@ public class IHostStartInventory {
         inventory.setItem(53, IInfos.RETURN_ITEM, e -> {
             new IHostInventories(setup, player, inventory);
         });
-        IInfos.setInventoryContent(inventory.getInventory(), setup.getGame().getGameInfo().getMRules().startInventory);
+        IInfos.setInventoryContent(inventory.getInventory(), setup.getGame().getGameRules().startInventory);
 
         player.updateInventory();
     }
 
     private Consumer<InventoryClickEvent> editInventory() {
 
-        MRules mRules = setup.getGame().getGameInfo().getMRules();
+        GameRules gameRules = setup.getGame().getGameRules();
 
         return e -> {
 
-            if (!mRules.gameHost.equals(player.getUniqueId()) && !mRules.gameCoHost.contains(player.getUniqueId())) {
+            if (!gameRules.gameHost.equals(player.getUniqueId()) && !gameRules.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return;
             }
 
-            if (mRules.startInventoryInEdit != null) {
+            if (gameRules.startInventoryInEdit != null) {
                 player.sendMessage(Messages.HOST_INVENTORY_ALREADY_IN_EDIT);
                 return;
             }
 
-            mRules.startInventoryInEdit = player.getUniqueId();
+            gameRules.startInventoryInEdit = player.getUniqueId();
             player.closeInventory();
             player.setGameMode(GameMode.CREATIVE);
             InventoryManager.clearInventory(player);
-            InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().startInventory, player);
+            InventoryManager.giveInventory(setup.getGame().getGameRules().startInventory, player);
             player.sendMessage(Messages.HOST_INVENTORY_EDIT);
         };
     }

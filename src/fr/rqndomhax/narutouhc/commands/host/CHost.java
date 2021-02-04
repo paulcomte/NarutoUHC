@@ -8,7 +8,8 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,7 +27,7 @@ public class CHost implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        MRules rules = setup.getGame().getGameInfo().getMRules();
+        GameRules rules = setup.getGame().getGameRules();
 
         if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
 
@@ -40,12 +41,14 @@ public class CHost implements CommandExecutor {
             return false;
         }
 
+        GameState gameState = setup.getGame().getGameState();
+
         switch (args[0]) {
             case "del":
             case "delete":
-                return HRank.deleteHost(setup, args, sender);
+                return HRank.deleteHost(rules, gameState, args, sender);
             case "promote":
-                return HRank.promoteHost(setup, args, sender);
+                return HRank.promoteHost(rules, gameState, args, sender);
             case "ban":
                 return HStatus.banPlayer(rules, args, sender);
             case "unban":

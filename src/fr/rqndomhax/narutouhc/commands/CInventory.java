@@ -35,7 +35,7 @@ public class CInventory implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (!setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING)) {
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
             player.sendMessage(Messages.NOT_IN_LOBBY);
             return false;
         }

@@ -17,17 +17,17 @@ public class TInvincibility implements Task {
     private int remainingTime;
 
     public TInvincibility(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_INVINCIBILITY);
+        mainTask.getSetup().getGame().setGameState(GameState.GAME_INVINCIBILITY);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().invincibilityDuration;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().invincibilityDuration;
         mainTask.episode++;
         loop();
     }
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0) {

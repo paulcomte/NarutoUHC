@@ -7,27 +7,23 @@
 
 package fr.rqndomhax.narutouhc.core;
 
-import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
+import fr.rqndomhax.narutouhc.managers.game.Game;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MGame;
-import fr.rqndomhax.narutouhc.managers.role.MRole;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
-import fr.rqndomhax.narutouhc.utils.FileManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryTask;
+import fr.rqndomhax.narutouhc.utils.tools.FileManager;
 import org.bukkit.Bukkit;
+
+import java.util.logging.Level;
 
 public class Setup {
 
     private final Main main;
-    private Registers registers;
-    private RInventoryManager rInventoryManager;
-    private FileManager fileManager;
-    private MGame game;
-    private MRole role;
+    private Game game;
     private GameScoreboard gameScoreboard;
 
     public Setup(Main main) {
@@ -37,47 +33,55 @@ public class Setup {
 
     private void setup() {
 
-        System.out.println(Messages.PLUGIN_INIT_STARTED);
-        game = new MGame(this);
-        role = new MRole(this);
-        registers = new Registers(this);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_STARTED);
+        game = new Game().createGame();
 
-        System.out.println(Messages.PLUGIN_INIT_EVENTS);
+        if (game == null) {
+            Bukkit.getLogger().log(Level.SEVERE, Messages.CANNOT_INIT);
+            main.getPluginLoader().disablePlugin(main);
+            return;
+        }
+
+        Registers registers = new Registers(this);
+
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_EVENTS);
         registers.registerEvents();
 
-        System.out.println(Messages.PLUGIN_INIT_COMMANDS);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_COMMANDS);
         registers.registerCommands();
 
-        System.out.println(Messages.PLUGIN_CREATING_WORLDS);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_CREATING_WORLDS);
         if (!registers.registerWorlds()) {
             main.getPluginLoader().disablePlugin(main);
             return;
         }
 
-        System.out.println(Messages.PLUGIN_LAST_TASKS);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_LAST_TASKS);
+
         gameScoreboard = new GameScoreboard(this);
-        rInventoryManager = new RInventoryManager();
+
+        RInventoryManager rInventoryManager = new RInventoryManager();
+
         Bukkit.getPluginManager().registerEvents(new RInventoryHandler(main, rInventoryManager), main);
+
         new RInventoryTask(rInventoryManager).runTaskTimer(main, 0, 1);
-        fileManager = new FileManager(main);
+
+        FileManager fileManager = new FileManager(main);
+
         MConfig.init(fileManager, main.getDataFolder());
-        HostConfig config = MConfig.loadConfig("configs/default.cfg");
-        config.getRules().activatedRoles.forEach(e -> System.out.println(e.name()));
+
         gameScoreboard.runBoard();
-        game.getGameInfo().setGameState(GameState.LOBBY_WAITING);
-        System.out.println(Messages.PLUGIN_INITIALIZED);
+
+        game.setGameState(GameState.LOBBY_WAITING);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INITIALIZED);
     }
 
-    public MGame getGame() {
+    public Game getGame() {
         return game;
     }
 
     public Main getMain() {
         return main;
-    }
-
-    public MRole getRole() {
-        return role;
     }
 
     public GameScoreboard getGameScoreboard() {

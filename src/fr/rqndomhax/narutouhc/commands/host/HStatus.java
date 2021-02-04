@@ -7,7 +7,7 @@
 
 package fr.rqndomhax.narutouhc.commands.host;
 
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public abstract class HStatus {
 
-    public static boolean kickPlayer(MRules rules, String[] args, CommandSender sender) {
+    public static boolean kickPlayer(GameRules rules, String[] args, CommandSender sender) {
 
         Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_KICK);
 
@@ -32,7 +32,7 @@ public abstract class HStatus {
         return true;
     }
 
-    public static boolean banPlayer(MRules rules, String[] args, CommandSender sender) {
+    public static boolean banPlayer(GameRules rules, String[] args, CommandSender sender) {
 
         Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_BAN);
 
@@ -46,7 +46,7 @@ public abstract class HStatus {
         return true;
     }
 
-    public static boolean unbanPlayer(MRules rules, String[] args, CommandSender sender) {
+    public static boolean unbanPlayer(GameRules rules, String[] args, CommandSender sender) {
 
         Player player = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_UNBAN);
 

@@ -29,7 +29,7 @@ public class GameScoreboard {
 
     public void newGameScoreboard(Player player) {
         FastBoard fb = new FastBoard(player);
-        fb.updateTitle(setup.getGame().getGameInfo().getMRules().gameTitle);
+        fb.updateTitle(setup.getGame().getGameRules().gameTitle);
 
         boards.put(player.getUniqueId(), fb);
     }
@@ -40,14 +40,14 @@ public class GameScoreboard {
 
     private void updateBoard(FastBoard board) {
 
-        GameState state = setup.getGame().getGameInfo().getGameState();
+        GameState state = setup.getGame().getGameState();
 
         switch (state) {
             case GAME_TELEPORTATION_INVINCIBILITY:
             case GAME_BORDER:
             case GAME_MEETUP:
             case GAME_FINISHED:
-                if (setup.getGame().getGameInfo().getMainTask() == null)
+                if (setup.getGame().getMainTask() == null)
                     GameScoreboardManager.updateLobbyBoard(setup, board);
                 else
                     GameScoreboardManager.updateNarutoBoard(setup, board);

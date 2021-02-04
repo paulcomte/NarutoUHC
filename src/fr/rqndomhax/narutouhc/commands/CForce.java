@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.tasks.TBorder;
 import fr.rqndomhax.narutouhc.tasks.TMain;
@@ -31,33 +31,35 @@ public class CForce implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
+        GameState gameState = setup.getGame().getGameState();
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
 
             if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return false;
             }
-            if (setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_WAITING) || setup.getGame().getGameInfo().getGameState().equals(GameState.LOBBY_TELEPORTING)) {
+            if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING)) {
                 player.sendMessage(Messages.NOT_IN_GAME);
                 return false;
             }
-            if (setup.getGame().getGameInfo().getGameState().equals(GameState.GAME_FINISHED)) {
+            if (gameState.equals(GameState.GAME_FINISHED)) {
                 player.sendMessage(Messages.GAME_FINISHED);
                 return false;
             }
         }
 
-        if (args.length != 1 || args[0].equalsIgnoreCase("help")) {
+        if (args.length != 1 || args[0].equalsIgnoreCase("help"))
             return showHelp(sender);
-        }
+
+        TMain mainTask = setup.getGame().getMainTask();
         if (args[0].equalsIgnoreCase("b") || args[0].equalsIgnoreCase("border") || args[0].equalsIgnoreCase("bordure"))
-            return forceBorder(sender);
+            return forceBorder(sender, gameState, mainTask);
         if (args[0].equalsIgnoreCase("tp") || args[0].equalsIgnoreCase("t") || args[0].equalsIgnoreCase("teleport"))
-            return forceTeleport(sender);
+            return forceTeleport(sender, gameState, mainTask);
         if (args[0].equalsIgnoreCase("r") || args[0].equalsIgnoreCase("roles") || args[0].equalsIgnoreCase("role"))
-            return forceRole(sender);
+            return forceRole(sender, mainTask);
         return showHelp(sender);
     }
 
@@ -70,9 +72,7 @@ public class CForce implements CommandExecutor {
         return false;
     }
 
-    private boolean forceBorder(CommandSender sender) {
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
-
+    private boolean forceBorder(CommandSender sender, GameState gameState, TMain mainTask) {
         if (gameState.equals(GameState.GAME_MEETUP)) {
             sender.sendMessage(Messages.BORDER_ALREADY_ACTIVATED);
             return false;
@@ -81,7 +81,6 @@ public class CForce implements CommandExecutor {
             sender.sendMessage(Messages.FORCE_WRONG_MAP_BORDER);
             return false;
         }
-        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
 
         if (mainTask == null || mainTask.task.getClass() != TBorder.class) {
             sender.sendMessage(Messages.BORDER_ALREADY_ACTIVATED);
@@ -95,14 +94,11 @@ public class CForce implements CommandExecutor {
             return false;
         }
 
-
         border.remainingTime = 10;
         return true;
     }
 
-    private boolean forceRole(CommandSender sender) {
-        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
-
+    private boolean forceRole(CommandSender sender, TMain mainTask) {
         if (mainTask.hasRoles) {
             sender.sendMessage(Messages.ROLES_ALREADY_ACTIVATED);
             return false;
@@ -117,9 +113,7 @@ public class CForce implements CommandExecutor {
         return true;
     }
 
-    private boolean forceTeleport(CommandSender sender) {
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
-
+    private boolean forceTeleport(CommandSender sender, GameState gameState, TMain mainTask) {
         if (gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY) || gameState.equals(GameState.GAME_BORDER) || gameState.equals(GameState.GAME_MEETUP)) {
             sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
             return false;
@@ -128,7 +122,6 @@ public class CForce implements CommandExecutor {
             sender.sendMessage(Messages.TELEPORT_FORCE_WRONG);
             return false;
         }
-        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
 
         if (mainTask == null || mainTask.task.getClass() != TPreparation.class) {
             sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
@@ -141,7 +134,6 @@ public class CForce implements CommandExecutor {
             sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
             return false;
         }
-
 
         preparation.remainingTime = 10;
         return true;

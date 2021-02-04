@@ -21,11 +21,11 @@ public class TPlatform implements Task {
     int remainingTime;
 
     public TPlatform(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.LOBBY_TELEPORTING);
-        mainTask.getSetup().getGame().getGameInfo().getMRules().currentMap = Maps.NO_PVP;
+        mainTask.getSetup().getGame().setGameState(GameState.LOBBY_TELEPORTING);
+        mainTask.getSetup().getGame().getGameRules().currentMap = Maps.NO_PVP;
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().teleportingDuration;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().teleportingDuration;
         MGameActions.teleportPlayers1(mainTask.getSetup());
         if (!mainTask.lobbyRemoved) {
             MGameBuild.removeLobby();
@@ -36,7 +36,7 @@ public class TPlatform implements Task {
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0)

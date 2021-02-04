@@ -17,16 +17,16 @@ public class TBorder implements Task {
     public int remainingTime;
 
     public TBorder(TMain mainTask) {
-        mainTask.getSetup().getGame().getGameInfo().setGameState(GameState.GAME_BORDER);
+        mainTask.getSetup().getGame().setGameState(GameState.GAME_BORDER);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.timeBeforeResize;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().gameBorder.timeBeforeResize;
         loop();
     }
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45*60 || remainingTime == 30*60 || remainingTime == 15*60 || remainingTime == 10*60 || remainingTime == 5*60 || remainingTime == 60) {
@@ -51,7 +51,7 @@ public class TBorder implements Task {
         }
 
         if (remainingTime == 0) {
-            mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.resizeBorder();
+            mainTask.getSetup().getGame().getGameRules().gameBorder.resizeBorder();
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
             mainTask.lastTaskFinished = true;
         }

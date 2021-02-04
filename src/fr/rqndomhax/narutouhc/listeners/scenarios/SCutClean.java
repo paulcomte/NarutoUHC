@@ -30,7 +30,7 @@ public class SCutClean implements Listener {
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
 
-        if (!setup.getGame().getGameInfo().getMRules().activatedScenarios.contains(Scenarios.CUTCLEAN))
+        if (!setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.CUTCLEAN))
             return;
 
         switch(e.getEntityType()) {
@@ -62,7 +62,7 @@ public class SCutClean implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
 
-        if (!setup.getGame().getGameInfo().getMRules().activatedScenarios.contains(Scenarios.CUTCLEAN))
+        if (!setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.CUTCLEAN))
             return;
 
         if (!e.getBlock().getType().equals(Material.GOLD_ORE)

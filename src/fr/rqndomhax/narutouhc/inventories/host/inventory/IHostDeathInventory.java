@@ -9,11 +9,11 @@ package fr.rqndomhax.narutouhc.inventories.host.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -51,32 +51,32 @@ public class IHostDeathInventory {
         inventory.setItem(46, new ItemBuilder(Material.LEATHER_CHESTPLATE).setLeatherArmorColor(Color.BLACK).setLeatherArmorColor(Color.RED).toItemStack());
         inventory.setItem(47, new ItemBuilder(Material.LEATHER_LEGGINGS).setLeatherArmorColor(Color.BLACK).setLeatherArmorColor(Color.RED).toItemStack());
         inventory.setItem(48, new ItemBuilder(Material.LEATHER_BOOTS).setLeatherArmorColor(Color.BLACK).setLeatherArmorColor(Color.RED).toItemStack());
-        IInfos.setInventoryContent(inventory.getInventory(), setup.getGame().getGameInfo().getMRules().deathInventory);
+        IInfos.setInventoryContent(inventory.getInventory(), setup.getGame().getGameRules().deathInventory);
 
         player.updateInventory();
     }
 
     private Consumer<InventoryClickEvent> editInventory() {
 
-        MRules mRules = setup.getGame().getGameInfo().getMRules();
+        GameRules gameRules = setup.getGame().getGameRules();
 
         return e -> {
 
-            if (!mRules.gameHost.equals(player.getUniqueId()) && !mRules.gameCoHost.contains(player.getUniqueId())) {
+            if (!gameRules.gameHost.equals(player.getUniqueId()) && !gameRules.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return;
             }
 
-            if (mRules.deathInventoryInEdit != null) {
+            if (gameRules.deathInventoryInEdit != null) {
                 player.sendMessage(Messages.HOST_INVENTORY_ALREADY_IN_EDIT);
                 return;
             }
 
-            mRules.deathInventoryInEdit = player.getUniqueId();
+            gameRules.deathInventoryInEdit = player.getUniqueId();
             player.closeInventory();
             player.setGameMode(GameMode.CREATIVE);
             InventoryManager.clearInventory(player);
-            InventoryManager.giveInventory(setup.getGame().getGameInfo().getMRules().deathInventory, player);
+            InventoryManager.giveInventory(setup.getGame().getGameRules().deathInventory, player);
             player.sendMessage(Messages.HOST_INVENTORY_EDIT);
         };
     }

@@ -30,12 +30,12 @@ public class CWhisper implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameState gameState = setup.getGame().getGameState();
 
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_FINISHED))
             return sendMessage(sender, args);
 
-        if (!setup.getGame().getGameInfo().getMRules().allowWhispers) {
+        if (!setup.getGame().getGameRules().allowWhispers) {
             sender.sendMessage(Messages.WHISPERS_OFF);
             return false;
         }

@@ -31,7 +31,7 @@ public class SDrop implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        Optional<Drops> flintDrop = setup.getGame().getGameInfo().getMRules().drops.stream().filter(d -> d.equals(Drops.FLINTS)).findAny();
+        Optional<Drops> flintDrop = setup.getGame().getGameRules().drops.stream().filter(d -> d.equals(Drops.FLINTS)).findAny();
         double percentage = 0;
 
         if (!flintDrop.isPresent())
@@ -65,7 +65,7 @@ public class SDrop implements Listener {
 
     @EventHandler
     public void onKill(EntityDeathEvent e) {
-        Optional<Drops> pearlDrop = setup.getGame().getGameInfo().getMRules().drops.stream().filter(d -> d.equals(Drops.PEARLS)).findAny();
+        Optional<Drops> pearlDrop = setup.getGame().getGameRules().drops.stream().filter(d -> d.equals(Drops.PEARLS)).findAny();
 
         if (!pearlDrop.isPresent())
             return;

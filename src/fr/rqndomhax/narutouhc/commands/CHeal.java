@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -29,8 +29,8 @@ public class CHeal implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        MRules rules = setup.getGame().getGameInfo().getMRules();
-        GameState gameState = setup.getGame().getGameInfo().getGameState();
+        GameRules rules = setup.getGame().getGameRules();
+        GameState gameState = setup.getGame().getGameState();
 
         if (sender instanceof Player && !rules.gameHost.equals(((Player) sender).getUniqueId()) && !rules.gameCoHost.contains(((Player) sender).getUniqueId())) {
             sender.sendMessage(Messages.COMMAND_ONLY_HOST);
@@ -42,9 +42,9 @@ public class CHeal implements CommandExecutor {
             return false;
         }
 
-        for (MPlayer mPlayer : setup.getGame().getGamePlayers()) {
+        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
 
-            Player player = Bukkit.getPlayer(mPlayer.uuid);
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player == null) continue;
 
             if (player.getHealth() < player.getMaxHealth())

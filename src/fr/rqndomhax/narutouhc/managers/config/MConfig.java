@@ -9,12 +9,12 @@ package fr.rqndomhax.narutouhc.managers.config;
 
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
-import fr.rqndomhax.narutouhc.utils.FileManager;
 import fr.rqndomhax.narutouhc.utils.tools.BukkitSerializer;
+import fr.rqndomhax.narutouhc.utils.tools.FileManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public abstract class MConfig {
 
         manager = fileManager;
 
-        saveConfig(new HostConfig(new MRules(), "Default Configuration", ConfigLogos.DEFAULT, "configs/default.cfg"), true);
+        saveConfig(new HostConfig(new GameRules(), "Default Configuration", ConfigLogos.DEFAULT, "configs/default.cfg"), true);
 
         File[] entries = dataFolder.listFiles();
 
@@ -154,12 +154,12 @@ public abstract class MConfig {
         configuration.set("configName", config.getName());
         configuration.set("configLogo", config.getLogo().name());
 
-        configuration.set("border.defaultSize", config.getRules().mBorder.defaultSize);
-        configuration.set("border.finalSize", config.getRules().mBorder.finalSize);
-        configuration.set("border.speed", config.getRules().mBorder.speed);
-        configuration.set("border.damages", config.getRules().mBorder.damages);
-        configuration.set("border.center", config.getRules().mBorder.center.name());
-        configuration.set("border.timeBeforeResize", config.getRules().mBorder.timeBeforeResize);
+        configuration.set("border.defaultSize", config.getRules().gameBorder.defaultSize);
+        configuration.set("border.finalSize", config.getRules().gameBorder.finalSize);
+        configuration.set("border.speed", config.getRules().gameBorder.speed);
+        configuration.set("border.damages", config.getRules().gameBorder.damages);
+        configuration.set("border.center", config.getRules().gameBorder.center.name());
+        configuration.set("border.timeBeforeResize", config.getRules().gameBorder.timeBeforeResize);
 
         configuration.set("config.showDeathMessages", config.getRules().showDeathMessages);
         configuration.set("config.allowSpectators", config.getRules().allowSpectators);

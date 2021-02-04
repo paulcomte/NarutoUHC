@@ -10,8 +10,8 @@ package fr.rqndomhax.narutouhc.inventories.host.world;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public class IHostWorldDrops {
 
         inventory.setItem(4, new ItemBuilder(IInfos.WORLD_HOST_DAY_CYCLE).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
 
-        for (Drops drop : setup.getGame().getGameInfo().getMRules().drops) {
+        for (Drops drop : setup.getGame().getGameRules().drops) {
             StringBuilder description = new StringBuilder();
             ItemBuilder item = new ItemBuilder(drop.getItem().clone());
 

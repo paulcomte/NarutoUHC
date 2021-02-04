@@ -10,7 +10,7 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.MPlayer;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.tasks.TMain;
 
 import java.util.Set;
@@ -19,7 +19,7 @@ public abstract class MGameStatus {
 
     public static boolean hasAtLeastOneDifferentCamp(Setup setup) {
         RoleType team = null;
-        for (Roles role : setup.getGame().getGameInfo().getMRules().activatedRoles) {
+        for (Roles role : setup.getGame().getGameRules().activatedRoles) {
             if (team == null) {
                 team = role.getRoleType();
                 continue;
@@ -32,7 +32,7 @@ public abstract class MGameStatus {
 
     public static void checkWin(Setup setup) {
 
-        GameState state = setup.getGame().getGameInfo().getGameState();
+        GameState state = setup.getGame().getGameState();
 
         if (state.equals(GameState.LOADING) || state.equals(GameState.LOBBY_WAITING) || state.equals(GameState.LOBBY_TELEPORTING))
             return;
@@ -49,7 +49,7 @@ public abstract class MGameStatus {
             return;
         }
 
-        TMain mainTask = setup.getGame().getGameInfo().getMainTask();
+        TMain mainTask = setup.getGame().getMainTask();
         if (mainTask != null && mainTask.hasRoles) {
             RoleType winners = winningTeam(setup.getGame().getGamePlayers());
             if (winners != null)
@@ -60,20 +60,20 @@ public abstract class MGameStatus {
 
     private static void showWin(Setup setup, RoleType winners) {
 
-        setup.getGame().getGameInfo().setGameState(GameState.GAME_FINISHED);
-        setup.getGame().getGameInfo().removeTask();
+        setup.getGame().setGameState(GameState.GAME_FINISHED);
+        setup.getGame().removeTask();
     }
 
-    private static RoleType winningTeam(Set<MPlayer> players) {
+    private static RoleType winningTeam(Set<GamePlayer> players) {
         RoleType team = null;
-        for (MPlayer mPlayer : players) {
-            if (mPlayer == null ||mPlayer.role == null || mPlayer.isDead)
+        for (GamePlayer gamePlayer : players) {
+            if (gamePlayer == null || gamePlayer.role == null || gamePlayer.isDead)
                 continue;
             if (team == null) {
-                team = mPlayer.role.getRole().getRoleType();
+                team = gamePlayer.role.getRole().getRoleType();
                 continue;
             }
-            if (team != mPlayer.role.getRole().getRoleType())
+            if (team != gamePlayer.role.getRole().getRoleType())
                 return null;
         }
         if (team == null)

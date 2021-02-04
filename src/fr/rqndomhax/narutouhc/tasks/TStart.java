@@ -22,13 +22,13 @@ public class TStart implements Task {
         if (mainTask == null)
             return;
         mainTask.lastTaskFinished = false;
-        remainingTime = mainTask.getSetup().getGame().getGameInfo().getMRules().startDuration;
+        remainingTime = mainTask.getSetup().getGame().getGameRules().startDuration;
         loop();
     }
 
     @Override
     public void loop() {
-        if (mainTask == null || !mainTask.isAlive)
+        if (mainTask == null)
             return;
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0)
@@ -38,8 +38,8 @@ public class TStart implements Task {
             World naruto = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
             World nopvp = Bukkit.getWorld(Maps.NO_PVP.name());
             WorldBorder border = naruto.getWorldBorder();
-            border.setSize(mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.defaultSize);
-            border.setCenter(mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.center.getX(), mainTask.getSetup().getGame().getGameInfo().getMRules().mBorder.center.getZ());
+            border.setSize(mainTask.getSetup().getGame().getGameRules().gameBorder.defaultSize);
+            border.setCenter(mainTask.getSetup().getGame().getGameRules().gameBorder.center.getX(), mainTask.getSetup().getGame().getGameRules().gameBorder.center.getZ());
 
             naruto.setGameRuleValue("doEntityDrops", "true");
             nopvp.setGameRuleValue("doEntityDrops", "true");
@@ -65,25 +65,26 @@ public class TStart implements Task {
             naruto.setGameRuleValue("reducedDebugInfo", "false");
             nopvp.setGameRuleValue("reducedDebugInfo", "false");
 
-            naruto.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().naturalRegeneration));
-            nopvp.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().naturalRegeneration));
+            naruto.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameRules().naturalRegeneration));
+            nopvp.setGameRuleValue("naturalRegeneration", String.valueOf(mainTask.getSetup().getGame().getGameRules().naturalRegeneration));
 
-            naruto.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)));
-            nopvp.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)));
+            naruto.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameRules().dayCycle.equals(DayCycle.NORMAL)));
+            nopvp.setGameRuleValue("doDaylightCycle", String.valueOf(mainTask.getSetup().getGame().getGameRules().dayCycle.equals(DayCycle.NORMAL)));
 
-            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NIGHT)) {
+            if (mainTask.getSetup().getGame().getGameRules().dayCycle.equals(DayCycle.NIGHT)) {
                 nopvp.setTime(18000);
                 naruto.setTime(18000);
             }
-            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.DAY)) {
+            if (mainTask.getSetup().getGame().getGameRules().dayCycle.equals(DayCycle.DAY)) {
                 nopvp.setTime(6000);
                 naruto.setTime(6000);
             }
-            if (mainTask.getSetup().getGame().getGameInfo().getMRules().dayCycle.equals(DayCycle.NORMAL)) {
+            if (mainTask.getSetup().getGame().getGameRules().dayCycle.equals(DayCycle.NORMAL)) {
                 nopvp.setTime(0);
                 naruto.setTime(0);
             }
             MGameActions.giveStartInventory(mainTask.getSetup());
+            mainTask.roleRemainingTime = mainTask.getSetup().getGame().getGameRules().rolesAnnounce;
             mainTask.lastTaskFinished = true;
         }
         remainingTime--;

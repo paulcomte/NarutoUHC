@@ -7,23 +7,23 @@
 
 package fr.rqndomhax.narutouhc.managers.config;
 
-import fr.rqndomhax.narutouhc.managers.MRules;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 
 public class HostConfig {
 
-    private final MRules rules;
+    private final GameRules rules;
     private String name;
     private ConfigLogos logo;
     private final String filePath;
 
-    public HostConfig(MRules rules, String name, ConfigLogos logo, String filePath) {
+    public HostConfig(GameRules rules, String name, ConfigLogos logo, String filePath) {
         this.rules = rules;
         this.name = name;
         this.logo = logo;
         this.filePath = filePath;
     }
 
-    public MRules getRules() {
+    public GameRules getRules() {
         return rules;
     }
 

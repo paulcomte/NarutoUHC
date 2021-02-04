@@ -10,9 +10,9 @@ package fr.rqndomhax.narutouhc.inventories.host.inventory;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
-import fr.rqndomhax.narutouhc.managers.MRules;
-import fr.rqndomhax.narutouhc.utils.builders.ItemBuilder;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -45,7 +45,7 @@ public class IHostInventories {
         inventory.setItem(32, IInfos.INVENTORIES_HOST_DEATH, getDeathInventory());
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            MRules rules = setup.getGame().getGameInfo().getMRules();
+            GameRules rules = setup.getGame().getGameRules();
             player.closeInventory();
             if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());

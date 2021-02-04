@@ -14,14 +14,14 @@ import org.bukkit.inventory.ItemStack;
 public abstract class InventoryManager {
 
     public static void dropInventory(ItemStack[] items, Location dropLocation, boolean dropNaturally) {
-        for(int slot = 0; slot < 36; slot++){
+        for(int slot = 0; slot < items.length; slot++){
             ItemStack item = items[slot];
-            if(item != null){
-                if (dropNaturally)
-                    dropLocation.getWorld().dropItemNaturally(dropLocation, item);
-                else
-                    dropLocation.getWorld().dropItem(dropLocation, item);
-            }
+            if (item == null)
+                continue;
+            if (dropNaturally)
+                dropLocation.getWorld().dropItemNaturally(dropLocation, item);
+            else
+                dropLocation.getWorld().dropItem(dropLocation, item);
         }
     }
 
