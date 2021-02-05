@@ -5,11 +5,12 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.role.shinobi;
+package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
+import fr.rqndomhax.narutouhc.inventories.role.akatsuki.INagato;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -19,12 +20,12 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sakura extends RoleInfo {
+public class Nagato extends RoleInfo {
 
-    boolean hasUsedCapacity = false;
+    public boolean hasUsedCapacity = false;
 
-    public Sakura(GamePlayer gamePlayer) {
-        super(gamePlayer, Roles.SAKURA);
+    public Nagato(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.NAGATO);
     }
 
     @Override
@@ -43,8 +44,11 @@ public class Sakura extends RoleInfo {
             if (gamePlayer.equals(getGamePlayer()))
                 continue;
 
-            if (gamePlayer.isDead)
+            if (!gamePlayer.isDead)
                 continue;
+
+            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getRoleType() == null || !gamePlayer.role.getRole().getRoleType().equals(RoleType.AKATSUKI))
+                return;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
@@ -65,16 +69,9 @@ public class Sakura extends RoleInfo {
             size++;
         }
 
-
-        new IShikamaru(setup, player, players, inventory_size*9);
+        new INagato(setup, player, players, inventory_size*9, this);
 
         hasUsedCapacity = true;
-    }
-
-    @Override
-    public void onNewEpisode(int episode) {
-        hasUsedCapacity = false;
-        // TODO SEND MESSAGE PLAYER GOT CAPACITY BACK
     }
 
     @Override
@@ -82,10 +79,12 @@ public class Sakura extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("Vous êtes Sakura.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na sakura\", vous pourrez donner 1 minute de régénération 2 par épisode, ainsi que 2 minutes d'absorption (2 coeurs), à la personne de votre choix, ou à vous-même,");
-        player.sendMessage("un inventaire s'ouvrira pour sélectionner cette personne,");
-        player.sendMessage("toutefois si vous quitter l'inventaire, vous ne pourrez plus utiliser la commande pour le reste de l'épisode.");
+        player.sendMessage("Vous êtes Nagato.");
+        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage("Pour ce faire, une fois dans la partie, et quand vous le voulez,");
+        player.sendMessage("Vous pourrez ressusciter une personne de l'akatsuki.");
+        player.sendMessage("Pour ce faire, vous devrez faire la commande /na nagato.");
+        player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
+        player.sendMessage("La personne ressuscitée apparaitra avec un full fer protection 1, une épée en fer sharpness 1, une pomee dorée, et 64 steaks.");
     }
 }

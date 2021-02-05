@@ -5,26 +5,27 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.role.shinobi;
+package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
+import fr.rqndomhax.narutouhc.inventories.role.akatsuki.IObito;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sakura extends RoleInfo {
+public class Obito extends RoleInfo {
 
-    boolean hasUsedCapacity = false;
+    int commandUses = 2;
 
-    public Sakura(GamePlayer gamePlayer) {
-        super(gamePlayer, Roles.SAKURA);
+    public Obito(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.OBITO);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Sakura extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        if (hasUsedCapacity) {
+        if (commandUses == 0) {
             player.sendMessage(Messages.ROLE_NO_MORE_USES);
             return;
         }
@@ -51,7 +52,8 @@ public class Sakura extends RoleInfo {
             if (p == null)
                 continue;
 
-            players.add(gamePlayer);
+            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 30)
+                players.add(gamePlayer);
         }
 
         int size = 0;
@@ -65,16 +67,9 @@ public class Sakura extends RoleInfo {
             size++;
         }
 
+        player.openInventory(new IObito(setup, player, players, inventory_size*9).getInventory());
 
-        new IShikamaru(setup, player, players, inventory_size*9);
-
-        hasUsedCapacity = true;
-    }
-
-    @Override
-    public void onNewEpisode(int episode) {
-        hasUsedCapacity = false;
-        // TODO SEND MESSAGE PLAYER GOT CAPACITY BACK
+        commandUses--;
     }
 
     @Override
@@ -82,10 +77,12 @@ public class Sakura extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("Vous êtes Sakura.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na sakura\", vous pourrez donner 1 minute de régénération 2 par épisode, ainsi que 2 minutes d'absorption (2 coeurs), à la personne de votre choix, ou à vous-même,");
-        player.sendMessage("un inventaire s'ouvrira pour sélectionner cette personne,");
-        player.sendMessage("toutefois si vous quitter l'inventaire, vous ne pourrez plus utiliser la commande pour le reste de l'épisode.");
+        player.sendMessage("Vous êtes Obito.");
+        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage("Pour ce faire, vous avez la possibilité de vous téléporter 2 fois dans une salle entouré de bedrock en 30x30 dans la bordure.");
+        player.sendMessage("Pour cela, vous devez utiliser la commande /na obito,");
+        player.sendMessage("Un inventaire s'ouvrira et vous pourrez choisir le joueur de votre choix dans un rayon de 30 blocks.");
+        player.sendMessage("Dans cette salle vous obtiendrez l'effet strength 1.");
+        player.sendMessage("Vous resterez 30 secondes dans cette pièce et serez téléporté aléatoirement sur la map une fois les 30 secondes écoulées.");
     }
 }

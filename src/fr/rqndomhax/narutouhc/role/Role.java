@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.role;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import org.bukkit.Location;
 
 public interface Role {
 
@@ -28,7 +29,9 @@ public interface Role {
 
     void onKill(GamePlayer killed);
 
-    void onDeath();
+    void onPrematureDeath(Location deathLocation);
+
+    void onDeath(Setup setup);
 
     void onPlayerDeath(GamePlayer dead);
 

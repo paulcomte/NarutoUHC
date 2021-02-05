@@ -13,7 +13,7 @@ import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
-import fr.rqndomhax.narutouhc.tasks.game.TDeath;
+import fr.rqndomhax.narutouhc.tasks.TDeath;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
@@ -56,6 +56,8 @@ public class EPlayerActions implements Listener {
 
         if (player == null)
             return;
+        if (player.role != null)
+            player.role.onPrematureDeath(villager.getLocation());
         player.isDead = true;
         player.deathLocation = villager.getLocation();
         InventoryManager.dropInventory(player.inventory, player.deathLocation, true);
@@ -93,6 +95,9 @@ public class EPlayerActions implements Listener {
             e.getDrops().clear();
             return;
         }
+
+        if (gamePlayer.role != null)
+            gamePlayer.role.onPrematureDeath(player.getLocation());
 
         gamePlayer.deathLocation = player.getLocation();
 

@@ -5,10 +5,11 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.tasks.game;
+package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -42,12 +43,7 @@ public class TDeath extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (gamePlayer == null) {
-            cancel();
-            return;
-        }
-
-        if (!gamePlayer.isDead) {
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || gamePlayer == null || !gamePlayer.isDead) {
             cancel();
             return;
         }
@@ -56,6 +52,8 @@ public class TDeath extends BukkitRunnable {
             MGameActions.sendInfo(gamePlayer, timeLeft);
 
         if (timeLeft == 0) {
+            if (gamePlayer.role != null)
+                gamePlayer.role.onDeath(setup);
             Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
             gamePlayer.deathLocation.getWorld().strikeLightningEffect(gamePlayer.deathLocation);
             drops.forEach(drop -> gamePlayer.deathLocation.getWorld().dropItemNaturally(gamePlayer.deathLocation, drop));

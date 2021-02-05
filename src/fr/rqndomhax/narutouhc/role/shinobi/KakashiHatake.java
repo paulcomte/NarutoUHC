@@ -69,8 +69,8 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
-    public void onDeath() {
+    public void onDeath(Setup setup) {
         if (stolenRole != null)
-            stolenRole.onDeath();
+            stolenRole.onDeath(setup);
     }
 }

@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.role.shinobi;
+package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
@@ -24,20 +24,21 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Minato extends RoleInfo {
+public class Konan extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.BOW).setName(ChatColor.YELLOW + "Shuriken").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().setDurability((short) 30).toItemStack();
+    public boolean hasUsedCapacity = false;
 
-    public Minato(GamePlayer gamePlayer) {
-        super(gamePlayer, Roles.MINATO);
+    public Konan(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.HIDAN);
     }
 
     @Override
     public void giveEffects() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
+        if (player == null)
+            return;
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 1, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 1000000, 0, false, false));
     }
 
     @Override
@@ -51,12 +52,14 @@ public class Minato extends RoleInfo {
         }
 
         long nSpace = Arrays.stream(player.getInventory().getContents()).filter(Objects::isNull).count();
-        if (nSpace < 1) {
+        if (nSpace < 3) {
             player.sendMessage(Messages.ROLE_ITEMS_NEED_SPACE.replace("%n%", "1").replace("objets", "objet"));
             return;
         }
 
-        player.getInventory().addItem(item);
+        player.getInventory().addItem(new ItemBuilder(Material.BOW).addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5).toItemStack());
+        player.getInventory().addItem(new ItemStack(Material.ARROW));
+        player.getInventory().addItem(new ItemStack(Material.LEAVES));
         hasClaimed = true;
     }
 
@@ -65,10 +68,9 @@ public class Minato extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("Vous êtes Minato.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez pendant toute la partie d'un effet \"" + ChatColor.AQUA + "speed 2" + ChatColor.RESET + "\" ainsi qu'un arc nommé \"Shuriken\" permettant de vous téléporter à l'endroit où la flèche atterit.");
-        if (!hasClaimed)
-            player.sendMessage("Pour le récupérer faites \"/na claim\"");
+        player.sendMessage("Vous êtes Konan.");
+        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage("Pour ce faire, vous recevez un livre " + ChatColor.DARK_PURPLE + "power 5 " + ChatColor.RESET + "ainsi que 64 flèches et 64 feuilles.");
+        player.sendMessage("Vous souffrez malheureusement de " + ChatColor.GOLD + "weakness 1" + ChatColor.RESET + " en permanence.");
     }
 }

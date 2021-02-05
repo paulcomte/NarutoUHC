@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
-import fr.rqndomhax.narutouhc.tasks.role.TShishui;
+import fr.rqndomhax.narutouhc.tasks.role.shinobi.TShishui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

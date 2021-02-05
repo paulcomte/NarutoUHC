@@ -5,11 +5,10 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.inventories.role;
+package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.tasks.role.TNeji;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -20,19 +19,18 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class INeji extends RInventory {
+public class IObito extends RInventory {
 
     private final Setup setup;
-    private final GamePlayer neji;
     private final Set<GamePlayer> players;
     private final Player player;
 
-    public INeji(Setup setup, Player player, GamePlayer neji, Set<GamePlayer> players, int size) {
-        super(null, "Analyse", size);
+    public IObito(Setup setup, Player player, Set<GamePlayer> players, int size) {
+        super(null, "BOOM", size);
         this.setup = setup;
         this.player = player;
-        this.neji = neji;
         this.players = players;
+
         updateInventory();
     }
 
@@ -44,20 +42,20 @@ public class INeji extends RInventory {
             if (p == null)
                 continue;
 
-            this.setItem(slot, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName(p.getName()).setSkullOwner(p.getName()).toItemStack(), select(p, gamePlayer));
+            this.setItem(slot, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName(p.getName()).setSkullOwner(p.getName()).toItemStack(), select(p));
             slot++;
         }
     }
 
-    private Consumer<InventoryClickEvent> select(Player selectedPlayer, GamePlayer selected) {
+    private Consumer<InventoryClickEvent> select(Player selected) {
         return e -> {
-            if (selectedPlayer == null) {
+            if (selected == null) {
                 updateInventory();
                 return;
             }
             player.closeInventory();
-            new TNeji(neji, selected, player, selectedPlayer, setup.getMain());
+            // TODO SEND CONFIRMATION MESSAGE
+
         };
     }
-
 }

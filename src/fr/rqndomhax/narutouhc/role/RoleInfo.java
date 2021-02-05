@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public abstract class RoleInfo implements Role {
@@ -71,7 +72,12 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
-    public void onDeath() {
+    public void onPrematureDeath(Location deathLocation) {
+
+    }
+
+    @Override
+    public void onDeath(Setup setup) {
 
     }
 

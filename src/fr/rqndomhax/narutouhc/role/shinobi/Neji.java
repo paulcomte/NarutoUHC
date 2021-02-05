@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.inventories.role.INeji;
+import fr.rqndomhax.narutouhc.inventories.role.shinobi.INeji;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -69,7 +69,6 @@ public class Neji extends RoleInfo {
         }
 
         player.openInventory(new INeji(setup, player, getGamePlayer(), players, inventory_size*9).getInventory());
-
 
         commandUses--;
     }

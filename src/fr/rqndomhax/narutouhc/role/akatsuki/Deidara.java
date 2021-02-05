@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.role.shinobi;
+package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
@@ -14,17 +14,20 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sakura extends RoleInfo {
+public class Deidara extends RoleInfo {
 
+    boolean hasNewEpisode = false;
     boolean hasUsedCapacity = false;
 
-    public Sakura(GamePlayer gamePlayer) {
-        super(gamePlayer, Roles.SAKURA);
+    public Deidara(GamePlayer gamePlayer) {
+        super(gamePlayer, Roles.DEIDARA);
     }
 
     @Override
@@ -40,8 +43,6 @@ public class Sakura extends RoleInfo {
         Set<GamePlayer> players = new HashSet<>();
 
         for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
-            if (gamePlayer.equals(getGamePlayer()))
-                continue;
 
             if (gamePlayer.isDead)
                 continue;
@@ -72,20 +73,34 @@ public class Sakura extends RoleInfo {
     }
 
     @Override
-    public void onNewEpisode(int episode) {
-        hasUsedCapacity = false;
-        // TODO SEND MESSAGE PLAYER GOT CAPACITY BACK
-    }
-
-    @Override
     public void onDesc() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("Vous êtes Sakura.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na sakura\", vous pourrez donner 1 minute de régénération 2 par épisode, ainsi que 2 minutes d'absorption (2 coeurs), à la personne de votre choix, ou à vous-même,");
-        player.sendMessage("un inventaire s'ouvrira pour sélectionner cette personne,");
-        player.sendMessage("toutefois si vous quitter l'inventaire, vous ne pourrez plus utiliser la commande pour le reste de l'épisode.");
+        player.sendMessage("Vous êtes Deidara.");
+        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage("Pour ce faire, toutes les 20 minutes, vous pourrez faire spawn une tnt qui s'allumera automatiquement sur une personne se trouvant dans un rayon de 100 blocks autour de vous, avec la commande /na deidara");
+        player.sendMessage("Un inventaire s'ouvrira et vous n'aurez qu'à cliquer sur le joueur de votre choix.");
+        player.sendMessage("A votre lieu de mort, il y aura un bloc 3x3 de tnt qui s'allumera automatiquement.");
+    }
+
+    @Override
+    public void onNewEpisode(int episode) {
+        if (hasNewEpisode)
+            hasUsedCapacity = false;
+        else
+            hasNewEpisode = true;
+    }
+
+    @Override
+    public void onPrematureDeath(Location deathLocation) {
+        Set<TNTPrimed> tnts = new HashSet<>();
+
+        for (double y = deathLocation.getY()-1; y <= deathLocation.getY()+1; y++)
+            for (double x = deathLocation.getX()-1; x <= deathLocation.getX()+1; x++)
+                for (double z = deathLocation.getZ()-1; z <= deathLocation.getZ()+1; z++)
+                    tnts.add(deathLocation.getWorld().spawn(new Location(deathLocation.getWorld(), x, y, z), TNTPrimed.class));
+        for (TNTPrimed tnt : tnts)
+            tnt.setFuseTicks(0);
     }
 }

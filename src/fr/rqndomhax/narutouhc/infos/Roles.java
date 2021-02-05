@@ -22,7 +22,7 @@ public enum Roles {
 
     DEIDARA(RoleType.AKATSUKI, new ItemBuilder(Material.TNT).setName("Deidara").toItemStack(), Naruto.class),
     NAGATO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Nagato").toItemStack(), Naruto.class),
-    Kakuzu(RoleType.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), Naruto.class),
+    KAKUZU(RoleType.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), Naruto.class),
     KISAME(RoleType.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), Naruto.class),
     OBITO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), Naruto.class),
     KONAN(RoleType.AKATSUKI, new ItemBuilder(Material.PAPER).setName("Konan").toItemStack(), Naruto.class),
