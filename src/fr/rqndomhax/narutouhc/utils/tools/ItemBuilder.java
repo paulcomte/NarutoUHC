@@ -44,7 +44,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setDurability(short dur) {
-        is.setDurability(dur);
+        is.setDurability((short) (is.getType().getMaxDurability() - dur));
         return this;
     }
 

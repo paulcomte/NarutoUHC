@@ -14,7 +14,9 @@ import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -70,9 +72,17 @@ public class EPlayerLogin implements Listener {
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
-        if (gamePlayer != null)
-                MVillagers.deleteVillager(gamePlayer);
-
+        if (gamePlayer != null) {
+            Villager villager = MVillagers.getVillager(gamePlayer);
+            if (gamePlayer.isDead) {
+                MGameActions.clearPlayer(e.getPlayer());
+                e.getPlayer().setGameMode(GameMode.SPECTATOR);
+            }
+            if (villager != null) {
+                e.getPlayer().teleport(villager.getLocation());
+                MVillagers.deleteVillager(villager);
+            }
+        }
         else {
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
@@ -102,7 +112,9 @@ public class EPlayerLogin implements Listener {
         }
 
         GamePlayer player = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
-        if (player != null && !player.isDead)
+        if (player != null && !player.isDead){
+            InventoryManager.saveInventory(player.inventory, e.getPlayer());
             MVillagers.createVillager(e.getPlayer().getLocation(), player);
+        }
     }
 }

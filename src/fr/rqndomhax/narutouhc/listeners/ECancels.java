@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 
 public class ECancels implements Listener {
 
@@ -28,6 +30,12 @@ public class ECancels implements Listener {
 
     public ECancels(Setup setup) {
         this.setup = setup;
+    }
+
+    @EventHandler
+    public void onChunkUnload(ChunkUnloadEvent e) {
+        if (MGameActions.needLoadedChunks != null && MGameActions.needLoadedChunks.contains(e.getChunk()))
+            e.setCancelled(true);
     }
 
     @EventHandler

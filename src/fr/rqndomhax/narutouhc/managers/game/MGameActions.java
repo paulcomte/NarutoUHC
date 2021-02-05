@@ -19,14 +19,17 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public abstract class MGameActions {
 
+    public static HashSet<Chunk> needLoadedChunks = new HashSet<>();
+
     public static void addKill(GamePlayer killer, GamePlayer killed) {
+        if (killer == null)
+            return;
+        if (killed == null)
+            return;
         killer.kills.add(killed.uuid);
     }
 
@@ -88,6 +91,8 @@ public abstract class MGameActions {
             locations.add(new Location(world,
                     xCenter + (radius * Math.sin(angle) + 0.500), 230, zCenter + (radius * Math.cos(angle) + 0.500)));
             angle += delta;
+            locations.get(i).getChunk().load();
+            needLoadedChunks.add(locations.get(i).getChunk());
             MGameBuild.placePlatform(locations.get(i));
         }
 
@@ -101,6 +106,7 @@ public abstract class MGameActions {
 
             player.teleport(locations.get(0));
             gamePlayer.location = locations.get(0);
+            needLoadedChunks.remove(locations.get(0).getChunk());
             locations.remove(0);
             player.setGameMode(GameMode.SURVIVAL);
         }

@@ -14,6 +14,9 @@ import fr.rqndomhax.narutouhc.listeners.ECancels;
 import fr.rqndomhax.narutouhc.listeners.ELobbyCancel;
 import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
+import fr.rqndomhax.narutouhc.listeners.role.RGai;
+import fr.rqndomhax.narutouhc.listeners.role.RMinato;
+import fr.rqndomhax.narutouhc.listeners.role.RNoFall;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
@@ -101,18 +104,23 @@ public class Registers {
         pm.registerEvents(new EPlayerActions(setup), setup.getMain());
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
+        pm.registerEvents(new ELobbyCancel(setup), setup.getMain());
 
+        // SCENARIOS
         pm.registerEvents(new SCutClean(setup), setup.getMain());
         pm.registerEvents(new SDrop(setup), setup.getMain());
 
-        pm.registerEvents(new ELobbyCancel(setup), setup.getMain());
+        // ROLES
+        pm.registerEvents(new RGai(setup), setup.getMain());
+        pm.registerEvents(new RMinato(setup), setup.getMain());
+        pm.registerEvents(new RNoFall(setup), setup.getMain());
     }
 
     public void registerCommands() {
         setup.getMain().getCommand("help").setExecutor(new CHelp());
         setup.getMain().getCommand("rules").setExecutor(new CRules(setup));
         setup.getMain().getCommand("inventory").setExecutor(new CInventory(setup));
-        setup.getMain().getCommand("tpnaruto").setExecutor(new CTPNaruto());
+        setup.getMain().getCommand("tpnaruto").setExecutor(new CTPNaruto(setup));
         setup.getMain().getCommand("revive").setExecutor(new CRevive(setup));
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
         setup.getMain().getCommand("host").setExecutor(new CHost(setup));

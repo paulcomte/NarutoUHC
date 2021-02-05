@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.tasks.TMain;
+import fr.rqndomhax.narutouhc.tasks.game.TMain;
 
 import java.util.Set;
 

@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.tasks.TBorder;
+import fr.rqndomhax.narutouhc.tasks.game.TBorder;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

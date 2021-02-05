@@ -68,6 +68,11 @@ public abstract class MVillagers {
         InventoryManager.dropInventory(player.inventory, deathLocation, true);
     }
 
+    public static Villager getVillager(GamePlayer player) {
+        Optional<Villager> villager = disconnectedPlayers.entrySet().stream().filter(entry -> entry.getValue().equals(player)).map(Map.Entry::getKey).findFirst();
+        return villager.orElse(null);
+    }
+
     public static void deleteVillager(GamePlayer player) {
         Optional<Villager> villager = disconnectedPlayers.entrySet().stream().filter(entry -> entry.getValue().equals(player)).map(Map.Entry::getKey).findFirst();
         villager.ifPresent(MVillagers::deleteVillager);

@@ -12,8 +12,8 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
-import fr.rqndomhax.narutouhc.managers.role.GameRole;
-import fr.rqndomhax.narutouhc.tasks.TMain;
+import fr.rqndomhax.narutouhc.role.GameRole;
+import fr.rqndomhax.narutouhc.tasks.game.TMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

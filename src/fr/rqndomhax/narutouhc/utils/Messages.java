@@ -7,16 +7,14 @@
 
 package fr.rqndomhax.narutouhc.utils;
 
-import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public abstract class Messages {
 
-    public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC ❚" + ChatColor.RESET;
+    public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC ❙ " + ChatColor.RESET;
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
@@ -33,6 +31,7 @@ public abstract class Messages {
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
     public static String CANNOT_CREATE_VILLAGER = "[Naruto UHC] CANNOT SPAWN NPC !";
     public static String CANNOT_INIT = "[Naruto UHC] AN ERROR HAS OCCURRED DURING PLUGIN INITIALIZATION !";
+    public static String CANNOT_LOAD_WORLD_BORDER = "[Naruto UHC] CANNOT GET WORLD BORDER !";
 
     public static String CANNOT_LOAD_CONFIG = PREFIX + "Chargement de la configuration impossible !";
 
@@ -158,14 +157,5 @@ public abstract class Messages {
         sender.sendMessage(HELPER_CREDITS);
         sender.sendMessage(DEV_CREDITS);
         sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
-    }
-
-    public static void sendMessagesToPlayers(Setup setup, String message) {
-        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
-            if (gamePlayer == null) continue;
-            Player player = Bukkit.getPlayer(gamePlayer.uuid);
-            if (player == null) continue;
-            player.sendMessage(message);
-        }
     }
 }

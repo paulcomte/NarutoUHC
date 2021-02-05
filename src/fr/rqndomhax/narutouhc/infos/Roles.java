@@ -7,8 +7,8 @@
 
 package fr.rqndomhax.narutouhc.infos;
 
-import fr.rqndomhax.narutouhc.managers.role.RoleInfo;
-import fr.rqndomhax.narutouhc.managers.role.shinobi.*;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.*;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
