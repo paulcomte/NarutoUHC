@@ -8,6 +8,9 @@
 package fr.rqndomhax.narutouhc.infos;
 
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.akatsuki.*;
+import fr.rqndomhax.narutouhc.role.orochimaru.Kabuto;
+import fr.rqndomhax.narutouhc.role.orochimaru.Orochimaru;
 import fr.rqndomhax.narutouhc.role.shinobi.*;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Material;
@@ -20,13 +23,13 @@ public enum Roles {
 
     DANZO(RoleType.DANZO, new ItemBuilder(Material.GLOWSTONE).setName("Danzo").toItemStack(), Naruto.class),
 
-    DEIDARA(RoleType.AKATSUKI, new ItemBuilder(Material.TNT).setName("Deidara").toItemStack(), Naruto.class),
-    NAGATO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Nagato").toItemStack(), Naruto.class),
-    KAKUZU(RoleType.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), Naruto.class),
-    KISAME(RoleType.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), Naruto.class),
-    OBITO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), Naruto.class),
-    KONAN(RoleType.AKATSUKI, new ItemBuilder(Material.PAPER).setName("Konan").toItemStack(), Naruto.class),
-    HIDAN(RoleType.AKATSUKI, new ItemBuilder(Material.BONE).setName("Hidan").toItemStack(), Naruto.class),
+    DEIDARA(RoleType.AKATSUKI, new ItemBuilder(Material.TNT).setName("Deidara").toItemStack(), Deidara.class),
+    NAGATO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Nagato").toItemStack(), Nagato.class),
+    KAKUZU(RoleType.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), Kakuzu.class),
+    KISAME(RoleType.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), Kisame.class),
+    OBITO(RoleType.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), Obito.class),
+    KONAN(RoleType.AKATSUKI, new ItemBuilder(Material.PAPER).setName("Konan").toItemStack(), Konan.class),
+    HIDAN(RoleType.AKATSUKI, new ItemBuilder(Material.BONE).setName("Hidan").toItemStack(), Hidan.class),
 
     NARUTO(RoleType.SHINOBI, new ItemBuilder(Material.FIREBALL).setName("Naruto").toItemStack(), Naruto.class),
     KAKASHI_HATAKE(RoleType.SHINOBI, new ItemBuilder(Material.SPIDER_EYE).setName("Kakashi Hatake").toItemStack(), KakashiHatake.class),
@@ -42,10 +45,10 @@ public enum Roles {
     GAARA(RoleType.SHINOBI, new ItemBuilder(Material.SAND).setName("Gaara").toItemStack(), Gaara.class),
     FU(RoleType.SHINOBI, new ItemBuilder(Material.FEATHER).setName("Fû").toItemStack(), Fu.class),
 
-    OROCHIMARU(RoleType.OROCHIMARU, new ItemBuilder(Material.INK_SACK, 1, (byte) 15).setName("Orochimaru").toItemStack(), Naruto.class),
-    KABUTO(RoleType.OROCHIMARU, new ItemBuilder(Material.INK_SACK, 1, (byte) 2).setName("Kabuto").toItemStack(), Naruto.class);
+    OROCHIMARU(RoleType.OROCHIMARU, new ItemBuilder(Material.INK_SACK, 1, (byte) 15).setName("Orochimaru").toItemStack(), Orochimaru.class),
+    KABUTO(RoleType.OROCHIMARU, new ItemBuilder(Material.INK_SACK, 1, (byte) 2).setName("Kabuto").toItemStack(), Kabuto.class);
 
-    private final RoleType roleType;
+    private RoleType roleType;
     private final ItemStack item;
     private final Class<? extends RoleInfo> roleInfo;
 
@@ -57,6 +60,10 @@ public enum Roles {
 
     public RoleType getRoleType() {
         return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
     }
 
     public ItemStack getItem() {

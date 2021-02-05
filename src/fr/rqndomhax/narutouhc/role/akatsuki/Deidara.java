@@ -66,7 +66,6 @@ public class Deidara extends RoleInfo {
             size++;
         }
 
-
         new IShikamaru(setup, player, players, inventory_size*9);
 
         hasUsedCapacity = true;
