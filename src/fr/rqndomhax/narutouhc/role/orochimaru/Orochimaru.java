@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.role.orochimaru;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
@@ -51,7 +51,7 @@ public class Orochimaru extends RoleInfo {
             if (!gamePlayer.isDead)
                 continue;
 
-            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getRoleType() == null || !gamePlayer.role.getRole().getRoleType().equals(RoleType.AKATSUKI))
+            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getTeam() == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
                 return;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
@@ -94,7 +94,7 @@ public class Orochimaru extends RoleInfo {
 
         player.sendMessage("Vous êtes Orochimaru.");
         player.sendMessage("Votre but est de gagner avec votre équipe.");
-        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat, 10 minutes après les rôles, afin de laisser le temps à " + ChatColor.BLUE + "Sasuke " + ChatColor.RESET + "de choison son camp.");
+        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat, 5 minutes après les rôles, afin de laisser le temps à " + ChatColor.BLUE + "Sasuke " + ChatColor.RESET + "de choison son camp.");
         player.sendMessage("Chaque épisode, vous pourrez donner un effet de " + ChatColor.DARK_RED + "poison 2 " + ChatColor.RESET + "pendant 7 secondes à une personne qui se trouve dans un rayon de 50 blocks autour de vous, en faisant /na orochimaru.");
         player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
         player.sendMessage("Vous disposez également de l'effet " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + ".");

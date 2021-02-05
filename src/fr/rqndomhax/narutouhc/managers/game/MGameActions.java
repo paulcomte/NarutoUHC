@@ -36,11 +36,7 @@ public abstract class MGameActions {
     public static void clearPlayer(Player player) {
         player.closeInventory();
 
-        player.getInventory().clear();
-        player.getInventory().setHelmet(null);
-        player.getInventory().setChestplate(null);
-        player.getInventory().setLeggings(null);
-        player.getInventory().setBoots(null);
+        InventoryManager.clearInventory(player);
 
         player.setFoodLevel(30);
         player.setHealth(player.getMaxHealth());

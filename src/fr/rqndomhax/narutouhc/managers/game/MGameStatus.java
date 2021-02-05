@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.tasks.game.TMain;
 
@@ -18,13 +18,13 @@ import java.util.Set;
 public abstract class MGameStatus {
 
     public static boolean hasAtLeastOneDifferentCamp(Setup setup) {
-        RoleType team = null;
+        Team team = null;
         for (Roles role : setup.getGame().getGameRules().activatedRoles) {
             if (team == null) {
-                team = role.getRoleType();
+                team = role.getTeam();
                 continue;
             }
-            if (team != role.getRoleType())
+            if (team != role.getTeam())
                 return true;
         }
         return false;
@@ -51,29 +51,29 @@ public abstract class MGameStatus {
 
         TMain mainTask = setup.getGame().getMainTask();
         if (mainTask != null && mainTask.hasRoles) {
-            RoleType winners = winningTeam(setup.getGame().getGamePlayers());
+            Team winners = winningTeam(setup.getGame().getGamePlayers());
             if (winners != null)
                 showWin(setup, winners);
         }
 
     }
 
-    private static void showWin(Setup setup, RoleType winners) {
+    private static void showWin(Setup setup, Team winners) {
 
         setup.getGame().setGameState(GameState.GAME_FINISHED);
         setup.getGame().removeTask();
     }
 
-    private static RoleType winningTeam(Set<GamePlayer> players) {
-        RoleType team = null;
+    private static Team winningTeam(Set<GamePlayer> players) {
+        Team team = null;
         for (GamePlayer gamePlayer : players) {
             if (gamePlayer == null || gamePlayer.role == null || gamePlayer.isDead)
                 continue;
             if (team == null) {
-                team = gamePlayer.role.getRole().getRoleType();
+                team = gamePlayer.role.getRole().getTeam();
                 continue;
             }
-            if (team != gamePlayer.role.getRole().getRoleType())
+            if (team != gamePlayer.role.getRole().getTeam())
                 return null;
         }
         if (team == null)

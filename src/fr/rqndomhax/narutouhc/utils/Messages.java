@@ -40,6 +40,7 @@ public abstract class Messages {
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
+    public static String GAME_ALREADY_STARTED = PREFIX + "La partie a déjà commencée !";
     public static String GAME_FINISHED = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie est terminée !";
 
     public static String INVINCIBILITY_FINISHED_IN = PREFIX + "La phase d'invincibilité sera terminée dans %time% secondes";

@@ -34,6 +34,21 @@ public class Setup {
     private void setup() {
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_STARTED);
+
+        Registers registers = new Registers(this);
+
+        if (registers == null) {
+            Bukkit.getLogger().log(Level.SEVERE, Messages.CANNOT_INIT);
+            main.getPluginLoader().disablePlugin(main);
+            return;
+        }
+
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_CREATING_WORLDS);
+        if (!registers.registerWorlds()) {
+            main.getPluginLoader().disablePlugin(main);
+            return;
+        }
+
         game = new Game().createGame();
 
         if (game == null) {
@@ -42,19 +57,11 @@ public class Setup {
             return;
         }
 
-        Registers registers = new Registers(this);
-
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_EVENTS);
         registers.registerEvents();
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_COMMANDS);
         registers.registerCommands();
-
-        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_CREATING_WORLDS);
-        if (!registers.registerWorlds()) {
-            main.getPluginLoader().disablePlugin(main);
-            return;
-        }
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_LAST_TASKS);
 
@@ -73,6 +80,7 @@ public class Setup {
         gameScoreboard.runBoard();
 
         game.setGameState(GameState.LOBBY_WAITING);
+
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INITIALIZED);
     }
 

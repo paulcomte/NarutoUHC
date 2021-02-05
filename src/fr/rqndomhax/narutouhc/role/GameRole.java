@@ -37,6 +37,8 @@ public class GameRole {
             if (player.role == null) {
                 try {
                     player.role = (RoleInfo) availableRoles.get(0).getRoleInfo().getDeclaredConstructors()[0].newInstance(player);
+                    player.role.onDesc();
+                    player.role.giveEffects();
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }

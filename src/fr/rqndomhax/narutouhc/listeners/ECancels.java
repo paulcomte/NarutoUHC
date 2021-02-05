@@ -10,17 +10,20 @@ package fr.rqndomhax.narutouhc.listeners;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
@@ -36,6 +39,9 @@ public class ECancels implements Listener {
     public void onChunkUnload(ChunkUnloadEvent e) {
         if (MGameActions.needLoadedChunks != null && MGameActions.needLoadedChunks.contains(e.getChunk()))
             e.setCancelled(true);
+        for (Villager villager : MVillagers.disconnectedPlayers.keySet())
+            if (villager.getLocation().getChunk().equals(e.getChunk()))
+                e.setCancelled(true);
     }
 
     @EventHandler
@@ -86,6 +92,13 @@ public class ECancels implements Listener {
            e.setTo(player.location);
        else
            e.setTo(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
+   }
+
+   @EventHandler
+   public void onChat(AsyncPlayerChatEvent e) {
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) && !setup.getGame().getGameRules().allowChat)
+            e.setCancelled(true);
+        // TODO SHOW DENIED MESSAGE
    }
 
 }

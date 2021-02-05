@@ -65,7 +65,7 @@ public class Naruto extends RoleInfo {
 
         player.sendMessage("Vous êtes Naruto.");
         player.sendMessage("Votre but est de gagner avec " + ChatColor.LIGHT_PURPLE + "l'alliance shinobi.");
-        player.sendMessage("Pour ce faire vous disposez des effets" + ChatColor.AQUA + "speed 1 et " + ChatColor.GOLD + "fire resistance" + ChatColor.RESET + " permanent ainsi qu'un livre " + ChatColor.GOLD + "fire aspect 1" + ChatColor.RESET + ".");
+        player.sendMessage("Pour ce faire vous disposez des effets " + ChatColor.AQUA + "speed 1 et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + "permanent ainsi qu'un livre " + ChatColor.GOLD + "fire aspect 1" + ChatColor.RESET + ".");
         player.sendMessage("En plus de cela, si " + ChatColor.DARK_PURPLE + "Sasuke" + ChatColor.RESET + " choisit de rejoindre l'akatsuki, vous obtiendrez l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + " permanent.");
     }
 

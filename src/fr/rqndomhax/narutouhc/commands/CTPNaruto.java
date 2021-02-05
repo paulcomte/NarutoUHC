@@ -30,7 +30,9 @@ public class CTPNaruto implements CommandExecutor {
         Player player = (Player) sender;
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
+
         gamePlayer.role = new Deidara(gamePlayer);
+        //gamePlayer.role.onClaim();
         //player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, 120, 0));
         //player.teleport(new Location(Bukkit.getWorld("world"), -228, 151, 228));
         return true;

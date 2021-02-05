@@ -15,6 +15,8 @@ public interface Role {
 
     void onRoleGiven(Setup setup);
 
+    void onInit(Setup setup);
+
     void onClaim();
 
     void onChose();

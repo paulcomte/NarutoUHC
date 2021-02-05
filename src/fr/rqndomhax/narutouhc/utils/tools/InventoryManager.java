@@ -25,7 +25,7 @@ public abstract class InventoryManager {
         }
     }
 
-    public static void saveInventory(ItemStack[] items, Player player)  {
+    public static void saveInventory(ItemStack[] items, Player player, boolean clear)  {
         for(int slot = 0; slot < 36; slot++){
             ItemStack item = player.getInventory().getItem(slot);
                 items[slot] = item;
@@ -36,18 +36,12 @@ public abstract class InventoryManager {
         items[38] = player.getInventory().getLeggings();
         items[39] = player.getInventory().getBoots();
 
-        player.getInventory().clear();
-        player.getInventory().setHelmet(null);
-        player.getInventory().setChestplate(null);
-        player.getInventory().setLeggings(null);
-        player.getInventory().setBoots(null);
-        player.updateInventory();
+        if (clear)
+            clearInventory(player);
     }
 
     public static void clearInventory(Player player) {
-        for (int slot = 0 ; slot < 36 ; slot++)
-            player.getInventory().setItem(slot, null);
-
+        player.getInventory().clear();
         player.getInventory().setHelmet(null);
         player.getInventory().setChestplate(null);
         player.getInventory().setLeggings(null);

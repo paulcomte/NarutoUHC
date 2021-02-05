@@ -101,7 +101,7 @@ public class EPlayerActions implements Listener {
 
         gamePlayer.deathLocation = player.getLocation();
 
-        InventoryManager.saveInventory(gamePlayer.inventory, player);
+        InventoryManager.saveInventory(gamePlayer.inventory, player, true);
         gamePlayer.isDead = true;
 
         if (player.getKiller() != null)

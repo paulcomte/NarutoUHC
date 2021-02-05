@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.INagato;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
@@ -47,7 +47,7 @@ public class Nagato extends RoleInfo {
             if (!gamePlayer.isDead)
                 continue;
 
-            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getRoleType() == null || !gamePlayer.role.getRole().getRoleType().equals(RoleType.AKATSUKI))
+            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getTeam() == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
                 return;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);

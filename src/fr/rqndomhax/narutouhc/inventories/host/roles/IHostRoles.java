@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.inventories.host.roles;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.RoleType;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
@@ -81,7 +81,7 @@ public class IHostRoles {
         inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
-            if (!role.getRoleType().equals(RoleType.SHINOBI))
+            if (!role.getTeam().equals(Team.SHINOBI))
                 continue;
             if (roles.size() == 0)
                 return;
@@ -120,7 +120,7 @@ public class IHostRoles {
         inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
-            if (!role.getRoleType().equals(RoleType.AKATSUKI))
+            if (!role.getTeam().equals(Team.AKATSUKI))
                 continue;
             if (roles.size() == 0)
                 return;
@@ -141,8 +141,8 @@ public class IHostRoles {
     }
 
     private void addOrochimaruItems() {
-        int[] black = new int[]{0, 2, 6, 8, 18, 20, 22, 24, 26, 28, 34, 36, 38, 42, 44, 46, 52};
-        int[] orange = new int[]{1, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 35, 37, 39, 41, 43, 45, 47, 51, 53};
+        int[] black = new int[]{0, 2, 6, 8, 18, 20, 22, 24, 26, 28, 34, 36, 38, 40, 42, 44, 46, 52};
+        int[] orange = new int[]{1, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 33, 35, 37, 39, 41, 43, 45, 47, 51, 53};
         int[] bars = new int[]{3, 5, 31, 48, 50};
         List<Integer> roles = new ArrayList<>(Arrays.asList(30, 32));
 
@@ -159,7 +159,7 @@ public class IHostRoles {
         inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
-            if (!role.getRoleType().equals(RoleType.OROCHIMARU))
+            if (!role.getTeam().equals(Team.OROCHIMARU))
                 continue;
             if (roles.size() == 0)
                 return;
@@ -180,7 +180,7 @@ public class IHostRoles {
     }
 
     private void addSoloItems() {
-        int[] black = new int[]{0, 2, 6, 8, 18, 20, 22, 24, 26, 28, 34, 36, 38, 42, 44, 46, 52};
+        int[] black = new int[]{0, 2, 6, 8, 18, 20, 22, 24, 26, 28, 34, 36, 38, 40, 42, 44, 46, 52};
         int[] orange = new int[]{1, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 35, 37, 39, 41, 43, 45, 47, 51, 53};
         int[] bars = new int[]{3, 5, 30, 32, 48, 50};
         List<Integer> roles = new ArrayList<>(Arrays.asList(29, 31, 33));
@@ -198,7 +198,7 @@ public class IHostRoles {
         inventory.setItem(49, IInfos.RETURN_ITEM, returnMain());
 
         for (Roles role : Roles.values()) {
-            if (!role.getRoleType().equals(RoleType.DANZO) && !role.getRoleType().equals(RoleType.SASUKE))
+            if (!role.getTeam().equals(Team.DANZO) && !role.getTeam().equals(Team.SASUKE) && !role.getTeam().equals(Team.MADARA))
                 continue;
             if (roles.size() == 0)
                 return;

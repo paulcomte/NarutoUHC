@@ -52,7 +52,7 @@ public class CSave implements CommandExecutor {
 
         if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId())) {
 
-            InventoryManager.saveInventory(rules.startInventory, player);
+            InventoryManager.saveInventory(rules.startInventory, player, false);
             MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
             rules.startInventoryInEdit = null;
 
@@ -65,7 +65,7 @@ public class CSave implements CommandExecutor {
             return true;
         }
         else if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId())) {
-            InventoryManager.saveInventory(rules.deathInventory, player);
+            InventoryManager.saveInventory(rules.deathInventory, player, false);
             MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
 
             rules.deathInventoryInEdit = null;

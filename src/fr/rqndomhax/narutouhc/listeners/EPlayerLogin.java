@@ -22,10 +22,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class EPlayerLogin implements Listener {
 
     private final Setup setup;
+    private final Location initLocation = new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0);
 
     public EPlayerLogin(Setup setup) {
         this.setup = setup;
@@ -66,27 +68,39 @@ public class EPlayerLogin implements Listener {
             setup.getGame().getGamePlayers().add(gamePlayer);
             MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), e.getPlayer());
 
-            e.getPlayer().teleport(new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0));
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    e.getPlayer().teleport(initLocation);
+                }
+            }.runTaskLater(setup.getMain(), 2);
+
             return;
         }
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
-        if (gamePlayer != null) {
-            Villager villager = MVillagers.getVillager(gamePlayer);
-            if (gamePlayer.isDead) {
-                MGameActions.clearPlayer(e.getPlayer());
-                e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            }
-            if (villager != null) {
-                e.getPlayer().teleport(villager.getLocation());
-                MVillagers.deleteVillager(villager);
-            }
-        }
-        else {
+        if (gamePlayer == null) {
+            e.getPlayer().sendMessage(Messages.GAME_ALREADY_STARTED);
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId() && !player.getGameMode().equals(GameMode.SPECTATOR)).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
+            return;
+        }
+
+        if (gamePlayer.isDead) {
+            MGameActions.clearPlayer(e.getPlayer());
+            e.getPlayer().setGameMode(GameMode.SPECTATOR);
+            e.getPlayer().teleport(gamePlayer.deathLocation);
+            return;
+        }
+
+        Villager villager = MVillagers.getVillager(gamePlayer);
+
+        if (villager != null) {
+            Location location = villager.getLocation();
+            MVillagers.deleteVillager(villager);
+            e.getPlayer().teleport(location);
         }
     }
 
@@ -113,7 +127,7 @@ public class EPlayerLogin implements Listener {
 
         GamePlayer player = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
         if (player != null && !player.isDead){
-            InventoryManager.saveInventory(player.inventory, e.getPlayer());
+            InventoryManager.saveInventory(player.inventory, e.getPlayer(), false);
             MVillagers.createVillager(e.getPlayer().getLocation(), player);
         }
     }

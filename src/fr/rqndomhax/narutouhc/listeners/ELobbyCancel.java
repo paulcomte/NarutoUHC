@@ -42,8 +42,7 @@ public class ELobbyCancel implements Listener {
     public void onDrop(PlayerDropItemEvent e) {
         if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
             return;
-        if (e.getItemDrop().getItemStack().equals(IInfos.MAIN_HOST_ITEM))
-            e.setCancelled(true);
+        e.setCancelled(true);
     }
 
     @EventHandler

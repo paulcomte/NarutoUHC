@@ -34,10 +34,8 @@ public class TObito extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED)) {
-            cancel();
-            return;
-        }
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED))
+            remainingTime = 0;
 
         if (remainingTime == 0) {
             if (obito != null && !obito.isDead) {
@@ -62,6 +60,6 @@ public class TObito extends BukkitRunnable {
     }
 
     private void randomTeleport(Entity entity) {
-
+        // TODO RANDOM TELEPORT
     }
 }

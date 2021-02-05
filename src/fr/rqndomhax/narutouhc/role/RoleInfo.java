@@ -28,6 +28,11 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
+    public void onInit(Setup setup) {
+
+    }
+
+    @Override
     public void onRoleGiven(Setup setup) {
         onDesc();
         giveEffects();

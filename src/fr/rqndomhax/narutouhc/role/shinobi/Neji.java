@@ -15,7 +15,6 @@ import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -80,12 +79,9 @@ public class Neji extends RoleInfo {
 
         player.sendMessage("Vous êtes Neji.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous pouvez voir si le rôle d'un joueur est \"suspect\" ou \"gentil\".");
-        player.sendMessage("Cet item vous donnera l'effet \"" + ChatColor.DARK_RED + "force 2" + ChatColor.RESET + ", " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + "et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + ".");
-        player.sendMessage("Ainsi que \"" + ChatColor.RED + "2 coeurs supplémentaires" + ChatColor.RESET + " et " + ChatColor.DARK_PURPLE + "no fall" + ChatColor.RESET + ".");
-        player.sendMessage("Pour une durée totale de 10 minutes.");
-        player.sendMessage("Une fois ces 10 minutes passées, vous tomberez à " + ChatColor.RED + "0.5 coeurs permanents" + ChatColor.RESET + ".");
-        if (!hasClaimed)
-            player.sendMessage("Pour le récupérer faites \"/na claim\"");
+        player.sendMessage("Pour ce faire, vous pouvez voir si le rôle d'un joueur est \"suspect\" ou \"gentil\", vous disposerez de 2 utilisations en utilisant la commande /na neji");
+        player.sendMessage("Un inventaire s'ouvrira avec la liste des joueurs présents dans un rayon de 10 bloocks.");
+        player.sendMessage("Une fois le joueur séléctionné, vous devrez rester à proximité du joueur pendant 10 secondes au total.");
+        player.sendMessage("Si aucun joueur n'a été sélectioonné dans l'inventaire, vous perdre tout de même une utilisation.");
     }
 }

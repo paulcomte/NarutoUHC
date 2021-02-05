@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,7 +39,7 @@ public abstract class MVillagers {
         Villager npc = location.getWorld().spawn(location, Villager.class);
 
         if (npc == null) {
-            Bukkit.getLogger().log(Level.WARNING, "");
+            Bukkit.getLogger().log(Level.WARNING, Messages.CANNOT_CREATE_VILLAGER);
             return;
         }
 
@@ -83,6 +84,7 @@ public abstract class MVillagers {
 
         disconnectedPlayers.remove(villager);
         villager.remove();
+        villager.eject();
     }
 
 }

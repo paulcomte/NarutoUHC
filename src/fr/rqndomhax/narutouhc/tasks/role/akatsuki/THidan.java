@@ -36,17 +36,16 @@ public class THidan extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || hidan == null || !hidan.isDead) {
+        if (setup == null || setup.getGame() == null || setup.getGame().getGameState() == null || setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || hidan == null || !hidan.isDead) {
             cancel();
             return;
         }
 
+        Player player = Bukkit.getPlayer(hidan.uuid);
+        if (player == null)
+            return;
+
         if (remainingTime == 0) {
-            Player player = Bukkit.getPlayer(hidan.uuid);
-            if (player == null) {
-                cancel();
-                return;
-            }
             ItemStack[] items = new ItemStack[40];
             items[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
             items[1] = new ItemStack(Material.GOLDEN_APPLE, 5);

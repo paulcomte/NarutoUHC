@@ -7,10 +7,11 @@
 
 package fr.rqndomhax.narutouhc.infos;
 
-public enum RoleType {
+public enum Team {
     SHINOBI,
     AKATSUKI,
     OROCHIMARU,
+    MADARA,
     SASUKE,
     DANZO;
 }

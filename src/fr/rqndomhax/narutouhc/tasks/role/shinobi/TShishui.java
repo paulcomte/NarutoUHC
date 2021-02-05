@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.tasks.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.RoleType;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import org.bukkit.Bukkit;
@@ -34,9 +34,9 @@ public class TShishui extends BukkitRunnable {
         for (int i = 0; i < 3; i++) {
             Optional<GamePlayer> random;
             if (n != i)
-                random = setup.getGame().getGamePlayers().stream().filter(p -> p != shishui && !p.isDead && p.role != null && p.role.getRole() != null && p.role.getRole().getRoleType() != null && !p.role.getRole().getRoleType().equals(RoleType.AKATSUKI)).findAny();
+                random = setup.getGame().getGamePlayers().stream().filter(p -> p != shishui && !p.isDead && p.role != null && p.role.getRole() != null && p.role.getRole().getTeam() != null && !p.role.getRole().getTeam().equals(Team.AKATSUKI)).findAny();
             else
-                random = setup.getGame().getGamePlayers().stream().filter(p -> p != shishui && !p.isDead && p.role != null && p.role.getRole() != null && p.role.getRole().getRoleType() != null && p.role.getRole().getRoleType().equals(RoleType.AKATSUKI)).findAny();
+                random = setup.getGame().getGamePlayers().stream().filter(p -> p != shishui && !p.isDead && p.role != null && p.role.getRole() != null && p.role.getRole().getTeam() != null && p.role.getRole().getTeam().equals(Team.AKATSUKI)).findAny();
             random.ifPresent(players::add);
         }
     }
