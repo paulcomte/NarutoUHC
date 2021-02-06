@@ -10,7 +10,6 @@ package fr.rqndomhax.narutouhc.listeners.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.role.Role;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.Gai;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;

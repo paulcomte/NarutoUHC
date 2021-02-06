@@ -9,20 +9,11 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.role.akatsuki.Deidara;
-import fr.rqndomhax.narutouhc.role.shinobi.Gaara;
-import fr.rqndomhax.narutouhc.role.shinobi.Gai;
-import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
-import fr.rqndomhax.narutouhc.role.shinobi.Minato;
-import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
 public class CTPNaruto implements CommandExecutor {
