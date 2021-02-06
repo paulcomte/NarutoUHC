@@ -31,22 +31,6 @@ public class Gai extends RoleInfo {
     }
 
     @Override
-    public void onDesc() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
-
-        player.sendMessage("Vous êtes Gaï.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez d'un item, \"Huit portes\".");
-        player.sendMessage("Cet item vous donnera l'effet \"" + ChatColor.DARK_RED + "force 2" + ChatColor.RESET + ", " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + "et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + ".");
-        player.sendMessage("Ainsi que \"" + ChatColor.RED + "2 coeurs supplémentaires" + ChatColor.RESET + " et " + ChatColor.DARK_PURPLE + "no fall" + ChatColor.RESET + ".");
-        player.sendMessage("Pour une durée totale de 10 minutes.");
-        player.sendMessage("Une fois ces 10 minutes passées, vous tomberez à " + ChatColor.RED + "0.5 coeurs permanents" + ChatColor.RESET + ".");
-        if (!hasClaimed)
-            player.sendMessage("Pour le récupérer faites \"/na claim\"");
-    }
-
-    @Override
     public void onClaim() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
@@ -64,5 +48,23 @@ public class Gai extends RoleInfo {
 
         player.getInventory().addItem(item);
         hasClaimed = true;
+    }
+
+    @Override
+    public void onDesc() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null) return;
+
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
+        player.sendMessage("Vous êtes Gaï.");
+        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage("Pour ce faire, vous disposez d'un item, \"Huit portes\".");
+        player.sendMessage("Cet item vous donnera l'effet \"" + ChatColor.DARK_RED + "force 2" + ChatColor.RESET + ", " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + "et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + ".");
+        player.sendMessage("Ainsi que \"" + ChatColor.RED + "2 coeurs supplémentaires" + ChatColor.RESET + " et " + ChatColor.DARK_PURPLE + "no fall" + ChatColor.RESET + ".");
+        player.sendMessage("Pour une durée totale de 10 minutes.");
+        player.sendMessage("Une fois ces 10 minutes passées, vous tomberez à " + ChatColor.RED + "0.5 coeurs permanents" + ChatColor.RESET + ".");
+        if (!hasClaimed)
+            player.sendMessage("Pour le récupérer faites \"/na claim\"");
     }
 }

@@ -64,8 +64,18 @@ public class TDeath extends BukkitRunnable {
             if (player != null)
                 player.setHealth(0);
 
-            if (killer != null)
+            if (killer != null) {
                 MGameActions.addKill(killer, gamePlayer);
+                if (!killer.isDead && killer.role != null)
+                    killer.role.onKill(gamePlayer);
+            }
+
+            for (GamePlayer p : setup.getGame().getGamePlayers()) {
+                if (p.isDead || p.role == null)
+                    continue;
+
+                p.role.onPlayerDeath(gamePlayer);
+            }
             cancel();
         }
 

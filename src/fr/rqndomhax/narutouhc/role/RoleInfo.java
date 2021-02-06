@@ -47,11 +47,6 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
-    public void onChose() {
-
-    }
-
-    @Override
     public void giveEffects() {
 
     }

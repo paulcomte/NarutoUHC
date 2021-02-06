@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import net.minecraft.server.v1_8_R3.PlayerChunkMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

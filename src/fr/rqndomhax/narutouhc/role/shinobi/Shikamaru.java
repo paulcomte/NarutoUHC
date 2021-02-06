@@ -70,9 +70,10 @@ public class Shikamaru extends RoleInfo {
         }
 
 
-        new IShikamaru(setup, player, players, inventory_size*9);
+        player.openInventory(new IShikamaru(setup, player, players, inventory_size*9).getInventory());
 
         commandUses--;
+        commandUsed = true;
     }
 
     @Override
@@ -80,6 +81,8 @@ public class Shikamaru extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Shikamaru.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, Vous donnerez des effets à une personne dans un rayon de 50 blocks grâce à votre capacité spéciale");

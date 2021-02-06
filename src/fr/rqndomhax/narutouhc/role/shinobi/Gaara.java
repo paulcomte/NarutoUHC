@@ -35,6 +35,8 @@ public class Gaara extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Gaara.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, vous disposez de l'effet " + ChatColor.BLACK + "résistance 1 " + ChatColor.RESET + "ainsi que " + ChatColor.DARK_PURPLE + "no fall" + ChatColor.RESET + ".");

@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.commands;
+package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GameRules;
@@ -64,11 +64,12 @@ public class CForce implements CommandExecutor {
     }
 
     private boolean showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
-        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "border" + ChatColor.DARK_AQUA + " : pour forcer la bordure.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "tp" + ChatColor.DARK_AQUA + " : pour forcer la téléportation sur l'univers de naruto.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "role" + ChatColor.DARK_AQUA + " : pour forcer l'affichage des rôles.");
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "\n----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----\n");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "border " + ChatColor.DARK_AQUA + ": pour forcer la bordure.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "tp " + ChatColor.DARK_AQUA + ": pour forcer la téléportation sur l'univers de naruto.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/force " + ChatColor.GOLD + "role " + ChatColor.DARK_AQUA + ": pour forcer l'affichage des rôles.");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "\n----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage("");
         return false;
     }
 

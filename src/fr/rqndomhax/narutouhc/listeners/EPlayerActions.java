@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
@@ -56,14 +57,35 @@ public class EPlayerActions implements Listener {
 
         if (player == null)
             return;
+
         if (player.role != null)
             player.role.onPrematureDeath(villager.getLocation());
+
         player.isDead = true;
         player.deathLocation = villager.getLocation();
+        player.deathLocation.getWorld().strikeLightningEffect(player.deathLocation);
+        Messages.showDeath(player, setup.getGame().getGameRules().showRoleOnDeath);
         InventoryManager.dropInventory(player.inventory, player.deathLocation, true);
         MVillagers.disconnectedPlayers.remove(villager);
-        if (villager.getKiller() != null)
-            MGameActions.addKill(setup.getGame().getGamePlayer(villager.getKiller().getUniqueId()), player);
+
+        if (villager.getKiller() != null) {
+            GamePlayer killer = setup.getGame().getGamePlayer(villager.getKiller().getUniqueId());
+
+            if (killer == null)
+                return;
+
+            killer.kills.add(player.uuid);
+
+            if (killer.role != null)
+                killer.role.onKill(player);
+        }
+
+        for (GamePlayer p : setup.getGame().getGamePlayers()) {
+            if (p.isDead || p.role == null)
+                continue;
+
+            p.role.onPlayerDeath(player);
+        }
     }
 
     @EventHandler

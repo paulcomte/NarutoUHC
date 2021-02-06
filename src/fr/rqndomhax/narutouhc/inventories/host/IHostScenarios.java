@@ -37,20 +37,20 @@ public class IHostScenarios {
         this.setup = setup;
         this.player = player;
 
-        updateInventory();
-    }
-
-    private void updateInventory() {
         for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
 
         IInfos.placeInvBorders(inventory.getInventory());
         inventory.setItem(4, IInfos.MAIN_HOST_SCENARIOS);
 
         int[] bars = new int[]{3, 5, 19, 28, 25, 34, 48, 50};
-        int[] slots = new int[]{12, 13, 14, 20, 21, 23, 24, 28, 29, 30, 31, 32, 33, 39, 40, 41};
 
         for (Integer i : bars)
             inventory.setItem(i, IInfos.BARS);
+        updateInventory();
+    }
+
+    private void updateInventory() {
+        int[] slots = new int[]{12, 13, 14, 20, 21, 23, 24, 29, 30, 31, 32, 33, 39, 40, 41};
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
             GameRules rules = setup.getGame().getGameRules();
@@ -104,45 +104,6 @@ public class IHostScenarios {
                 rules.activatedScenarios.remove(scenario);
             else
                 rules.activatedScenarios.add(scenario);
-            updateInventory();
-        };
-    }
-
-    private ItemStack getBorderDisconnects() {
-        if (setup.getGame().getGameRules().spectatorsAfterBorder)
-            return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
-        return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.DARK_RED + " ✘").toItemStack();
-    }
-
-    private Consumer<InventoryClickEvent> changeBorderDisconnects() {
-        return e -> {
-            setup.getGame().getGameRules().spectatorsAfterBorder = !setup.getGame().getGameRules().spectatorsAfterBorder;
-            updateInventory();
-        };
-    }
-
-    private ItemStack getSpectators() {
-        if (setup.getGame().getGameRules().allowSpectators)
-            return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
-        return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.DARK_RED + " ✘").toItemStack();
-    }
-
-    private Consumer<InventoryClickEvent> changeSpectators() {
-        return e -> {
-            setup.getGame().getGameRules().allowSpectators = !setup.getGame().getGameRules().allowSpectators;
-            updateInventory();
-        };
-    }
-
-    private ItemStack getWhitelist() {
-        if (setup.getGame().getGameRules().hasWhitelist)
-            return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
-        return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.DARK_RED + " ✘").toItemStack();
-    }
-
-    private Consumer<InventoryClickEvent> changeWhitelist() {
-        return e -> {
-            setup.getGame().getGameRules().hasWhitelist = !setup.getGame().getGameRules().hasWhitelist;
             updateInventory();
         };
     }

@@ -10,7 +10,10 @@ package fr.rqndomhax.narutouhc.listeners.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.role.Role;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.Gai;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.tasks.role.shinobi.TGai;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -41,11 +44,17 @@ public class RGai implements Listener {
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
-
-        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null || !gamePlayer.role.getRole().equals(Roles.GAI) || !(gamePlayer.role instanceof Gai))
+        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
             return;
 
-        Gai role = (Gai) gamePlayer.role;
+        RoleInfo tmp = gamePlayer.role;
+        if (gamePlayer.role.getRole().equals(Roles.KAKASHI_HATAKE) && (gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+
+        if (!tmp.getRole().equals(Roles.GAI) && !(tmp instanceof Gai))
+            return;
+
+        Gai role = (Gai) tmp;
 
         if (e.getItemInHand() == null || !e.getItemInHand().hasItemMeta() || !e.getItemInHand().getItemMeta().hasDisplayName() || !e.getItemInHand().getType().equals(role.item.getType()) || !e.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(role.item.getItemMeta().getDisplayName())) {
             return;

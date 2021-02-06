@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,10 +33,8 @@ public class CHost implements CommandExecutor {
         if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
 
            if (!(sender instanceof Player) || rules.gameHost.equals(((Player) sender).getUniqueId())
-                   || rules.gameCoHost.contains(((Player) sender).getUniqueId())) {
-                Messages.showHostHelp(sender);
-                return true;
-            }
+                   || rules.gameCoHost.contains(((Player) sender).getUniqueId()))
+                return showHostHelp(sender);
 
             sender.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
@@ -63,15 +62,28 @@ public class CHost implements CommandExecutor {
             default:
                 if (sender instanceof Player) {
                     if ((rules.gameHost.equals(((Player) sender).getUniqueId()) || rules.gameCoHost.contains(((Player) sender).getUniqueId())))
-                        Messages.showHostHelp(sender);
-                    else
-                        sender.sendMessage(Messages.COMMAND_ONLY_HOST);
+                        return showHostHelp(sender);
+                    sender.sendMessage(Messages.COMMAND_ONLY_HOST);
+                    return false;
                 }
-                else
-                    Messages.showHostHelp(sender);
-                return false;
+                return showHostHelp(sender);
         }
 
+    }
+
+    private boolean showHostHelp(CommandSender sender) {
+        sender.sendMessage(ChatColor.DARK_PURPLE + "\n----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----\n");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "delete " + ChatColor.LIGHT_PURPLE + "<player> " + ChatColor.DARK_AQUA + ": pour supprimer un co-hôte.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "promote " + ChatColor.LIGHT_PURPLE + "<player> " + ChatColor.DARK_AQUA + ": pour ajouter un co-hôte.");
+        sender.sendMessage("");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "ban " + ChatColor.LIGHT_PURPLE + "<player> " + ChatColor.DARK_AQUA + ": pour bannir un joueur.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "ban " + ChatColor.LIGHT_PURPLE + "<player> " + ChatColor.DARK_AQUA + ": pour annuler le ban d'un joueur.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "kick " + ChatColor.LIGHT_PURPLE + "<player> " + ChatColor.DARK_AQUA + ": pour expulser un joueur.");
+        sender.sendMessage("");
+        sender.sendMessage(ChatColor.DARK_AQUA + "/host " + ChatColor.GOLD + "say " + ChatColor.LIGHT_PURPLE + "<message> " + ChatColor.DARK_AQUA + ": pour faire une annonce.");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "\n----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage("");
+        return false;
     }
 
 }

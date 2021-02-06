@@ -18,6 +18,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -44,9 +46,18 @@ public class Kisame extends RoleInfo {
             return;
         }
 
-        player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.DEPTH_STRIDER, 2).toItemStack());
+        player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.DEPTH_STRIDER, 3).toItemStack());
         player.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 32));
         hasClaimed = true;
+    }
+
+    @Override
+    public void giveEffects() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null) return;
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
     }
 
     @Override
@@ -54,6 +65,8 @@ public class Kisame extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Kisame.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, vous obtenez l'effet " + ChatColor.AQUA + "speed 1 " + ChatColor.RESET + "ainsi que l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + "sous l'eau, et vous obtenez également un livre " + ChatColor.LIGHT_PURPLE + "depth strider 3 " + ChatColor.RESET + "et de 32 bottles d'xp.");

@@ -44,7 +44,7 @@ public class Kakuzu extends RoleInfo {
             return;
         }
 
-        ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2).toItemStack();
+        ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3).toItemStack();
 
         player.getInventory().addItem(books);
         player.getInventory().addItem(books);
@@ -65,6 +65,8 @@ public class Kakuzu extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Kakuzu.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, à l'annonce des rôles vous gagnez, 5 slots de coeurs vides ainsi que " + ChatColor.LIGHT_PURPLE + "2 livres protection 3" + ChatColor.RESET + ".");

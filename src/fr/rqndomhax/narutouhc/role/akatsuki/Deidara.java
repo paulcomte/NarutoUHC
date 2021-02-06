@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
@@ -66,7 +67,7 @@ public class Deidara extends RoleInfo {
             size++;
         }
 
-        new IShikamaru(setup, player, players, inventory_size*9);
+        player.openInventory(new IShikamaru(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
     }
@@ -76,6 +77,8 @@ public class Deidara extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Deidara.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, toutes les 20 minutes, vous pourrez faire spawn une tnt qui s'allumera automatiquement sur une personne se trouvant dans un rayon de 100 blocks autour de vous, avec la commande /na deidara");

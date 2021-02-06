@@ -38,6 +38,8 @@ public class Madara extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Madara.");
         player.sendMessage("Votre but est de gagner seul.");
         player.sendMessage("Pour ce faire vous disposez des effets suivants: " + ChatColor.RED + "strength 1 " + ChatColor.RESET + ", " + ChatColor.BLACK + "résistance 1 " + ChatColor.RESET + ", " + ChatColor.AQUA + "speed 1 " + ChatColor.RESET + "et " + ChatColor.GOLD + "fire resistance" + ChatColor.RESET + ".");

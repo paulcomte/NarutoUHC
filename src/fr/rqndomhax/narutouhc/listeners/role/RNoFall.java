@@ -10,7 +10,10 @@ package fr.rqndomhax.narutouhc.listeners.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -22,26 +25,26 @@ public class RNoFall implements Listener {
         this.setup = setup;
     }
 
+    @EventHandler
     public void onFall(EntityDamageEvent e) {
         if (!e.getCause().equals(EntityDamageEvent.DamageCause.FALL))
             return;
 
-        if ((e.getEntity() instanceof Player))
+        if (!(e.getEntity() instanceof Player))
             return;
 
         Player player = (Player) e.getEntity();
-
-        if (player == null)
-            return;
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
             return;
 
-        Roles role = gamePlayer.role.getRole();
+        RoleInfo tmp = gamePlayer.role;
+        if (gamePlayer.role.getRole().equals(Roles.KAKASHI_HATAKE) && (gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (role.equals(Roles.GAARA) || role.equals(Roles.FU) || role.equals(Roles.GAI))
+        if (tmp.getRole().equals(Roles.GAARA) || tmp.getRole().equals(Roles.FU) || tmp.getRole().equals(Roles.GAI))
             e.setCancelled(true);
     }
 }

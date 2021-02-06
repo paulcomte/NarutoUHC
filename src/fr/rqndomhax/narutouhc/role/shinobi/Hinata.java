@@ -49,17 +49,6 @@ public class Hinata extends RoleInfo {
     }
 
     @Override
-    public void onDesc() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
-
-        player.sendMessage("Vous êtes Hinata.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na hinata\" qui affichera une liste de joueurs présents dans un rayon de 50 blocks.");
-        player.sendMessage("Utilisations restantes : " + ChatColor.GREEN + commandUses);
-    }
-
-    @Override
     public void giveEffects() {
         if (!isNarutoDead || hasRedeemed) return;
 
@@ -112,8 +101,22 @@ public class Hinata extends RoleInfo {
             left--;
         }
 
-        player.sendMessage("===== INFOS =====");
-        player.sendMessage(playerNames.toString());
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "INFOS " + ChatColor.BLACK + "-----");
+        player.sendMessage(playerNames.toString().replace("[", "").replace("]", ""));
         commandUses--;
+    }
+
+    @Override
+    public void onDesc() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null) return;
+
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
+        player.sendMessage("Vous êtes Hinata.");
+        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na hinata\" qui affichera une liste de joueurs présents dans un rayon de 50 blocks.");
+        player.sendMessage("Utilisations restantes : " + ChatColor.GREEN + commandUses);
     }
 }

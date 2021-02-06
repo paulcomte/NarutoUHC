@@ -63,6 +63,8 @@ public class Naruto extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Naruto.");
         player.sendMessage("Votre but est de gagner avec " + ChatColor.LIGHT_PURPLE + "l'alliance shinobi.");
         player.sendMessage("Pour ce faire vous disposez des effets " + ChatColor.AQUA + "speed 1 et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + "permanent ainsi qu'un livre " + ChatColor.GOLD + "fire aspect 1" + ChatColor.RESET + ".");

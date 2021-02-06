@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -77,6 +78,8 @@ public class Neji extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Neji.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, vous pouvez voir si le rôle d'un joueur est \"suspect\" ou \"gentil\", vous disposerez de 2 utilisations en utilisant la commande /na neji");

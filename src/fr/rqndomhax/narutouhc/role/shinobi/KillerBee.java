@@ -62,6 +62,8 @@ public class KillerBee extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Killer Bee.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, vous disposez de l'effet " + ChatColor.RED + "strength 1 " + ChatColor.RESET + "ainsi qu'une " + ChatColor.LIGHT_PURPLE + "épée en diamant" + ChatColor.RESET + ".");

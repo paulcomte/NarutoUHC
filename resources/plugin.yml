@@ -20,3 +20,5 @@ commands:
   cancel:
   force:
   enchant:
+  na:
+    aliases: [naruto]

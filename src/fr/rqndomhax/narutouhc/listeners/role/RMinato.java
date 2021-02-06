@@ -10,6 +10,10 @@ package fr.rqndomhax.narutouhc.listeners.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.role.Role;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.Gai;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.role.shinobi.Minato;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -52,12 +56,19 @@ public class RMinato implements Listener {
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
-        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null || !gamePlayer.role.getRole().equals(Roles.MINATO))
+        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
             return;
 
-        Minato role = (Minato) gamePlayer.role;
+        RoleInfo tmp = gamePlayer.role;
+        if (gamePlayer.role.getRole().equals(Roles.KAKASHI_HATAKE) && (gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (role == null || player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(role.item.getType()))
+        if (!tmp.getRole().equals(Roles.MINATO) && !(tmp instanceof Minato))
+            return;
+
+        Minato role = (Minato) tmp;
+
+        if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(role.item.getType()))
             return;
 
         arrows.put(player, arrow);
@@ -67,6 +78,7 @@ public class RMinato implements Listener {
     public void onProjectile(ProjectileHitEvent e) {
         if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.MINATO))
             return;
+
         if (!(e.getEntity() instanceof Arrow))
             return;
 

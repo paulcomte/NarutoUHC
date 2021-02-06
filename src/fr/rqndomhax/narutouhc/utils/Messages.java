@@ -65,8 +65,8 @@ public abstract class Messages {
     public static String PLAYER_LEFT = "("+ ChatColor.DARK_RED + "-" + ChatColor.WHITE +") %player%";
     public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "+" + ChatColor.WHITE +") %player%";
 
-    public static String GAME_DESIGNER_CREDITS = "Game mode designed by Syknos - Laynoks - RqndomHax";
-    public static String HELPER_CREDITS = "Special thanks to, Spat', Losgateaux";
+    public static String GAME_DESIGNER_CREDITS = "Game mode designed by Syknos - Laynoks - Losgateaux - RqndomHax";
+    public static String HELPER_CREDITS = "Special thanks to, Spat'";
     public static String DEV_CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
 
     public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette action !";
@@ -103,6 +103,8 @@ public abstract class Messages {
     public static String PLAYER_BANNED = PREFIX + "Vous avez été banni(e) de la partie !";
     public static String PLAYER_NOT_BANNED = PREFIX + "Le joueur %player% n'est pas banni(e) !";
 
+    public static String NOT_PLAYING = PREFIX + "Vous ne jouez pas au sein de cette partie !";
+
     public static String PLAYER_NOW_BANNED = PREFIX + "Le joueur %player% a été banni(e) avec succès !";
     public static String PLAYER_NOW_UNBANNED = PREFIX + "Le joueur %player% n'est maintenant plus banni(e)";
 
@@ -123,6 +125,9 @@ public abstract class Messages {
     public static String HOST_DEMOTED = PREFIX + "Vous avez perdu votre rang de co-hôte !";
     public static String HOST_PROMOTED = PREFIX + "Vous êtes maintenant un co-hôte !";
 
+    public static String NO_ROLE = PREFIX + "Vous ne possédez pas de rôle !";
+    public static String NOT_YOUR_ROLE = PREFIX + "Cette commande n'appartient pas à votre rôle !";
+    public static String ROLES_NOT_GAVE = PREFIX + "Les rôles n'ont pas été encore attribués !";
     public static String ROLE_NO_ITEMS = PREFIX + "Votre rôle ne dispose d'aucun équipement supplémentaire !";
     public static String ROLE_ITEMS_NEED_SPACE = PREFIX + "Votre inventaire doit avoir la place nécessaire pour récupérer %n% objets";
     public static String ROLE_ITEMS_OBTAINED = PREFIX + "Vous avez reçu l'équipement de votre rôle !";
@@ -147,16 +152,12 @@ public abstract class Messages {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
     }
 
-    public static void showHostHelp(CommandSender sender) {
-
-    }
-
     public static void showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage(ChatColor.BLACK + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
         sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
         sender.sendMessage(GAME_DESIGNER_CREDITS);
         sender.sendMessage(HELPER_CREDITS);
         sender.sendMessage(DEV_CREDITS);
-        sender.sendMessage(ChatColor.DARK_PURPLE + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage(ChatColor.BLACK + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
     }
 }

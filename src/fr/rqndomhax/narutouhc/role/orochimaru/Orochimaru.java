@@ -74,7 +74,7 @@ public class Orochimaru extends RoleInfo {
             size++;
         }
 
-        new IOrochimaru(setup, player, players, inventory_size*9);
+        player.openInventory(new IOrochimaru(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
     }
@@ -92,6 +92,8 @@ public class Orochimaru extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Orochimaru.");
         player.sendMessage("Votre but est de gagner avec votre équipe.");
         player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat, 5 minutes après les rôles, afin de laisser le temps à " + ChatColor.BLUE + "Sasuke " + ChatColor.RESET + "de choison son camp.");

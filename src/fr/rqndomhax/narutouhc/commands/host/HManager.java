@@ -89,7 +89,8 @@ public abstract class HManager {
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1 ; i < args.length ; stringBuilder.append(args[i]).append(" "), i++);
-        Bukkit.broadcastMessage(Messages.PREFIX + stringBuilder);
+        Bukkit.broadcastMessage("\n" + Messages.PREFIX + stringBuilder);
+        Bukkit.broadcastMessage("");
 
         return true;
     }

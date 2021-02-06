@@ -8,7 +8,14 @@
 package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.commands.*;
+import fr.rqndomhax.narutouhc.commands.host.CForce;
+import fr.rqndomhax.narutouhc.commands.host.CHeal;
 import fr.rqndomhax.narutouhc.commands.host.CHost;
+import fr.rqndomhax.narutouhc.commands.host.CRevive;
+import fr.rqndomhax.narutouhc.commands.inventory.CCancel;
+import fr.rqndomhax.narutouhc.commands.inventory.CEnchant;
+import fr.rqndomhax.narutouhc.commands.inventory.CInventory;
+import fr.rqndomhax.narutouhc.commands.inventory.CSave;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.ECancels;
 import fr.rqndomhax.narutouhc.listeners.ELobbyCancel;
@@ -20,6 +27,7 @@ import fr.rqndomhax.narutouhc.listeners.role.RNoFall;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
+import fr.rqndomhax.narutouhc.tablecompletes.TabHost;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.tools.WorldManager;
@@ -123,11 +131,16 @@ public class Registers {
         setup.getMain().getCommand("tpnaruto").setExecutor(new CTPNaruto(setup));
         setup.getMain().getCommand("revive").setExecutor(new CRevive(setup));
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
+
         setup.getMain().getCommand("host").setExecutor(new CHost(setup));
+        setup.getMain().getCommand("host").setTabCompleter(new TabHost(setup));
+
         setup.getMain().getCommand("heal").setExecutor(new CHeal(setup));
         setup.getMain().getCommand("save").setExecutor(new CSave(setup));
         setup.getMain().getCommand("cancel").setExecutor(new CCancel(setup));
         setup.getMain().getCommand("force").setExecutor(new CForce(setup));
         setup.getMain().getCommand("enchant").setExecutor(new CEnchant(setup));
+
+        setup.getMain().getCommand("na").setExecutor(new CNaruto(setup));
     }
 }

@@ -10,9 +10,19 @@ package fr.rqndomhax.narutouhc.commands;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.akatsuki.Deidara;
+import fr.rqndomhax.narutouhc.role.shinobi.Gaara;
+import fr.rqndomhax.narutouhc.role.shinobi.Gai;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
+import fr.rqndomhax.narutouhc.role.shinobi.Minato;
+import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
 public class CTPNaruto implements CommandExecutor {
@@ -31,10 +41,8 @@ public class CTPNaruto implements CommandExecutor {
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
 
-        gamePlayer.role = new Deidara(gamePlayer);
-        //gamePlayer.role.onClaim();
         //player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, 120, 0));
-        //player.teleport(new Location(Bukkit.getWorld("world"), -228, 151, 228));
+        player.teleport(new Location(Bukkit.getWorld("world"), -228, 151, 228));
         return true;
     }
 

@@ -38,6 +38,8 @@ public class Sasuke extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Sasuke.");
         player.sendMessage("Contrairement aux autres rôles, vous pouvez choisir votre camp.");
         player.sendMessage("Vous pouvez être solo, rejoindre " + ChatColor.GOLD + "l'Akatsuki " + ChatColor.RESET + "ou le " + ChatColor.DARK_RED + "camp Orochimaru" + ChatColor.RESET + ".");

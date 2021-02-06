@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.commands;
+package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;

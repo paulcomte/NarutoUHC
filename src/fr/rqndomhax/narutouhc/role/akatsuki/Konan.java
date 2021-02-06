@@ -29,7 +29,7 @@ public class Konan extends RoleInfo {
     public boolean hasUsedCapacity = false;
 
     public Konan(GamePlayer gamePlayer) {
-        super(gamePlayer, Roles.HIDAN);
+        super(gamePlayer, Roles.KONAN);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Konan extends RoleInfo {
         }
 
         player.getInventory().addItem(new ItemBuilder(Material.BOW).addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5).toItemStack());
-        player.getInventory().addItem(new ItemStack(Material.ARROW));
-        player.getInventory().addItem(new ItemStack(Material.LEAVES));
+        player.getInventory().addItem(new ItemStack(Material.ARROW, 64));
+        player.getInventory().addItem(new ItemStack(Material.LEAVES, 64));
         hasClaimed = true;
     }
 
@@ -68,6 +68,8 @@ public class Konan extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Konan.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, vous recevez un livre " + ChatColor.DARK_PURPLE + "power 5 " + ChatColor.RESET + "ainsi que 64 flèches et 64 feuilles.");

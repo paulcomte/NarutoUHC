@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class Sakura extends RoleInfo {
         }
 
 
-        new IShikamaru(setup, player, players, inventory_size*9);
+        player.openInventory(new IShikamaru(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
     }
@@ -82,6 +83,8 @@ public class Sakura extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Sakura.");
         player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage("Pour ce faire, vous disposez de la commande \"/na sakura\", vous pourrez donner 1 minute de régénération 2 par épisode, ainsi que 2 minutes d'absorption (2 coeurs), à la personne de votre choix, ou à vous-même,");

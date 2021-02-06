@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -77,6 +78,8 @@ public class Obito extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Obito.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, vous avez la possibilité de vous téléporter 2 fois dans une salle entouré de bedrock en 30x30 dans la bordure.");

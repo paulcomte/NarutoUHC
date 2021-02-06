@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -69,7 +70,7 @@ public class Nagato extends RoleInfo {
             size++;
         }
 
-        new INagato(setup, player, players, inventory_size*9, this);
+        player.openInventory(new INagato(setup, player, players, inventory_size*9, this).getInventory());
 
         hasUsedCapacity = true;
     }
@@ -79,11 +80,12 @@ public class Nagato extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
+        player.sendMessage("");
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Nagato.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage("Pour ce faire, une fois dans la partie, et quand vous le voulez,");
-        player.sendMessage("Vous pourrez ressusciter une personne de l'akatsuki.");
-        player.sendMessage("Pour ce faire, vous devrez faire la commande /na nagato.");
+        player.sendMessage("Pour ce faire, une fois dans la partie, et quand vous le voulez, vous pourrez ressusciter une personne de l'akatsuki.");
+        player.sendMessage("Avec la commande /na nagato.");
         player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
         player.sendMessage("La personne ressuscitée apparaitra avec un full fer protection 1, une épée en fer sharpness 1, une pomee dorée, et 64 steaks.");
     }

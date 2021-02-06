@@ -19,8 +19,6 @@ public interface Role {
 
     void onClaim();
 
-    void onChose();
-
     void giveEffects();
 
     void onHit(GamePlayer gamePlayer);

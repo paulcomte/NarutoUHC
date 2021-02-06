@@ -15,7 +15,11 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
+import net.minecraft.server.v1_8_R3.PacketPlayOutMapChunk;
+import net.minecraft.server.v1_8_R3.PacketPlayOutUpdateHealth;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_8_R3.CraftChunk;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -87,8 +91,7 @@ public abstract class MGameActions {
             locations.add(new Location(world,
                     xCenter + (radius * Math.sin(angle) + 0.500), 230, zCenter + (radius * Math.cos(angle) + 0.500)));
             angle += delta;
-            locations.get(i).getChunk().load();
-            needLoadedChunks.add(locations.get(i).getChunk());
+            saveChunk(locations.get(0).getChunk());
             MGameBuild.placePlatform(locations.get(i));
         }
 
@@ -102,7 +105,7 @@ public abstract class MGameActions {
 
             player.teleport(locations.get(0));
             gamePlayer.location = locations.get(0);
-            needLoadedChunks.remove(locations.get(0).getChunk());
+            deleteChunk(locations.get(0).getChunk());
             locations.remove(0);
             player.setGameMode(GameMode.SURVIVAL);
         }
@@ -153,9 +156,8 @@ public abstract class MGameActions {
         int xcenter = (int) world.getWorldBorder().getCenter().getX();
         int zcenter = (int) world.getWorldBorder().getCenter().getZ();
 
-        int x = new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) - xcenter;
-        int z = new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) - zcenter;
-
+        int x = (int) (new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) + ((world.getWorldBorder().getSize() / 2 ) - xcenter));
+        int z = (int) (new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) + ((world.getWorldBorder().getSize() / 2 ) - zcenter));
 
         Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
         if (i == 100)
@@ -172,6 +174,20 @@ public abstract class MGameActions {
                 && !type.equals(Material.SAND)))
             return teleportToRandomLocation(world, ++i);
         return location;
+    }
+
+    private static void saveChunk(Chunk chunk) {
+        for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
+            for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++) {
+                chunk.load();
+                needLoadedChunks.add(chunk);
+            }
+    }
+
+    private static void deleteChunk(Chunk chunk) {
+        for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
+            for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++)
+                needLoadedChunks.remove(chunk);
     }
 
 }
