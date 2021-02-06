@@ -54,7 +54,7 @@ public class Shikamaru extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50)
+            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 

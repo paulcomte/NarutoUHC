@@ -100,9 +100,6 @@ public class Registers {
         noPVP.setPVP(false);
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
 
-        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
-        MGameBuild.placeLobby();
-
         return true;
     }
 

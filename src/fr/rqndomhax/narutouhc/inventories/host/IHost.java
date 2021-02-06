@@ -15,10 +15,10 @@ import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRoles;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRolesPage;
 import fr.rqndomhax.narutouhc.inventories.host.world.IHostWorld;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
-import org.bukkit.ChatColor;
-import org.bukkit.Instrument;
-import org.bukkit.Note;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -80,8 +80,8 @@ public class IHost extends RInventory {
                 this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
             }
-            else {/* TODO REPLACE
-                if (Bukkit.getOnlinePlayers().size() != setup.getGame().getGameInfo().getMRules().activatedRoles.size()) {
+            else {
+                if (Bukkit.getOnlinePlayers().size() != setup.getGame().getGameRules().activatedRoles.size()) {
                     player.sendMessage(Messages.HOST_NEED_MORE_PLAYERS);
                     player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
                     return;
@@ -91,7 +91,6 @@ public class IHost extends RInventory {
                     player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
                     return;
                 }
-                */
                 setup.getGame().startTask(setup);
                 this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
             }

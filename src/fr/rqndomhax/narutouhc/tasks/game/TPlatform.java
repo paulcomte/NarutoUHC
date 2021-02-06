@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.tasks.game;
 
+import com.mojang.authlib.UserType;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
@@ -26,18 +27,25 @@ public class TPlatform implements Task {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().teleportingDuration;
+        MGameActions.teleportationFinished = false;
         MGameActions.teleportPlayers1(mainTask.getSetup());
-        if (!mainTask.lobbyRemoved) {
-            MGameBuild.removeLobby();
-            mainTask.lobbyRemoved = true;
-        }
         loop();
     }
 
     @Override
     public void loop() {
-        if (mainTask == null)
+        if (mainTask == null || !MGameActions.teleportationFinished)
             return;
+
+        if (!mainTask.lobbyRemoved) {
+            MGameBuild.removeLobby(mainTask.getSetup().getMain());
+            mainTask.lobbyRemoved = true;
+        }
+
+        if (!mainTask.hasInventory) {
+            MGameActions.giveStartInventory(mainTask.getSetup());
+            mainTask.hasInventory = true;
+        }
 
         if (remainingTime == 45 ||remainingTime == 30 || remainingTime == 15 || remainingTime == 10 || remainingTime <= 5 && remainingTime > 0)
             MGameActions.sendInfos(mainTask.getSetup().getGame().getGamePlayers(), ChatColor.GOLD + "" + remainingTime, "", Instrument.STICKS, true, 0, Note.Tone.F);

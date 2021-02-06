@@ -12,7 +12,9 @@ import org.bukkit.Location;
 public abstract class DistanceRadius {
 
     public static double getRadius(Location firstLocation, Location secondLocation) {
-        return firstLocation.distanceSquared(secondLocation);
+        Location first = firstLocation.clone();
+        first.setY(secondLocation.getY());
+        return first.distanceSquared(secondLocation);
     }
 
 }

@@ -8,10 +8,13 @@
 package fr.rqndomhax.narutouhc.tasks.game;
 
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 
 public abstract class TUtils {
+
+    static boolean hasMade = false;
 
     public static void checkEpisode(TMain mainTask) {
         if (mainTask.episode == 0)
@@ -25,9 +28,11 @@ public abstract class TUtils {
             Bukkit.broadcastMessage(Messages.EPISODE_FINISHED.replace("%episode%", String.valueOf(mainTask.episode)));
             mainTask.episode++;
             for (GamePlayer player : mainTask.getSetup().getGame().getGamePlayers()) {
+
                 if (player.isDead) continue;
                 if (player.role == null) continue;
                 player.role.onNewEpisode(mainTask.episode);
+
             }
         }
     }
@@ -35,9 +40,18 @@ public abstract class TUtils {
     public static void checkRoles(TMain mainTask) {
         if (mainTask.episode == 0)
             return;
+
         int r = mainTask.roleRemainingTime - mainTask.time;
 
-        if (r == 45*60 | r == 30*60 || r == 15*60 || r == 10*60 || r == 5*60 || r == 60) {
+        if (!hasMade && r < 0) {
+            mainTask.hasRoles = true;
+            MGamePublicRoles.initAkatsukis(mainTask.getSetup());
+            MGamePublicRoles.initOrochimarus(mainTask.getSetup());
+            hasMade = true;
+            return;
+        }
+
+            if (r == 45*60 | r == 30*60 || r == 15*60 || r == 10*60 || r == 5*60 || r == 60) {
             if (r == 60)
                 Bukkit.broadcastMessage(Messages.ROLES_ANNOUNCE_IN
                         .replace("%time%", String.valueOf(r/60))
@@ -60,7 +74,6 @@ public abstract class TUtils {
 
         if (r == 0) {
             mainTask.getSetup().getGame().getGameRole().dispatchRoles();
-            mainTask.hasRoles = true;
             Bukkit.broadcastMessage(Messages.ROLES_ANNOUNCED);
         }
     }

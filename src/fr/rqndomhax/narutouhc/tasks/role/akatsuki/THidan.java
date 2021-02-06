@@ -11,8 +11,10 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.utils.tools.DateManager;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
+import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,7 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class THidan extends BukkitRunnable {
 
-    private int remainingTime = 10*60;
+    private int remainingTime = 5*60;
     private final Setup setup;
     private final GamePlayer hidan;
 
@@ -45,6 +47,11 @@ public class THidan extends BukkitRunnable {
         if (player == null)
             return;
 
+        int current = 5*60 - remainingTime;
+        int full = 5*60;
+
+        ProgressBar.displayProgressBar("Régénération", new DateManager(System.currentTimeMillis() + ((full - current) * 1000L)).getTimeLeft(), current, full, player);
+
         if (remainingTime == 0) {
             ItemStack[] items = new ItemStack[40];
             items[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
@@ -57,12 +64,11 @@ public class THidan extends BukkitRunnable {
             items[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             hidan.isDead = false;
+            player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
             InventoryManager.giveInventory(items, player);
             player.setGameMode(GameMode.SURVIVAL);
-            player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
-
+            hidan.role.giveEffects();
         }
-
         remainingTime--;
     }
 

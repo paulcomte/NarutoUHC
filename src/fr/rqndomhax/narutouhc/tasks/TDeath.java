@@ -56,8 +56,8 @@ public class TDeath extends BukkitRunnable {
                 gamePlayer.role.onDeath(setup);
             Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
             gamePlayer.deathLocation.getWorld().strikeLightningEffect(gamePlayer.deathLocation);
-            drops.forEach(drop -> gamePlayer.deathLocation.getWorld().dropItemNaturally(gamePlayer.deathLocation, drop));
             gamePlayer.deathLocation.getWorld().spawn(gamePlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
+            InventoryManager.dropInventory(gamePlayer.inventory, gamePlayer.deathLocation, true);
             InventoryManager.dropInventory(setup.getGame().getGameRules().deathInventory, gamePlayer.deathLocation, true);
 
             Player player = Bukkit.getPlayer(gamePlayer.uuid);

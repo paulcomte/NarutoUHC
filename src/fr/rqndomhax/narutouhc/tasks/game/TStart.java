@@ -83,7 +83,6 @@ public class TStart implements Task {
                 nopvp.setTime(0);
                 naruto.setTime(0);
             }
-            MGameActions.giveStartInventory(mainTask.getSetup());
             mainTask.roleRemainingTime = mainTask.getSetup().getGame().getGameRules().rolesAnnounce;
             mainTask.lastTaskFinished = true;
         }

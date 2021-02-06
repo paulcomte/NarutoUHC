@@ -17,6 +17,8 @@ public interface Role {
 
     void onInit(Setup setup);
 
+    void onTeam();
+
     void onClaim();
 
     void giveEffects();

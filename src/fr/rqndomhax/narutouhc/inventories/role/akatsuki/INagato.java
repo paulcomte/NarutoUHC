@@ -47,7 +47,7 @@ public class INagato extends RInventory {
         for (GamePlayer gamePlayer : players) {
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
-            if (p == null)
+            if (p == null || !p.isOnline())
                 continue;
 
             this.setItem(slot, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName(p.getName()).setSkullOwner(p.getName()).toItemStack(), select(gamePlayer, p));
@@ -57,13 +57,14 @@ public class INagato extends RInventory {
 
     private Consumer<InventoryClickEvent> select(GamePlayer selected, Player selectedPlayer) {
         return e -> {
-            if (selectedPlayer == null) {
+            if (selectedPlayer == null || !selectedPlayer.isOnline()) {
                 updateInventory();
                 return;
             }
             player.closeInventory();
             nagato.hasUsedCapacity = true;
             // TODO SEND CONFIRMATION MESSAGE
+            selected.isDead = false;
             ItemStack[] items = new ItemStack[40];
             items[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
             items[1] = new ItemStack(Material.GOLDEN_APPLE);
@@ -72,10 +73,10 @@ public class INagato extends RInventory {
             items[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            selected.isDead = false;
+            selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
             InventoryManager.giveInventory(items, selectedPlayer);
             selectedPlayer.setGameMode(GameMode.SURVIVAL);
-            selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
+            selected.role.giveEffects();
             // TODO REVIVE MESSAGE
         };
     }

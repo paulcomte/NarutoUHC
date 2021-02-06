@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -70,5 +71,25 @@ public class Kisame extends RoleInfo {
         player.sendMessage("Vous êtes Kisame.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
         player.sendMessage("Pour ce faire, vous obtenez l'effet " + ChatColor.AQUA + "speed 1 " + ChatColor.RESET + "ainsi que l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + "sous l'eau, et vous obtenez également un livre " + ChatColor.LIGHT_PURPLE + "depth strider 3 " + ChatColor.RESET + "et de 32 bottles d'xp.");
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }

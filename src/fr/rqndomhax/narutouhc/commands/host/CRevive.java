@@ -64,10 +64,12 @@ public class CRevive implements CommandExecutor {
     }
 
     public void revive(Player player, GamePlayer gamePlayer) {
-        InventoryManager.giveInventory(gamePlayer.inventory, player);
         gamePlayer.isDead = false;
-        player.setGameMode(GameMode.SURVIVAL);
         player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
+        InventoryManager.giveInventory(gamePlayer.inventory, player);
+        if (gamePlayer.role != null && gamePlayer.role.getRole() != null)
+            gamePlayer.role.giveEffects();
+        player.setGameMode(GameMode.SURVIVAL);
         player.sendMessage(Messages.PLAYER_RESURRECTED);
     }
 }

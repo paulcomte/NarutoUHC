@@ -9,22 +9,16 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.role.akatsuki.Deidara;
-import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
-import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
-import fr.rqndomhax.narutouhc.role.orochimaru.Kabuto;
-import fr.rqndomhax.narutouhc.role.orochimaru.Orochimaru;
-import fr.rqndomhax.narutouhc.role.shinobi.Hinata;
-import fr.rqndomhax.narutouhc.role.shinobi.Neji;
-import fr.rqndomhax.narutouhc.role.shinobi.Sakura;
-import fr.rqndomhax.narutouhc.role.shinobi.Shikamaru;
-import fr.rqndomhax.narutouhc.role.solos.Danzo;
-import fr.rqndomhax.narutouhc.role.solos.Sasuke;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Locale;
 
 public class CNaruto implements CommandExecutor {
 
@@ -66,94 +60,122 @@ public class CNaruto implements CommandExecutor {
             return true;
         }
 
-        switch(args[0].toLowerCase()) {
-            case "claim":
-                gamePlayer.role.onClaim();
-                return true;
-            case "shikamaru":
-                if (!(gamePlayer.role instanceof Shikamaru)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "hinata":
-                if (!(gamePlayer.role instanceof Hinata)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "neji":
-                if (!(gamePlayer.role instanceof Neji)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "sakura":
-                if (!(gamePlayer.role instanceof Sakura)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
+        RoleInfo role = gamePlayer.role;
+        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            role = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-            case "deidara":
-                if (!(gamePlayer.role instanceof Deidara)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "nagato":
-                if (!(gamePlayer.role instanceof Nagato)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "obito":
-                if (!(gamePlayer.role instanceof Obito)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-
-            case "orochimaru":
-                if (!(gamePlayer.role instanceof Orochimaru)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-            case "kabuto":
-                if (!(gamePlayer.role instanceof Kabuto)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-
-            case "danzo":
-                if (!(gamePlayer.role instanceof Danzo)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
-
-            case "sasuke":
-                if (!(gamePlayer.role instanceof Sasuke)) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                gamePlayer.role.onCommand(setup);
-                return true;
+        if (args[0].equalsIgnoreCase("claim")) {
+            role.onClaim();
+            return true;
         }
 
-        return false;
+        if (args[0].equalsIgnoreCase("team")) {
+            role.onTeam();
+            return true;
+        }
+
+
+        if (args[0].equalsIgnoreCase("compo")) {
+
+            StringBuilder sb = new StringBuilder();
+
+            for (GamePlayer gp : setup.getGame().getGamePlayers()) {
+                if (gp.role == null)
+                    continue;
+                if (gp.isDead)
+                    sb.append(ChatColor.STRIKETHROUGH + gp.role.getRole().name().toLowerCase());
+                else
+                    sb.append(gp.role.getRole().name().toLowerCase());
+                sb.append(ChatColor.RESET + "\n");
+            }
+
+            player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
+            player.sendMessage(sb.toString());
+            return true;
+        }
+
+        switch(role.getRole()) {
+            case SHIKAMARU:
+                if (!args[0].equalsIgnoreCase("shikamaru")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case HINATA:
+                if (!args[0].equalsIgnoreCase("hinata")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case NEJI:
+                if (!args[0].equalsIgnoreCase("neji")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case SAKURA:
+                if (!args[0].equalsIgnoreCase("sakura")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case DEIDARA:
+                if (!args[0].equalsIgnoreCase("deidara")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case NAGATO:
+                if (!args[0].equalsIgnoreCase("nagato")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case OBITO:
+                if (!args[0].equalsIgnoreCase("obito")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case OROCHIMARU:
+                if (!args[0].equalsIgnoreCase("orochimaru")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case KABUTO:
+                if (!args[0].equalsIgnoreCase("kabuto")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case DANZO:
+                if (!args[0].equalsIgnoreCase("danzo")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            case SASUKE:
+                if (!args[0].equalsIgnoreCase("sasuke")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                role.onCommand(setup);
+                return true;
+            default:
+                player.sendMessage(Messages.NOT_YOUR_ROLE);
+                return false;
+        }
     }
 
 }

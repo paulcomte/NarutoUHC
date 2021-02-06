@@ -7,16 +7,22 @@
 
 package fr.rqndomhax.narutouhc.managers.game;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.GameRules;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONValue;
 
 import java.util.Random;
 import java.util.Set;
 
 public abstract class MGameBuild {
+
+    public static boolean hasBuilt = true;
 
     public static void placePlatform(Location center) {
         byte color = (byte) (new Random().nextInt(14) + 1);
@@ -53,36 +59,29 @@ public abstract class MGameBuild {
         }
     }
 
-    public static void placeLobby() {
-        setCage(Material.STAINED_GLASS, 19, new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0), true);
+    public static void placeLobby(JavaPlugin plugin) {
+        setCage(Material.STAINED_GLASS, 19, new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0), true, false, 235, plugin);
     }
 
-    public static void removeLobby() {
-        setCage(Material.AIR, 19, new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0), false);
+    public static void removeLobby(JavaPlugin plugin) {
+        setCage(Material.AIR, 19, new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0), false, false, 235, plugin);
     }
 
-    private static void setCage(Material material, int boundaries, Location center, boolean updateData) {
+    public static void placeObito(Setup setup) {
+        World world = Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name());
 
-        World world = center.getWorld();
+        setCage(Material.BEDROCK, 29, new Location(world, 0, 230, 0), false, true, 234, setup.getMain());
+    }
 
-        for (double z = center.getZ() - boundaries ; z <= center.getZ() + boundaries ; z++) {
-            for (double x = center.getX() - boundaries ; x <= center.getX() + boundaries ; x++) {
+    public static void removeObito(Setup setup) {
+        World world = Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name());
 
-                if (z == center.getZ() - boundaries || z == center.getZ() + boundaries
-                        || x == center.getX() - boundaries || x == center.getX() + boundaries)
-                    for (int y = (int) center.getY(); y < 235; y++) {
-                        Block block = world.getBlockAt(new Location(world, x, y, z));
-                        block.setType(material);
-                        if (updateData)
-                            block.setData((byte) (new Random().nextInt(14) + 1));
-                        block.getState().update();
-                    }
-                Block block = world.getBlockAt(new Location(world, x, center.getY() - 1, z));
-                block.setType(material);
-                block.setData((byte) (new Random().nextInt(14) + 1));
-                block.getState().update();
-            }
-        }
+        setCage(Material.BEDROCK, 29, new Location(world, 0, 230, 0), false, true, 234, setup.getMain());
+    }
+
+    private static void setCage(Material material, int boundaries, Location center, boolean updateData, boolean hasRoof, int maxY, JavaPlugin plugin) {
+        hasBuilt = false;
+        new MBuilder(material, boundaries, center, updateData, hasRoof, maxY, plugin);
     }
 
 }

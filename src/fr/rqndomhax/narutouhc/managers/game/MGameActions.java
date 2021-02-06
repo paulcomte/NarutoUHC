@@ -17,6 +17,7 @@ import fr.rqndomhax.narutouhc.utils.title.Title;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.*;
@@ -24,6 +25,7 @@ import java.util.*;
 public abstract class MGameActions {
 
     public static HashSet<Chunk> needLoadedChunks = new HashSet<>();
+    public static boolean teleportationFinished = false;
 
     public static void addKill(GamePlayer killer, GamePlayer killed) {
         if (killer == null)
@@ -76,49 +78,20 @@ public abstract class MGameActions {
         }
     }
 
-    public static void teleportPlayers(World world, int size, Set<GamePlayer> players, int xCenter, int zCenter) {
-        List<Location> locations = new ArrayList<>();
-
-        double delta = (2 * Math.PI) / players.size();
-        double angle = 0;
-        int radius = size / 2;
-
-        for (int i = 0 ; i < players.size() ; i++) {
-            locations.add(new Location(world,
-                    xCenter + (radius * Math.sin(angle) + 0.500), 230, zCenter + (radius * Math.cos(angle) + 0.500)));
-            angle += delta;
-            saveChunk(locations.get(0).getChunk());
-            MGameBuild.placePlatform(locations.get(i));
-        }
-
-        for (GamePlayer gamePlayer : players) {
-
-            if (locations.get(0) == null) return;
-            if (gamePlayer == null) continue;
-
-            Player player = Bukkit.getPlayer(gamePlayer.uuid);
-            if (player == null) continue;
-
-            player.teleport(locations.get(0));
-            gamePlayer.location = locations.get(0);
-            deleteChunk(locations.get(0).getChunk());
-            locations.remove(0);
-            player.setGameMode(GameMode.SURVIVAL);
-        }
+    public static void teleportPlayers(World world, int size, Set<GamePlayer> players, int xCenter, int zCenter, JavaPlugin plugin) {
+        new MGenerate(world, size, players, xCenter, zCenter, plugin);
     }
 
     public static void teleportPlayers2(Setup setup) {
 
         GameBorder border = setup.getGame().getGameRules().gameBorder;
-        teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ());
-
+        teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ(), setup.getMain());
     }
 
     public static void teleportPlayers1(Setup setup) {
-
         World world = Bukkit.getWorld(Maps.NO_PVP.name());
 
-        teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers(), 0, 0);
+        teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers(), 0, 0, setup.getMain());
     }
 
     public static void sendInfo(GamePlayer gamePlayer, int i) {
@@ -152,8 +125,8 @@ public abstract class MGameActions {
         int xcenter = (int) world.getWorldBorder().getCenter().getX();
         int zcenter = (int) world.getWorldBorder().getCenter().getZ();
 
-        int x = (int) (new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) + ((world.getWorldBorder().getSize() / 2 ) - xcenter));
-        int z = (int) (new Random().nextInt((int) (world.getWorldBorder().getSize() / 2)) + ((world.getWorldBorder().getSize() / 2 ) - zcenter));
+        int x = (int) ((world.getWorldBorder().getSize()/ 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + xcenter);
+        int z = (int) ((world.getWorldBorder().getSize() / 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + zcenter);
 
         Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
         if (i == 100)
@@ -172,7 +145,7 @@ public abstract class MGameActions {
         return location;
     }
 
-    private static void saveChunk(Chunk chunk) {
+    public static void saveChunk(Chunk chunk) {
         for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
             for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++) {
                 chunk.load();
@@ -180,7 +153,7 @@ public abstract class MGameActions {
             }
     }
 
-    private static void deleteChunk(Chunk chunk) {
+    public static void deleteChunk(Chunk chunk) {
         for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
             for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++)
                 needLoadedChunks.remove(chunk);

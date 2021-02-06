@@ -54,7 +54,7 @@ public class SDrop implements Listener {
                 }
                     percentage += 4;
             }
-            if (prob >= 1 - (percentage / 100))
+            if (prob >= 100 - percentage)
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.FLINT));
             else
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GRAVEL));
@@ -72,7 +72,7 @@ public class SDrop implements Listener {
         if (e.getEntityType().equals(EntityType.ENDERMAN)) {
             e.getDrops().clear();
             int prob = new Random().nextInt(101);
-            if (prob >= 1 - (pearlDrop.get().getPercentage() / 100))
+            if (prob >= 100 - pearlDrop.get().getPercentage())
                 e.getDrops().add(new ItemStack(Material.ENDER_PEARL));
         }
     }

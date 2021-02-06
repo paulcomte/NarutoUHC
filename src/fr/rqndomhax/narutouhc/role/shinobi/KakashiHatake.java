@@ -36,7 +36,7 @@ public class KakashiHatake extends RoleInfo {
     public void onHit(GamePlayer gamePlayer) {
         if (gamePlayer == null || stolenRole != null) return;
 
-        if (gamePlayer.equals(getGamePlayer())) return;
+        if (gamePlayer.equals(getGamePlayer()) || gamePlayer.role == null || gamePlayer.role.getRole() == null) return;
         try {
             stolenRole = (RoleInfo) gamePlayer.role.getRole().getRoleInfo().getDeclaredConstructors()[0].newInstance(getGamePlayer());
             stolenRole.onDesc();

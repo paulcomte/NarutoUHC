@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.THidan;
 import org.bukkit.Bukkit;
@@ -31,12 +32,32 @@ public class Hidan extends RoleInfo {
         player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Hidan.");
         player.sendMessage("Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage("Pour ce faire, si vous mourrez vous ressuscitez 10 minutes après, tant qu'un membre de l'akatsuki est toujours en vie.");
+        player.sendMessage("Pour ce faire, si vous mourrez vous ressuscitez 5 minutes après, tant qu'un membre de l'akatsuki est toujours en vie.");
         player.sendMessage("Cependant vous ressuscitez avec un full fer protection 1, une épée en fer sharpness 1, 64 steaks, 128 pierre et 5 pommes dorée.");
     }
 
     @Override
     public void onDeath(Setup setup) {
         new THidan(setup, getGamePlayer());
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }

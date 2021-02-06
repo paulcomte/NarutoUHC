@@ -37,13 +37,32 @@ public class EPlayerLogin implements Listener {
     public void onPlayerLogin(PlayerLoginEvent e) {
 
         if (setup.getGame().getGameState().equals(GameState.LOADING)) {
-            e.setKickMessage(Messages.SERVER_STARTING);
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.SERVER_STARTING);
             return;
         }
 
         if (setup.getGame().getGameRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
             e.disallow(PlayerLoginEvent.Result.KICK_BANNED, Messages.PLAYER_BANNED);
             return;
+        }
+
+        if (setup.getGame().getGameRules().hasWhitelist && !setup.getGame().getGameRules().whitelistedPlayers.contains(e.getPlayer().getUniqueId())) {
+            e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
+            return;
+        }
+
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) && (setup.getGame().getGamePlayers().size() == setup.getGame().getGameRules().activatedRoles.size())) {
+            e.disallow(PlayerLoginEvent.Result.KICK_FULL, Messages.FULL);
+            return;
+        }
+
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
+
+        if (gamePlayer == null || gamePlayer.isDead) {
+            if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
+                    return;
+            if (!setup.getGame().getGameRules().allowSpectators && !e.getPlayer().isOp())
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.NOT_ALLOWED);
         }
 
     }

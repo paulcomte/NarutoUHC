@@ -41,7 +41,7 @@ public class IShikamaru extends RInventory {
         for (GamePlayer gamePlayer : players) {
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
-            if (p == null)
+            if (p == null || !p.isOnline())
                 continue;
 
             this.setItem(slot, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName(p.getName()).setSkullOwner(p.getName()).toItemStack(), select(p));
@@ -51,7 +51,7 @@ public class IShikamaru extends RInventory {
 
     private Consumer<InventoryClickEvent> select(Player selected) {
         return e -> {
-            if (selected == null) {
+            if (selected == null || !selected.isOnline()) {
                 updateInventory();
                 return;
             }

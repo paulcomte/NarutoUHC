@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.IObito;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
@@ -53,7 +54,7 @@ public class Obito extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 30)
+            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 30*30)
                 players.add(gamePlayer);
         }
 
@@ -68,7 +69,7 @@ public class Obito extends RoleInfo {
             size++;
         }
 
-        player.openInventory(new IObito(setup, player, players, inventory_size*9).getInventory());
+        player.openInventory(new IObito(setup, getGamePlayer(), player, players, inventory_size*9).getInventory());
 
         commandUses--;
     }
@@ -87,5 +88,25 @@ public class Obito extends RoleInfo {
         player.sendMessage("Un inventaire s'ouvrira et vous pourrez choisir le joueur de votre choix dans un rayon de 30 blocks.");
         player.sendMessage("Dans cette salle vous obtiendrez l'effet strength 1.");
         player.sendMessage("Vous resterez 30 secondes dans cette pièce et serez téléporté aléatoirement sur la map une fois les 30 secondes écoulées.");
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }

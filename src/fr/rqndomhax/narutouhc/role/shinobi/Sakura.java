@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.inventories.role.shinobi.ISakura;
 import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
@@ -67,7 +68,7 @@ public class Sakura extends RoleInfo {
         }
 
 
-        player.openInventory(new IShikamaru(setup, player, players, inventory_size*9).getInventory());
+        player.openInventory(new ISakura(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
     }

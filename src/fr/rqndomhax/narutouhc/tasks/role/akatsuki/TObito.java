@@ -11,7 +11,9 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -28,6 +30,9 @@ public class TObito extends BukkitRunnable {
         this.setup = setup;
         this.obito = obito;
         this.selected = selected;
+        Location location = new Location(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name()), 0, 230, 0);
+        player.teleport(location);
+        selectedPlayer.teleport(location);
         runTaskTimer(setup.getMain(), 0, 20);
     }
 
@@ -54,8 +59,9 @@ public class TObito extends BukkitRunnable {
                         randomTeleport(villager);
                 }
             }
+            MGameBuild.removeObito(setup);
             cancel();
-        }// TODO CAGE IN BORDER
+        }
         remainingTime--;
     }
 

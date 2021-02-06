@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
@@ -59,7 +60,7 @@ public class Orochimaru extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 50)
+            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 
@@ -96,7 +97,7 @@ public class Orochimaru extends RoleInfo {
         player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
         player.sendMessage("Vous êtes Orochimaru.");
         player.sendMessage("Votre but est de gagner avec votre équipe.");
-        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat, 5 minutes après les rôles, afin de laisser le temps à " + ChatColor.BLUE + "Sasuke " + ChatColor.RESET + "de choison son camp.");
+        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat.");
         player.sendMessage("Chaque épisode, vous pourrez donner un effet de " + ChatColor.DARK_RED + "poison 2 " + ChatColor.RESET + "pendant 7 secondes à une personne qui se trouve dans un rayon de 50 blocks autour de vous, en faisant /na orochimaru.");
         player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
         player.sendMessage("Vous disposez également de l'effet " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + ".");
@@ -104,6 +105,26 @@ public class Orochimaru extends RoleInfo {
 
     @Override
     public void onNewEpisode(int episode) {
-        hasUsedCapacity = true;
+        hasUsedCapacity = false;
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.orochimarus) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }

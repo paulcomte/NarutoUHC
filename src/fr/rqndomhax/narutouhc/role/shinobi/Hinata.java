@@ -37,7 +37,7 @@ public class Hinata extends RoleInfo {
     @Override
     public void onPlayerDeath(GamePlayer gamePlayer) {
         if (gamePlayer.role == null) return;
-        if (!gamePlayer.role.getRole().equals(Roles.NARUTO)) {
+        if (gamePlayer.role.getRole().equals(Roles.NARUTO)) {
             isNarutoDead = true;
             giveEffects();
         }
@@ -88,14 +88,14 @@ public class Hinata extends RoleInfo {
                 Villager villager = MVillagers.getVillager(gamePlayer);
                 if (villager == null)
                     continue;
-                if (DistanceRadius.getRadius(player.getLocation(), villager.getLocation()) <= 50) {
+                if (DistanceRadius.getRadius(player.getLocation(), villager.getLocation()) <= 300*300) {
                     left--;
-                    playerNames.add("[OFF] " + villager.getCustomName());
+                    playerNames.add(ChatColor.DARK_GRAY + "(OFF) " + ChatColor.RESET + villager.getCustomName());
                 }
                 continue;
             }
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50)
+            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 300*300)
                 playerNames.add(p.getName());
 
             left--;

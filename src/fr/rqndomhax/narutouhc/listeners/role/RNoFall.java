@@ -11,6 +11,9 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.Fu;
+import fr.rqndomhax.narutouhc.role.shinobi.Gaara;
+import fr.rqndomhax.narutouhc.role.shinobi.Gai;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,10 +44,10 @@ public class RNoFall implements Listener {
             return;
 
         RoleInfo tmp = gamePlayer.role;
-        if (gamePlayer.role.getRole().equals(Roles.KAKASHI_HATAKE) && (gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (tmp.getRole().equals(Roles.GAARA) || tmp.getRole().equals(Roles.FU) || tmp.getRole().equals(Roles.GAI))
+        if ((tmp instanceof Gaara) || (tmp instanceof Fu) || (tmp instanceof Gai))
             e.setCancelled(true);
     }
 }

@@ -10,7 +10,10 @@ package fr.rqndomhax.narutouhc.core;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.game.Game;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.managers.game.MBuilder;
+import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
+import fr.rqndomhax.narutouhc.tasks.TWait;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
@@ -79,9 +82,11 @@ public class Setup {
 
         gameScoreboard.runBoard();
 
-        game.setGameState(GameState.LOBBY_WAITING);
+        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
 
-        Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INITIALIZED);
+        MGameBuild.placeLobby(main);
+
+        new TWait(this);
     }
 
     public Game getGame() {

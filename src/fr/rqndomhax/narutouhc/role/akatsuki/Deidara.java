@@ -9,8 +9,10 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.inventories.role.akatsuki.IDeidara;
 import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -24,8 +26,7 @@ import java.util.Set;
 
 public class Deidara extends RoleInfo {
 
-    boolean hasNewEpisode = false;
-    boolean hasUsedCapacity = false;
+    boolean hasUsedCapacity = true;
 
     public Deidara(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.DEIDARA);
@@ -67,7 +68,7 @@ public class Deidara extends RoleInfo {
             size++;
         }
 
-        player.openInventory(new IShikamaru(setup, player, players, inventory_size*9).getInventory());
+        player.openInventory(new IDeidara(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
     }
@@ -88,10 +89,7 @@ public class Deidara extends RoleInfo {
 
     @Override
     public void onNewEpisode(int episode) {
-        if (hasNewEpisode)
-            hasUsedCapacity = false;
-        else
-            hasNewEpisode = true;
+        hasUsedCapacity = false;
     }
 
     @Override
@@ -104,5 +102,25 @@ public class Deidara extends RoleInfo {
                     tnts.add(deathLocation.getWorld().spawn(new Location(deathLocation.getWorld(), x, y, z), TNTPrimed.class));
         for (TNTPrimed tnt : tnts)
             tnt.setFuseTicks(0);
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }

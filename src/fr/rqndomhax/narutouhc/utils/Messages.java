@@ -25,8 +25,7 @@ public abstract class Messages {
     public static String PLUGIN_INIT_COMMANDS = "[Naruto UHC] REGISTERING COMMANDS !";
     public static String PLUGIN_LAST_TASKS = "[Naruto UHC] FINISHING LAST TASKS !";
     public static String PLUGIN_INITIALIZED = "[Naruto UHC] PLUGIN INITIALIZED !";
-    public static String SERVER_STARTING = "THE SERVER IS STARTING, PLEASE TRY AGAIN LATER !";
-    public static String SERVER_RELAODING = "THE SERVER IS RELOADING !";
+    public static String SERVER_STARTING = "Server starting !";
     public static String PLUGIN_MAP_NOT_PRESENT = "[Naruto UHC] You need to have 'NARUTO_UNIVERSE' map in your server folder !";
     public static String WHISPERS_OFF = PREFIX + "Les messages privés sont désactivés !";
     public static String CANNOT_CREATE_VILLAGER = "[Naruto UHC] CANNOT SPAWN NPC !";
@@ -38,6 +37,8 @@ public abstract class Messages {
     public static String NEED_PLAYER = PREFIX + "Seul un joueur peut effectuer cette action !";
     public static String NEED_ITEM_IN_HAND = PREFIX + "Vous devez tenir un objet en main !";
     public static String PLAYER_NOT_EXIST = PREFIX + "Ce joueur n'est pas connecté sur le serveur !";
+    public static String NOT_ALLOWED = PREFIX + "Vous n'êtes pas autorisé à rejoindre la partie !";
+    public static String FULL = PREFIX + "La partie est complète !";
     public static String NOT_IN_LOBBY = PREFIX + "Vous ne pouvez pas effectuer cette action en dehors de la phase lobby !";
     public static String NOT_IN_GAME = PREFIX + "Vous ne pouvez pas effectuer cette action car la partie n'est pas en cours !";
     public static String GAME_ALREADY_STARTED = PREFIX + "La partie a déjà commencée !";

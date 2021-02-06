@@ -58,10 +58,10 @@ public class RMinato implements Listener {
             return;
 
         RoleInfo tmp = gamePlayer.role;
-        if (gamePlayer.role.getRole().equals(Roles.KAKASHI_HATAKE) && (gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (!tmp.getRole().equals(Roles.MINATO) && !(tmp instanceof Minato))
+        if (!(tmp instanceof Minato))
             return;
 
         Minato role = (Minato) tmp;

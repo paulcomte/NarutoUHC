@@ -28,6 +28,11 @@ public abstract class RoleInfo implements Role {
     }
 
     @Override
+    public void onTeam() {
+
+    }
+
+    @Override
     public void onInit(Setup setup) {
 
     }

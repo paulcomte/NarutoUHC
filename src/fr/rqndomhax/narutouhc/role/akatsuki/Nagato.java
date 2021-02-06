@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.INagato;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -71,8 +72,6 @@ public class Nagato extends RoleInfo {
         }
 
         player.openInventory(new INagato(setup, player, players, inventory_size*9, this).getInventory());
-
-        hasUsedCapacity = true;
     }
 
     @Override
@@ -88,5 +87,25 @@ public class Nagato extends RoleInfo {
         player.sendMessage("Avec la commande /na nagato.");
         player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
         player.sendMessage("La personne ressuscitée apparaitra avec un full fer protection 1, une épée en fer sharpness 1, une pomee dorée, et 64 steaks.");
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
+            Player p = Bukkit.getPlayer(gamePlayer.uuid);
+
+            if (p == null)
+                continue;
+            sb.append(p.getName());
+            sb.append("  ");
+        }
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
     }
 }
