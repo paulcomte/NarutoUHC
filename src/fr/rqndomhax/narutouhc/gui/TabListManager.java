@@ -33,10 +33,10 @@ public abstract class TabListManager {
                 Object header = new ChatComponentText(
                         ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≫ " + ChatColor.BLACK + "" + ChatColor.BOLD + "Naruto" + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC " + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≪ " +
                                 "\n " +
-                                "\n" + ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "§m                        " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«");
+                                "\n" + ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«");
 
                 Object footer = new ChatComponentText(
-                        ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "§m                        " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«" +
+                        ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«" +
                                 "\n " +
                                 "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Concept par " + ChatColor.WHITE + "" + ChatColor.BOLD + "Laynoks, Syknos et Losgateaux " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
                                 "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Développé par " + ChatColor.WHITE + "" + ChatColor.BOLD + "RqndomHax " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
