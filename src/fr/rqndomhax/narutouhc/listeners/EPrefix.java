@@ -22,6 +22,7 @@ public class EPrefix implements Listener {
 
     private final UUID developer = UUID.fromString("9f7be940-8a94-497b-a963-f4af0691c005");
     private final UUID gameDesigner = UUID.fromString("b1dc0e73-3ef9-4fe5-9c42-85b3a841ec53");
+    private final UUID slave = UUID.fromString("c7038e0e-dafc-4bcc-9f0c-dbd43aa9b147");
     private final Set<UUID> friends = new HashSet<>();
     private final Set<UUID> designers = new HashSet<>();
 
@@ -41,7 +42,7 @@ public class EPrefix implements Listener {
 
         UUID playerUUID = e.getPlayer().getUniqueId();
 
-        if (developer.equals(playerUUID) || gameDesigner.equals(playerUUID) || designers.contains(playerUUID) || friends.contains(playerUUID))
+        if (developer.equals(playerUUID) || gameDesigner.equals(playerUUID) || slave.equals(playerUUID) || designers.contains(playerUUID) || friends.contains(playerUUID))
             showInGray = false;
 
         if (showInGray)
@@ -64,6 +65,11 @@ public class EPrefix implements Listener {
 
         if (gameDesigner.equals(playerUUID)) {
             updatePrefix(e.getPlayer(), ChatColor.BLACK + "[" + ChatColor.DARK_PURPLE + "Game Designer" + ChatColor.BLACK + "]");
+            return;
+        }
+
+        if (slave.equals(playerUUID)) {
+            updatePrefix(e.getPlayer(), ChatColor.BLACK + "[" + ChatColor.LIGHT_PURPLE + "Disciple" + ChatColor.BLACK + "]");
             return;
         }
 

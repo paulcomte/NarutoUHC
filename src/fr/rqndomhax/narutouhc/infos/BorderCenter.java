@@ -13,13 +13,13 @@ import org.bukkit.inventory.ItemStack;
 
 public enum BorderCenter {
 
-    KONOHA(500, -1400, new ItemBuilder(Material.REDSTONE_BLOCK).setName("Konoha (500, -1400)").toItemStack()),
+    KONOHA(500, -1226, new ItemBuilder(Material.REDSTONE_BLOCK).setName("Konoha (500, -1226)").toItemStack()),
     KUMO(2000, -2400, new ItemBuilder(Material.QUARTZ_BLOCK).setName("Kumo (2000, -2400)").toItemStack()),
-    AME(-200, -1200, new ItemBuilder(Material.ICE).setName("Ame (-200, -1200)").toItemStack()),
+    AME(-284, -1185, new ItemBuilder(Material.ICE).setName("Ame (-284, -1185)").toItemStack()),
     SUNA(-1000, -200, new ItemBuilder(Material.SAND).setName("Suna (-1000, -200)").toItemStack()),
     KIRI(2100, -700, new ItemBuilder(Material.LAPIS_BLOCK).setName("Kiri (2100, -700)").toItemStack()),
     IWA(-200, -1500, new ItemBuilder(Material.DIRT).setName("Iwa (-200, -1500)").toItemStack()),
-    AKATSUKI(-50, 300, new ItemBuilder(Material.COBBLESTONE).setName("Repaire akatsuki (-50, 300)").toItemStack());
+    AKATSUKI(-114, 289, new ItemBuilder(Material.COBBLESTONE).setName("Repaire akatsuki (-114, 289)").toItemStack());
 
     private final int x;
     private final int z;
