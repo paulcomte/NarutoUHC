@@ -7,12 +7,13 @@
 
 package fr.rqndomhax.narutouhc.core;
 
+import fr.rqndomhax.narutouhc.gui.TabListManager;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.game.Game;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
-import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
+import fr.rqndomhax.narutouhc.gui.GameScoreboard;
 import fr.rqndomhax.narutouhc.tasks.TWait;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
@@ -27,7 +28,6 @@ public class Setup {
 
     private final Main main;
     private Game game;
-    private GameScoreboard gameScoreboard;
 
     public Setup(Main main) {
         this.main = main;
@@ -58,7 +58,7 @@ public class Setup {
 
         if (game == null) {
             Bukkit.getLogger().log(Level.SEVERE, Messages.CANNOT_INIT);
-            main.getPluginLoader().disablePlugin(main);
+            Bukkit.getServer().shutdown();
             return;
         }
 
@@ -70,7 +70,9 @@ public class Setup {
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_LAST_TASKS);
 
-        gameScoreboard = new GameScoreboard(this);
+        GameScoreboard.init(this);
+
+        TabListManager.registerTab(main);
 
         RInventoryManager rInventoryManager = new RInventoryManager();
 
@@ -81,8 +83,6 @@ public class Setup {
         FileManager fileManager = new FileManager(main);
 
         MConfig.init(fileManager, main.getDataFolder());
-
-        gameScoreboard.runBoard();
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
         ServerPing.currentPing = Pings.LOBBY_GENERATING;
@@ -100,7 +100,4 @@ public class Setup {
         return main;
     }
 
-    public GameScoreboard getGameScoreboard() {
-        return gameScoreboard;
-    }
 }

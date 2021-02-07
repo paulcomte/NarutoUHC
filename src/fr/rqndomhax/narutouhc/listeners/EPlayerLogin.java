@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.gui.GameScoreboard;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
@@ -38,6 +39,11 @@ public class EPlayerLogin implements Listener {
 
         if (setup.getGame().getGameState().equals(GameState.LOADING)) {
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.SERVER_STARTING);
+            return;
+        }
+
+        if (!e.getPlayer().isOp() && setup.getGame().getGameRules().gameHost == null) {
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.NOT_ALLOWED);
             return;
         }
 
@@ -72,9 +78,9 @@ public class EPlayerLogin implements Listener {
 
         e.setJoinMessage(Messages.PLAYER_JOIN.replace("%player%", e.getPlayer().getName()));
 
-        setup.getGameScoreboard().newGameScoreboard(e.getPlayer());
+        GameScoreboard.newGameScoreboard(e.getPlayer());
 
-        if (setup.getGame().getGameRules().gameHost == null)
+        if (setup.getGame().getGameRules().gameHost == null && e.getPlayer().isOp())
             setup.getGame().getGameRules().gameHost = e.getPlayer().getUniqueId();
 
         if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
@@ -128,7 +134,7 @@ public class EPlayerLogin implements Listener {
 
         e.setQuitMessage(Messages.PLAYER_LEFT.replace("%player%", e.getPlayer().getName()));
 
-        setup.getGameScoreboard().removeGameScoreboard(e.getPlayer());
+        GameScoreboard.removeGameScoreboard(e.getPlayer());
 
         if (Bukkit.getOnlinePlayers().size() == 1)
             setup.getGame().getGameRules().gameHost = null;

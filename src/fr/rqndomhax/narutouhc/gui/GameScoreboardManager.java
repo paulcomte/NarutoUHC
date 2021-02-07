@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.scoreboards;
+package fr.rqndomhax.narutouhc.gui;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 public abstract class GameScoreboardManager {
 
     private static final ChatColor colorPrefix = ChatColor.DARK_BLUE;
+    private int scoreboardPosition = 0; // TODO TO SHOW ROLES IN GAME
     static DecimalFormat format = new DecimalFormat("#");
 
     public static void updateLobbyBoard(Setup setup, FastBoard board) {

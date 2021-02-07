@@ -60,8 +60,6 @@ public class IDeidara extends RInventory {
             // TODO SEND CONFIRMATION MESSAGE
             TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
             tnt.setFuseTicks(0);
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30*20, 0, false, false));
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30*20, 1, false, false));
         };
     }
 

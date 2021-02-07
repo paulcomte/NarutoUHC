@@ -57,7 +57,7 @@ public class Deidara extends Akatsuki {
         int size = 0;
         int inventory_size = 1;
 
-        for (GamePlayer gamePlayer : players) {
+        for (GamePlayer ignored : players) {
             if (size == 9) {
                 inventory_size++;
                 size = 0;

@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.scoreboards;
+package fr.rqndomhax.narutouhc.gui;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
@@ -17,28 +17,29 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class GameScoreboard {
+public abstract class GameScoreboard {
 
-    private final Map<UUID, FastBoard> boards = new HashMap<>();
-    private final Setup setup;
-    private int i;
+    private static final Map<UUID, FastBoard> boards = new HashMap<>();
+    private static Setup setup;
+    private static int i;
 
-    public GameScoreboard(Setup setup) {
-        this.setup = setup;
+    public static void init(Setup setup) {
+        GameScoreboard.setup = setup;
+        runBoard();
     }
 
-    public void newGameScoreboard(Player player) {
+    public static void newGameScoreboard(Player player) {
         FastBoard fb = new FastBoard(player);
         fb.updateTitle(setup.getGame().getGameRules().gameTitle);
 
         boards.put(player.getUniqueId(), fb);
     }
 
-    public void removeGameScoreboard(Player player) {
+    public static void removeGameScoreboard(Player player) {
         boards.remove(player.getUniqueId());
     }
 
-    private void updateBoard(FastBoard board) {
+    private static void updateBoard(FastBoard board) {
 
         GameState state = setup.getGame().getGameState();
 
@@ -69,7 +70,7 @@ public class GameScoreboard {
 
     }
 
-    public void runBoard() {
+    private static void runBoard() {
         Bukkit.getServer().getScheduler().runTaskTimer(setup.getMain(), () -> {
             for (FastBoard board : boards.values()) {
 
