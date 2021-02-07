@@ -42,7 +42,7 @@ public class ServerPing implements Listener {
                 break;
             case LOBBY_WAITING:
                 if (setup.getGame().getGameRules().gameHost != null) {
-                    e.setMotd(ChatColor.GOLD + "En attente de joueurs...\n" +
+                    e.setMotd(ChatColor.GOLD + "En attente de joueurs..." +
                             "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 }
                 else
@@ -56,32 +56,26 @@ public class ServerPing implements Listener {
                 break;
             case PREPARATION:
                 if (!setup.getGame().getGameRules().allowSpectators)
-                    e.setMotd(ChatColor.DARK_GREEN + "Phase de préparation des joueurs" +
-                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.RED + "OFF" +
+                    e.setMotd(ChatColor.DARK_GREEN + "Phase de préparation des joueurs - " + ChatColor.YELLOW + "Spectateurs: " + ChatColor.RED + "OFF" +
                             "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 else
-                    e.setMotd(ChatColor.DARK_GREEN + "Phase de préparation des joueurs" +
-                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.GREEN + "ON" +
+                    e.setMotd(ChatColor.DARK_GREEN + "Phase de préparation des joueurs - " + ChatColor.YELLOW + "Spectateurs: " + ChatColor.GREEN + "ON" +
                             "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 break;
             case MEETUP:
                 if (!setup.getGame().getGameRules().allowSpectators)
                     e.setMotd(ChatColor.AQUA + "Phase de combat" +
-                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.RED + "OFF" +
-                            "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
+                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.RED + "OFF" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 else
                     e.setMotd(ChatColor.DARK_GREEN + "Phase de combat" +
-                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.GREEN + "ON" +
-                            "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
+                            "\n" + ChatColor.YELLOW + "Spectateurs: " + ChatColor.GREEN + "ON" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 break;
             case FINISHED:
                 if (MGameStatus.winners == null)
-                    e.setMotd(ChatColor.DARK_AQUA + "Fin de la partie !" +
-                            "\n" + ChatColor.YELLOW + "Equipe gaganate: " + ChatColor.DARK_RED + "Aucune" +
+                    e.setMotd(ChatColor.DARK_AQUA + "Fin de la partie !" + ChatColor.YELLOW + "Equipe gaganate: " + ChatColor.DARK_RED + "Aucune" +
                             "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 else
-                    e.setMotd(ChatColor.DARK_AQUA + "Fin de la partie !" +
-                            "\n" + ChatColor.YELLOW + "Equipe gaganate: " + ChatColor.AQUA + MGameStatus.winners.getTeamName() +
+                    e.setMotd(ChatColor.DARK_AQUA + "Fin de la partie !" + ChatColor.YELLOW + "Equipe gaganate: " + ChatColor.AQUA + MGameStatus.winners.getTeamName() +
                             "\n" + ChatColor.GOLD + "Hôte: " + ChatColor.DARK_AQUA + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
                 break;
             default:

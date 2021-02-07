@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.utils.tools;
+package fr.rqndomhax.narutouhc.utils.nms;
 
 import net.minecraft.server.v1_8_R3.BiomeBase;
 

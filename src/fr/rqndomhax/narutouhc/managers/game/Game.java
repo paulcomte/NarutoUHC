@@ -15,7 +15,7 @@ import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.role.GameRole;
-import fr.rqndomhax.narutouhc.tasks.game.TMain;
+import fr.rqndomhax.narutouhc.game.tasks.TMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -89,14 +89,14 @@ public class Game {
 
     public void startTask(Setup setup) {
         removeTask();
-        this.mainTask = new TMain(setup);
+        mainTask = new TMain(setup);
     }
 
     public void removeTask() {
-        if (this.mainTask == null)
+        if (mainTask == null)
             return;
         mainTask.cancel();
-        this.mainTask = null;
+        mainTask = null;
         ServerPing.currentPing = Pings.LOBBY_WAITING;
     }
 

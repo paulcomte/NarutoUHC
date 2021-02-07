@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.gui.TabListManager;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
@@ -19,9 +20,12 @@ import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryTask;
+import fr.rqndomhax.narutouhc.utils.nms.NMSPatcher;
 import fr.rqndomhax.narutouhc.utils.tools.FileManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
+import java.io.File;
 import java.util.logging.Level;
 
 public class Setup {
@@ -55,6 +59,8 @@ public class Setup {
         }
 
         game = new Game().createGame();
+
+        new NMSPatcher();
 
         if (game == null) {
             Bukkit.getLogger().log(Level.SEVERE, Messages.CANNOT_INIT);

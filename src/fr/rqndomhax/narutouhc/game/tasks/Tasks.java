@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.tasks.game;
+package fr.rqndomhax.narutouhc.game.tasks;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -18,7 +18,8 @@ public enum Tasks {
     TELEPORTATION(TTeleportation.class),
     TELEPORTATION_INVINCIBILITY(TTeleportationInvincibility.class),
     BORDER(TBorder.class),
-    MEETUP(TMeetup.class);
+    MEETUP(TMeetup.class),
+    RESTART(TRestart.class);
 
     private final Class<? extends Task> runnable;
 

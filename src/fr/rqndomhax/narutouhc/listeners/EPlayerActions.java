@@ -128,9 +128,9 @@ public class EPlayerActions implements Listener {
         gamePlayer.isDead = true;
 
         if (player.getKiller() != null)
-            new TDeath(setup, gamePlayer, setup.getGame().getGamePlayer(player.getKiller().getUniqueId()), setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
+            new TDeath(setup, gamePlayer, setup.getGame().getGamePlayer(player.getKiller().getUniqueId()), setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
         else
-            new TDeath(setup, gamePlayer, null, setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp(), new ArrayList<>(e.getDrops()));
+            new TDeath(setup, gamePlayer, null, setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
 
         e.getDrops().clear();
         e.setDroppedExp(0);

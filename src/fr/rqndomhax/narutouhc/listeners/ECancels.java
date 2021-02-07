@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.listeners.world.ChunkUnloadListener;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
@@ -38,7 +39,7 @@ public class ECancels implements Listener {
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent e) {
-        if (MGameActions.needLoadedChunks != null && MGameActions.needLoadedChunks.contains(e.getChunk()))
+        if (ChunkUnloadListener.keepChunk.contains(e.getChunk()))
             e.setCancelled(true);
         for (Villager villager : MVillagers.disconnectedPlayers.keySet())
             if (villager.getLocation().getChunk().equals(e.getChunk()))

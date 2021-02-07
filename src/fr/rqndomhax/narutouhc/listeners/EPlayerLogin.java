@@ -89,7 +89,7 @@ public class EPlayerLogin implements Listener {
                 setup.getGame().removeTask();
             }
 
-            GamePlayer gamePlayer = new GamePlayer(e.getPlayer().getUniqueId());
+            GamePlayer gamePlayer = new GamePlayer(e.getPlayer().getUniqueId(), e.getPlayer().getName());
             setup.getGame().getGamePlayers().add(gamePlayer);
             MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), e.getPlayer());
 

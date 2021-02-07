@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
+import fr.rqndomhax.narutouhc.listeners.world.ChunkUnloadListener;
 import fr.rqndomhax.narutouhc.managers.GameBorder;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
@@ -17,6 +18,7 @@ import fr.rqndomhax.narutouhc.utils.title.Title;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
@@ -26,7 +28,6 @@ import java.util.Set;
 
 public abstract class MGameActions {
 
-    public static HashSet<Chunk> needLoadedChunks = new HashSet<>();
     public static boolean teleportationFinished = false;
 
     public static void addKill(GamePlayer killer, GamePlayer killed) {
@@ -151,14 +152,14 @@ public abstract class MGameActions {
         for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
             for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++) {
                 chunk.load();
-                needLoadedChunks.add(chunk);
+                ChunkUnloadListener.keepChunk.add(chunk);
             }
     }
 
     public static void deleteChunk(Chunk chunk) {
         for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)
             for (int z = chunk.getZ() - 1; z < chunk.getZ() + 1; z++)
-                needLoadedChunks.remove(chunk);
+                ChunkUnloadListener.keepChunk.remove(chunk);
     }
 
 }

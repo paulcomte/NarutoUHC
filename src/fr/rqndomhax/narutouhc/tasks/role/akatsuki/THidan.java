@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.utils.tools.DateManager;
+import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
@@ -50,7 +50,7 @@ public class THidan extends BukkitRunnable {
         int current = 5*60 - remainingTime;
         int full = 5*60;
 
-        ProgressBar.displayProgressBar("Régénération", new DateManager(System.currentTimeMillis() + ((full - current) * 1000L)).getTimeLeft(), current, full, player);
+        ProgressBar.displayProgressBar("Régénération", Chrono.timeToString(System.currentTimeMillis() + ((full - current) * 1000L)), current, full, player);
 
         if (remainingTime == 0) {
             ItemStack[] items = new ItemStack[40];

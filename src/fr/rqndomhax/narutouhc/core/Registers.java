@@ -8,10 +8,7 @@
 package fr.rqndomhax.narutouhc.core;
 
 import fr.rqndomhax.narutouhc.commands.*;
-import fr.rqndomhax.narutouhc.commands.host.CForce;
-import fr.rqndomhax.narutouhc.commands.host.CHeal;
-import fr.rqndomhax.narutouhc.commands.host.CHost;
-import fr.rqndomhax.narutouhc.commands.host.CRevive;
+import fr.rqndomhax.narutouhc.commands.host.*;
 import fr.rqndomhax.narutouhc.commands.inventory.CCancel;
 import fr.rqndomhax.narutouhc.commands.inventory.CEnchant;
 import fr.rqndomhax.narutouhc.commands.inventory.CInventory;
@@ -28,7 +25,7 @@ import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.tablecompletes.TabHost;
 import fr.rqndomhax.narutouhc.tablecompletes.TabNaruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.BiomeSwapper;
+import fr.rqndomhax.narutouhc.utils.nms.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.tools.WorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -107,8 +104,9 @@ public class Registers {
     public void registerEvents() {
         PluginManager pm = Bukkit.getPluginManager();
 
-        // PREFIX
+        // SETTINGS
         pm.registerEvents(new EPrefix(), setup.getMain());
+        pm.registerEvents(new ECancels(setup), setup.getMain());
 
         pm.registerEvents(new EPlayerActions(setup), setup.getMain());
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());
@@ -144,5 +142,8 @@ public class Registers {
 
         setup.getMain().getCommand("na").setExecutor(new CNaruto(setup));
         setup.getMain().getCommand("na").setTabCompleter(new TabNaruto(setup));
+
+        setup.getMain().getCommand("pregen").setExecutor(new CGenerate(setup));
+        setup.getMain().getCommand("admininventory").setExecutor(new CAdminInventory(setup));
     }
 }

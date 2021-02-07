@@ -18,14 +18,18 @@ import java.util.UUID;
 public class GamePlayer {
 
     public final UUID uuid;
+    public String name;
     public RoleInfo role = null;
     public boolean isDead = false;
     public List<UUID> kills = new ArrayList<>();
+    public int diamonds = 0;
+    public int golds = 0;
     public ItemStack[] inventory = new ItemStack[40];
     public Location location;
     public Location deathLocation;
 
-    public GamePlayer(UUID uuid) {
+    public GamePlayer(UUID uuid, String name) {
         this.uuid = uuid;
+        this.name = name;
     }
 }

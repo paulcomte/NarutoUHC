@@ -22,3 +22,6 @@ commands:
   enchant:
   na:
     aliases: [naruto]
+  pregen:
+  admininventory:
+    aliases: [ainv]

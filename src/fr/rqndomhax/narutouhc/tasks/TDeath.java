@@ -27,23 +27,26 @@ public class TDeath extends BukkitRunnable {
     private final GamePlayer gamePlayer;
     private final GamePlayer killer;
     private final int droppedExp;
-    private final List<ItemStack> drops;
     public int timeLeft;
 
-    public TDeath(Setup setup, GamePlayer gamePlayer, GamePlayer killer, int timeLeft, int droppedExp, List<ItemStack> drops) {
+    public TDeath(Setup setup, GamePlayer gamePlayer, GamePlayer killer, int timeLeft, int droppedExp) {
         this.setup = setup;
         this.gamePlayer = gamePlayer;
         this.killer = killer;
         this.timeLeft = timeLeft;
         this.droppedExp = droppedExp;
-        this.drops = drops;
         runTaskTimer(setup.getMain(), 0, 20);
     }
 
     @Override
     public void run() {
 
-        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || gamePlayer == null || !gamePlayer.isDead) {
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED)) {
+            onDeath();
+            return;
+        }
+
+        if (gamePlayer == null || !gamePlayer.isDead) {
             cancel();
             return;
         }
@@ -51,35 +54,38 @@ public class TDeath extends BukkitRunnable {
         if (timeLeft <= 5 && timeLeft > 0 || timeLeft == 10 || timeLeft == 15 || timeLeft == 30 || timeLeft == 60)
             MGameActions.sendInfo(gamePlayer, timeLeft);
 
-        if (timeLeft == 0) {
-            if (gamePlayer.role != null)
-                gamePlayer.role.onDeath(setup);
-            Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
-            gamePlayer.deathLocation.getWorld().strikeLightningEffect(gamePlayer.deathLocation);
-            gamePlayer.deathLocation.getWorld().spawn(gamePlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
-            InventoryManager.dropInventory(gamePlayer.inventory, gamePlayer.deathLocation, true);
-            InventoryManager.dropInventory(setup.getGame().getGameRules().deathInventory, gamePlayer.deathLocation, true);
-
-            Player player = Bukkit.getPlayer(gamePlayer.uuid);
-            if (player != null)
-                player.setHealth(0);
-
-            if (killer != null) {
-                MGameActions.addKill(killer, gamePlayer);
-                if (!killer.isDead && killer.role != null)
-                    killer.role.onKill(gamePlayer);
-            }
-
-            for (GamePlayer p : setup.getGame().getGamePlayers()) {
-                if (p.isDead || p.role == null)
-                    continue;
-
-                p.role.onPlayerDeath(gamePlayer);
-            }
-            cancel();
-        }
+        if (timeLeft == 0)
+            onDeath();
 
         timeLeft--;
+    }
+
+    private void onDeath() {
+        if (gamePlayer.role != null)
+            gamePlayer.role.onDeath(setup);
+        Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
+        gamePlayer.deathLocation.getWorld().strikeLightningEffect(gamePlayer.deathLocation);
+        gamePlayer.deathLocation.getWorld().spawn(gamePlayer.deathLocation, ExperienceOrb.class).setExperience(droppedExp);
+        InventoryManager.dropInventory(gamePlayer.inventory, gamePlayer.deathLocation, true);
+        InventoryManager.dropInventory(setup.getGame().getGameRules().deathInventory, gamePlayer.deathLocation, true);
+
+        Player player = Bukkit.getPlayer(gamePlayer.uuid);
+        if (player != null)
+            player.setHealth(0);
+
+        if (killer != null) {
+            MGameActions.addKill(killer, gamePlayer);
+            if (!killer.isDead && killer.role != null)
+                killer.role.onKill(gamePlayer);
+        }
+
+        for (GamePlayer p : setup.getGame().getGamePlayers()) {
+            if (p.isDead || p.role == null)
+                continue;
+
+            p.role.onPlayerDeath(gamePlayer);
+        }
+        cancel();
     }
 
 }

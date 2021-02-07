@@ -13,7 +13,7 @@ import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.tasks.game.TMain;
+import fr.rqndomhax.narutouhc.game.tasks.TMain;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -76,7 +76,7 @@ public abstract class MGameStatus {
                     Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
                     if (gamePlayer.role != null)
-                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                     else
                         Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
         }
@@ -100,7 +100,7 @@ public abstract class MGameStatus {
                     Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
             else
             if (gamePlayer.role != null)
-                Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
             else
                 Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
         }

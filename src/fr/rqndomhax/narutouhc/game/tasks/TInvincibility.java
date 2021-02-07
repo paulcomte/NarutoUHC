@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.tasks.game;
+package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;

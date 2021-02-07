@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
+import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -52,9 +53,9 @@ public class IHostConfig {
 
         inventory.setItem(29, getBorderDisconnects(), changeBorderDisconnects());
 
-        OfflinePlayer offlineHost = Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost);
+        GamePlayer host = setup.getGame().getGamePlayer(setup.getGame().getGameRules().gameHost);
 
-        inventory.setItem(31, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName("Host: " + offlineHost.getName()).setSkullOwner(offlineHost.getName()).toItemStack());
+        inventory.setItem(31, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName("Host: " + host.name).setSkullOwner(host.name).toItemStack());
 
         inventory.setItem(33, getWhitelist(), changeWhitelist());
 

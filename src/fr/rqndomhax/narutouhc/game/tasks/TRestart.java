@@ -5,21 +5,21 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.tasks.game;
+package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
+import org.bukkit.Bukkit;
 
-public class TMeetup implements Task {
+public class TRestart implements Task {
 
     private final TMain mainTask;
+    private int remainingTime;
 
-    public TMeetup(TMain mainTask) {
-        mainTask.getSetup().getGame().setGameState(GameState.GAME_MEETUP);
+    public TRestart(TMain mainTask) {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        ServerPing.currentPing = Pings.MEETUP;
         loop();
     }
 
@@ -27,6 +27,12 @@ public class TMeetup implements Task {
     public void loop() {
         if (mainTask == null)
             return;
-        mainTask.time++;
+
+        if (remainingTime == 0) {
+            mainTask.lastTaskFinished = true;
+            Bukkit.getServer().reload();
+            return;
+        }
+        remainingTime--;
     }
 }
