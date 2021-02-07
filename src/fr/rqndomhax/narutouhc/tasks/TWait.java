@@ -8,6 +8,8 @@
 package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -29,6 +31,7 @@ public class TWait extends BukkitRunnable {
     public void run() {
         if (MGameBuild.hasBuilt) {
             setup.getGame().setGameState(GameState.LOBBY_WAITING);
+            ServerPing.currentPing = Pings.LOBBY_WAITING;
             Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INITIALIZED);
             cancel();
             return;

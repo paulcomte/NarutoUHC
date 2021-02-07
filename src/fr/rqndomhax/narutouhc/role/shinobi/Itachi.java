@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -35,10 +36,11 @@ public class Itachi extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Itachi.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de l'effet strength 1, vous êtes un traître de l'Akatsuki mais contrairement aux autres membres, vous ne connaitrez qu'un membre toutes les 20 minutes");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Itachi.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet strength 1.");
+        player.sendMessage(ChatColor.BLUE + "Vous êtes un traître de l'Akatsuki, vous disposez donc de leur liste de membre.");
+        player.sendMessage(ChatColor.BLUE + "Mais contrairement à eux, vous ne connaîtrez qu'un membre toutes les 20 minutes.");
     }
 }

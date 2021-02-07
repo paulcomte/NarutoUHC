@@ -7,10 +7,10 @@
 
 package fr.rqndomhax.narutouhc.core;
 
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.game.Game;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MBuilder;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
 import fr.rqndomhax.narutouhc.scoreboards.GameScoreboard;
 import fr.rqndomhax.narutouhc.tasks.TWait;
@@ -37,6 +37,8 @@ public class Setup {
     private void setup() {
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_INIT_STARTED);
+
+        Bukkit.getPluginManager().registerEvents(new ServerPing(this), main);
 
         Registers registers = new Registers(this);
 
@@ -83,6 +85,7 @@ public class Setup {
         gameScoreboard.runBoard();
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
+        ServerPing.currentPing = Pings.LOBBY_GENERATING;
 
         MGameBuild.placeLobby(main);
 

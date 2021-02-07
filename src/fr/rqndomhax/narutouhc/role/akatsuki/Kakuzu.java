@@ -9,8 +9,6 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
-import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -23,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Kakuzu extends RoleInfo {
+public class Kakuzu extends Akatsuki {
 
     public Kakuzu(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.KAKUZU);
@@ -50,6 +48,7 @@ public class Kakuzu extends RoleInfo {
         player.getInventory().addItem(books);
         player.getInventory().addItem(books);
         hasClaimed = true;
+        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
 
     @Override
@@ -66,30 +65,13 @@ public class Kakuzu extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Kakuzu.");
-        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage("Pour ce faire, à l'annonce des rôles vous gagnez, 5 slots de coeurs vides ainsi que " + ChatColor.LIGHT_PURPLE + "2 livres protection 3" + ChatColor.RESET + ".");
-    }
-
-    @Override
-    public void onTeam() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null)
-            return;
-
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
-        player.sendMessage(sb.toString());
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Kakuzu.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de 5 coeurs supplémentaires.");
+        if (!hasClaimed)
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "2 livres protection 3.");
+        else
+            player.sendMessage(ChatColor.RED + "/na claim: " + "2 livres protection 3.");
     }
 }

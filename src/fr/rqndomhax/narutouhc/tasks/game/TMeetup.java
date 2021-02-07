@@ -7,6 +7,8 @@
 
 package fr.rqndomhax.narutouhc.tasks.game;
 
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 
 public class TMeetup implements Task {
@@ -17,6 +19,7 @@ public class TMeetup implements Task {
         mainTask.getSetup().getGame().setGameState(GameState.GAME_MEETUP);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
+        ServerPing.currentPing = Pings.MEETUP;
         loop();
     }
 

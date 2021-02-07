@@ -101,8 +101,7 @@ public class Hinata extends RoleInfo {
             left--;
         }
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "INFOS " + ChatColor.BLACK + "-----");
+        player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(playerNames.toString().replace("[", "").replace("]", ""));
         commandUses--;
     }
@@ -112,11 +111,14 @@ public class Hinata extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Hinata.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na hinata\" qui affichera une liste de joueurs présents dans un rayon de 50 blocks.");
-        player.sendMessage("Utilisations restantes : " + ChatColor.GREEN + commandUses);
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Hinata.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Deux fois vous aurez la possibilité d'utiliser La commande /na hinata");
+        player.sendMessage(ChatColor.BLUE + "Cette commande vous permettra de connaître les joueurs présents autour de vous dans un rayon de 50 blocks.");
+        if (commandUses == 0)
+            player.sendMessage(ChatColor.BLUE + "Utilisations restantes: " + ChatColor.RED + commandUses);
+        else
+            player.sendMessage(ChatColor.BLUE + "Utilisations restantes: " + ChatColor.GREEN + commandUses);
     }
 }

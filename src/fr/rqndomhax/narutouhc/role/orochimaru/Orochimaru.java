@@ -23,6 +23,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Orochimaru extends RoleInfo {
@@ -93,19 +94,22 @@ public class Orochimaru extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Orochimaru.");
-        player.sendMessage("Votre but est de gagner avec votre équipe.");
-        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat.");
-        player.sendMessage("Chaque épisode, vous pourrez donner un effet de " + ChatColor.DARK_RED + "poison 2 " + ChatColor.RESET + "pendant 7 secondes à une personne qui se trouve dans un rayon de 50 blocks autour de vous, en faisant /na orochimaru.");
-        player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
-        player.sendMessage("Vous disposez également de l'effet " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + ".");
+
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Orochimaru.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec le camp de votre nom.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
+        player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na orochimaru.");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner un effet de poison 2 pendant 7 secondes à un joueur se trouvant dans un rayon de 50 blocks autour de vous.");
     }
 
     @Override
     public void onNewEpisode(int episode) {
         hasUsedCapacity = false;
+
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player != null)
+            player.sendMessage(Messages.ROLE_CAPACITY);
     }
 
     @Override
@@ -114,9 +118,14 @@ public class Orochimaru extends RoleInfo {
         if (player == null)
             return;
 
+        List<GamePlayer> gamePlayers = MGamePublicRoles.orochimarus.get(getGamePlayer());
+
+        if (gamePlayers == null)
+            return;
+
         StringBuilder sb = new StringBuilder();
 
-        for (GamePlayer gamePlayer : MGamePublicRoles.orochimarus) {
+        for (GamePlayer gamePlayer : gamePlayers) {
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
             if (p == null)
@@ -124,7 +133,7 @@ public class Orochimaru extends RoleInfo {
             sb.append(p.getName());
             sb.append("  ");
         }
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(sb.toString());
     }
 }

@@ -4,7 +4,7 @@
  *  Author : RqndomHax
  *  Github: https://github.com/RqndomHax
  */
-
+/* TODO REMVOE
 package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
@@ -110,3 +110,6 @@ public class Obito extends RoleInfo {
         player.sendMessage(sb.toString());
     }
 }
+
+
+ */

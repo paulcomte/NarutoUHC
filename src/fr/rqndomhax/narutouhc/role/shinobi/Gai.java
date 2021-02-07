@@ -48,6 +48,7 @@ public class Gai extends RoleInfo {
 
         player.getInventory().addItem(item);
         hasClaimed = true;
+        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
 
     @Override
@@ -55,16 +56,16 @@ public class Gai extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Gaï.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez d'un item, \"Huit portes\".");
-        player.sendMessage("Cet item vous donnera l'effet \"" + ChatColor.DARK_RED + "force 2" + ChatColor.RESET + ", " + ChatColor.AQUA + "speed 1" + ChatColor.RESET + "et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + ".");
-        player.sendMessage("Ainsi que \"" + ChatColor.RED + "2 coeurs supplémentaires" + ChatColor.RESET + " et " + ChatColor.DARK_PURPLE + "no fall" + ChatColor.RESET + ".");
-        player.sendMessage("Pour une durée totale de 10 minutes.");
-        player.sendMessage("Une fois ces 10 minutes passées, vous tomberez à " + ChatColor.RED + "0.5 coeurs permanents" + ChatColor.RESET + ".");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Gaï.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez d'un item: \"Huit portes\".");
+        player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet force 2, speed 1 et fire resistance, mais aussi de 2 coeurs supplémentaires et de no fall"); // TODO FIX NO FALL FOR ONLY WHILE IN TASK
+        player.sendMessage(ChatColor.BLUE + "Pour une durée totale de 10 minutes.");
+        player.sendMessage(ChatColor.BLUE + "Une fois le temps écoulé, vous tomberez à 0.5 coeurs permanents.");
         if (!hasClaimed)
-            player.sendMessage("Pour le récupérer faites \"/na claim\"");
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Huit portes\".");
+        else
+            player.sendMessage(ChatColor.RED + "/na claim: " + "\"Huit portes\".");
     }
 }

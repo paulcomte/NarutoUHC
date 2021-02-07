@@ -141,6 +141,12 @@ public class EPlayerLogin implements Listener {
                 setup.getGame().removeTask();
             }
             setup.getGame().getGamePlayers().removeIf(player -> player.uuid == e.getPlayer().getUniqueId());
+
+            if (setup.getGame().getGameRules().deathInventoryInEdit != null && setup.getGame().getGameRules().deathInventoryInEdit.equals(e.getPlayer().getUniqueId()))
+                setup.getGame().getGameRules().deathInventoryInEdit = null;
+
+            if (setup.getGame().getGameRules().startInventoryInEdit != null && setup.getGame().getGameRules().startInventoryInEdit.equals(e.getPlayer().getUniqueId()))
+                setup.getGame().getGameRules().startInventoryInEdit = null;
             return;
         }
 

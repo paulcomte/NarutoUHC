@@ -8,6 +8,8 @@
 package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
@@ -95,6 +97,7 @@ public class Game {
             return;
         mainTask.cancel();
         this.mainTask = null;
+        ServerPing.currentPing = Pings.LOBBY_WAITING;
     }
 
 }

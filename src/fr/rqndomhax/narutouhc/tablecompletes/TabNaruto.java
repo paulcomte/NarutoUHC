@@ -9,19 +9,8 @@ package fr.rqndomhax.narutouhc.tablecompletes;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.role.Role;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
-import fr.rqndomhax.narutouhc.role.akatsuki.Deidara;
-import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
-import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
-import fr.rqndomhax.narutouhc.role.orochimaru.Kabuto;
-import fr.rqndomhax.narutouhc.role.orochimaru.Orochimaru;
-import fr.rqndomhax.narutouhc.role.shinobi.*;
-import fr.rqndomhax.narutouhc.role.solos.Danzo;
-import fr.rqndomhax.narutouhc.role.solos.Sasuke;
-import fr.rqndomhax.narutouhc.utils.Messages;
-import org.bukkit.Bukkit;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -29,10 +18,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TabNaruto implements TabCompleter {
 
@@ -86,9 +72,10 @@ public class TabNaruto implements TabCompleter {
             case NAGATO:
                 list.add("nagato");
                 break;
-            case OBITO:
+            /*case OBITO:
                 list.add("obito");
                 break;
+             */
             case OROCHIMARU:
                 list.add("orochimaru");
                 break;
@@ -98,9 +85,10 @@ public class TabNaruto implements TabCompleter {
             case DANZO:
                 list.add("danzo");
                 break;
-            case SASUKE:
+            /*case SASUKE:
                 list.add("sasuke");
                 break;
+             */
         }
 
         return list.stream().filter(a -> a.startsWith(args[0])).collect(Collectors.toList());

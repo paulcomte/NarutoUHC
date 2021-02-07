@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -51,14 +52,15 @@ public class KakashiHatake extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Kakashi.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, Vous obtiendrez le pouvoir de la première personne que vous touchez.");
-        player.sendMessage("Même si vous obtenez la capacité d’un autre clan, vous resterez tout de même membre de " + ChatColor.LIGHT_PURPLE + "l’alliance shinobi" + ChatColor.RESET + ".");
-        if (stolenRole != null)
-            player.sendMessage(ChatColor.GOLD + "Rôle volé : " + stolenRole.getRole().name());
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Kakashi.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous obtiendrez le pouvoir de la première personne que vous touchez.");
+        player.sendMessage(ChatColor.BLUE + "Même si vous obtenez la capacité d'un autre clan, vous resterez membre de l'alliance shinobi.");
+        if (stolenRole != null) {
+            player.sendMessage(ChatColor.GOLD + "Rôle volé : " + stolenRole.getRole().getRoleName());
+            player.sendMessage(ChatColor.GOLD + "Vous pouvez connaître sa description avec /na kakashi");
+        }
     }
 
     @Override

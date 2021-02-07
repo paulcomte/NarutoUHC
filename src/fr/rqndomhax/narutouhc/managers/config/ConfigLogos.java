@@ -11,7 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public enum ConfigLogos {
-    DEFAULT(new ItemStack(Material.DEAD_BUSH));
+    DEFAULT(new ItemStack(Material.DIRT));
 
     private final ItemStack item;
 

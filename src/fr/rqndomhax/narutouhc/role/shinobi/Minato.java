@@ -58,6 +58,7 @@ public class Minato extends RoleInfo {
 
         player.getInventory().addItem(item);
         hasClaimed = true;
+        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
 
     @Override
@@ -65,12 +66,14 @@ public class Minato extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Minato.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez pendant toute la partie d'un effet \"" + ChatColor.AQUA + "speed 2" + ChatColor.RESET + "\" ainsi qu'un arc nommé \"Shuriken\" permettant de vous téléporter à l'endroit où la flèche atterit.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Minato.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 2.");
+        player.sendMessage(ChatColor.BLUE + "Vous possédez aussi un arc nommé \"Shuriken\" permettant de vous téléporter à l'endroit où la flèche atterit.");
         if (!hasClaimed)
-            player.sendMessage("Pour le récupérer faites \"/na claim\"");
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Shuriken\".");
+        else
+            player.sendMessage(ChatColor.RED + "/na claim: " + "\"Shuriken\".");
     }
 }

@@ -43,7 +43,9 @@ public class EPlayerActions implements Listener {
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getDamager().getUniqueId());
         if (gamePlayer == null) return;
         if (gamePlayer.role == null) return;
-        gamePlayer.role.onHit(setup.getGame().getGamePlayer(e.getEntity().getUniqueId()));
+
+        if (!e.isCancelled())
+            gamePlayer.role.onHit(setup.getGame().getGamePlayer(e.getEntity().getUniqueId()));
     }
 
     @EventHandler

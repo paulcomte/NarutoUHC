@@ -10,10 +10,7 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.IDeidara;
-import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
-import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,7 +21,7 @@ import org.bukkit.entity.TNTPrimed;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Deidara extends RoleInfo {
+public class Deidara extends Akatsuki {
 
     boolean hasUsedCapacity = true;
 
@@ -78,18 +75,21 @@ public class Deidara extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Deidara.");
-        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage("Pour ce faire, toutes les 20 minutes, vous pourrez faire spawn une tnt qui s'allumera automatiquement sur une personne se trouvant dans un rayon de 100 blocks autour de vous, avec la commande /na deidara");
-        player.sendMessage("Un inventaire s'ouvrira et vous n'aurez qu'à cliquer sur le joueur de votre choix.");
-        player.sendMessage("A votre lieu de mort, il y aura un bloc 3x3 de tnt qui s'allumera automatiquement.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Deidara.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser La commande /na deidara");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez faire spawn une tnt sur une personne se trouvant dans un rayon de 100 blocks autour de vous.");
+        player.sendMessage(ChatColor.BLUE + "Lors de votre mort, un bloc de 3*3 de tnt s'allumera automatiquement.");
     }
 
     @Override
     public void onNewEpisode(int episode) {
         hasUsedCapacity = false;
+
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player != null)
+            player.sendMessage(Messages.ROLE_CAPACITY);
     }
 
     @Override
@@ -102,25 +102,5 @@ public class Deidara extends RoleInfo {
                     tnts.add(deathLocation.getWorld().spawn(new Location(deathLocation.getWorld(), x, y, z), TNTPrimed.class));
         for (TNTPrimed tnt : tnts)
             tnt.setFuseTicks(0);
-    }
-
-    @Override
-    public void onTeam() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null)
-            return;
-
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
-        player.sendMessage(sb.toString());
     }
 }

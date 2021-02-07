@@ -9,16 +9,6 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
-import fr.rqndomhax.narutouhc.role.akatsuki.Hidan;
-import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
-import fr.rqndomhax.narutouhc.role.shinobi.Hinata;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

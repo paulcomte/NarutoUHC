@@ -4,7 +4,7 @@
  *  Author : RqndomHax
  *  Github: https://github.com/RqndomHax
  */
-
+/* TODO REMOVE
 package fr.rqndomhax.narutouhc.role.solos;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
@@ -89,3 +89,4 @@ public class Sasuke extends RoleInfo {
         giveEffects();
     }
 }
+ */

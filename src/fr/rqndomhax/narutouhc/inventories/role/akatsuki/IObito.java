@@ -9,15 +9,12 @@ package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
-import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 

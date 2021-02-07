@@ -47,6 +47,7 @@ public class Naruto extends RoleInfo {
 
         player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.FIRE_ASPECT, 1).toItemStack());
         hasClaimed = true;
+        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
 
     @Override
@@ -63,12 +64,15 @@ public class Naruto extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Naruto.");
-        player.sendMessage("Votre but est de gagner avec " + ChatColor.LIGHT_PURPLE + "l'alliance shinobi.");
-        player.sendMessage("Pour ce faire vous disposez des effets " + ChatColor.AQUA + "speed 1 et " + ChatColor.GOLD + "fire resistance " + ChatColor.RESET + "permanent ainsi qu'un livre " + ChatColor.GOLD + "fire aspect 1" + ChatColor.RESET + ".");
-        player.sendMessage("En plus de cela, si " + ChatColor.DARK_PURPLE + "Sasuke" + ChatColor.RESET + " choisit de rejoindre l'akatsuki, vous obtiendrez l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + " permanent.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Naruto.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1 et fire resistance.");
+        player.sendMessage(ChatColor.BLUE + "Si Sasuke vient à rejoindre l'akatsuki, vous obtiendrez l'effet strength 1."); // TODO CHECK SASUKE
+        if (!hasClaimed)
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 livre fire aspect 1.");
+        else
+            player.sendMessage(ChatColor.RED + "/na claim: " + "1 livre fire aspect 1.");
     }
 
 }

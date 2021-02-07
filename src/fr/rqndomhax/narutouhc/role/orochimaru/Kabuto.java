@@ -21,6 +21,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Kabuto extends RoleInfo {
@@ -83,18 +84,21 @@ public class Kabuto extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Kabuto.");
-        player.sendMessage("Votre but est de gagner avec votre équipe.");
-        player.sendMessage("Pour ce faire, le pseudo de votre/vos teammates seront affichés dans le chat.");
-        player.sendMessage("Chaque épisode, vous pourrez donner un effet de " + ChatColor.BLACK + "wither 2 " + ChatColor.RESET + "pendant 5 secondes à une personne qui se trouve dans un rayon de 50 blocks autour de vous, en faisant /na kabuto.");
-        player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Kabuto.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec le camp orochimaru.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
+        player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na kabuto.");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner un effet de wither 2 pendant 5 secondes à un joueur se trouvant dans un rayon de 50 blocks autour de vous.");
     }
 
     @Override
     public void onNewEpisode(int episode) {
         hasUsedCapacity = false;
+
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player != null)
+            player.sendMessage(Messages.ROLE_CAPACITY);
     }
 
     @Override
@@ -103,9 +107,14 @@ public class Kabuto extends RoleInfo {
         if (player == null)
             return;
 
+        List<GamePlayer> gamePlayers = MGamePublicRoles.orochimarus.get(getGamePlayer());
+
+        if (gamePlayers == null)
+            return;
+
         StringBuilder sb = new StringBuilder();
 
-        for (GamePlayer gamePlayer : MGamePublicRoles.orochimarus) {
+        for (GamePlayer gamePlayer : gamePlayers) {
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
             if (p == null)
@@ -113,7 +122,7 @@ public class Kabuto extends RoleInfo {
             sb.append(p.getName());
             sb.append("  ");
         }
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
+        player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(sb.toString());
     }
 }

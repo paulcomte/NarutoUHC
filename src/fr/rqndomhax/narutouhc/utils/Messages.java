@@ -15,6 +15,7 @@ import org.bukkit.command.CommandSender;
 public abstract class Messages {
 
     public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC ❙ " + ChatColor.RESET;
+    public static String SEPARATORS = ChatColor.BLACK + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         " + ChatColor.BLACK + "[Naruto " + ChatColor.GOLD + "UHC" + ChatColor.BLACK + "]" + ChatColor.BLACK + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         ";
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
@@ -66,20 +67,19 @@ public abstract class Messages {
     public static String PLAYER_LEFT = "("+ ChatColor.DARK_RED + "-" + ChatColor.WHITE +") %player%";
     public static String PLAYER_JOIN = "("+ ChatColor.GREEN + "+" + ChatColor.WHITE +") %player%";
 
-    public static String GAME_DESIGNER_CREDITS = "Game mode designed by Syknos - Laynoks - Losgateaux - RqndomHax";
-    public static String HELPER_CREDITS = "Special thanks to, Spat'";
-    public static String DEV_CREDITS = "Naruto UHC - Plugin by RqndomHax - https://github.com/rqndomhax";
+    public static String GAME_DESIGNER_CREDITS = "Un mode de jeu conçu par Laynoks - Syknos - Losgateaux - RqndomHax";
+    public static String HELPER_CREDITS = "Un grand merci à Spat'";
+    public static String DEV_CREDITS = "Naruto UHC - Plugin développé par RqndomHax - https://github.com/rqndomhax";
 
     public static String COMMAND_ONLY_HOST = PREFIX + "Seul l'hôte de la partie peut effectuer cette action !";
     public static String COMMAND_ONLY_CONSOLE = PREFIX + "Seul la console peut effectuer cette action !";
-
+    public static String CHAT_DISABLED = PREFIX + "Le chat est désactivé en partie !";
 
     public static String HOST_INVENTORY_BEGINNING_SAVED = PREFIX + "L'inventaire de départ a bien été mis à jour !";
     public static String HOST_INVENTORY_DEATH_SAVED = PREFIX + "L'inventaire de mort a bien été mis à jour !";
     public static String HOST_INVENTORY_CANCEL = PREFIX + "L'inventaire n'a pas été mis à jour !";
     public static String HOST_INVENTORY_EDIT = PREFIX + "Modification de l'inventaire\n" + ChatColor.GREEN + "/save pour sauvegarder l'inventaire\n" + ChatColor.RED + "/cancel pour annuler la modification de l'inventaire";
     public static String HOST_INVENTORY_NOT_EDIT = PREFIX + "Vous n'éditez aucun inventaire !";
-
 
     public static String HOST_NEED_OFFLINE = PREFIX + "L'hôte %player% doit être déconnecté afin d'effectuer cette commande !";
     public static String HOST_NOW_SET = PREFIX + "Le joueur %player% est maintenant l'hôte de la partie !";
@@ -126,6 +126,7 @@ public abstract class Messages {
     public static String HOST_DEMOTED = PREFIX + "Vous avez perdu votre rang de co-hôte !";
     public static String HOST_PROMOTED = PREFIX + "Vous êtes maintenant un co-hôte !";
 
+    public static String ROLE_CAPACITY = PREFIX + "Vous pouvez de nouveau utiliser votre capacité spéciale";
     public static String NO_ROLE = PREFIX + "Vous ne possédez pas de rôle !";
     public static String NOT_YOUR_ROLE = PREFIX + "Cette commande n'appartient pas à votre rôle !";
     public static String ROLES_NOT_GAVE = PREFIX + "Les rôles n'ont pas été encore attribués !";
@@ -144,21 +145,20 @@ public abstract class Messages {
     public static String EPISODE_FINISHED = ChatColor.BLACK + "-------- Fin Episode %episode% --------";
 
     public static void showDeath(GamePlayer player, boolean showRoleOnDeath) {
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                         ");
         if (player.role == null || !showRoleOnDeath)
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort");
         else
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
-                + ChatColor.BOLD + player.role.getRole().name().toLowerCase());
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "----------------------");
+                + ChatColor.BOLD + player.role.getRole().getRoleName());
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                         ");
     }
 
     public static void showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.BLACK + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
-        sender.sendMessage("Naruto UHC is inspired by the Naruto's anime");
-        sender.sendMessage(GAME_DESIGNER_CREDITS);
-        sender.sendMessage(HELPER_CREDITS);
-        sender.sendMessage(DEV_CREDITS);
-        sender.sendMessage(ChatColor.BLACK + "----- " + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.BLACK + "-----");
+        sender.sendMessage(Messages.SEPARATORS);
+        sender.sendMessage("Naruto UHC est un mode de jeu inspiré de l'animé de Naruto");
+        sender.sendMessage(ChatColor.GREEN + GAME_DESIGNER_CREDITS);
+        sender.sendMessage(ChatColor.GREEN + HELPER_CREDITS);
+        sender.sendMessage(ChatColor.GOLD + DEV_CREDITS);
     }
 }

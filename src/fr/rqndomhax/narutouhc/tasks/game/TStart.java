@@ -8,6 +8,8 @@
 package fr.rqndomhax.narutouhc.tasks.game;
 
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import org.bukkit.*;
@@ -23,6 +25,7 @@ public class TStart implements Task {
             return;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().startDuration;
+        ServerPing.currentPing = Pings.LOBBY_STARTING;
         loop();
     }
 

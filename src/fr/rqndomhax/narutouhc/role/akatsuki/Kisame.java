@@ -9,8 +9,6 @@ package fr.rqndomhax.narutouhc.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGamePublicRoles;
-import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -19,13 +17,11 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Kisame extends RoleInfo {
+public class Kisame extends Akatsuki {
 
     public Kisame(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.KISAME);
@@ -50,15 +46,7 @@ public class Kisame extends RoleInfo {
         player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.DEPTH_STRIDER, 3).toItemStack());
         player.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 32));
         hasClaimed = true;
-    }
-
-    @Override
-    public void giveEffects() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
-
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
+        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
 
     @Override
@@ -66,30 +54,13 @@ public class Kisame extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Kisame.");
-        player.sendMessage("Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage("Pour ce faire, vous obtenez l'effet " + ChatColor.AQUA + "speed 1 " + ChatColor.RESET + "ainsi que l'effet " + ChatColor.RED + "strength 1" + ChatColor.RESET + "sous l'eau, et vous obtenez également un livre " + ChatColor.LIGHT_PURPLE + "depth strider 3 " + ChatColor.RESET + "et de 32 bottles d'xp.");
-    }
-
-    @Override
-    public void onTeam() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null)
-            return;
-
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Equipe " + ChatColor.BLACK + "-----");
-        player.sendMessage(sb.toString());
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Kisame.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
+        player.sendMessage(ChatColor.BLUE + "Sous l'eau vous disposez d'un effet speed 1 et strength 1."); // TODO SCENARIO
+        if (!hasClaimed)
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 livre depth strider 3 et 32 bottles d'xp.");
+        else
+            player.sendMessage(ChatColor.RED + "/na claim: " + "1 livre depth strider 3 et 32 bottles d'xp.");
     }
 }

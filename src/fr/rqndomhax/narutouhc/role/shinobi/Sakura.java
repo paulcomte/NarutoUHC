@@ -10,7 +10,6 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.shinobi.ISakura;
-import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -84,12 +83,10 @@ public class Sakura extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Sakura.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous disposez de la commande \"/na sakura\", vous pourrez donner 1 minute de régénération 2 par épisode, ainsi que 2 minutes d'absorption (2 coeurs), à la personne de votre choix, ou à vous-même,");
-        player.sendMessage("un inventaire s'ouvrira pour sélectionner cette personne,");
-        player.sendMessage("toutefois si vous quitter l'inventaire, vous ne pourrez plus utiliser la commande pour le reste de l'épisode.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Sakura.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na sakura.");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner 1 minute de régénaration 2, et de 2 minutes d'apsorption (2 coeurs).");
     }
 }

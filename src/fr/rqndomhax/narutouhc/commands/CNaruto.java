@@ -18,8 +18,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Locale;
-
 public class CNaruto implements CommandExecutor {
 
     private final Setup setup;
@@ -83,9 +81,9 @@ public class CNaruto implements CommandExecutor {
                 if (gp.role == null)
                     continue;
                 if (gp.isDead)
-                    sb.append(ChatColor.STRIKETHROUGH + gp.role.getRole().name().toLowerCase());
+                    sb.append(ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName());
                 else
-                    sb.append(gp.role.getRole().name().toLowerCase());
+                    sb.append(gp.role.getRole().getRoleName());
                 sb.append(ChatColor.RESET + "\n");
             }
 
@@ -137,13 +135,14 @@ public class CNaruto implements CommandExecutor {
                 }
                 role.onCommand(setup);
                 return true;
-            case OBITO:
+            /*case OBITO:
                 if (!args[0].equalsIgnoreCase("obito")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);
                     return false;
                 }
                 role.onCommand(setup);
                 return true;
+             */ // TODO REMOVE
             case OROCHIMARU:
                 if (!args[0].equalsIgnoreCase("orochimaru")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);
@@ -165,13 +164,14 @@ public class CNaruto implements CommandExecutor {
                 }
                 role.onCommand(setup);
                 return true;
-            case SASUKE:
+            /*case SASUKE:
                 if (!args[0].equalsIgnoreCase("sasuke")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);
                     return false;
                 }
                 role.onCommand(setup);
                 return true;
+             */
             default:
                 player.sendMessage(Messages.NOT_YOUR_ROLE);
                 return false;

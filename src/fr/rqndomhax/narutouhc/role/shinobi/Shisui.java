@@ -11,20 +11,21 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
-import fr.rqndomhax.narutouhc.tasks.role.shinobi.TShishui;
+import fr.rqndomhax.narutouhc.tasks.role.shinobi.TShisui;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Shishui extends RoleInfo {
+public class Shisui extends RoleInfo {
 
-    public Shishui(GamePlayer gamePlayer) {
+    public Shisui(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.SHISUI);
     }
 
     @Override
     public void onRoleGiven(Setup setup) {
-        new TShishui(setup, getGamePlayer());
+        new TShisui(setup, getGamePlayer());
         super.onRoleGiven(setup);
     }
 
@@ -33,11 +34,10 @@ public class Shishui extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Shishui.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, une fois toutes les 15 minutes, 3 pseudos aléatoires seront affichés dans votre chat,");
-        player.sendMessage("l'un des trois sera membre de l'akatsuki.");
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Shisui.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Une fois toutes les 15 minutes, 3 pseudos aléatoires seont affichés dans votre chat.");
+        player.sendMessage(ChatColor.BLUE + "L'un des trois sera membre de l'akatsuki."); // TODO FIX TIMER
     }
 }

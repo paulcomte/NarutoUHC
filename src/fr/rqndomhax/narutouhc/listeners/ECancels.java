@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -96,9 +97,11 @@ public class ECancels implements Listener {
 
    @EventHandler
    public void onChat(AsyncPlayerChatEvent e) {
-        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) && !setup.getGame().getGameRules().allowChat)
-            e.setCancelled(true);
-        // TODO SHOW DENIED MESSAGE
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) || setup.getGame().getGameRules().allowChat || setup.getGame().getGameState().equals(GameState.GAME_FINISHED))
+            return;
+
+        e.setCancelled(true);
+        e.getPlayer().sendMessage(Messages.CHAT_DISABLED);
    }
 
 }

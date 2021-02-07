@@ -7,8 +7,9 @@
 
 package fr.rqndomhax.narutouhc.tasks.game;
 
-import com.mojang.authlib.UserType;
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
@@ -29,6 +30,7 @@ public class TPlatform implements Task {
         remainingTime = mainTask.getSetup().getGame().getGameRules().teleportingDuration;
         MGameActions.teleportationFinished = false;
         MGameActions.teleportPlayers1(mainTask.getSetup());
+        ServerPing.currentPing = Pings.PREPARATION;
         loop();
     }
 

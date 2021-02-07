@@ -17,17 +17,16 @@ import fr.rqndomhax.narutouhc.commands.inventory.CEnchant;
 import fr.rqndomhax.narutouhc.commands.inventory.CInventory;
 import fr.rqndomhax.narutouhc.commands.inventory.CSave;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.listeners.ECancels;
-import fr.rqndomhax.narutouhc.listeners.ELobbyCancel;
-import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
-import fr.rqndomhax.narutouhc.listeners.EPlayerLogin;
+import fr.rqndomhax.narutouhc.listeners.*;
 import fr.rqndomhax.narutouhc.listeners.role.RGai;
 import fr.rqndomhax.narutouhc.listeners.role.RMinato;
 import fr.rqndomhax.narutouhc.listeners.role.RNoFall;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
-import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.tablecompletes.TabHost;
+import fr.rqndomhax.narutouhc.tablecompletes.TabNaruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.tools.WorldManager;
@@ -51,6 +50,8 @@ public class Registers {
     }
 
     public boolean registerWorlds() {
+
+        ServerPing.currentPing = Pings.WORLD_GENERATING;
 
         Bukkit.getWorlds().forEach(worlds -> Bukkit.unloadWorld(worlds, true));
 
@@ -106,6 +107,9 @@ public class Registers {
     public void registerEvents() {
         PluginManager pm = Bukkit.getPluginManager();
 
+        // PREFIX
+        pm.registerEvents(new EPrefix(), setup.getMain());
+
         pm.registerEvents(new EPlayerActions(setup), setup.getMain());
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
@@ -139,5 +143,6 @@ public class Registers {
         setup.getMain().getCommand("enchant").setExecutor(new CEnchant(setup));
 
         setup.getMain().getCommand("na").setExecutor(new CNaruto(setup));
+        setup.getMain().getCommand("na").setTabCompleter(new TabNaruto(setup));
     }
 }

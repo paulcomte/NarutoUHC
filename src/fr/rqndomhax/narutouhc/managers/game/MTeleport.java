@@ -9,7 +9,6 @@ package fr.rqndomhax.narutouhc.managers.game;
 
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
 import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -60,6 +59,8 @@ public class MTeleport extends BukkitRunnable {
         if (player == null)
             MVillagers.createVillager(location, gamePlayer);
         else {
+
+            location.getChunk().load(true);
 
             player.teleport(locations.get(0));
 

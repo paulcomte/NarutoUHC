@@ -20,7 +20,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public abstract class MGameActions {
 
@@ -63,7 +65,7 @@ public abstract class MGameActions {
         else {
             if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId()))
                 rules.startInventoryInEdit = null;
-            if (rules.startInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))
+            if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))
                 rules.deathInventory = null;
         }
 

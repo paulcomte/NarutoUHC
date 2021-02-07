@@ -81,16 +81,11 @@ public class Shikamaru extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Shikamaru.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, Vous donnerez des effets à une personne dans un rayon de 50 blocks grâce à votre capacité spéciale");
-        player.sendMessage("Les effets sont " + ChatColor.GRAY + "\"Blindess 1" + ChatColor.RESET + " + " + ChatColor.DARK_GRAY + "Slowness 2\" " + ChatColor.RESET + "pendant 30 secondes");
-        player.sendMessage("Cette capacité s'utilisera grâce à la commande \"/na shikamaru\"");
-        player.sendMessage("Un inventaire s'ouvrira et vous devrez cliquer sur la personne de votre choix, parmis une liste de joueurs présents dans un rayon de 50 blocks");
-        player.sendMessage("Une fois la commande utilisée, même si aucun joueur n'a été séléctionné, elle ne sera utilisable qu'au prochain épisode.");
-        player.sendMessage("Utilisations restantes : " + ChatColor.GREEN + commandUses);
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Shikamaru.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Deux fois (mais une fois par épisode), vous aurez la possibilité d'utiliser la commande /na shikamaru.");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner 30 secondes de blindess 1 et 30 secondes de slowness 2 à  un joueur autour de vous dans un rayon de 50 blocks.");
     }
 
     @Override

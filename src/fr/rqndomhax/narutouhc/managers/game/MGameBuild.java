@@ -10,12 +10,10 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONValue;
 
 import java.util.Random;
 import java.util.Set;

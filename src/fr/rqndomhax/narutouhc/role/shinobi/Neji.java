@@ -78,13 +78,13 @@ public class Neji extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Neji.");
-        player.sendMessage("Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage("Pour ce faire, vous pouvez voir si le rôle d'un joueur est \"suspect\" ou \"gentil\", vous disposerez de 2 utilisations en utilisant la commande /na neji");
-        player.sendMessage("Un inventaire s'ouvrira avec la liste des joueurs présents dans un rayon de 10 bloocks.");
-        player.sendMessage("Une fois le joueur séléctionné, vous devrez rester à proximité du joueur pendant 10 secondes au total.");
-        player.sendMessage("Si aucun joueur n'a été sélectioonné dans l'inventaire, vous perdre tout de même une utilisation.");
+
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Neji.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Deux fois, vous aurez la possibilité d'utiliser La commande /na neji");
+        player.sendMessage(ChatColor.BLUE + "Deux fois, vous aurez la possibilité d'utiliser La commande /na neji");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez voir si le rôle d'un joueur autour de vous dans un rayon de 10 blocks, est suspect ou gentil.");
+        player.sendMessage(ChatColor.BLUE + "Vous devrez rester dans un rayon de 10 blocks avec le joueur pour une durée de 10 secondes."); // TODO FIX NEJI
     }
 }

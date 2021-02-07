@@ -10,15 +10,19 @@ package fr.rqndomhax.narutouhc.managers.game;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.tasks.game.TMain;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import javax.swing.plaf.basic.BasicViewportUI;
 import java.util.Set;
 
 public abstract class MGameStatus {
+
+    public static Team winners = null;
 
     public static boolean hasAtLeastOneDifferentCamp(Setup setup) {
         Team team = null;
@@ -49,7 +53,7 @@ public abstract class MGameStatus {
 
         TMain mainTask = setup.getGame().getMainTask();
         if (mainTask != null && mainTask.hasRoles) {
-            Team winners = winningTeam(setup.getGame().getGamePlayers());
+            winners = winningTeam(setup.getGame().getGamePlayers());
             if (winners != null)
                 showWin(setup, winners);
         }
@@ -58,8 +62,8 @@ public abstract class MGameStatus {
 
     private static void showWin(Setup setup, Team winners) {
         setup.getGame().setGameState(GameState.GAME_FINISHED);
-        Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Fin de la partie " + ChatColor.BLACK + "-----\n");
+        ServerPing.currentPing = Pings.FINISHED;
+        Bukkit.broadcastMessage(Messages.SEPARATORS);
 
         for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
             if (gamePlayer.role != null && (winners == null || gamePlayer.role.getRole().getTeam().equals(winners)))
@@ -67,12 +71,12 @@ public abstract class MGameStatus {
 
             if (gamePlayer.isDead)
                 if (gamePlayer.role != null)
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.DARK_BLUE + ChatColor.STRIKETHROUGH + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + ChatColor.STRIKETHROUGH + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
                     if (gamePlayer.role != null)
-                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.DARK_BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                     else
                         Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
         }
@@ -81,7 +85,9 @@ public abstract class MGameStatus {
             return;
 
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Victoire du camp " + winners.name().toLowerCase() + " " + ChatColor.BLACK + "-----\n");
+        Bukkit.broadcastMessage("");
+
+        Bukkit.broadcastMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Victoire du camp " + winners.getTeamName() + " " + ChatColor.BLACK + "-----\n");
 
         for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
             if (gamePlayer.role == null || !gamePlayer.role.getRole().getTeam().equals(winners))
@@ -89,12 +95,12 @@ public abstract class MGameStatus {
 
             if (gamePlayer.isDead)
                 if (gamePlayer.role != null)
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.DARK_BLUE + ChatColor.STRIKETHROUGH + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + ChatColor.STRIKETHROUGH + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
             else
             if (gamePlayer.role != null)
-                Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.DARK_BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
             else
                 Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
         }

@@ -8,10 +8,20 @@
 package fr.rqndomhax.narutouhc.infos;
 
 public enum Team {
-    SHINOBI,
-    AKATSUKI,
-    OROCHIMARU,
-    MADARA,
-    SASUKE,
-    DANZO;
+    SHINOBI("Shinobi"),
+    AKATSUKI("Akatsuki"),
+    OROCHIMARU("Orochimaru"),
+    MADARA("Madara"),
+    SASUKE("Sasuke"),
+    DANZO("Danzo");
+
+    private final String teamName;
+
+    Team(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
 }
