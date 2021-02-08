@@ -32,6 +32,14 @@ public abstract class IInfos {
     public static ItemStack RETURN_ITEM = new ItemBuilder(Material.REDSTONE).setName(ChatColor.GOLD + "Retour").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public static ItemStack BARS = new ItemBuilder(Material.IRON_FENCE).setName(" ").toItemStack();
 
+    // IHOST CONFIGS
+    public static ItemStack HOST_CREATE = new ItemBuilder(Material.INK_SACK, 1, (short) 4).setName(ChatColor.YELLOW + "Créer une configuration").toItemStack();
+    public static ItemStack HOST_SAVE = new ItemBuilder(Material.INK_SACK, 1, (short) 2).setName(ChatColor.GREEN + "Sauvegarder la configuration").toItemStack();
+
+    public static ItemStack HOST_ICONS = new ItemBuilder(Material.PAINTING).setName(ChatColor.GOLD + "Icônes").toItemStack();
+    public static ItemStack HOST_DELETE = new ItemBuilder(Material.INK_SACK, 1, (byte) 1).setName(ChatColor.RED + "Supprimer").toItemStack();
+    public static ItemStack HOST_RENAME = new ItemBuilder(Material.NAME_TAG).setName(ChatColor.GREEN + "Renommer").toItemStack();
+
     // IHOST CONFIG
     public static ItemStack HOST_WHITELIST = new ItemBuilder(Material.BOOK_AND_QUILL).toItemStack();
     public static ItemStack HOST_SPECTATORS = new ItemBuilder(Material.GHAST_TEAR).toItemStack();

@@ -9,6 +9,8 @@ package fr.rqndomhax.narutouhc.managers.config;
 
 import fr.rqndomhax.narutouhc.game.GameRules;
 
+import java.util.UUID;
+
 public class HostConfig {
 
     private final GameRules rules;
@@ -45,5 +47,9 @@ public class HostConfig {
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public HostConfig copy() {
+        return new HostConfig(rules, name + " - Copy", logo, "configs/" + UUID.randomUUID().toString().substring(0, 8) + ".cfg");
     }
 }

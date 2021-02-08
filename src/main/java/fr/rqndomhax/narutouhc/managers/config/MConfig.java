@@ -176,7 +176,7 @@ public abstract class MConfig {
         configuration.set("config.allowChat", config.getRules().allowChat);
 
         configuration.set("inventories.startInventory", BukkitSerializer.inventoryToString(config.getRules().startInventory));
-        configuration.set("inventories.deathInventory", BukkitSerializer.inventoryToString(config.getRules().startInventory));
+        configuration.set("inventories.deathInventory", BukkitSerializer.inventoryToString(config.getRules().deathInventory));
 
         configuration.set("activatedRoles", config.getRules().activatedRoles.toString());
         configuration.set("activatedScenarios", config.getRules().activatedScenarios.toString());

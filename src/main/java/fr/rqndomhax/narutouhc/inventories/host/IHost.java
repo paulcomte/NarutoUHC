@@ -8,8 +8,10 @@
 package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.border.IHostBorder;
+import fr.rqndomhax.narutouhc.inventories.host.config.IHostConfigs;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostInventories;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRoles;
 import fr.rqndomhax.narutouhc.inventories.host.roles.IHostRolesPage;
@@ -35,7 +37,7 @@ public class IHost extends RInventory {
         this.player = player;
 
         IInfos.placeInvBorders(this.getInventory());
-        this.setItem(4, IInfos.MAIN_HOST_CONFIGS);
+        this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openHostConfigs());
         this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
         this.setItem(15, IInfos.MAIN_HOST_BORDER_CONFIG, openBorderConfig());
         this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
@@ -47,6 +49,16 @@ public class IHost extends RInventory {
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
             this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
+    }
+
+    private Consumer<InventoryClickEvent> openHostConfigs() {
+        return e -> {
+            if (GameInfo.gameHost == null || !GameInfo.gameHost.equals(player.getUniqueId())) {
+                player.sendMessage(Messages.COMMAND_ONLY_HOST);
+                return;
+            }
+            new IHostConfigs(setup, player, this);
+        };
     }
 
     private Consumer<InventoryClickEvent> openScenariosConfig() {
@@ -116,12 +128,4 @@ public class IHost extends RInventory {
             new IHostWorld(setup, player, this);
         };
     }
-
-    private Consumer<InventoryClickEvent> openHostConfigs() {
-
-        return e -> {
-            new IHostConfigs(setup, player, this);
-        };
-    }
-
 }

@@ -46,6 +46,12 @@ public class IHostScenarios {
 
         for (Integer i : bars)
             inventory.setItem(i, IInfos.BARS);
+
+        inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
+            player.closeInventory();
+            if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
+                player.openInventory(new IHost(setup, player).getInventory());
+        });
         updateInventory();
     }
 
@@ -53,7 +59,6 @@ public class IHostScenarios {
         int[] slots = new int[]{12, 13, 14, 20, 21, 23, 24, 29, 30, 31, 32, 33, 39, 40, 41};
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            GameRules rules = setup.getGame().getGameRules();
             player.closeInventory();
             if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());
