@@ -139,7 +139,7 @@ public class ItemBuilder {
 
     public ItemBuilder toggleUnbreakable() {
         ItemMeta meta = is.getItemMeta();
-        meta.spigot().setUnbreakable(meta.spigot().isUnbreakable());
+        meta.spigot().setUnbreakable(!meta.spigot().isUnbreakable());
         is.setItemMeta(meta);
         return this;
     }

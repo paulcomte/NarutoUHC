@@ -53,9 +53,9 @@ public class IEnchant extends RInventory {
         this.setItem(13, player.getItemInHand());
 
         if (player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().spigot().isUnbreakable())
-            this.setItem(15, IInfos.ENCHANT_UNBREAKABLE_TRUE);
+            this.setItem(15, IInfos.ENCHANT_UNBREAKABLE_TRUE, updateUnbreakable());
         else
-            this.setItem(15, IInfos.ENCHANT_UNBREAKABLE_FALSE);
+            this.setItem(15, IInfos.ENCHANT_UNBREAKABLE_FALSE, updateUnbreakable());
 
         setCategories();
 
