@@ -112,6 +112,7 @@ public abstract class Messages {
     public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont été soignés !";
     public static String PLAYER_NOT_PLAYING = PREFIX + "Ce joueur ne joue pas au sein de la partie !";
     public static String PLAYER_NOT_DEAD = PREFIX + "Ce joueur n'est pas mort !";
+    public static String PLAYER_HAS_BEEN_REVIVED = PREFIX + "Le joueur %player% a été ressuscité par un hôte !";
     public static String PLAYER_RESURRECTED = PREFIX + "Vous avez été ressuscité !";
     public static String PLAYER_NOW_RESURRECTED = PREFIX + "Vous avez ressuscité %player% !";
 

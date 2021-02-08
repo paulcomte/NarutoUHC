@@ -87,7 +87,6 @@ public class Registers {
         WorldCreator wc = new WorldCreator(Maps.NO_PVP.name());
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.NORMAL);
-        BiomeSwapper.init();
         wc.createWorld();
 
         World noPVP = Bukkit.getWorld(Maps.NO_PVP.name());
@@ -107,6 +106,7 @@ public class Registers {
         // SETTINGS
         pm.registerEvents(new EPrefix(), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
+        pm.registerEvents(new EListener(setup), setup.getMain());
 
         pm.registerEvents(new EPlayerActions(setup), setup.getMain());
         pm.registerEvents(new EPlayerLogin(setup), setup.getMain());

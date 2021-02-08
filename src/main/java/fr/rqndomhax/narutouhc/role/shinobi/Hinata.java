@@ -28,7 +28,6 @@ public class Hinata extends RoleInfo {
 
     public int commandUses = 2;
     public boolean isNarutoDead = false;
-    public boolean hasRedeemed = false;
 
     public Hinata(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.HINATA);
@@ -50,13 +49,12 @@ public class Hinata extends RoleInfo {
 
     @Override
     public void giveEffects() {
-        if (!isNarutoDead || hasRedeemed) return;
+        if (!isNarutoDead) return;
 
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 0, false, false));
-        hasRedeemed = true;
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
     }
 
     @Override

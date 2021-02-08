@@ -23,6 +23,7 @@ public class NMSPatcher {
         try {
             patchPotions();
             fixAnimals();
+            BiomeSwapper.fixBiomes();
         } catch (Exception exception) {
             exception.printStackTrace();
         }

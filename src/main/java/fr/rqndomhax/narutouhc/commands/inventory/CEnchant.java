@@ -8,10 +8,12 @@
 package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.inventories.enchant.IEnchant;
 import fr.rqndomhax.narutouhc.inventories.host.IHostEnchant;
 import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.managers.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -48,11 +50,11 @@ public class CEnchant implements CommandExecutor {
 
         if ((rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId()))
                 || (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))) {
-            if (player.getItemInHand() == null) {
+            if (player.getItemInHand() == null || player.getItemInHand().getType() == null || player.getItemInHand().getType().equals(Material.AIR)) {
                 player.sendMessage(Messages.NEED_ITEM_IN_HAND);
                 return false;
             }
-            player.openInventory(new IHostEnchant(setup, player).getInventory());
+            player.openInventory(new IEnchant(player).getInventory());
             return true;
         }
         player.sendMessage(Messages.HOST_INVENTORY_NOT_EDIT);

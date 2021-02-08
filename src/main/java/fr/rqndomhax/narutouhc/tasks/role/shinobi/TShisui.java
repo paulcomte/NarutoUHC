@@ -56,7 +56,7 @@ public class TShisui extends BukkitRunnable {
             }
 
             player.sendMessage(Messages.SEPARATORS);
-            player.sendMessage(Bukkit.getOfflinePlayer(newPlayer.uuid).getName());
+            player.sendMessage(newPlayer.name);
             remainingTime = 15*60;
         }
 

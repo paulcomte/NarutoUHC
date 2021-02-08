@@ -20,6 +20,12 @@ public abstract class IInfos {
     public static String MAIN_HOST_NAME = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Configuration";
     public static String ENCHANT_HOST = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Forge des dieux";
 
+    public static ItemStack ENCHANT_ITEM = new ItemBuilder(Material.ANVIL).setName(ChatColor.GOLD + "Forge des dieux").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+    public static ItemStack ENCHANT_RENAME = new ItemBuilder(Material.NAME_TAG).setName("Renommer").toItemStack();
+
+    public static ItemStack ENCHANT_UNBREAKABLE_TRUE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).toItemStack();
+    public static ItemStack ENCHANT_UNBREAKABLE_FALSE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.RED + " ✘").toItemStack();
+
     public static ItemStack ORANGE_GLASS_BORDER = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 1).setName(" ").toItemStack();
     public static ItemStack BLACK_GLASS_BORDER = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 15).setName(" ").toItemStack();
 

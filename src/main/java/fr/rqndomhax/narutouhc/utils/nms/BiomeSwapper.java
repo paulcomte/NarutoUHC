@@ -17,7 +17,7 @@ public abstract class BiomeSwapper {
         biomes[from.id] = to;
     }
 
-    public static void init() {
+    public static void fixBiomes() {
         try {
             Field biomeF = BiomeBase.class.getDeclaredField("biomes");
             biomeF.setAccessible(true);
