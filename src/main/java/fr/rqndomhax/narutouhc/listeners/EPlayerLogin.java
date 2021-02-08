@@ -8,12 +8,14 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.Game;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
@@ -42,17 +44,17 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (!e.getPlayer().isOp() && setup.getGame().getGameRules().gameHost == null) {
+        if (!e.getPlayer().isOp() && GameInfo.gameHost == null) {
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.NOT_ALLOWED);
             return;
         }
 
-        if (setup.getGame().getGameRules().bannedPlayers.contains(e.getPlayer().getUniqueId())) {
+        if (GameInfo.bannedPlayers.contains(e.getPlayer().getUniqueId())) {
             e.disallow(PlayerLoginEvent.Result.KICK_BANNED, Messages.PLAYER_BANNED);
             return;
         }
 
-        if (setup.getGame().getGameRules().hasWhitelist && !setup.getGame().getGameRules().whitelistedPlayers.contains(e.getPlayer().getUniqueId())) {
+        if (setup.getGame().getGameRules().hasWhitelist && !GameInfo.whitelistedPlayers.contains(e.getPlayer().getUniqueId())) {
             e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
             return;
         }
@@ -80,8 +82,10 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
-        if (setup.getGame().getGameRules().gameHost == null && e.getPlayer().isOp())
-            setup.getGame().getGameRules().gameHost = e.getPlayer().getUniqueId();
+        if (GameInfo.gameHost == null && e.getPlayer().isOp()) {
+            GameInfo.gameHost = e.getPlayer().getUniqueId();
+            setup.getGame().getGameRules().hasWhitelist = true;
+        }
 
         if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
             if (setup.getGame().getMainTask() != null) {
@@ -91,7 +95,7 @@ public class EPlayerLogin implements Listener {
 
             GamePlayer gamePlayer = new GamePlayer(e.getPlayer().getUniqueId(), e.getPlayer().getName());
             setup.getGame().getGamePlayers().add(gamePlayer);
-            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), e.getPlayer());
+            MGameActions.clearPlayerLobby(e.getPlayer());
 
             new BukkitRunnable() {
                 @Override
@@ -136,10 +140,12 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
-        if (Bukkit.getOnlinePlayers().size() == 1)
-            setup.getGame().getGameRules().gameHost = null;
+        if (Bukkit.getOnlinePlayers().size() == 1) {
+            setup.getGame().getGameRules().hasWhitelist = false;
+            GameInfo.gameHost = null;
+        }
 
-        setup.getGame().getGameRules().gameCoHost.remove(e.getPlayer().getUniqueId());
+        GameInfo.gameCoHost.remove(e.getPlayer().getUniqueId());
 
         if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
             if (setup.getGame().getMainTask() != null) {

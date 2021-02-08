@@ -5,11 +5,13 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.MBuilder;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -63,18 +65,6 @@ public abstract class MGameBuild {
 
     public static void removeLobby(JavaPlugin plugin) {
         setCage(Material.AIR, 19, new Location(Bukkit.getWorld(Maps.NO_PVP.name()), 0, 230, 0), false, false, 235, plugin);
-    }
-
-    public static void placeObito(Setup setup) {
-        World world = Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name());
-
-        setCage(Material.BEDROCK, 29, new Location(world, 0, 230, 0), false, true, 234, setup.getMain());
-    }
-
-    public static void removeObito(Setup setup) {
-        World world = Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name());
-
-        setCage(Material.BEDROCK, 29, new Location(world, 0, 230, 0), false, true, 234, setup.getMain());
     }
 
     private static void setCage(Material material, int boundaries, Location center, boolean updateData, boolean hasRoof, int maxY, JavaPlugin plugin) {

@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.inventories;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.TranslateEffect;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;

@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.game;
 
 public enum GameState {
     LOADING,

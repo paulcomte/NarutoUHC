@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameState;
 
 public class TMeetup implements Task {
 

@@ -8,9 +8,10 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
@@ -36,9 +37,8 @@ public class CRevive implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            GameRules rules = setup.getGame().getGameRules();
 
-            if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
+            if (!GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return false;
             }
@@ -66,7 +66,7 @@ public class CRevive implements CommandExecutor {
 
     public void revive(Player player, GamePlayer gamePlayer) {
         gamePlayer.isDead = false;
-        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
+        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
         InventoryManager.giveInventory(gamePlayer.inventory, player);
         if (gamePlayer.role != null && gamePlayer.role.getRole() != null)
             gamePlayer.role.giveEffects();

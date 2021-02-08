@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.inventories.host.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -62,7 +63,7 @@ public class IHostDeathInventory {
 
         return e -> {
 
-            if (!gameRules.gameHost.equals(player.getUniqueId()) && !gameRules.gameCoHost.contains(player.getUniqueId())) {
+            if (!GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return;
             }

@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -74,6 +75,22 @@ public class SDrop implements Listener {
             int prob = new Random().nextInt(101);
             if (prob >= 100 - pearlDrop.get().getPercentage())
                 e.getDrops().add(new ItemStack(Material.ENDER_PEARL));
+        }
+    }
+
+    @EventHandler
+    public void onLeafDecay(LeavesDecayEvent e) {
+
+        Optional<Drops> appleDrop = setup.getGame().getGameRules().drops.stream().filter(d -> d.equals(Drops.APPLE)).findAny();
+
+        if (!appleDrop.isPresent())
+            return;
+        int prob = new Random().nextInt(101);
+        if (prob >= 100 - appleDrop.get().getPercentage()) {
+            e.setCancelled(true);
+            e.getBlock().setType(Material.AIR);
+            e.getBlock().getState().update();
+            e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.APPLE, 1));
         }
     }
 

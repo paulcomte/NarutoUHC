@@ -5,24 +5,20 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.*;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.listeners.world.ChunkUnloadListener;
-import fr.rqndomhax.narutouhc.managers.GameBorder;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -52,22 +48,15 @@ public abstract class MGameActions {
         player.updateInventory();
     }
 
-    public static void clearPlayerLobby(GameRules rules, Player player) {
+    public static void clearPlayerLobby(Player player) {
 
         clearPlayer(player);
 
         player.setGameMode(GameMode.ADVENTURE);
 
-        if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId())) {
+        if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId())) {
             player.getInventory().setItem(4, IInfos.MAIN_HOST_ITEM);
             player.updateInventory();
-        }
-
-        else {
-            if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId()))
-                rules.startInventoryInEdit = null;
-            if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId()))
-                rules.deathInventory = null;
         }
 
     }

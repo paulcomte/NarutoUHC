@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.tasks.role.orochimaru;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameState;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class TList extends BukkitRunnable {

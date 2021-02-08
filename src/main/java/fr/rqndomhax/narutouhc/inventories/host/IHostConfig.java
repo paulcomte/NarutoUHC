@@ -8,15 +8,14 @@
 package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -53,16 +52,15 @@ public class IHostConfig {
 
         inventory.setItem(29, getBorderDisconnects(), changeBorderDisconnects());
 
-        GamePlayer host = setup.getGame().getGamePlayer(setup.getGame().getGameRules().gameHost);
+        GamePlayer host = setup.getGame().getGamePlayer(GameInfo.gameHost);
 
         inventory.setItem(31, new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).setName("Host: " + host.name).setSkullOwner(host.name).toItemStack());
 
         inventory.setItem(33, getWhitelist(), changeWhitelist());
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            GameRules rules = setup.getGame().getGameRules();
             player.closeInventory();
-            if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
+            if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());
         });
 

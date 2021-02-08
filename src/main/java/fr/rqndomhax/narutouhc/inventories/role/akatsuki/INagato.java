@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -73,7 +74,7 @@ public class INagato extends RInventory {
             items[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(setup.getGame().getGameRules().currentMap.name())));
+            selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
             InventoryManager.giveInventory(items, selectedPlayer);
             selectedPlayer.setGameMode(GameMode.SURVIVAL);
             selected.role.giveEffects();

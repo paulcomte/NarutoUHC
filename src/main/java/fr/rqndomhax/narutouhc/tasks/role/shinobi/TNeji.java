@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.tasks.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.tasks.role.Timers;
 import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.entity.Player;

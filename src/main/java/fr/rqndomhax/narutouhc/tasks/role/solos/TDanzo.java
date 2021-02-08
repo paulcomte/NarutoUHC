@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.tasks.role.solos;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.role.solos.Danzo;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;

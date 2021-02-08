@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.role.solos;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

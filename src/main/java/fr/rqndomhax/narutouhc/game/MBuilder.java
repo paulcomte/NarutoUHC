@@ -5,8 +5,9 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.game;
 
+import fr.rqndomhax.narutouhc.managers.MGameBuild;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -8,9 +8,10 @@
 package fr.rqndomhax.narutouhc.inventories.host.border;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.GameBorder;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameBorder;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.Banners;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -93,8 +94,7 @@ public class IHostBorderActivation {
         }
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
-            GameRules rules = setup.getGame().getGameRules();
-            if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
+            if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
                 new IHostBorder(setup, player, inventory);
         });
 

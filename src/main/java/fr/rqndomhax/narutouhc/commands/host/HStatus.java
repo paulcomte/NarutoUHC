@@ -7,7 +7,8 @@
 
 package fr.rqndomhax.narutouhc.commands.host;
 
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -18,9 +19,9 @@ import java.util.UUID;
 
 public abstract class HStatus {
 
-    public static boolean kickPlayer(GameRules rules, String[] args, CommandSender sender) {
+    public static boolean kickPlayer(String[] args, CommandSender sender) {
 
-        Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_KICK);
+        Player target = HManager.checkCommandArgs(args, sender, Messages.HOST_USAGE_KICK);
 
         if (target == null)
             return false;
@@ -32,34 +33,34 @@ public abstract class HStatus {
         return true;
     }
 
-    public static boolean banPlayer(GameRules rules, String[] args, CommandSender sender) {
+    public static boolean banPlayer(String[] args, CommandSender sender) {
 
-        Player target = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_BAN);
+        Player target = HManager.checkCommandArgs(args, sender, Messages.HOST_USAGE_BAN);
 
         if (target == null)
             return false;
 
-        rules.bannedPlayers.add(target.getUniqueId());
+        GameInfo.bannedPlayers.add(target.getUniqueId());
         target.kickPlayer(Messages.PLAYER_BANNED);
         sender.sendMessage(Messages.PLAYER_NOW_BANNED.replace("%player%", target.getName()));
 
         return true;
     }
 
-    public static boolean unbanPlayer(GameRules rules, String[] args, CommandSender sender) {
+    public static boolean unbanPlayer(String[] args, CommandSender sender) {
 
-        Player player = HManager.checkCommandArgs(rules, args, sender, Messages.HOST_USAGE_UNBAN);
+        Player player = HManager.checkCommandArgs(args, sender, Messages.HOST_USAGE_UNBAN);
 
         if (player != null) {
             sender.sendMessage(Messages.PLAYER_NOT_BANNED.replace("%player%", player.getName()));;
             return false;
         }
 
-        for (UUID banned : rules.bannedPlayers) {
+        for (UUID banned : GameInfo.bannedPlayers) {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(banned);
             if (offlinePlayer == null) continue;
             if (offlinePlayer.getName().equalsIgnoreCase(args[1])) {
-                rules.bannedPlayers.remove(banned);
+                GameInfo.bannedPlayers.remove(banned);
                 sender.sendMessage(Messages.PLAYER_NOW_UNBANNED.replace("%player%", offlinePlayer.getName()));
                 return true;
             }

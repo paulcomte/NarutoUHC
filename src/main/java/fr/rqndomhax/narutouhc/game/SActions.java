@@ -5,9 +5,8 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.game;
 
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

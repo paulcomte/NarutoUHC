@@ -5,9 +5,10 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers.game;
+package fr.rqndomhax.narutouhc.game;
 
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
+import fr.rqndomhax.narutouhc.managers.MGameBuild;
 import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
 import org.bukkit.Location;
 import org.bukkit.World;

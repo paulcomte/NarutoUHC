@@ -8,9 +8,7 @@
 package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
-import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -58,8 +56,6 @@ public class IObito extends RInventory {
                 return;
             }
             player.closeInventory();
-            MGameBuild.placeObito(setup);
-            new TObito(setup, obito, selected, player, selectedPlayer);
         };
     }
 }

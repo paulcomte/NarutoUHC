@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.inventory.PageController;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
@@ -54,7 +55,7 @@ public class IHostScenarios {
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
             GameRules rules = setup.getGame().getGameRules();
             player.closeInventory();
-            if (rules.gameHost.equals(player.getUniqueId()) || rules.gameCoHost.contains(player.getUniqueId()))
+            if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());
         });
 

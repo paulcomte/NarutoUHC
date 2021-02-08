@@ -7,7 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers.config;
 
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameRules;
 
 public class HostConfig {
 

@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.game.tasks.TBorder;
 import fr.rqndomhax.narutouhc.game.tasks.TMain;
 import fr.rqndomhax.narutouhc.game.tasks.TPreparation;
@@ -34,9 +35,8 @@ public class CForce implements CommandExecutor {
         GameState gameState = setup.getGame().getGameState();
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            GameRules rules = setup.getGame().getGameRules();
 
-            if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
+            if (!GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId())) {
                 player.sendMessage(Messages.COMMAND_ONLY_HOST);
                 return false;
             }

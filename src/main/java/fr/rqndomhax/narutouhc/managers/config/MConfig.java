@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.managers.config;
 
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
@@ -114,8 +114,13 @@ public abstract class MConfig {
         Set<Drops> drops = new HashSet<>();
         tmp = config.getString("drops");
         tmp = tmp.replace("[", "").replace("]", "");
-        for (String o : tmp.split(", "))
-            Arrays.stream(Drops.values()).filter(e -> e.name().equals(o)).findFirst().ifPresent(drops::add);
+        for (String o : tmp.split(", ")) {
+            String[] drop = o.split(":");
+            Arrays.stream(Drops.values()).filter(e -> e.name().equals(drop[0])).findFirst().ifPresent(d -> {
+                d.setPercentage(Double.parseDouble(drop[1]));
+                drops.add(d);
+            });
+        }
 
         configBuilder.setDrops(drops);
 
@@ -175,7 +180,14 @@ public abstract class MConfig {
 
         configuration.set("activatedRoles", config.getRules().activatedRoles.toString());
         configuration.set("activatedScenarios", config.getRules().activatedScenarios.toString());
-        configuration.set("drops", config.getRules().drops.toString());
+
+        HashSet<String> drops = new HashSet<>();
+
+        for (Drops drop : config.getRules().drops) {
+            drops.add(drop.name() + ":" + drop.getPercentage());
+        }
+
+        configuration.set("drops", drops.toString());
 
         configuration.set("dayCycle", config.getRules().dayCycle.name());
 

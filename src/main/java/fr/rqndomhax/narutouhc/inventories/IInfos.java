@@ -23,7 +23,7 @@ public abstract class IInfos {
     public static ItemStack ENCHANT_ITEM = new ItemBuilder(Material.ANVIL).setName(ChatColor.GOLD + "Forge des dieux").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public static ItemStack ENCHANT_RENAME = new ItemBuilder(Material.NAME_TAG).setName("Renommer").toItemStack();
 
-    public static ItemStack ENCHANT_UNBREAKABLE_TRUE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).toItemStack();
+    public static ItemStack ENCHANT_UNBREAKABLE_TRUE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public static ItemStack ENCHANT_UNBREAKABLE_FALSE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.RED + " ✘").toItemStack();
 
     public static ItemStack ORANGE_GLASS_BORDER = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 1).setName(" ").toItemStack();

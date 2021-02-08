@@ -8,9 +8,10 @@
 package fr.rqndomhax.narutouhc.tabscores;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.game.tasks.TBorder;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
@@ -28,8 +29,8 @@ public abstract class GameScoreboardManager {
     public static void updateLobbyBoard(Setup setup, FastBoard board) {
         board.updateTitle(setup.getGame().getGameRules().gameTitle);
         board.updateLine(0, "");
-        if (setup.getGame().getGameRules().gameHost != null)
-            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(setup.getGame().getGameRules().gameHost).getName());
+        if (GameInfo.gameHost != null)
+            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(GameInfo.gameHost).getName());
         else
             board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + "Aucun");
         board.updateLine(2, "");
@@ -42,8 +43,8 @@ public abstract class GameScoreboardManager {
 
         board.updateTitle(rules.gameTitle);
         board.updateLine(0, "");
-        if (rules.gameHost != null)
-            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
+        if (GameInfo.gameHost != null)
+            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(GameInfo.gameHost).getName());
         else
             board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + "Aucun");
 
@@ -74,8 +75,8 @@ public abstract class GameScoreboardManager {
 
         board.updateTitle(rules.gameTitle);
         board.updateLine(0, "");
-        if (rules.gameHost != null)
-            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(rules.gameHost).getName());
+        if (GameInfo.gameHost != null)
+            board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(GameInfo.gameHost).getName());
         else
             board.updateLine(1, colorPrefix + "» Host: " + ChatColor.WHITE + "Aucun");
 

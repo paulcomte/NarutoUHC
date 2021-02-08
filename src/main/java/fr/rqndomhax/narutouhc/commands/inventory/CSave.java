@@ -8,12 +8,13 @@
 package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostDeathInventory;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostStartInventory;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.command.Command;
@@ -40,7 +41,7 @@ public class CSave implements CommandExecutor {
         GameRules rules = setup.getGame().getGameRules();
         Player player = (Player) sender;
 
-        if (!rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId())) {
+        if (!GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId())) {
             player.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
         }
@@ -53,7 +54,7 @@ public class CSave implements CommandExecutor {
         if (rules.startInventoryInEdit != null && rules.startInventoryInEdit.equals(player.getUniqueId())) {
 
             InventoryManager.saveInventory(rules.startInventory, player, false);
-            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
+            MGameActions.clearPlayerLobby(player);
             rules.startInventoryInEdit = null;
 
             player.sendMessage(Messages.HOST_INVENTORY_BEGINNING_SAVED);
@@ -66,7 +67,7 @@ public class CSave implements CommandExecutor {
         }
         else if (rules.deathInventoryInEdit != null && rules.deathInventoryInEdit.equals(player.getUniqueId())) {
             InventoryManager.saveInventory(rules.deathInventory, player, false);
-            MGameActions.clearPlayerLobby(setup.getGame().getGameRules(), player);
+            MGameActions.clearPlayerLobby(player);
 
             rules.deathInventoryInEdit = null;
 

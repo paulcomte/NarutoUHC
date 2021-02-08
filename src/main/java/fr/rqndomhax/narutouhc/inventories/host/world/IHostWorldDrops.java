@@ -41,8 +41,6 @@ public class IHostWorldDrops {
         IInfos.placeInvBorders(inventory.getInventory());
 
         int[] bars = new int[]{3, 5, 48, 50};
-        int[] difficulties = new int[]{22, 31};
-        int n = 0;
 
         for (Integer i : bars)
             inventory.setItem(i, IInfos.BARS);
@@ -57,8 +55,7 @@ public class IHostWorldDrops {
             description.append(ChatColor.DARK_AQUA);
             description.append(format.format(drop.getPercentage()));
             description.append(" %");
-            inventory.setItem(difficulties[n], item.setName(description.toString()).toItemStack(), updatePercentage(drop));
-            n++;
+            inventory.setItem(drop.getSlot(), item.setName(description.toString()).toItemStack(), updatePercentage(drop));
         }
 
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {

@@ -8,10 +8,10 @@
 package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.enchant.IEnchant;
-import fr.rqndomhax.narutouhc.inventories.host.IHostEnchant;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -38,7 +38,7 @@ public class CEnchant implements CommandExecutor {
         Player player = (Player) sender;
         GameRules rules = setup.getGame().getGameRules();
 
-        if (!rules.gameCoHost.contains(player.getUniqueId()) && !rules.gameHost.equals(player.getUniqueId())) {
+        if (!GameInfo.gameCoHost.contains(player.getUniqueId()) && !GameInfo.gameHost.equals(player.getUniqueId())) {
             player.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
         }

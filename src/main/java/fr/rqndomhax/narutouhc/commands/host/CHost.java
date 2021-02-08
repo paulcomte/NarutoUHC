@@ -8,8 +8,9 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,8 +33,8 @@ public class CHost implements CommandExecutor {
 
         if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
 
-           if (!(sender instanceof Player) || rules.gameHost.equals(((Player) sender).getUniqueId())
-                   || rules.gameCoHost.contains(((Player) sender).getUniqueId()))
+           if (!(sender instanceof Player) || GameInfo.gameHost.equals(((Player) sender).getUniqueId())
+                   || GameInfo.gameCoHost.contains(((Player) sender).getUniqueId()))
                 return showHostHelp(sender);
 
             sender.sendMessage(Messages.COMMAND_ONLY_HOST);
@@ -45,23 +46,23 @@ public class CHost implements CommandExecutor {
         switch (args[0]) {
             case "del":
             case "delete":
-                return HRank.deleteHost(rules, gameState, args, sender);
+                return HRank.deleteHost(gameState, args, sender);
             case "promote":
                 return HRank.promoteHost(rules, gameState, args, sender);
             case "ban":
-                return HStatus.banPlayer(rules, args, sender);
+                return HStatus.banPlayer(args, sender);
             case "unban":
-                return HStatus.unbanPlayer(rules, args, sender);
+                return HStatus.unbanPlayer(args, sender);
             case "kick":
-                return HStatus.kickPlayer(rules, args, sender);
+                return HStatus.kickPlayer(args, sender);
             case "an":
             case "say":
-                return HManager.sendAnnounce(rules, args, sender);
+                return HManager.sendAnnounce(args, sender);
             case "set":
                 return HManager.setHost(setup, args, sender);
             default:
                 if (sender instanceof Player) {
-                    if ((rules.gameHost.equals(((Player) sender).getUniqueId()) || rules.gameCoHost.contains(((Player) sender).getUniqueId())))
+                    if ((GameInfo.gameHost.equals(((Player) sender).getUniqueId()) || GameInfo.gameCoHost.contains(((Player) sender).getUniqueId())))
                         return showHostHelp(sender);
                     sender.sendMessage(Messages.COMMAND_ONLY_HOST);
                     return false;

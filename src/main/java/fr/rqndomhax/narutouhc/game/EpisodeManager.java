@@ -8,8 +8,6 @@
 package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.game.tasks.TMain;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.game.Game;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import org.bukkit.Bukkit;

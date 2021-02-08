@@ -7,12 +7,13 @@
 
 package fr.rqndomhax.narutouhc.game.tasks;
 
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MGameActions;
-import fr.rqndomhax.narutouhc.managers.game.MGameBuild;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MGameActions;
+import fr.rqndomhax.narutouhc.managers.MGameBuild;
 import org.bukkit.ChatColor;
 import org.bukkit.Instrument;
 import org.bukkit.Note;
@@ -24,7 +25,7 @@ public class TPlatform implements Task {
 
     public TPlatform(TMain mainTask) {
         mainTask.getSetup().getGame().setGameState(GameState.LOBBY_TELEPORTING);
-        mainTask.getSetup().getGame().getGameRules().currentMap = Maps.NO_PVP;
+        GameInfo.currentMap = Maps.NO_PVP;
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().teleportingDuration;

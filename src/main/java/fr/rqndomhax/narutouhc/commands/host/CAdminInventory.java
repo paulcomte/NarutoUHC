@@ -8,17 +8,15 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.ViewInventory;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import javax.swing.text.View;
 
 public class CAdminInventory implements CommandExecutor {
 
@@ -38,7 +36,7 @@ public class CAdminInventory implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (setup.getGame().getGameRules().gameHost == null || !setup.getGame().getGameRules().gameHost.equals(player.getUniqueId()) && !setup.getGame().getGameRules().gameCoHost.contains(player.getUniqueId())) {
+        if (GameInfo.gameHost == null || !GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId())) {
             player.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
         }

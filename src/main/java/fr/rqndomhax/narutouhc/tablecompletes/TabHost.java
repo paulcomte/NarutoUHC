@@ -8,7 +8,8 @@
 package fr.rqndomhax.narutouhc.tablecompletes;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GameRules;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,9 +39,7 @@ public class TabHost implements TabCompleter {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
-        GameRules rules = setup.getGame().getGameRules();
-
-        if (rules.gameHost == null || !rules.gameHost.equals(player.getUniqueId()) && !rules.gameCoHost.contains(player.getUniqueId()))
+        if (GameInfo.gameHost == null || !GameInfo.gameHost.equals(player.getUniqueId()) && !GameInfo.gameCoHost.contains(player.getUniqueId()))
             return null;
 
         if (args.length == 1)
@@ -48,10 +47,10 @@ public class TabHost implements TabCompleter {
 
         switch (args[0].toLowerCase()) {
             case "delete":
-                if (rules.gameHost == null || !rules.gameHost.equals(player.getUniqueId()))
+                if (GameInfo.gameHost == null || !GameInfo.gameHost.equals(player.getUniqueId()))
                     return null;
 
-                for (UUID coHost : rules.gameCoHost) {
+                for (UUID coHost : GameInfo.gameCoHost) {
                     Player p = Bukkit.getPlayer(coHost);
 
                     if (p != null)
@@ -59,13 +58,13 @@ public class TabHost implements TabCompleter {
                 }
                 return arrayList.stream().filter(a -> a.startsWith(args[1])).collect(Collectors.toList());
             case "promote":
-                if (rules.gameHost == null || !rules.gameHost.equals(player.getUniqueId()))
+                if (GameInfo.gameHost == null || !GameInfo.gameHost.equals(player.getUniqueId()))
                     return null;
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (p.equals(player))
                         continue;
 
-                    if (rules.gameCoHost != null && rules.gameCoHost.contains(p.getUniqueId()))
+                    if (GameInfo.gameCoHost != null && GameInfo.gameCoHost.contains(p.getUniqueId()))
                         continue;
 
                     arrayList.add(p.getName());
@@ -77,12 +76,12 @@ public class TabHost implements TabCompleter {
                     if (p.equals(player))
                         continue;
 
-                    if (rules.gameHost != null && rules.gameHost.equals(player.getUniqueId())) {
+                    if (GameInfo.gameHost != null && GameInfo.gameHost.equals(player.getUniqueId())) {
                         arrayList.add(p.getName());
                         continue;
                     }
 
-                    if (rules.gameCoHost == null || !rules.gameCoHost.contains(player.getUniqueId()))
+                    if (!GameInfo.gameCoHost.contains(player.getUniqueId()))
                         arrayList.add(p.getName());
                 }
                 return arrayList.stream().filter(a -> a.startsWith(args[1])).collect(Collectors.toList());

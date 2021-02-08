@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
-import fr.rqndomhax.narutouhc.managers.game.MGameStatus;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MGameStatus;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import org.bukkit.scheduler.BukkitRunnable;
 

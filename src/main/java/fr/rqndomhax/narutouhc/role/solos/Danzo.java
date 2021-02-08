@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.role.solos;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.tasks.role.solos.TDanzo;
 import org.bukkit.Bukkit;

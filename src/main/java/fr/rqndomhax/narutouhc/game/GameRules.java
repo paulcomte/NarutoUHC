@@ -5,9 +5,8 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers;
+package fr.rqndomhax.narutouhc.game;
 
-import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
@@ -53,12 +52,7 @@ public class GameRules {
     public DayCycle dayCycle = DayCycle.NORMAL;
 
     public String gameTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC";
-    public UUID gameHost = null;
-    public Set<UUID> gameCoHost = new HashSet<>();
     public int maxCoHost = 3;
-    public Set<UUID> bannedPlayers = new HashSet<>();
-    public Set<UUID> whitelistedPlayers = new HashSet<>();
-    public Maps currentMap = Maps.NO_PVP;
 
     public int startDuration = 10;
 

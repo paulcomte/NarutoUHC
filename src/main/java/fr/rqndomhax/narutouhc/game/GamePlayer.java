@@ -5,7 +5,7 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package fr.rqndomhax.narutouhc.managers;
+package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import org.bukkit.Location;

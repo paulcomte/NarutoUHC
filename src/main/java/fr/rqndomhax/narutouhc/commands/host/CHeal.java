@@ -8,9 +8,10 @@
 package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.GameRules;
-import fr.rqndomhax.narutouhc.managers.game.GameState;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -32,7 +33,7 @@ public class CHeal implements CommandExecutor {
         GameRules rules = setup.getGame().getGameRules();
         GameState gameState = setup.getGame().getGameState();
 
-        if (sender instanceof Player && !rules.gameHost.equals(((Player) sender).getUniqueId()) && !rules.gameCoHost.contains(((Player) sender).getUniqueId())) {
+        if (sender instanceof Player && !GameInfo.gameHost.equals(((Player) sender).getUniqueId()) && !GameInfo.gameCoHost.contains(((Player) sender).getUniqueId())) {
             sender.sendMessage(Messages.COMMAND_ONLY_HOST);
             return false;
         }

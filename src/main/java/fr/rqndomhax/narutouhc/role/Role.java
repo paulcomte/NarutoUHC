@@ -8,7 +8,7 @@
 package fr.rqndomhax.narutouhc.role;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.managers.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import org.bukkit.Location;
 
 public interface Role {
