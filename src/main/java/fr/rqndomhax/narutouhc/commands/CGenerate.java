@@ -17,7 +17,8 @@ import org.bukkit.command.CommandSender;
 
 public class CGenerate implements CommandExecutor {
 
-    private boolean preload;
+    private boolean generationAlreadyStarted;
+    WorldGeneration worldGeneration;
     private final Setup setup;
 
     public CGenerate(Setup setup) {
@@ -27,13 +28,18 @@ public class CGenerate implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
-        if (preload) {
-            sender.sendMessage("§cLe serveur est déjà pré-chargé.");
+        if (generationAlreadyStarted) {
+            if (worldGeneration != null) {
+                if (worldGeneration.taskFinished)
+                    sender.sendMessage("§cLe serveur est déjà pré-chargé.");
+                else
+                    sender.sendMessage("§cLe serveur est déjà en cours de pré-génération.");
+            }
             return false;
         }
-        preload = true;
+        generationAlreadyStarted = true;
         sender.sendMessage("§aDébut de la prégénération.");
-        new WorldGeneration(Bukkit.getWorld(Maps.NO_PVP.name()), setup.getMain());
+        WorldGeneration worldGeneration = new WorldGeneration(Bukkit.getWorld(Maps.NO_PVP.name()), setup.getMain());
         return true;
     }
 }

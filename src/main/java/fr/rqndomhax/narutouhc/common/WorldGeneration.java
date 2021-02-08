@@ -29,6 +29,7 @@ public class WorldGeneration {
     private int last;
     private final JavaPlugin plugin;
     private long startTime;
+    public boolean taskFinished = false;
 
     public WorldGeneration(World world, JavaPlugin plugin) {
         System.out.println("world size = " + world.getWorldBorder().getSize());
@@ -67,6 +68,7 @@ public class WorldGeneration {
                             this.x += 16;
                         }
                         if (this.x >= size) {
+                            taskFinished = true;
                             task.cancel();
                             int calculedTime = Math.round(((System.currentTimeMillis() - startTime) / 1000L));
                             Bukkit.getLogger().log(Level.INFO, "Finished pre-generation after " + calculedTime + "s");

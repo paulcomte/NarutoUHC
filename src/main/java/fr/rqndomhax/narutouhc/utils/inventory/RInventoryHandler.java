@@ -26,13 +26,13 @@ public final class RInventoryHandler implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOW)
-    public void onClick(InventoryClickEvent event){
-        if (event.getClickedInventory() != null && event.getInventory().getHolder() instanceof RInventory) {
-            RInventory rInventory = (RInventory) event.getInventory().getHolder();
-            int slot = event.getRawSlot();
-            event.setCancelled(true);
+    public void onClick(InventoryClickEvent e){
+        if (e.getInventory() != null && e.getInventory().getHolder() instanceof RInventory) {
+            RInventory rInventory = (RInventory) e.getInventory().getHolder();
+            int slot = e.getRawSlot();
+            e.setCancelled(true);
             if (rInventory.getMapShare().containsKey(slot)) {
-                rInventory.getMapShare().get(slot).accept(event);
+                rInventory.getMapShare().get(slot).accept(e);
             }
         }
     }
