@@ -17,6 +17,7 @@ public class TMeetup implements Task {
 
     public TMeetup(TMain mainTask) {
         mainTask.getSetup().getGame().setGameState(GameState.GAME_MEETUP);
+        ServerPing.currentPing = Pings.MEETUP;
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         ServerPing.currentPing = Pings.MEETUP;

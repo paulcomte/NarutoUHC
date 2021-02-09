@@ -66,8 +66,7 @@ public abstract class MGameStatus {
     private static void showWin(Setup setup, Team winners) {
         setup.getGame().setGameState(GameState.GAME_FINISHED);
         for (TDeath death : EPlayerActions.deaths)
-            if (death != null)
-                death.onDeath();
+            death.onDeath();
         ServerPing.currentPing = Pings.FINISHED;
         Bukkit.broadcastMessage(Messages.SEPARATORS);
 

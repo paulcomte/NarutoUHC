@@ -45,6 +45,7 @@ public class TDeath extends BukkitRunnable {
         }
 
         if (gamePlayer == null || !gamePlayer.isDead) {
+            EPlayerActions.deaths.remove(this);
             cancel();
             return;
         }

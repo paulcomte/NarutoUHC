@@ -37,7 +37,7 @@ public class Danzo extends RoleInfo {
         if (killed.role == null || player == null)
             return;
 
-        if (killed.role.getRole().equals(Roles.MADARA) || killed.role.getRole().equals(Roles.ITACHI) || killed.role.getRole().equals(Roles.SHISUI)) {
+        if (killed.role.getRole().equals(Roles.MADARA) || killed.role.getRole().equals(Roles.ITACHI) || killed.role.getRole().equals(Roles.SHISUI) || killed.role.getRole().equals(Roles.SASUKE)) {
             maxHealth += 3;
             giveEffects();
             player.sendMessage(Messages.PREFIX + "Vous avez reçu 2.5 coeurs supplémentaires !");
