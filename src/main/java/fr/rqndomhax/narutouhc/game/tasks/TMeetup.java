@@ -20,7 +20,6 @@ public class TMeetup implements Task {
         ServerPing.currentPing = Pings.MEETUP;
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
-        ServerPing.currentPing = Pings.MEETUP;
         loop();
     }
 
