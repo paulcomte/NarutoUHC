@@ -13,24 +13,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class SActions {
 
-    public static void giveScenariosEffect(Set<Scenarios> activatedScenarios, Set<GamePlayer> players) {
+    public static void giveScenariosEffect(Set<Scenarios> activatedScenarios, GamePlayer gamePlayer) {
         if (activatedScenarios.contains(Scenarios.CAT_EYES))
-            giveNightVision(players);
+            giveNightVision(gamePlayer);
     }
 
-    private static void giveNightVision(Set<GamePlayer> players) {
-        for (GamePlayer gamePlayer : players) {
+    private static void giveNightVision(GamePlayer gamePlayer) {
+        if (gamePlayer == null) return;
 
-            if (gamePlayer == null) continue;
-            Player player = Bukkit.getPlayer(gamePlayer.uuid);
-            if (player == null) continue;
+        Player player = Bukkit.getPlayer(gamePlayer.uuid);
 
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000, 0, false, false));
-        }
+        if (player == null) return;
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000, 0, false, false));
     }
-
 }

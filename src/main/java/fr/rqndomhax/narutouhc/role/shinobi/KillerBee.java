@@ -66,7 +66,7 @@ public class KillerBee extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Killer Bee.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet strength 1 et speed 1.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet strength 1.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 épée en diamant.");
         else

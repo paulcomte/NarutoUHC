@@ -50,9 +50,9 @@ public class IHostConfigs {
         for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
         IInfos.placeInvBorders(inventory.getInventory());
 
-        inventory.setItem(4, IInfos.MAIN_HOST_CONFIGS);
+        inventory.setItem(4, new ItemBuilder(IInfos.MAIN_HOST_CONFIGS.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
 
-        ItemStack stand = new ItemBuilder(Material.ARMOR_STAND).setName("").toItemStack();
+        ItemStack stand = new ItemBuilder(Material.ARMOR_STAND).setName(" ").toItemStack();
 
         inventory.setItem(12, stand);
 
@@ -63,30 +63,35 @@ public class IHostConfigs {
         for (Integer i : bars)
             inventory.setItem(i, IInfos.BARS);
 
-
         inventory.setItem(49, IInfos.RETURN_ITEM, e -> {
             player.closeInventory();
             if (GameInfo.gameHost.equals(player.getUniqueId()) || GameInfo.gameCoHost.contains(player.getUniqueId()))
                 player.openInventory(new IHost(setup, player).getInventory());
         });
 
-        inventory.setItem(13, new ItemBuilder(setup.getGame().getCurrentConfig().getLogo().getItem()).setName(setup.getGame().getCurrentConfig().getName()).toItemStack());
-
         inventory.setItem(39, IInfos.HOST_CREATE, e -> {
             MConfig.saveConfig(setup.getGame().getCurrentConfig().copy(), true);
-            updateMainInventory();
+            updateInventory();
         });
 
         inventory.setItem(41, IInfos.HOST_SAVE, e -> {
             MConfig.saveConfig(setup.getGame().getCurrentConfig(), true);
-            updateMainInventory();
+            updateInventory();
         });
 
         updateInventory();
     }
 
     private void updateInventory() {
-        int[] slots = new int[]{19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 35};
+
+        inventory.setItem(13, new ItemBuilder(setup.getGame().getCurrentConfig().getLogo().getItem().clone())
+                .setName(setup.getGame().getCurrentConfig().getName())
+                .setLore(ChatColor.GOLD + "ID: " + setup.getGame().getCurrentConfig().getFilePath().replaceAll("configs/", "").replaceAll(".cfg", ""))
+                .addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1)
+                .hideEnchants()
+                .toItemStack(), updateConfig(setup.getGame().getCurrentConfig()));
+
+        int[] slots = new int[]{19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
 
         inventory.setPageController(pageController -> {
             pageController.setBoard(slots);
@@ -112,7 +117,10 @@ public class IHostConfigs {
             if (setup.getGame().getCurrentConfig() != null && setup.getGame().getCurrentConfig().equals(config))
                 continue;
 
-            items.add(new RInventoryData(new ItemBuilder(config.getLogo().getItem()).setName(config.getName()).toItemStack(), updateConfig(config)));
+            items.add(new RInventoryData(new ItemBuilder(config.getLogo().getItem().clone())
+                    .setName(config.getName())
+                    .setLore(ChatColor.GOLD + "ID: " + config.getFilePath().replaceAll("configs/", "").replaceAll(".cfg", ""))
+                    .toItemStack(), updateConfig(config)));
         }
         return items;
     }
@@ -121,13 +129,13 @@ public class IHostConfigs {
         return e -> {
             if (e.getClick().equals(ClickType.CONTROL_DROP)) {
                 MConfig.deleteConfig(config);
-                updateMainInventory();
+                updateInventory();
                 return;
             }
 
             if (e.getClick().equals(ClickType.LEFT)) {
                 setup.getGame().setCurrentConfig(config);
-                updateMainInventory();
+                updateInventory();
                 return;
             }
 

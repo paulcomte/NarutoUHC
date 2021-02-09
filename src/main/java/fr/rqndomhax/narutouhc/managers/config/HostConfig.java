@@ -50,6 +50,11 @@ public class HostConfig {
     }
 
     public HostConfig copy() {
-        return new HostConfig(rules, name + " - Copy", logo, "configs/" + UUID.randomUUID().toString().substring(0, 8) + ".cfg");
+        ConfigLogos newLogo = logo;
+
+        if (newLogo.equals(ConfigLogos.DEFAULT))
+            newLogo = ConfigLogos.APPLE;
+
+        return new HostConfig(rules, name + " copy", newLogo, "configs/" + UUID.randomUUID().toString().substring(0, 8) + ".cfg");
     }
 }

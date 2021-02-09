@@ -47,7 +47,12 @@ public class TMain extends BukkitRunnable {
     public void run() {
 
         if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED)) {
-            cancel();
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    this.cancel();
+                }
+            }.runTaskLater(setup.getMain(), 25);
             return;
         }
 

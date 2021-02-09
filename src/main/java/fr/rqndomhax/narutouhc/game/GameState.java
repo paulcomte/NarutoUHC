@@ -18,14 +18,4 @@ public enum GameState {
     GAME_BORDER,
     GAME_MEETUP,
     GAME_FINISHED;
-
-    public GameState nextGameState() {
-        GameState last = null;
-        for (GameState gameState : GameState.values()) {
-            if (last == this)
-                return gameState;
-            last = gameState;
-        }
-        return LOADING;
-    }
 }

@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.tasks.role.solos.TDanzo;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -28,6 +29,20 @@ public class Danzo extends RoleInfo {
 
     public Danzo(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.DANZO);
+    }
+
+    @Override
+    public void onKill(GamePlayer killed) {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (killed.role == null || player == null)
+            return;
+
+        if (killed.role.getRole().equals(Roles.MADARA) || killed.role.getRole().equals(Roles.ITACHI) || killed.role.getRole().equals(Roles.SHISUI)) {
+            maxHealth += 3;
+            giveEffects();
+            player.sendMessage(Messages.PREFIX + "Vous avez reçu 2.5 coeurs supplémentaires !");
+        }
+
     }
 
     @Override

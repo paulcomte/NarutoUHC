@@ -22,7 +22,7 @@ public class HostConfigBuilder {
 
     private final GameRules gameRules = new GameRules();
     private String name = "Default";
-    private ConfigLogos logo = ConfigLogos.DEFAULT;
+    private ConfigLogos logo = ConfigLogos.XP;
 
     public HostConfigBuilder setConfigName(String name) {
         if (name != null)

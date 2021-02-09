@@ -14,8 +14,7 @@ public class Chrono {
         int h = (int) (tempsS / 3600);
         int m = (int) ((tempsS % 3600) / 60);
         int s = (int) (tempsS % 60);
-        Integer[] i = {h,m,s};
-        return i;
+        return new Integer[]{h,m,s};
     }
 
     public static String timeToString(long tempsS) {
@@ -26,7 +25,7 @@ public class Chrono {
         int m = i[1];
         int s = i[2];
 
-        StringBuilder r= new StringBuilder();
+        StringBuilder r = new StringBuilder();
 
         if(h>0) r.append(h + "h ");
         if(m>0) r.append(m + "min ");

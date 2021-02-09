@@ -40,17 +40,19 @@ public class IHostIcons {
         for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
         IInfos.placeInvBorders(inventory.getInventory());
 
-        inventory.setItem(4, new ItemBuilder(IInfos.HOST_ICONS).setName(selected.getName()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        inventory.setItem(4, new ItemBuilder(IInfos.HOST_ICONS.clone()).setName(selected.getName()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
 
         int[] bars = new int[]{3, 5, 48, 50};
 
         for (Integer i : bars)
             inventory.setItem(i, IInfos.BARS);
 
-        int[] icons = new int[]{19, 20, 21, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
+        int[] icons = new int[]{19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
         int n = 0;
 
         for (ConfigLogos logo : ConfigLogos.values()) {
+            if (logo.equals(ConfigLogos.DEFAULT))
+                continue;
             if (selected.getLogo().equals(logo))
                 inventory.setItem(icons[n], new ItemBuilder(selected.getLogo().getItem().clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), selectLogo(logo));
             else

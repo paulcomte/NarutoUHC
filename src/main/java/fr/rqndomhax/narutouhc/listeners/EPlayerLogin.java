@@ -8,13 +8,10 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.game.Game;
-import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.*;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -54,12 +51,12 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameRules().hasWhitelist && !GameInfo.whitelistedPlayers.contains(e.getPlayer().getUniqueId())) {
+        if (setup.getGame().getGameRules().hasWhitelist && !GameInfo.whitelistedPlayers.contains(e.getPlayer().getUniqueId()) && !e.getPlayer().isOp()) {
             e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
             return;
         }
 
-        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) && (setup.getGame().getGamePlayers().size() == setup.getGame().getGameRules().activatedRoles.size())) {
+        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) && (setup.getGame().getGamePlayers().size() == setup.getGame().getGameRules().activatedRoles.size()) && !e.getPlayer().isOp()) {
             e.disallow(PlayerLoginEvent.Result.KICK_FULL, Messages.FULL);
             return;
         }
@@ -131,6 +128,8 @@ public class EPlayerLogin implements Listener {
             MVillagers.deleteVillager(villager);
             e.getPlayer().teleport(location);
         }
+
+        SActions.giveScenariosEffect(setup.getGame().getGameRules().activatedScenarios, gamePlayer);
     }
 
     @EventHandler

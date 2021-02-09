@@ -43,7 +43,7 @@ public class RGai implements Listener {
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
-        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
+        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null)
             return;
 
         RoleInfo tmp = gamePlayer.role;
@@ -53,9 +53,7 @@ public class RGai implements Listener {
         if (!(tmp instanceof Gai))
             return;
 
-        Gai role = (Gai) tmp;
-
-        if (e.getItemInHand() == null || !e.getItemInHand().hasItemMeta() || !e.getItemInHand().getItemMeta().hasDisplayName() || !e.getItemInHand().getType().equals(role.item.getType()) || !e.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(role.item.getItemMeta().getDisplayName())) {
+        if (!e.getItemInHand().equals(((Gai) tmp).item)) {
             return;
         }
 

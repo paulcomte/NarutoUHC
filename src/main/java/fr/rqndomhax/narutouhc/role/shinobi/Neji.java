@@ -83,7 +83,6 @@ public class Neji extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous êtes Neji.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Deux fois, vous aurez la possibilité d'utiliser La commande /na neji");
-        player.sendMessage(ChatColor.BLUE + "Deux fois, vous aurez la possibilité d'utiliser La commande /na neji");
         player.sendMessage(ChatColor.BLUE + "Vous pourrez voir si le rôle d'un joueur autour de vous dans un rayon de 10 blocks, est suspect ou gentil.");
         player.sendMessage(ChatColor.BLUE + "Vous devrez rester dans un rayon de 10 blocks avec le joueur pour une durée de 10 secondes."); // TODO FIX NEJI
     }

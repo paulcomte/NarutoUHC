@@ -39,8 +39,6 @@ public class TStart implements Task {
         for (Player player : Bukkit.getOnlinePlayers())
             player.setLevel(remainingTime);
 
-        if (remainingTime == 10)
-
         switch(remainingTime){
             case 10:
                 for (Player player : Bukkit.getOnlinePlayers()) {

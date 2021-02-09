@@ -36,7 +36,7 @@ public abstract class MConfig {
 
         manager = fileManager;
 
-        saveConfig(new HostConfig(new GameRules(), "Default Configuration", ConfigLogos.DEFAULT, "configs/default.cfg"), true);
+        saveConfig(new HostConfig(new GameRules(), "Default Configuration", ConfigLogos.XP, "configs/default.cfg"), true);
 
         File[] entries = dataFolder.listFiles();
 
@@ -152,7 +152,7 @@ public abstract class MConfig {
     public static void saveConfig(HostConfig config, boolean save) {
         if (manager == null || config == null)
             return;
-        if (!configurations.contains(config))
+        if (!configurations.contains(config) && save)
             configurations.add(config);
 
         FileManager.Config configuration = manager.getConfig(config.getFilePath());
@@ -167,6 +167,7 @@ public abstract class MConfig {
         configuration.set("border.timeBeforeResize", config.getRules().gameBorder.timeBeforeResize);
 
         configuration.set("config.showDeathMessages", config.getRules().showDeathMessages);
+        configuration.set("config.showRolesOnDeaths", config.getRules().showRoleOnDeath);
         configuration.set("config.allowSpectators", config.getRules().allowSpectators);
         configuration.set("config.allowSpectatorsAfterBorder", config.getRules().spectatorsAfterBorder);
         configuration.set("config.activateWhitelist", config.getRules().hasWhitelist);
@@ -201,8 +202,7 @@ public abstract class MConfig {
         configuration.set("timers.narutoTeleportingDuration", config.getRules().narutoTeleportingDuration);
         configuration.set("timers.timerBeforeDeath", config.getRules().timeBeforeDeath);
 
-        if (save)
-            configuration.save();
+        configuration.save();
     }
 
 }

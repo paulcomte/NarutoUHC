@@ -44,10 +44,12 @@ public abstract class GameScoreboard {
         GameState state = setup.getGame().getGameState();
 
         switch (state) {
+            case GAME_FINISHED:
+                GameScoreboardManager.updateGameFinishedBoard(setup, board);
+                break;
             case GAME_TELEPORTATION_INVINCIBILITY:
             case GAME_BORDER:
             case GAME_MEETUP:
-            case GAME_FINISHED:
                 if (setup.getGame().getMainTask() == null)
                     GameScoreboardManager.updateLobbyBoard(setup, board);
                 else
@@ -66,7 +68,6 @@ public abstract class GameScoreboard {
                 GameScoreboardManager.updateLobbyBoard(setup, board);
                 break;
         }
-
 
     }
 

@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -41,7 +42,12 @@ public class IHostEditConfig {
         for (int i = 0 ; i < inventory.getInventory().getSize() ; inventory.setItem(i, null), i++);
         IInfos.placeInvBorders(inventory.getInventory());
 
-        inventory.setItem(4, new ItemBuilder(selected.getLogo().getItem()).setName(selected.getName()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        inventory.setItem(4, new ItemBuilder(selected.getLogo().getItem().clone())
+                .setName(selected.getName())
+                .setLore(ChatColor.GOLD + "ID: " + selected.getFilePath().replaceAll("configs/", "").replaceAll(".cfg", ""))
+                .addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1)
+                .hideEnchants()
+                .toItemStack());
 
         int[] bars = new int[]{3, 5, 48, 50};
 
@@ -53,7 +59,7 @@ public class IHostEditConfig {
         });
 
         inventory.setItem(20, IInfos.HOST_RENAME);
-        inventory.setItem(25, IInfos.HOST_ICONS, updateIcon());
+        inventory.setItem(24, IInfos.HOST_ICONS, updateIcon());
         inventory.setItem(31, IInfos.HOST_DELETE, delete());
     }
 

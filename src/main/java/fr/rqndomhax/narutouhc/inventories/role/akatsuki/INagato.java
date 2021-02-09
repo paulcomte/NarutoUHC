@@ -77,6 +77,7 @@ public class INagato extends RInventory {
             selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
             InventoryManager.giveInventory(items, selectedPlayer);
             selectedPlayer.setGameMode(GameMode.SURVIVAL);
+            MGameActions.teleportToRandomLocation(player.getWorld());
             selected.role.giveEffects();
             // TODO REVIVE MESSAGE
         };

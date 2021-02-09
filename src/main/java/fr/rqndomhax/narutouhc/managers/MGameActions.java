@@ -64,6 +64,7 @@ public abstract class MGameActions {
     public static void giveStartInventory(Setup setup) {
         for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
             Player player = Bukkit.getPlayer(gamePlayer.uuid);
+            SActions.giveScenariosEffect(setup.getGame().getGameRules().activatedScenarios, gamePlayer);
 
             if (player != null)
                 InventoryManager.giveInventory(setup.getGame().getGameRules().startInventory, player);

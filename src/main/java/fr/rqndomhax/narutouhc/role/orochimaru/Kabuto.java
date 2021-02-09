@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role.orochimaru;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IKabuto;
 import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
@@ -19,6 +20,8 @@ import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
 import java.util.List;
@@ -66,7 +69,7 @@ public class Kabuto extends RoleInfo {
         int size = 0;
         int inventory_size = 1;
 
-        for (GamePlayer gamePlayer : players) {
+        for (GamePlayer ignored : players) {
             if (size == 9) {
                 inventory_size++;
                 size = 0;
@@ -74,9 +77,17 @@ public class Kabuto extends RoleInfo {
             size++;
         }
 
-        player.openInventory(new IOrochimaru(setup, player, players, inventory_size*9).getInventory());
+        player.openInventory(new IKabuto(setup, player, players, inventory_size*9).getInventory());
 
         hasUsedCapacity = true;
+    }
+
+    @Override
+    public void giveEffects() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null) return;
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
     }
 
     @Override
