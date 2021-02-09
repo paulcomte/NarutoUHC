@@ -42,6 +42,8 @@ public class Deidara extends Akatsuki {
         Set<GamePlayer> players = new HashSet<>();
 
         for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
+            if (gamePlayer.equals(getGamePlayer()))
+                continue;
 
             if (gamePlayer.isDead)
                 continue;

@@ -22,7 +22,8 @@ public class HostConfigBuilder {
 
     private final GameRules gameRules = new GameRules();
     private String name = "Default";
-    private ConfigLogos logo = ConfigLogos.XP;
+    private ConfigLogos logo = ConfigLogos.DEFAULT;
+    private String filePath = "configs/" + UUID.randomUUID().toString().substring(0, 8) + ".cfg";
 
     public HostConfigBuilder setConfigName(String name) {
         if (name != null)
@@ -33,6 +34,12 @@ public class HostConfigBuilder {
     public HostConfigBuilder setConfigLogo(ConfigLogos logo) {
         if (logo != null)
             this.logo = logo;
+        return this;
+    }
+
+    public HostConfigBuilder setConfigFilePath(String filePath) {
+        if (filePath != null)
+            this.filePath = filePath;
         return this;
     }
 
@@ -190,8 +197,16 @@ public class HostConfigBuilder {
         return this;
     }
 
+    public void setLogo(ConfigLogos logo) {
+        this.logo = logo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public HostConfig build() {
-        return new HostConfig(gameRules, name, logo, "configs/" + UUID.randomUUID().toString().substring(0, 8) + ".cfg");
+        return new HostConfig(gameRules, name, logo, filePath);
     }
 
 }

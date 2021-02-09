@@ -7,17 +7,21 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Level;
 
 public abstract class MVillagers {
@@ -68,6 +72,40 @@ public abstract class MVillagers {
         player.deathLocation = deathLocation;
         player.isDead = true;
         InventoryManager.dropInventory(player.inventory, deathLocation, true);
+    }
+
+    public static void onBorderKill(Setup setup) {
+        for (Villager villager : MVillagers.disconnectedPlayers.keySet())
+            MVillagers.onKillEvent(villager, null, setup);
+    }
+
+    public static void onKillEvent(Villager villager, GamePlayer killer, Setup setup) {
+
+        GamePlayer player = disconnectedPlayers.get(villager);
+
+        if (player.role != null)
+            player.role.onPrematureDeath(villager.getLocation());
+
+        player.isDead = true;
+        player.deathLocation = villager.getLocation();
+        player.deathLocation.getWorld().strikeLightningEffect(player.deathLocation);
+        Messages.showDeath(player, setup.getGame().getGameRules().showRoleOnDeath);
+        InventoryManager.dropInventory(player.inventory, player.deathLocation, true);
+        MVillagers.disconnectedPlayers.remove(villager);
+
+        if (killer != null) {
+            killer.kills.add(player.uuid);
+
+            if (killer.role != null)
+                killer.role.onKill(player);
+        }
+
+        for (GamePlayer p : setup.getGame().getGamePlayers()) {
+            if (p.isDead || p.role == null)
+                continue;
+
+            p.role.onPlayerDeath(player);
+        }
     }
 
     public static Villager getVillager(GamePlayer player) {

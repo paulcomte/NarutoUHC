@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.role.orochimaru.Orochimaru;
 import fr.rqndomhax.narutouhc.role.shinobi.*;
 import fr.rqndomhax.narutouhc.role.solos.Danzo;
 import fr.rqndomhax.narutouhc.role.solos.Madara;
+import fr.rqndomhax.narutouhc.role.solos.Sasuke;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 public enum Roles {
 
     MADARA("Madara", Team.MADARA, new ItemBuilder(Material.GOLDEN_APPLE).setName("Madara").toItemStack(), Madara.class),
-    //SASUKE("Sasuke", Team.SASUKE, new ItemBuilder(Material.ENDER_PEARL).setName("Sasuke").toItemStack(), Sasuke.class),
+    SASUKE("Sasuke", Team.SASUKE, new ItemBuilder(Material.ENDER_PEARL).setName("Sasuke").toItemStack(), Sasuke.class),
 
     DANZO("Danzo", Team.DANZO, new ItemBuilder(Material.GLOWSTONE).setName("Danzo").toItemStack(), Danzo.class),
 

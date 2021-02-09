@@ -36,26 +36,22 @@ public abstract class MConfig {
 
         manager = fileManager;
 
-        saveConfig(new HostConfig(new GameRules(), "Default Configuration", ConfigLogos.XP, "configs/default.cfg"), true);
+        loadConfigs(dataFolder);
+    }
 
-        File[] entries = dataFolder.listFiles();
+    public static void loadConfigs(File dataFolder) {
+        File[] entries = new File(dataFolder, "configs/").listFiles();
+
+        if (entries == null)
+            return;
 
         for (File entry : entries) {
-            if (entry == null || !entry.exists() || !entry.isDirectory())
+            if (entry == null || !entry.exists() || entry.isDirectory())
                 continue;
-            if (entry.getName().equals("configs")) {
-                File[] files = entry.listFiles();
-                for (File file : files) {
-                    if (file == null || !file.exists() || file.isDirectory())
-                        continue;
-                    if (file.getName().equals("default.cfg"))
-                        continue;
-                    if (file.getName().endsWith(".cfg"))
-                        loadConfig("configs/" + file.getName());
-                }
+            if (entry.getName().endsWith(".cfg") && configurations.stream().noneMatch(c -> c.getFilePath().equals("configs/" + entry.getName())))
+                loadConfig("configs/" + entry.getName());
             }
         }
-    }
 
     public static HostConfig loadConfig(String path) {
         if (path == null || manager == null)
@@ -70,7 +66,7 @@ public abstract class MConfig {
         configBuilder.setConfigName(config.getString("configName"));
         tmp = config.getString("configLogo");
         configBuilder.setConfigLogo(tmp == null ? null : ConfigLogos.valueOf(tmp));
-
+        configBuilder.setConfigFilePath(path);
 
         configBuilder.setBorderDefaultSize(config.getInt("border.defaultSize"));
         configBuilder.setBorderFinalSize(config.getInt("border.finalSize"));

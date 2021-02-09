@@ -72,6 +72,9 @@ public class TabNaruto implements TabCompleter {
             case NAGATO:
                 list.add("nagato");
                 break;
+            case KAKASHI_HATAKE:
+                list.add("kakashi");
+                break;
             /*case OBITO:
                 list.add("obito");
                 break;
@@ -85,10 +88,9 @@ public class TabNaruto implements TabCompleter {
             case DANZO:
                 list.add("danzo");
                 break;
-            /*case SASUKE:
+            case SASUKE:
                 list.add("sasuke");
                 break;
-             */
         }
 
         return list.stream().filter(a -> a.startsWith(args[0])).collect(Collectors.toList());

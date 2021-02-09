@@ -51,7 +51,7 @@ public class THidan extends BukkitRunnable {
         int current = 5*60 - remainingTime;
         int full = 5*60;
 
-        ProgressBar.displayProgressBar("Régénération", Chrono.timeToString(System.currentTimeMillis() + ((full - current) * 1000L)), current, full, player);
+        ProgressBar.displayProgressBar("Régénération", Chrono.timeToString(current), current, full, player);
 
         if (remainingTime == 0) {
             ItemStack[] items = new ItemStack[40];

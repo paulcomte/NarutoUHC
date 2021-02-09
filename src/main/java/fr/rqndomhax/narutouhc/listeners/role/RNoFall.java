@@ -46,7 +46,7 @@ public class RNoFall implements Listener {
         if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if ((tmp instanceof Gaara) || (tmp instanceof Fu) || (tmp instanceof Gai))
+        if ((tmp instanceof Gai && ((Gai) tmp).task != null) || (tmp instanceof Fu) || (tmp instanceof Gaara))
             e.setCancelled(true);
     }
 }

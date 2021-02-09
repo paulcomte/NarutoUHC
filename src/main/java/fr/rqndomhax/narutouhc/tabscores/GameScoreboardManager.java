@@ -44,13 +44,13 @@ public abstract class GameScoreboardManager {
     public static void updateLobbyBoard(Setup setup, FastBoard board) {
         board.updateTitle(setup.getGame().getGameRules().gameTitle);
         int line = -1;
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
         if (GameInfo.gameHost != null)
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_AQUA + "Hôte: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(GameInfo.gameHost).getName());
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_AQUA + "Hôte: " + ChatColor.WHITE + Bukkit.getOfflinePlayer(GameInfo.gameHost).getName());
         else
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_AQUA + "Hôte: " + ChatColor.WHITE + "Aucun");
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().size() + "/" + setup.getGame().getGameRules().activatedRoles.size());
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_AQUA + "Hôte: " + ChatColor.WHITE + "Aucun");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().size() + "/" + setup.getGame().getGameRules().activatedRoles.size());
     }
 
     private static void updatePreparationInfos(Setup setup, FastBoard board, GameRules rules) {
@@ -59,36 +59,35 @@ public abstract class GameScoreboardManager {
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(board.getPlayer().getUniqueId());
 
         board.updateTitle(rules.gameTitle);
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
         if (gamePlayer != null) {
-            if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0)
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
+            if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0 && gamePlayer.role == null)
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
             else {
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
-                pos++;
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
             }
 
-            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
         }
-        TPreparation preparation = (TPreparation) setup.getGame().getMainTask().task;
 
-        if (preparation == null)
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getGameRules().preparationDuration));
-        else
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(preparation.remainingTime));
 
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        if (!(setup.getGame().getMainTask().task instanceof TPreparation))
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getGameRules().preparationDuration));
+        else {
+            TPreparation preparation = (TPreparation) setup.getGame().getMainTask().task;
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(preparation.remainingTime));
+        }
 
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().stream().filter(p -> !p.isDead).count() + "/" + setup.getGame().getGameRules().activatedRoles.size());
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().stream().filter(p -> !p.isDead).count() + "/" + setup.getGame().getGameRules().activatedRoles.size());
 
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, "");
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
 
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
     }
 
     private String updateArrow(Player player, Location target) {
@@ -143,13 +142,7 @@ public abstract class GameScoreboardManager {
     public static void updatePreparationBoard(Setup setup, FastBoard board) {
         GameRules rules = setup.getGame().getGameRules();
 
-        if (pos < 16) {
-            updatePreparationInfos(setup, board, rules);
-            return;
-        }
-
-        if (pages == 0)
-            initPages(setup);
+        updatePreparationInfos(setup, board, rules);
 
     }
 
@@ -160,72 +153,71 @@ public abstract class GameScoreboardManager {
         int line = -1;
 
         board.updateTitle(rules.gameTitle);
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
         if (gamePlayer != null) {
-            if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0)
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
+            if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0 && gamePlayer.role == null)
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
             else {
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
                 pos++;
             }
 
-            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.RED + "Kills: " + ChatColor.WHITE + gamePlayer.kills.size());
-            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.RED + "Kills: " + ChatColor.WHITE + gamePlayer.kills.size());
+            board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
         }
 
-        TBorder border = (TBorder) setup.getGame().getMainTask().task;
+        if (!(setup.getGame().getMainTask().task instanceof TBorder))
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_GREEN + "Bordure: " + ChatColor.WHITE + format.format(Bukkit.getWorld(GameInfo.currentMap.name()).getWorldBorder().getSize()));
+        else {
+            TBorder border = (TBorder) setup.getGame().getMainTask().task;
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.AQUA + "Bordure: " + ChatColor.WHITE + Chrono.timeToString(border.remainingTime));
+        }
 
-        if (border == null)
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_GREEN + "Bordure: " + ChatColor.WHITE + Bukkit.getWorld(GameInfo.currentMap.name()).getWorldBorder().getSize());
-        else
-            board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.AQUA + "Bordure: " + ChatColor.WHITE + Chrono.timeToString(border.remainingTime));
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().stream().filter(p -> !p.isDead).count() + "/" + setup.getGame().getGameRules().activatedRoles.size());
 
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.GREEN + "Joueurs: " + ChatColor.WHITE + setup.getGame().getGamePlayers().stream().filter(p -> !p.isDead).count() + "/" + setup.getGame().getGameRules().activatedRoles.size());
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_AQUA + "Groupes: " + ChatColor.WHITE + getGroupSize(setup));
 
-        board.updateLine(++line, "");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_AQUA + "Groupes: " + ChatColor.WHITE + getGroupSize(setup));
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
 
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
-
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
-
-        board.updateLine(++line, "");
-
-        board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
     }
 
     public static void updateGameFinishedBoard(Setup setup, FastBoard board) {
 
         board.updateTitle(setup.getGame().getGameRules().gameTitle);
+        for (int i = 0; i < board.size(); board.removeLine(i), i++);
 
         int line = -1;
 
-        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "               ");
+        board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
         switch (MGameStatus.winners) {
             case SHINOBI:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire de " + ChatColor.YELLOW + ChatColor.BOLD + "l'alliance Shinobi");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.YELLOW + ChatColor.BOLD + " Shinobi");
                 break;
             case AKATSUKI:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire de " + ChatColor.YELLOW + ChatColor.BOLD + "l'Akatsuki");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.YELLOW + ChatColor.BOLD + "Akatsuki");
                 break;
             case OROCHIMARU:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire du " + ChatColor.YELLOW + ChatColor.BOLD + "camp Orochimaru");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.YELLOW + ChatColor.BOLD + "Orochimaru");
                 break;
             case DANZO:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire de " + ChatColor.DARK_RED + ChatColor.BOLD + "Danzo");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.DARK_RED + ChatColor.BOLD + "Danzo");
                 break;
             case MADARA:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire de " + ChatColor.DARK_RED + ChatColor.BOLD + "Madara");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.DARK_RED + ChatColor.BOLD + "Madara");
                 break;
             case SASUKE:
-                board.updateLine(++line, ChatColor.YELLOW + "⦿ " + ChatColor.YELLOW + "Victoire de " + ChatColor.DARK_RED + ChatColor.BOLD + "Sasuke");
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.DARK_RED + ChatColor.BOLD + "Sasuke");
                 break;
+            default:
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.YELLOW + "Victoire " + ChatColor.LIGHT_PURPLE + ChatColor.BOLD + "Personne");
         }
     }
 

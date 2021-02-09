@@ -12,15 +12,18 @@ import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
+import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.PageController;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryData;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -28,6 +31,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -113,6 +117,7 @@ public class IHostConfigs {
     private List<RInventoryData> generateBoard() {
         List<RInventoryData> items = new ArrayList<>();
 
+        MConfig.loadConfigs(setup.getMain().getDataFolder());
         for (HostConfig config : MConfig.configurations) {
             if (setup.getGame().getCurrentConfig() != null && setup.getGame().getCurrentConfig().equals(config))
                 continue;
@@ -127,6 +132,12 @@ public class IHostConfigs {
 
     private Consumer<InventoryClickEvent> updateConfig(HostConfig config) {
         return e -> {
+            if (config.getLogo().equals(ConfigLogos.DEFAULT) && !e.getClick().equals(ClickType.LEFT)) {
+                player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
+                player.sendMessage(Messages.PREFIX + "Vous ne pouvez editer la configuration par défaut !");
+                return;
+            }
+
             if (e.getClick().equals(ClickType.CONTROL_DROP)) {
                 MConfig.deleteConfig(config);
                 updateInventory();

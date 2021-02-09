@@ -53,7 +53,7 @@ public class Neji extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 10*10)
+            if (DistanceRadius.getRadius(p.getLocation(), player.getLocation()) <= 10*10)
                 players.add(gamePlayer);
         }
 

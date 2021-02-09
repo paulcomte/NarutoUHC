@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.tasks;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
@@ -57,7 +58,7 @@ public class TDeath extends BukkitRunnable {
         timeLeft--;
     }
 
-    private void onDeath() {
+    public void onDeath() {
         if (gamePlayer.role != null)
             gamePlayer.role.onDeath(setup);
         Messages.showDeath(gamePlayer, setup.getGame().getGameRules().showRoleOnDeath);
@@ -82,6 +83,7 @@ public class TDeath extends BukkitRunnable {
 
             p.role.onPlayerDeath(gamePlayer);
         }
+        EPlayerActions.deaths.remove(this);
         cancel();
     }
 

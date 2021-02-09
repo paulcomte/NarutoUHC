@@ -44,6 +44,7 @@ public class GameRole {
                     player.role = (RoleInfo) role.getRoleInfo().getDeclaredConstructors()[0].newInstance(player);
                     player.role.onDesc();
                     player.role.giveEffects();
+                    player.role.onTeam();
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }

@@ -26,9 +26,14 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class EPlayerActions implements Listener {
 
     private final Setup setup;
+
+    public static final Set<TDeath> deaths = new HashSet<>();
 
     public EPlayerActions(Setup setup) {
         this.setup = setup;
@@ -57,34 +62,19 @@ public class EPlayerActions implements Listener {
         if (player == null)
             return;
 
-        if (player.role != null)
-            player.role.onPrematureDeath(villager.getLocation());
-
-        player.isDead = true;
-        player.deathLocation = villager.getLocation();
-        player.deathLocation.getWorld().strikeLightningEffect(player.deathLocation);
-        Messages.showDeath(player, setup.getGame().getGameRules().showRoleOnDeath);
-        InventoryManager.dropInventory(player.inventory, player.deathLocation, true);
-        MVillagers.disconnectedPlayers.remove(villager);
-
-        if (villager.getKiller() != null) {
-            GamePlayer killer = setup.getGame().getGamePlayer(villager.getKiller().getUniqueId());
-
-            if (killer == null)
-                return;
-
-            killer.kills.add(player.uuid);
-
-            if (killer.role != null)
-                killer.role.onKill(player);
+        if (villager.getKiller() == null) {
+            MVillagers.onKillEvent(villager, null, setup);
+            return;
         }
 
-        for (GamePlayer p : setup.getGame().getGamePlayers()) {
-            if (p.isDead || p.role == null)
-                continue;
+        GamePlayer killer = setup.getGame().getGamePlayer(villager.getKiller().getUniqueId());
 
-            p.role.onPlayerDeath(player);
+        if (killer == null) {
+            MVillagers.onKillEvent(villager, null, setup);
+            return;
         }
+
+        MVillagers.onKillEvent(villager, killer, setup);
     }
 
     @EventHandler
@@ -125,11 +115,14 @@ public class EPlayerActions implements Listener {
         InventoryManager.saveInventory(gamePlayer.inventory, player, true);
         gamePlayer.isDead = true;
 
-        if (player.getKiller() != null)
-            new TDeath(setup, gamePlayer, setup.getGame().getGamePlayer(player.getKiller().getUniqueId()), setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
-        else
-            new TDeath(setup, gamePlayer, null, setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
+        TDeath death;
 
+        if (player.getKiller() != null)
+            death = new TDeath(setup, gamePlayer, setup.getGame().getGamePlayer(player.getKiller().getUniqueId()), setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
+        else
+            death = new TDeath(setup, gamePlayer, null, setup.getGame().getGameRules().timeBeforeDeath, e.getDroppedExp());
+
+        deaths.add(death);
         e.getDrops().clear();
         e.setDroppedExp(0);
     }

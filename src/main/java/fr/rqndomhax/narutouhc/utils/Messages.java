@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender;
 public abstract class Messages {
 
     public static String PREFIX = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC ❙ " + ChatColor.RESET;
-    public static String SEPARATORS = ChatColor.BLACK + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         " + ChatColor.BLACK + "[Naruto " + ChatColor.GOLD + "UHC" + ChatColor.BLACK + "]" + ChatColor.BLACK + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         ";
+    public static String SEPARATORS = ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         " + ChatColor.DARK_GRAY + "[" + ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC" + ChatColor.DARK_GRAY + "]" + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "                         ";
 
     public static String PLUGIN_INIT_STARTED = "[Naruto UHC] PLUGIN INITIALIZING !";
     public static String PLUGIN_CREATING_WORLDS = "[Naruto UHC] LOADING WORLDS !";
@@ -128,6 +128,7 @@ public abstract class Messages {
     public static String HOST_PROMOTED = PREFIX + "Vous êtes maintenant un co-hôte !";
 
     public static String ROLE_CAPACITY = PREFIX + "Vous pouvez de nouveau utiliser votre capacité spéciale";
+    public static String ROLE_CLAIM = PREFIX + "Vous avez accès à votre /na claim";
     public static String NO_ROLE = PREFIX + "Vous ne possédez pas de rôle !";
     public static String NOT_YOUR_ROLE = PREFIX + "Cette commande n'appartient pas à votre rôle !";
     public static String ROLES_NOT_GAVE = PREFIX + "Les rôles n'ont pas été encore attribués !";

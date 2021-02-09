@@ -31,7 +31,7 @@ public class Game {
     private final Set<GamePlayer> gamePlayers = new HashSet<>();
 
     public Game createGame() {
-        currentConfig = new HostConfig(new GameRules(), "Default", ConfigLogos.XP, "default.cfg");
+        currentConfig = new HostConfig(new GameRules(), "Default", ConfigLogos.DEFAULT, "default.cfg");
 
         gameRole = new GameRole(this);
         return this;

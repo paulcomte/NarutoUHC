@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.tasks.role.shinobi.TGai;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ import java.util.Objects;
 public class Gai extends RoleInfo {
 
     public final ItemStack item = new ItemBuilder(Material.IRON_DOOR).setName(ChatColor.DARK_AQUA + "Huit portes").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
+    public TGai task = null;
 
     public Gai(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.GAI);

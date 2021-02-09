@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -76,15 +77,29 @@ public class CNaruto implements CommandExecutor {
         if (args[0].equalsIgnoreCase("compo")) {
 
             StringBuilder sb = new StringBuilder();
+            boolean hasTeam = false;
+            boolean first = true;
 
-            for (GamePlayer gp : setup.getGame().getGamePlayers()) {
-                if (gp.role == null)
-                    continue;
-                if (gp.isDead)
-                    sb.append(ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName());
-                else
-                    sb.append(gp.role.getRole().getRoleName());
-                sb.append(ChatColor.RESET + "\n");
+            for (Team team : Team.values()) {
+                for (GamePlayer gp : setup.getGame().getGamePlayers()) {
+                    if (gp.role == null || !gp.role.getRole().getTeam().equals(team))
+                        continue;
+
+                    if (!hasTeam && first) {
+                        sb.append(ChatColor.GOLD + team.getTeamName() + "\n");
+                        hasTeam = true;
+                        first = false;
+                    }
+                    else if (!hasTeam && !first) {
+                        sb.append("\n\n" + ChatColor.GOLD + team.getTeamName() + "\n");
+                        hasTeam = true;
+                    }
+                    if (gp.isDead)
+                        sb.append(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName() + " ");
+                    else
+                        sb.append(ChatColor.DARK_GRAY + "" + gp.role.getRole().getRoleName() + " ");
+                }
+                hasTeam = false;
             }
 
             player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
@@ -135,6 +150,16 @@ public class CNaruto implements CommandExecutor {
                 }
                 role.onCommand(setup);
                 return true;
+            case KAKASHI_HATAKE:
+                if (!args[0].equalsIgnoreCase("kakashi")) {
+                    player.sendMessage(Messages.NOT_YOUR_ROLE);
+                    return false;
+                }
+                if (((KakashiHatake) role).stolenRole == null)
+                    role.onDesc();
+                else
+                    ((KakashiHatake) role).stolenRole.onDesc();
+                return true;
             /*case OBITO:
                 if (!args[0].equalsIgnoreCase("obito")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);
@@ -164,14 +189,13 @@ public class CNaruto implements CommandExecutor {
                 }
                 role.onCommand(setup);
                 return true;
-            /*case SASUKE:
+            case SASUKE:
                 if (!args[0].equalsIgnoreCase("sasuke")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);
                     return false;
                 }
                 role.onCommand(setup);
                 return true;
-             */
             default:
                 player.sendMessage(Messages.NOT_YOUR_ROLE);
                 return false;

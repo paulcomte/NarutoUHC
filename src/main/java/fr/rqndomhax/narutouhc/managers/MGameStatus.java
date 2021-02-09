@@ -11,10 +11,12 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.listeners.EPlayerActions;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.tasks.TMain;
+import fr.rqndomhax.narutouhc.tasks.TDeath;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -63,6 +65,9 @@ public abstract class MGameStatus {
 
     private static void showWin(Setup setup, Team winners) {
         setup.getGame().setGameState(GameState.GAME_FINISHED);
+        for (TDeath death : EPlayerActions.deaths)
+            if (death != null)
+                death.onDeath();
         ServerPing.currentPing = Pings.FINISHED;
         Bukkit.broadcastMessage(Messages.SEPARATORS);
 
@@ -96,7 +101,7 @@ public abstract class MGameStatus {
 
             if (gamePlayer.isDead)
                 if (gamePlayer.role != null)
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().name() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
                     Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
             else

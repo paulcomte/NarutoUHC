@@ -66,6 +66,6 @@ public class RGai implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600*20, 1, true, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 600*20, 0, true, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 600*20, 0, true, true));
-        new TGai(setup, gamePlayer);
+        ((Gai) tmp).task = new TGai(setup, gamePlayer);
     }
 }

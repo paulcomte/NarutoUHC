@@ -8,8 +8,10 @@
 package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Villager;
 
 public class TBorder implements Task {
 
@@ -53,6 +55,8 @@ public class TBorder implements Task {
         if (remainingTime == 0) {
             mainTask.getSetup().getGame().getGameRules().gameBorder.resizeBorder();
             Bukkit.broadcastMessage(Messages.WB_BORDER_RESIZING);
+            if (!mainTask.getSetup().getGame().getGameRules().spectatorsAfterBorder)
+                MVillagers.onBorderKill(mainTask.getSetup());
             mainTask.lastTaskFinished = true;
         }
         remainingTime--;

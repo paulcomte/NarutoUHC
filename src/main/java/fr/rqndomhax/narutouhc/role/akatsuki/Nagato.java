@@ -47,7 +47,7 @@ public class Nagato extends Akatsuki {
             if (!gamePlayer.isDead)
                 continue;
 
-            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getTeam() == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
+            if (gamePlayer.role == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
                 return;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
@@ -61,7 +61,7 @@ public class Nagato extends Akatsuki {
         int size = 0;
         int inventory_size = 1;
 
-        for (GamePlayer gamePlayer : players) {
+        for (GamePlayer ignored : players) {
             if (size == 9) {
                 inventory_size++;
                 size = 0;

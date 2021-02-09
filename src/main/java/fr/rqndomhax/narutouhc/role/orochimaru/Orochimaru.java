@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class Orochimaru extends RoleInfo {
 
-    boolean hasUsedCapacity = true;
+    boolean hasUsedCapacity = false;
 
     public Orochimaru(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.OROCHIMARU);
@@ -50,25 +50,22 @@ public class Orochimaru extends RoleInfo {
             if (gamePlayer.equals(getGamePlayer()))
                 continue;
 
-            if (!gamePlayer.isDead)
+            if (gamePlayer.isDead)
                 continue;
-
-            if (gamePlayer.role == null || gamePlayer.role.getRole() == null || gamePlayer.role.getRole().getTeam() == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
-                return;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(p.getLocation(), p.getLocation()) <= 50*50)
+            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 
         int size = 0;
         int inventory_size = 1;
 
-        for (GamePlayer gamePlayer : players) {
+        for (GamePlayer ignored : players) {
             if (size == 9) {
                 inventory_size++;
                 size = 0;

@@ -24,7 +24,6 @@ public abstract class ProgressBar {
     public static void displayProgressBar(String prefix, String end, int current, int full, Player player) {
         if (player == null)
             return;
-
         StringBuilder text = new StringBuilder();
 
         text.append(ChatColor.GRAY);

@@ -46,16 +46,6 @@ public class TMain extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED)) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    this.cancel();
-                }
-            }.runTaskLater(setup.getMain(), 25);
-            return;
-        }
-
         TUtils.checkEpisode(this);
         if (!hasRoles)
             TUtils.checkRoles(this);

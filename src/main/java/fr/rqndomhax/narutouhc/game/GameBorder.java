@@ -9,9 +9,11 @@ package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
+import org.bukkit.entity.Villager;
 
 public class GameBorder {
 
