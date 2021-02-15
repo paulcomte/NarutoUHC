@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
@@ -182,12 +183,29 @@ public class CNaruto implements CommandExecutor {
         boolean first = true;
         boolean hasSolos = false;
 
+        StringBuilder solo = new StringBuilder();
+
+        solo.append(ChatColor.GOLD + "Solos\n");
+
+        for (GamePlayer gp : setup.getGame().getGamePlayers()) {
+            if (gp.role == null || gp.role.getRole().getTeam() == null)
+                continue;
+
+            if (!gp.role.getRole().equals(Roles.DANZO) && !gp.role.getRole().equals(Roles.MADARA) && !gp.role.getRole().equals(Roles.SASUKE))
+                continue;
+
+            hasSolos = true;
+
+            if (gp.isDead)
+                solo.append(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName() + " ");
+            else
+                solo.append(ChatColor.DARK_GRAY + "" + gp.role.getRole().getRoleName() + " ");
+        }
+
         for (Team team : Team.values()) {
 
-            if (team.getTeamName().equalsIgnoreCase(Team.DANZO.getTeamName()))
-                if (hasSolos)
-                    continue;
-            hasSolos = true;
+            if (team.equals(Team.DANZO) || team.equals(Team.MADARA) || team.equals(Team.SASUKE))
+                continue;
 
             for (GamePlayer gp : setup.getGame().getGamePlayers()) {
                 if (gp.role == null || !gp.role.getRole().getTeam().getTeamName().equals(team.getTeamName()))
@@ -211,6 +229,11 @@ public class CNaruto implements CommandExecutor {
         }
 
         player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
+        if (hasSolos) {
+            if (!first)
+                sb.append("\n");
+            sb.append(solo.toString());
+        }
         player.sendMessage(sb.toString());
         return true;
     }

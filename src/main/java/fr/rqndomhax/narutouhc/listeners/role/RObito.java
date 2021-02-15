@@ -154,8 +154,6 @@ public class RObito implements Listener {
 
     @EventHandler
     public void onItem(PlayerInteractEvent e) {
-        if (e.isCancelled())
-            return;
 
         if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.OBITO))
             return;
@@ -183,7 +181,7 @@ public class RObito implements Listener {
         if (!player.getItemInHand().equals(((Obito) tmp).item))
             return;
 
-        if (((Obito) tmp).hasUsedCapacity || ((Obito) tmp).task != null) {
+        if (((Obito) tmp).hasUsedCapacity) {
             player.sendMessage(Messages.ROLE_NO_MORE_USES);
             return;
         }
@@ -197,6 +195,10 @@ public class RObito implements Listener {
             onlinePlayer.hidePlayer(player);
         }
         ParticleEffect.SMOKE_LARGE.display(player.getLocation());
+
+        if (((Obito) tmp).task != null)
+            ((Obito) tmp).task.cancel();
+
         ((Obito) tmp).task = new TObito(setup, gamePlayer);
     }
 }

@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -65,21 +66,18 @@ public class INagato extends RInventory {
             player.closeInventory();
             nagato.hasUsedCapacity = true;
             // TODO SEND CONFIRMATION MESSAGE
-            selected.isDead = false;
-            ItemStack[] items = new ItemStack[40];
-            items[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
-            items[1] = new ItemStack(Material.GOLDEN_APPLE);
-            items[2] = new ItemStack(Material.COOKED_BEEF, 64);
-            items[3] = new ItemStack(Material.WATER_BUCKET);
-            items[36] = new ItemBuilder(Material.IRON_HELMET).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            items[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            items[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            items[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            selectedPlayer.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
-            InventoryManager.giveInventory(items, selectedPlayer);
-            selectedPlayer.setGameMode(GameMode.SURVIVAL);
-            MGameActions.teleportToRandomLocation(player.getWorld());
-            selected.role.giveEffects();
+            ItemStack[] inventory = new ItemStack[40];
+            inventory[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
+            inventory[1] = new ItemStack(Material.GOLDEN_APPLE);
+            inventory[2] = new ItemStack(Material.COOKED_BEEF, 64);
+            inventory[3] = new ItemStack(Material.WATER_BUCKET);
+            inventory[4] = new ItemStack(Material.COBBLESTONE, 64);
+            inventory[5] = new ItemStack(Material.COBBLESTONE, 64);
+            inventory[36] = new ItemBuilder(Material.IRON_HELMET).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
+            inventory[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
+            inventory[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
+            inventory[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
+            PlayerManager.revive(selectedPlayer, selected, inventory);
             // TODO REVIVE MESSAGE
         };
     }

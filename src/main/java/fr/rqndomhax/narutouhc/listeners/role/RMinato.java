@@ -76,6 +76,7 @@ public class RMinato implements Listener {
 
         if (lastArrow >= -20) {
             player.sendMessage(Messages.ROLE_ITEM_COOLDOWN.replace("%time%", Chrono.timeToString(20 - Math.abs(lastArrow))));
+            e.setCancelled(true);
             return;
         }
         role.lastArrow = System.currentTimeMillis();

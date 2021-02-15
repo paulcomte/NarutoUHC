@@ -121,6 +121,9 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
+        if (gamePlayer.role != null)
+            gamePlayer.role.giveEffects();
+
         Villager villager = MVillagers.getVillager(gamePlayer);
 
         if (villager != null) {

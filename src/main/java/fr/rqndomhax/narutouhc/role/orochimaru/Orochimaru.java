@@ -84,6 +84,7 @@ public class Orochimaru extends RoleInfo {
         if (player == null) return;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1000000, 0, false, false));
     }
 
     @Override
@@ -95,7 +96,7 @@ public class Orochimaru extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Orochimaru.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec le camp de votre nom.");
-        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1 et resistance 1.");
         player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na orochimaru.");
         player.sendMessage(ChatColor.BLUE + "Vous pourrez donner un effet de poison 2 pendant 7 secondes à un joueur se trouvant dans un rayon de 50 blocks autour de vous.");
     }
@@ -115,22 +116,6 @@ public class Orochimaru extends RoleInfo {
         if (player == null)
             return;
 
-        List<GamePlayer> gamePlayers = MGamePublicRoles.orochimarus.get(getGamePlayer());
-
-        if (gamePlayers == null)
-            return;
-
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : gamePlayers) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(Messages.SEPARATORS);
-        player.sendMessage(sb.toString());
+        Messages.showList(player, MGamePublicRoles.orochimarus);
     }
 }

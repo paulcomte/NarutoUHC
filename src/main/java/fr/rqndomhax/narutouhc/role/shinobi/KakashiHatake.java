@@ -10,7 +10,9 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.solos.Sasuke;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,6 +42,12 @@ public class KakashiHatake extends RoleInfo {
         if (gamePlayer.equals(getGamePlayer()) || gamePlayer.role == null || gamePlayer.role.getRole() == null) return;
         try {
             stolenRole = (RoleInfo) gamePlayer.role.getRole().getRoleInfo().getDeclaredConstructors()[0].newInstance(getGamePlayer());
+            if (stolenRole instanceof Sasuke) {
+                ((Sasuke) stolenRole).selectedTeam = ((Sasuke) gamePlayer.role).selectedTeam;
+                stolenRole.getRole().setTeam(gamePlayer.role.getRole().getTeam());
+            }
+            if (stolenRole instanceof Itachi && MGamePublicRoles.task != null)
+                MGamePublicRoles.task.players.add(getGamePlayer());
             stolenRole.onDesc();
             stolenRole.giveEffects();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

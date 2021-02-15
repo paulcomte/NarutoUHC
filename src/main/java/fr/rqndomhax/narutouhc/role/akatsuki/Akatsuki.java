@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Akatsuki extends RoleInfo {
@@ -27,17 +28,6 @@ public class Akatsuki extends RoleInfo {
         if (player == null)
             return;
 
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : MGamePublicRoles.akatsukis) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(Messages.SEPARATORS);
-        player.sendMessage(sb.toString());
+        Messages.showList(player, MGamePublicRoles.akatsukis);
     }
 }

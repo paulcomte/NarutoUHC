@@ -28,36 +28,12 @@ public class Kakuzu extends Akatsuki {
     }
 
     @Override
-    public void onClaim() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
-
-        if (hasClaimed) {
-            player.sendMessage(Messages.ROLE_NO_ITEMS);
-            return;
-        }
-
-        long nSpace = Arrays.stream(player.getInventory().getContents()).filter(Objects::isNull).count();
-        if (nSpace < 2) {
-            player.sendMessage(Messages.ROLE_ITEMS_NEED_SPACE.replace("%n%", "1").replace("objets", "objet"));
-            return;
-        }
-
-        ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3).toItemStack();
-
-        player.getInventory().addItem(books);
-        player.getInventory().addItem(books);
-        hasClaimed = true;
-        player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
-    }
-
-    @Override
     public void giveEffects() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null)
             return;
 
-        player.setMaxHealth(30);
+        player.setMaxHealth(28);
     }
 
     @Override
@@ -68,10 +44,6 @@ public class Kakuzu extends Akatsuki {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Kakuzu.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage(ChatColor.BLUE + "Vous disposez de 5 coeurs supplémentaires.");
-        if (!hasClaimed)
-            player.sendMessage(ChatColor.GREEN + "/na claim: " + "2 livres protection 3.");
-        else
-            player.sendMessage(ChatColor.RED + "/na claim: " + "2 livres protection 3.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de 4 coeurs supplémentaires.");
     }
 }

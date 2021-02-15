@@ -12,6 +12,8 @@ import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.akatsuki.Kisame;
 import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
 import fr.rqndomhax.narutouhc.role.shinobi.Fu;
+import fr.rqndomhax.narutouhc.role.shinobi.KillerBee;
+import fr.rqndomhax.narutouhc.role.shinobi.Minato;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,11 +34,11 @@ public class CTPNaruto implements CommandExecutor {
         Player player = (Player) sender;
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(player.getUniqueId());
 
-        gamePlayer.role = new Fu(gamePlayer);
-        gamePlayer.role.onRoleGiven(setup);
-        gamePlayer.role.onClaim();
-        gamePlayer.role.onNewEpisode(2);
-        player.getWorld().setPVP(true);
+        //gamePlayer.role = new KillerBee(gamePlayer);
+        //gamePlayer.role.onRoleGiven(setup);
+        //gamePlayer.role.onClaim();
+        //gamePlayer.role.onNewEpisode(2);
+        //player.getWorld().setPVP(true);
         //player.teleport(new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), 0, 120, 0));
         //player.teleport(new Location(Bukkit.getWorld("world"), -228, 151, 228));
         return true;

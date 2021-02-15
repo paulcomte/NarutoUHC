@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
@@ -42,5 +43,14 @@ public class Itachi extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet strength 1.");
         player.sendMessage(ChatColor.BLUE + "Vous êtes un traître de l'Akatsuki, vous disposez donc de leur liste de membre.");
         player.sendMessage(ChatColor.BLUE + "Mais contrairement à eux, vous ne connaîtrez qu'un membre toutes les 20 minutes.");
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        Messages.showList(player, MGamePublicRoles.itachiAkatsukis);
     }
 }

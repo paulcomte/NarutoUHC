@@ -113,6 +113,7 @@ public abstract class MGameStatus {
         }
 
         setup.getGame().removeTask();
+        MGamePublicRoles.stopList();
     }
 
     private static Team winningTeam(Set<GamePlayer> players) {

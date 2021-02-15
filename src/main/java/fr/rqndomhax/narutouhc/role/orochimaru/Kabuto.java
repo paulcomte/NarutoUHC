@@ -30,6 +30,7 @@ import java.util.Set;
 public class Kabuto extends RoleInfo {
 
     boolean hasUsedCapacity = true;
+    boolean isOrochimaruDead = false;
 
     public Kabuto(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.KABUTO);
@@ -80,11 +81,27 @@ public class Kabuto extends RoleInfo {
     }
 
     @Override
+    public void onPlayerDeath(GamePlayer gamePlayer) {
+        if (isOrochimaruDead)
+            return;
+        if (gamePlayer.role == null) return;
+        if (gamePlayer.role.getRole().equals(Roles.OROCHIMARU)) {
+            isOrochimaruDead = true;
+            giveEffects();
+            Player player = Bukkit.getPlayer(gamePlayer.uuid);
+            if (player != null)
+                player.sendMessage(Messages.PREFIX + "Vous avez reçu l'effet resistance d'Orochimaru !");
+        }
+    }
+
+    @Override
     public void giveEffects() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
+        if (isOrochimaruDead)
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1000000, 0, false, false));
     }
 
     @Override
@@ -98,6 +115,7 @@ public class Kabuto extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
         player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na kabuto.");
         player.sendMessage(ChatColor.BLUE + "Vous pourrez donner un effet de wither 2 pendant 5 secondes à un joueur se trouvant dans un rayon de 50 blocks autour de vous.");
+        player.sendMessage(ChatColor.BLUE + "Si Orochimaru vient à mourir, vous récupérerez obtiendrez son effet resistance 1.");
     }
 
     @Override
@@ -115,22 +133,6 @@ public class Kabuto extends RoleInfo {
         if (player == null)
             return;
 
-        List<GamePlayer> gamePlayers = MGamePublicRoles.orochimarus.get(getGamePlayer());
-
-        if (gamePlayers == null)
-            return;
-
-        StringBuilder sb = new StringBuilder();
-
-        for (GamePlayer gamePlayer : gamePlayers) {
-            Player p = Bukkit.getPlayer(gamePlayer.uuid);
-
-            if (p == null)
-                continue;
-            sb.append(p.getName());
-            sb.append("  ");
-        }
-        player.sendMessage(Messages.SEPARATORS);
-        player.sendMessage(sb.toString());
+        Messages.showList(player, MGamePublicRoles.orochimarus);
     }
 }

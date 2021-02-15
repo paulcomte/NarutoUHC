@@ -20,6 +20,7 @@ public class GamePlayer {
     public final UUID uuid;
     public String name;
     public RoleInfo role = null;
+    public boolean isInDead = false;
     public boolean isDead = false;
     public List<UUID> kills = new ArrayList<>();
     public int diamonds = 0;

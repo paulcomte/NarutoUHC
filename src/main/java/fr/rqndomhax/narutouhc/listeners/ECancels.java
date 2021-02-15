@@ -25,6 +25,7 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -62,10 +63,17 @@ public class ECancels implements Listener {
     }
 
     @EventHandler
-    public void onBlockDestroy(BlockExplodeEvent e) {
+    public void onBlockExplode(BlockExplodeEvent e) {
         GameState gameState = setup.getGame().getGameState();
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
             e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent e) {
+        GameState gameState = setup.getGame().getGameState();
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.blockList().clear();
     }
 
     @EventHandler
@@ -117,6 +125,7 @@ public class ECancels implements Listener {
             return;
 
         e.setCancelled(true);
+        System.out.println("in");
         e.getPlayer().sendMessage(Messages.CHAT_DISABLED);
    }
 

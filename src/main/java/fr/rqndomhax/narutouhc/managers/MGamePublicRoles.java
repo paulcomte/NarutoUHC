@@ -20,29 +20,29 @@ public abstract class MGamePublicRoles {
 
     public static final List<GamePlayer> akatsukis = new ArrayList<>();
 
-    public static final HashMap<GamePlayer, List<GamePlayer>> orochimarus = new HashMap<>();
+    public static final List<GamePlayer> itachiAkatsukis = new ArrayList<>();
+
+    public static final List<GamePlayer> orochimarus = new ArrayList<>();
+
+    public static TList task = null;
+
+    public static void stopList() {
+        if (task == null)
+            return;
+
+        task.cancel();
+        task.stopTasks();
+        task = null;
+    }
 
     public static void initAkatsukis(Setup setup) {
-        new TList(setup.getGame().getGamePlayers(), setup.getMain());
+        task = new TList(setup.getGame().getGamePlayers(), setup.getMain());
     }
 
     public static void initOrochimarus(Setup setup) {
-        List<GamePlayer> knownOrochimarus = new ArrayList<>();
-        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
-            if (gamePlayer.role == null || gamePlayer.isDead)
-                continue;
-
+        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers())
             if (gamePlayer.role.getRole().getTeam().equals(Team.OROCHIMARU))
-                knownOrochimarus.add(gamePlayer);
-        }
-
-        for (GamePlayer gamePlayer : knownOrochimarus) {
-            for (GamePlayer orochimaru : knownOrochimarus)
-                if (!orochimaru.equals(gamePlayer)) {
-                    orochimarus.putIfAbsent(gamePlayer, new ArrayList<>());
-                    orochimarus.get(gamePlayer).add(orochimaru);
-                }
-        }
+                orochimarus.add(gamePlayer);
     }
 
 }

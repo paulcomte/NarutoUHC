@@ -37,8 +37,6 @@ public class RKillerBee implements Listener {
 
     @EventHandler
     public void onItemClick(PlayerInteractEvent e) {
-        if (e.isCancelled())
-            return;
 
         if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.KILLER_BEE))
             return;

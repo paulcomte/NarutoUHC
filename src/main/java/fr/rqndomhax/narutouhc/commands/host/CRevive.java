@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -57,20 +58,9 @@ public class CRevive implements CommandExecutor {
         }
 
         Player player = Bukkit.getPlayer(gamePlayer.uuid);
-
-        revive(player, gamePlayer);
+        PlayerManager.revive(player, gamePlayer, gamePlayer.inventory);
         sender.sendMessage(Messages.PLAYER_NOW_RESURRECTED.replace("%player%", player.getName()));
         Bukkit.broadcastMessage(Messages.PLAYER_HAS_BEEN_REVIVED.replace("%player%", player.getName()));
         return true;
-    }
-
-    public void revive(Player player, GamePlayer gamePlayer) {
-        gamePlayer.isDead = false;
-        player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
-        InventoryManager.giveInventory(gamePlayer.inventory, player);
-        if (gamePlayer.role != null && gamePlayer.role.getRole() != null)
-            gamePlayer.role.giveEffects();
-        player.setGameMode(GameMode.SURVIVAL);
-        player.sendMessage(Messages.PLAYER_RESURRECTED);
     }
 }

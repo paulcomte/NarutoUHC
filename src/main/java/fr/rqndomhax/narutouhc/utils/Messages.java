@@ -8,9 +8,13 @@
 package fr.rqndomhax.narutouhc.utils;
 
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public abstract class Messages {
 
@@ -156,6 +160,20 @@ public abstract class Messages {
             Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
                 + ChatColor.BOLD + player.role.getRole().getRoleName());
         Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                         ");
+    }
+
+    public static void showList(Player player, List<GamePlayer> list) {
+        StringBuilder sb = new StringBuilder();
+
+        for (GamePlayer gamePlayer : list) {
+            if (gamePlayer.isDead)
+                sb.append(ChatColor.STRIKETHROUGH).append(gamePlayer.name).append(ChatColor.RESET);
+            else
+                sb.append(gamePlayer.name);
+            sb.append("  ");
+        }
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(sb.toString());
     }
 
     public static void showHelp(CommandSender sender) {

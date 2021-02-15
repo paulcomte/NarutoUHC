@@ -30,8 +30,8 @@ public class Hidan extends Akatsuki {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Hidan.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage(ChatColor.BLUE + "Si vous mourrez, vous ressuscitez 5 minutes après, tant qu'un membre de l'akatsuki est toujours en vie.");
-        player.sendMessage(ChatColor.BLUE + "Vous ressuscitez avec un full fer protection 1, une épée en fer sharpness 1, 64 steaks, 128 pierre et 2 pommes dorée.");
+        player.sendMessage(ChatColor.BLUE + "Si vous mourrez, vous ressuscitez 10 minutes après, tant qu'un membre de l'akatsuki est toujours en vie.");
+        player.sendMessage(ChatColor.BLUE + "Vous ressuscitez avec un full fer protection 1, une épée en fer sharpness 1, 64 steaks, 128 pierre, 1 seau d'eau, et 2 pommes dorée.");
     }
 
     @Override

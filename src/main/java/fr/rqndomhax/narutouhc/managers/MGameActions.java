@@ -114,29 +114,29 @@ public abstract class MGameActions {
         return teleportToRandomLocation(world, 0);
     }
 
-        public static Location teleportToRandomLocation(World world, int i) {
-        int xcenter = (int) world.getWorldBorder().getCenter().getX();
-        int zcenter = (int) world.getWorldBorder().getCenter().getZ();
+    public static Location teleportToRandomLocation(World world, int i) {
+    int xcenter = (int) world.getWorldBorder().getCenter().getX();
+    int zcenter = (int) world.getWorldBorder().getCenter().getZ();
 
-        int x = (int) ((world.getWorldBorder().getSize()/ 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + xcenter);
-        int z = (int) ((world.getWorldBorder().getSize() / 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + zcenter);
+    int x = (int) ((world.getWorldBorder().getSize()/ 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + xcenter);
+    int z = (int) ((world.getWorldBorder().getSize() / 2) - new Random().nextInt((int) (world.getWorldBorder().getSize())) + zcenter);
 
-        Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
-        if (i == 100)
-            return location;
-        if (location.getBlock() == null)
-            return teleportToRandomLocation(world, ++i);
-
-        Material type = location.getBlock().getType();
-        if (type == null || (!type.equals(Material.GRASS)
-                && !type.equals(Material.DIRT)
-                && !type.equals(Material.STONE)
-                && !type.equals(Material.LEAVES)
-                && !type.equals(Material.LEAVES_2)
-                && !type.equals(Material.SAND)))
-            return teleportToRandomLocation(world, ++i);
+    Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
+    if (i == 100)
         return location;
-    }
+    if (location.getBlock() == null)
+        return teleportToRandomLocation(world, ++i);
+
+    Material type = location.getBlock().getType();
+    if (type == null || (!type.equals(Material.GRASS)
+            && !type.equals(Material.DIRT)
+            && !type.equals(Material.STONE)
+            && !type.equals(Material.LEAVES)
+            && !type.equals(Material.LEAVES_2)
+            && !type.equals(Material.SAND)))
+        return teleportToRandomLocation(world, ++i);
+    return location;
+}
 
     public static void saveChunk(Chunk chunk) {
         for (int x = chunk.getX() - 1; x < chunk.getX() + 1; x++)

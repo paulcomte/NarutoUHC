@@ -64,13 +64,13 @@ public class Danzo extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.sendMessage("");
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôle " + ChatColor.BLACK + "-----");
-        player.sendMessage("Vous êtes Danzo.");
-        player.sendMessage("Votre but est de gagner seul.");
-        player.sendMessage("Pour ce faire vous disposez de l'effet " + ChatColor.BLACK + "résistance 1 " + ChatColor.RESET + "et lorsque vous tuez un Uchiwa (Sasuke, Madara, Itachi, Obito ou Shisui,");
-        player.sendMessage("Vous obtenez " + ChatColor.RED + "2.5 coeurs supplémentaires" + ChatColor.RESET + ".");
-        player.sendMessage("Toutes les 10 minutes, vous connaîtrez le pseudo d'un Uchiwa, il s'ajoutera dans votre liste que vous pouvez consulter en faisant /na danzo.");
-    }
+        player.sendMessage(Messages.SEPARATORS);
+        player.sendMessage(ChatColor.BLUE + "Vous êtes Danzo.");
+        player.sendMessage(ChatColor.BLUE + "Votre but est de gagner seul");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet resistance 1.");
+        player.sendMessage(ChatColor.BLUE + "Lorsque vous tuez un Uchiha vous obtenez 2.5 coeurs supplémentaires.");
+        player.sendMessage(ChatColor.BLUE + "Toutes les 10 minutes, vous connaîtrez le pseudo d'un Uchiha (Sasuke, Madara, Itachi, Obito, Shisui).");
+        player.sendMessage(ChatColor.BLUE + "Vous pouvez consulter votre liste d'Uchiha connu avec /na danzo.");
+    } // TODO FIX UCHIHA TIMER
 
 }

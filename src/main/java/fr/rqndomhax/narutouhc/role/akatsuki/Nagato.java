@@ -81,6 +81,6 @@ public class Nagato extends Akatsuki {
         player.sendMessage(ChatColor.BLUE + "Vous êtes Nagato.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
         player.sendMessage(ChatColor.BLUE + "Vous pouvez ressusciter un membre de l'akatsuki une fois dans la partie grâce à la commande /na nagato.");
-        player.sendMessage(ChatColor.BLUE + "La personne ressuscitée apparaitra avec un full fer protection 1, une épée en fer sharpness 1, une pomee dorée, un seau d'eau et 64 steaks.");
+        player.sendMessage(ChatColor.BLUE + "La personne ressuscitée apparaitra avec un full fer protection 1, une épée en fer sharpness 1, une pomee dorée, 128 pierres, un seau d'eau et 64 steaks.");
     }
 }

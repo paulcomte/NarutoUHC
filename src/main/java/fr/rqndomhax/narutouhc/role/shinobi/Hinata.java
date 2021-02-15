@@ -36,6 +36,8 @@ public class Hinata extends RoleInfo {
 
     @Override
     public void onPlayerDeath(GamePlayer gamePlayer) {
+        if (isNarutoDead)
+            return;
         if (gamePlayer.role == null) return;
         if (gamePlayer.role.getRole().equals(Roles.NARUTO)) {
             isNarutoDead = true;

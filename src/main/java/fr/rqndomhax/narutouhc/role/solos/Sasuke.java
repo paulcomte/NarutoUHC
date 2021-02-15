@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.inventories.role.ISasuke;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.INagato;
+import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -30,8 +31,9 @@ public class Sasuke extends RoleInfo {
     double maxHealth = 20;
     boolean hasKilled = false;
     public int usagesLeft = 0;
+    public final List<GamePlayer> list = new ArrayList<>();
 
-    Team selectedTeam = null;
+    public Team selectedTeam = null;
 
     public Sasuke(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.SASUKE);
@@ -141,24 +143,45 @@ public class Sasuke extends RoleInfo {
                 player.sendMessage(ChatColor.BLUE + "Si vous tuez Danzo, vous connaîtrez tous les rôles des joueurs de la partie grâce à la commande /na sasuke.");
                 player.sendMessage(ChatColor.BLUE + "De plus vous obtenez un livre \"sharpness 3\", \"protection 3\" et \"power 2\".");
                 player.sendMessage(ChatColor.BLUE + "Vous avez également l'effet strength 1 permanent.");
+                player.sendMessage(ChatColor.BLUE + "20 minutes après l'annonce des rôles, 3 pseudos aléatoires vous seront envoyés, l'un des trois sera celui de Danzo.");
                 break;
             case AKATSUKI:
-                player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke de l'Akatsuki.");
-                player.sendMessage(ChatColor.BLUE + "Si vous tuez Danzo, vous aurez accès à inventaire avec la tête de tous les joueurs restants.");
-                player.sendMessage(ChatColor.BLUE + "Vous pourrez connaître le rôle de 2 personnes, grâce à la commande /na sasuke.");
-                player.sendMessage(ChatColor.BLUE + "Vous avez également l'effet strength 1 permanent.");
-                break;
-            case OROCHIMARU:
-                player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke du camp Orochimaru.");
-                player.sendMessage(ChatColor.BLUE + "Si vous tuez Danzo, vous aurez accès à inventaire avec la tête de tous les joueurs restants.");
-                player.sendMessage(ChatColor.BLUE + "Vous pourrez connaître le rôle de 2 personnes, grâce à la commande /na sasuke.");
-                player.sendMessage(ChatColor.BLUE + "Vous avez également l'effet strength 1 permanent.");
-                break;
             case SHINOBI:
-                player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke de l'alliance Shinobi.");
-                player.sendMessage(ChatColor.BLUE + "Vous possédez 'effet strength 1 permanent.");
+            case OROCHIMARU:
+                if (selectedTeam.equals(Team.AKATSUKI))
+                    player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke de l'Akatsuki.");
+                else if (selectedTeam.equals(Team.SHINOBI))
+                    player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke de l'alliance Shinobi.");
+                else
+                    player.sendMessage(ChatColor.BLUE + "Vous êtes Sasuke du camp Orochimaru.");
+                player.sendMessage(ChatColor.BLUE + "Si vous tuez Danzo, vous aurez accès à inventaire avec la tête de tous les joueurs restants.");
+                player.sendMessage(ChatColor.BLUE + "Vous pourrez connaître le rôle de 2 personnes, grâce à la commande /na sasuke.");
+                player.sendMessage(ChatColor.BLUE + "Vous avez également l'effet strength 1 permanent.");
+                player.sendMessage(ChatColor.BLUE + "20 minutes après l'annonce des rôles, 3 pseudos aléatoires vous seront envoyés, l'un des trois sera celui de Danzo.");
+                break;
+            default:
                 break;
         }
+        showList();
+    }
+
+    @Override
+    public void onTeam() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        if (getRole().getTeam().equals(Team.OROCHIMARU))
+            Messages.showList(player, MGamePublicRoles.orochimarus);
+        else if (getRole().getTeam().equals(Team.AKATSUKI))
+            Messages.showList(player, MGamePublicRoles.akatsukis);
+    }
+
+    public void showList() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+        Messages.showList(player, list);
     }
 
     @Override
@@ -184,7 +207,7 @@ public class Sasuke extends RoleInfo {
             player.sendMessage(Messages.ROLE_CAPACITY);
         }
 
-        else if (getRole().getTeam().equals(Team.AKATSUKI) || getRole().getTeam().equals(Team.OROCHIMARU)) {
+        else if (getRole().getTeam().equals(Team.AKATSUKI) || getRole().getTeam().equals(Team.OROCHIMARU) || getRole().getTeam().equals(Team.SHINOBI)) {
             hasKilled = true;
             usagesLeft = 2;
             player.sendMessage(Messages.ROLE_CAPACITY);

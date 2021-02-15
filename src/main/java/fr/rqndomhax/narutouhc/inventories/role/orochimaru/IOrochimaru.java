@@ -56,7 +56,6 @@ public class IOrochimaru extends RInventory {
                 return;
             }
             player.closeInventory();
-            // TODO SEND CONFIRMATION MESSAGE
             selected.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 7*20, 1, false, false));
         };
     }
