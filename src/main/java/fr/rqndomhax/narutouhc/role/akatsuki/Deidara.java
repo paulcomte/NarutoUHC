@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.akatsuki.IDeidara;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -53,7 +54,8 @@ public class Deidara extends Akatsuki {
             if (p == null)
                 continue;
 
-            players.add(gamePlayer);
+            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 100*100)
+                players.add(gamePlayer);
         }
 
         int size = 0;

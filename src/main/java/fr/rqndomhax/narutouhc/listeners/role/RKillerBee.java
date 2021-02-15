@@ -13,30 +13,37 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.Gai;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
+import fr.rqndomhax.narutouhc.role.shinobi.KillerBee;
 import fr.rqndomhax.narutouhc.tasks.role.shinobi.TGai;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.xenondevs.particle.ParticleEffect;
 
-public class RGai implements Listener {
+public class RKillerBee implements Listener {
 
     private final Setup setup;
 
-    public RGai(Setup setup) {
+    public RKillerBee(Setup setup) {
         this.setup = setup;
     }
 
     @EventHandler
-    public void onDoor(BlockPlaceEvent e) {
+    public void onItemClick(PlayerInteractEvent e) {
         if (e.isCancelled())
             return;
 
-        if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.GAI))
+        if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.KILLER_BEE))
+            return;
+
+        if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !e.getAction().equals(Action.RIGHT_CLICK_AIR))
             return;
 
         Player player = e.getPlayer();
@@ -53,12 +60,11 @@ public class RGai implements Listener {
         if((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (!(tmp instanceof Gai))
+        if (!(tmp instanceof KillerBee))
             return;
 
-        if (!e.getItemInHand().equals(((Gai) tmp).item)) {
+        if (!player.getItemInHand().equals(((KillerBee) tmp).item))
             return;
-        }
 
         e.setCancelled(true);
 
@@ -66,9 +72,8 @@ public class RGai implements Listener {
 
         ParticleEffect.EXPLOSION_HUGE.display(player.getLocation());
         player.getLocation().getWorld().playSound(player.getLocation(), Sound.EXPLODE, 1, 1);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 7*60*20, 1, true, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 7*60*20, 0, true, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 7*60*20, 0, true, true));
-        ((Gai) tmp).task = new TGai(setup, gamePlayer);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 4*60*20, 0, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 4*60*20, 3, true, true));
+        ((KillerBee) tmp).itemUsedStamp = System.currentTimeMillis();
     }
 }

@@ -15,9 +15,7 @@ import fr.rqndomhax.narutouhc.commands.inventory.CInventory;
 import fr.rqndomhax.narutouhc.commands.inventory.CSave;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.*;
-import fr.rqndomhax.narutouhc.listeners.role.RGai;
-import fr.rqndomhax.narutouhc.listeners.role.RMinato;
-import fr.rqndomhax.narutouhc.listeners.role.RNoFall;
+import fr.rqndomhax.narutouhc.listeners.role.*;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SCutClean;
 import fr.rqndomhax.narutouhc.listeners.scenarios.SDrop;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
@@ -119,8 +117,12 @@ public class Registers {
 
         // ROLES
         pm.registerEvents(new RGai(setup), setup.getMain());
+        pm.registerEvents(new RFu(setup), setup.getMain());
+        pm.registerEvents(new RObito(setup), setup.getMain());
+        pm.registerEvents(new RKisame(setup), setup.getMain());
         pm.registerEvents(new RMinato(setup), setup.getMain());
         pm.registerEvents(new RNoFall(setup), setup.getMain());
+        pm.registerEvents(new RKillerBee(setup), setup.getMain());
     }
 
     public void registerCommands() {

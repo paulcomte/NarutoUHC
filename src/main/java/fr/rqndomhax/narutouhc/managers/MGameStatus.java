@@ -76,18 +76,20 @@ public abstract class MGameStatus {
 
             if (gamePlayer.isDead)
                 if (gamePlayer.role != null)
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + gamePlayer.name + ChatColor.RESET + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
-                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(ChatColor.STRIKETHROUGH + gamePlayer.name + ChatColor.RESET + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+            else
+                if (gamePlayer.role != null)
+                    Bukkit.broadcastMessage(gamePlayer.name + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
                 else
-                    if (gamePlayer.role != null)
-                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.BLUE + gamePlayer.role.getRole().getRoleName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
-                    else
-                        Bukkit.broadcastMessage(Bukkit.getOfflinePlayer(gamePlayer.uuid).getName() + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
+                    Bukkit.broadcastMessage(gamePlayer.name + " - " + ChatColor.RED + gamePlayer.kills.size() + " kills");
         }
 
-        if (winners == null)
+        if (winners == null) {
+            setup.getGame().removeTask();
             return;
+        }
 
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage("");

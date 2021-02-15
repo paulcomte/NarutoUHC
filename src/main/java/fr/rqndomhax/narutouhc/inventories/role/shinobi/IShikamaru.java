@@ -57,8 +57,8 @@ public class IShikamaru extends RInventory {
             }
             player.closeInventory();
             // TODO SEND CONFIRMATION MESSAGE
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30*20, 0, false, false));
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30*20, 1, false, false));
+            selected.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 7*20, 0, false, false));
+            selected.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 7*20, 1, false, false));
         };
     }
 

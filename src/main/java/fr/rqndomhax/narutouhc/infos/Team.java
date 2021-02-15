@@ -11,9 +11,9 @@ public enum Team {
     SHINOBI("Shinobi"),
     AKATSUKI("Akatsuki"),
     OROCHIMARU("Orochimaru"),
-    MADARA("Madara"),
-    SASUKE("Sasuke"),
-    DANZO("Danzo");
+    MADARA("Solo"),
+    SASUKE("Solo"),
+    DANZO("Solo");
 
     private final String teamName;
 

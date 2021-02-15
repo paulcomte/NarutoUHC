@@ -75,8 +75,12 @@ public class Sakura extends RoleInfo {
     @Override
     public void onNewEpisode(int episode) {
         hasUsedCapacity = false;
-        // TODO SEND MESSAGE PLAYER GOT CAPACITY BACK
+
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player != null)
+            player.sendMessage(Messages.ROLE_CAPACITY);
     }
+
 
     @Override
     public void onDesc() {

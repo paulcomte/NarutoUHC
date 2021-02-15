@@ -62,8 +62,8 @@ public class Gai extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous êtes Gaï.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez d'un item: \"Huit portes\".");
-        player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet force 2, speed 1 et fire resistance, mais aussi de 2 coeurs supplémentaires et de no fall"); // TODO FIX NO FALL FOR ONLY WHILE IN TASK
-        player.sendMessage(ChatColor.BLUE + "Pour une durée totale de 10 minutes.");
+        player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet force 2, speed 1 et fire resistance, mais aussi de 2 coeurs supplémentaires et de no fall");
+        player.sendMessage(ChatColor.BLUE + "Pour une durée totale de 7 minutes.");
         player.sendMessage(ChatColor.BLUE + "Une fois le temps écoulé, vous tomberez à 0.5 coeurs permanents.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Huit portes\".");

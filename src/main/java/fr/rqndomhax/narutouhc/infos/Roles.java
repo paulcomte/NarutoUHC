@@ -30,7 +30,7 @@ public enum Roles {
     NAGATO("Nagato", Team.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Nagato").toItemStack(), Nagato.class),
     KAKUZU("Kakuzu", Team.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), Kakuzu.class),
     KISAME("Kisame", Team.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), Kisame.class),
-    //OBITO("Obito", Team.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), Obito.class),
+    OBITO("Obito", Team.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), Obito.class),
     KONAN("Konan", Team.AKATSUKI, new ItemBuilder(Material.PAPER).setName("Konan").toItemStack(), Konan.class),
     HIDAN("Hidan", Team.AKATSUKI, new ItemBuilder(Material.BONE).setName("Hidan").toItemStack(), Hidan.class),
 
@@ -41,7 +41,7 @@ public enum Roles {
     MINATO("Minato", Team.SHINOBI, new ItemBuilder(Material.RABBIT_FOOT).setName("Minato").toItemStack(), Minato.class),
     GAI("Gaï", Team.SHINOBI, new ItemBuilder(Material.IRON_DOOR).setName("Gaï").toItemStack(), Gai.class),
     NEJI("Neji", Team.SHINOBI, new ItemBuilder(Material.INK_SACK, 1, (byte) 12).setName("Neji").toItemStack(), Neji.class),
-    SHISUI("Shisui", Team.SHINOBI, new ItemBuilder(Material.REDSTONE).setName("Shishui").toItemStack(), Shisui.class),
+    SHISUI("Shisui", Team.SHINOBI, new ItemBuilder(Material.REDSTONE).setName("Shisui").toItemStack(), Shisui.class),
     SAKURA("Sakura", Team.SHINOBI, new ItemBuilder(Material.RED_ROSE, 1, (byte) 7).setName("Sakura").toItemStack(), Sakura.class),
     ITACHI("Itachi", Team.SHINOBI, new ItemBuilder(Material.EYE_OF_ENDER).setName("Itachi").toItemStack(), Itachi.class),
     KILLER_BEE("Killer Bee", Team.SHINOBI, new ItemBuilder(Material.DIAMOND_SWORD).setName("Killer bee").toItemStack(), KillerBee.class),

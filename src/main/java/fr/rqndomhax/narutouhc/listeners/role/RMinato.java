@@ -8,11 +8,14 @@
 package fr.rqndomhax.narutouhc.listeners.role;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.role.shinobi.Minato;
+import fr.rqndomhax.narutouhc.utils.Chrono;
+import fr.rqndomhax.narutouhc.utils.Messages;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,6 +72,14 @@ public class RMinato implements Listener {
         if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(role.item.getType()))
             return;
 
+        int lastArrow = (int) ((role.lastArrow - System.currentTimeMillis()) / 1000);
+
+        if (lastArrow >= -20) {
+            player.sendMessage(Messages.ROLE_ITEM_COOLDOWN.replace("%time%", Chrono.timeToString(20 - Math.abs(lastArrow))));
+            return;
+        }
+        role.lastArrow = System.currentTimeMillis();
+
         arrows.put(player, arrow);
     }
 
@@ -100,7 +111,7 @@ public class RMinato implements Listener {
             arrow.getLocation().setPitch(player.getLocation().getPitch());
             arrow.getLocation().setYaw(player.getLocation().getYaw());
             player.teleport(arrow.getLocation());
-            // TODO SOUND EFFECT
+            player.playSound(player.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         }
     }
 }

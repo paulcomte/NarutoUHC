@@ -26,7 +26,8 @@ import java.util.Objects;
 
 public class Minato extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.BOW).setName(ChatColor.YELLOW + "Shuriken").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().setDurability((short) 30).toItemStack();
+    public final ItemStack item = new ItemBuilder(Material.BOW).setName(ChatColor.YELLOW + "Shuriken").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().setDurability((short) 50).toItemStack();
+    public long lastArrow = 0;
 
     public Minato(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.MINATO);
@@ -71,6 +72,7 @@ public class Minato extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 2.");
         player.sendMessage(ChatColor.BLUE + "Vous possédez aussi un arc nommé \"Shuriken\" permettant de vous téléporter à l'endroit où la flèche atterit.");
+        player.sendMessage(ChatColor.BLUE + "Votre arc possède 20 secondes de cooldown.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Shuriken\".");
         else

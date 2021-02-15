@@ -26,7 +26,8 @@ import java.util.List;
 
 public class Hinata extends RoleInfo {
 
-    public int commandUses = 2;
+    public int commandUses = 3;
+    long narutoDeathStamp;
     public boolean isNarutoDead = false;
 
     public Hinata(GamePlayer gamePlayer) {
@@ -38,6 +39,7 @@ public class Hinata extends RoleInfo {
         if (gamePlayer.role == null) return;
         if (gamePlayer.role.getRole().equals(Roles.NARUTO)) {
             isNarutoDead = true;
+            narutoDeathStamp = System.currentTimeMillis();
             giveEffects();
         }
     }
@@ -54,7 +56,10 @@ public class Hinata extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
+        long currentStamp = System.currentTimeMillis();
+        int duration = (int) ((narutoDeathStamp - currentStamp) / 1000);
+        if (duration >= -600)
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration*20, 0, false, false));
     }
 
     @Override
@@ -86,14 +91,14 @@ public class Hinata extends RoleInfo {
                 Villager villager = MVillagers.getVillager(gamePlayer);
                 if (villager == null)
                     continue;
-                if (DistanceRadius.getRadius(player.getLocation(), villager.getLocation()) <= 300*300) {
+                if (DistanceRadius.getRadius(player.getLocation(), villager.getLocation()) <= 100*100) {
                     left--;
                     playerNames.add(ChatColor.DARK_GRAY + "(OFF) " + ChatColor.RESET + villager.getCustomName());
                 }
                 continue;
             }
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 300*300)
+            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 100*100)
                 playerNames.add(p.getName());
 
             left--;
@@ -112,8 +117,9 @@ public class Hinata extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Hinata.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage(ChatColor.BLUE + "Deux fois vous aurez la possibilité d'utiliser La commande /na hinata");
+        player.sendMessage(ChatColor.BLUE + "Trois fois vous aurez la possibilité d'utiliser La commande /na hinata");
         player.sendMessage(ChatColor.BLUE + "Cette commande vous permettra de connaître les joueurs présents autour de vous dans un rayon de 50 blocks.");
+        player.sendMessage(ChatColor.BLUE + "En plus de cela si Naruto vient à mourrir vous obtiendrez l'effet strength 1 pendant 10 minutes.");
         if (commandUses == 0)
             player.sendMessage(ChatColor.BLUE + "Utilisations restantes: " + ChatColor.RED + commandUses);
         else

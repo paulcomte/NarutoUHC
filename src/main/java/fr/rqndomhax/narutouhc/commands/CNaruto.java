@@ -54,7 +54,7 @@ public class CNaruto implements CommandExecutor {
             return false;
         }
 
-        if (args.length < 1 || args[0].equalsIgnoreCase("help")) {
+        if (args.length < 1 || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("role")) {
             gamePlayer.role.onDesc();
             return true;
         }
@@ -63,47 +63,21 @@ public class CNaruto implements CommandExecutor {
         if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             role = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if (args[0].equalsIgnoreCase("claim")) {
-            role.onClaim();
-            return true;
-        }
-
         if (args[0].equalsIgnoreCase("team")) {
             role.onTeam();
             return true;
         }
 
+        if (args[0].equalsIgnoreCase("compo"))
+            return showCompo(player);
 
-        if (args[0].equalsIgnoreCase("compo")) {
+        if (gamePlayer.isDead) {
+            player.sendMessage(Messages.PLAYER_DEAD);
+            return false;
+        }
 
-            StringBuilder sb = new StringBuilder();
-            boolean hasTeam = false;
-            boolean first = true;
-
-            for (Team team : Team.values()) {
-                for (GamePlayer gp : setup.getGame().getGamePlayers()) {
-                    if (gp.role == null || !gp.role.getRole().getTeam().equals(team))
-                        continue;
-
-                    if (!hasTeam && first) {
-                        sb.append(ChatColor.GOLD + team.getTeamName() + "\n");
-                        hasTeam = true;
-                        first = false;
-                    }
-                    else if (!hasTeam && !first) {
-                        sb.append("\n\n" + ChatColor.GOLD + team.getTeamName() + "\n");
-                        hasTeam = true;
-                    }
-                    if (gp.isDead)
-                        sb.append(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName() + " ");
-                    else
-                        sb.append(ChatColor.DARK_GRAY + "" + gp.role.getRole().getRoleName() + " ");
-                }
-                hasTeam = false;
-            }
-
-            player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
-            player.sendMessage(sb.toString());
+        if (args[0].equalsIgnoreCase("claim")) {
+            role.onClaim();
             return true;
         }
 
@@ -200,6 +174,45 @@ public class CNaruto implements CommandExecutor {
                 player.sendMessage(Messages.NOT_YOUR_ROLE);
                 return false;
         }
+    }
+
+    private boolean showCompo(Player player) {
+        StringBuilder sb = new StringBuilder();
+        boolean hasTeam = false;
+        boolean first = true;
+        boolean hasSolos = false;
+
+        for (Team team : Team.values()) {
+
+            if (team.getTeamName().equalsIgnoreCase(Team.DANZO.getTeamName()))
+                if (hasSolos)
+                    continue;
+            hasSolos = true;
+
+            for (GamePlayer gp : setup.getGame().getGamePlayers()) {
+                if (gp.role == null || !gp.role.getRole().getTeam().getTeamName().equals(team.getTeamName()))
+                    continue;
+
+                if (!hasTeam && first) {
+                    sb.append(ChatColor.GOLD + team.getTeamName() + "\n");
+                    hasTeam = true;
+                    first = false;
+                }
+                else if (!hasTeam && !first) {
+                    sb.append("\n\n" + ChatColor.GOLD + team.getTeamName() + "\n");
+                    hasTeam = true;
+                }
+                if (gp.isDead)
+                    sb.append(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + gp.role.getRole().getRoleName() + " ");
+                else
+                    sb.append(ChatColor.DARK_GRAY + "" + gp.role.getRole().getRoleName() + " ");
+            }
+            hasTeam = false;
+        }
+
+        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
+        player.sendMessage(sb.toString());
+        return true;
     }
 
 }

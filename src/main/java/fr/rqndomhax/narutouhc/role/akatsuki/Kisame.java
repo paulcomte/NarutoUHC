@@ -57,7 +57,7 @@ public class Kisame extends Akatsuki {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Kisame.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage(ChatColor.BLUE + "Sous l'eau vous disposez d'un effet speed 1 et strength 1."); // TODO SCENARIO
+        player.sendMessage(ChatColor.BLUE + "Sous l'eau vous disposez d'un effet speed 1 et strength 1.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 livre depth strider 3 et 32 bottles d'xp.");
         else

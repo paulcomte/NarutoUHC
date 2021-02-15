@@ -41,7 +41,7 @@ public class EListener implements Listener {
             if (gamePlayer != null && !gamePlayer.isDead)
                 gamePlayer.diamonds += 1;
         }
-        if (e.getBlock().getType().equals(Material.DIAMOND_ORE) && !e.isCancelled()) {
+        if (e.getBlock().getType().equals(Material.GOLD_ORE) && !e.isCancelled()) {
             GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
             if (gamePlayer != null && !gamePlayer.isDead)

@@ -70,6 +70,7 @@ public class INagato extends RInventory {
             items[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
             items[1] = new ItemStack(Material.GOLDEN_APPLE);
             items[2] = new ItemStack(Material.COOKED_BEEF, 64);
+            items[3] = new ItemStack(Material.WATER_BUCKET);
             items[36] = new ItemBuilder(Material.IRON_HELMET).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             items[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();

@@ -111,6 +111,7 @@ public abstract class Messages {
 
     public static String PLAYERS_HEALED = PREFIX + "Tous les joueurs ont été soignés !";
     public static String PLAYER_NOT_PLAYING = PREFIX + "Ce joueur ne joue pas au sein de la partie !";
+    public static String PLAYER_DEAD = PREFIX + "Vous ne pouvez pas effectuer cette action car vous êtes mort !";
     public static String PLAYER_NOT_DEAD = PREFIX + "Ce joueur n'est pas mort !";
     public static String PLAYER_HAS_BEEN_REVIVED = PREFIX + "Le joueur %player% a été ressuscité par un hôte !";
     public static String PLAYER_RESURRECTED = PREFIX + "Vous avez été ressuscité !";
@@ -136,6 +137,7 @@ public abstract class Messages {
     public static String ROLE_ITEMS_NEED_SPACE = PREFIX + "Votre inventaire doit avoir la place nécessaire pour récupérer %n% objets";
     public static String ROLE_ITEMS_OBTAINED = PREFIX + "Vous avez reçu l'équipement de votre rôle !";
     public static String ROLE_NO_MORE_USES = PREFIX + "Votre rôle ne dispose d'aucune utilisation restante !";
+    public static String ROLE_ITEM_COOLDOWN = PREFIX + "L'objet ne peut pas être de nouveau utilisé avant %time% !";
 
     public static String FORCE_WRONG_MAP_BORDER = PREFIX + "Vous ne pouvez pas forcer la bordure !";
     public static String BORDER_ALREADY_ACTIVATED = PREFIX + "La bordure a déjà été activée !";

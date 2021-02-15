@@ -70,16 +70,9 @@ public class ELobbyCancel implements Listener {
 
         Villager villager = (Villager) e.getRightClicked();
 
-        if (MVillagers.disconnectedPlayers.containsKey(villager))
+        if (MVillagers.disconnectedPlayers.containsKey(villager)) {
             e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onFoodLevelChange(FoodLevelChangeEvent event) {
-        Player player = (Player) event.getEntity();
-        if (event.getFoodLevel() < player.getFoodLevel()) {
-            player.setSaturation(10.0f);
-            player.setExhaustion(0.0f);
+            e.getPlayer().closeInventory();
         }
     }
 

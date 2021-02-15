@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class Orochimaru extends RoleInfo {
 
-    boolean hasUsedCapacity = false;
+    boolean hasUsedCapacity = true;
 
     public Orochimaru(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.OROCHIMARU);

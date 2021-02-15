@@ -17,6 +17,8 @@ import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +29,14 @@ public class Neji extends RoleInfo {
 
     public Neji(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.NEJI);
+    }
+
+    @Override
+    public void giveEffects() {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null) return;
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
     }
 
     @Override
@@ -60,7 +70,7 @@ public class Neji extends RoleInfo {
         int size = 0;
         int inventory_size = 1;
 
-        for (GamePlayer gamePlayer : players) {
+        for (GamePlayer ignored : players) {
             if (size == 9) {
                 inventory_size++;
                 size = 0;
@@ -82,8 +92,9 @@ public class Neji extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Neji.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
         player.sendMessage(ChatColor.BLUE + "Deux fois, vous aurez la possibilité d'utiliser La commande /na neji");
         player.sendMessage(ChatColor.BLUE + "Vous pourrez voir si le rôle d'un joueur autour de vous dans un rayon de 10 blocks, est suspect ou gentil.");
-        player.sendMessage(ChatColor.BLUE + "Vous devrez rester dans un rayon de 10 blocks avec le joueur pour une durée de 10 secondes."); // TODO FIX NEJI
+        player.sendMessage(ChatColor.BLUE + "Vous devrez rester dans un rayon de 15 blocks avec le joueur pour une durée de 10 secondes."); // TODO FIX NEJI
     }
 }
