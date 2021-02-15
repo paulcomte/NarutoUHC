@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.listeners.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.akatsuki.Konan;
 import fr.rqndomhax.narutouhc.role.shinobi.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,7 +44,7 @@ public class RNoFall implements Listener {
         if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
 
-        if ((tmp instanceof Gai && ((Gai) tmp).task != null) || (tmp instanceof Fu) || (tmp instanceof Gaara)) {
+        if ((tmp instanceof Gai && ((Gai) tmp).task != null) || (tmp instanceof Fu) || (tmp instanceof Gaara) || (tmp instanceof Konan)) {
             e.setCancelled(true);
             return;
         }

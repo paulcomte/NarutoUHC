@@ -208,7 +208,10 @@ public class CNaruto implements CommandExecutor {
                 continue;
 
             for (GamePlayer gp : setup.getGame().getGamePlayers()) {
-                if (gp.role == null || !gp.role.getRole().getTeam().getTeamName().equals(team.getTeamName()))
+                if (gp.role == null || !gp.role.getRole().getTeam().equals(team))
+                    continue;
+
+                if (gp.role.getRole().equals(Roles.SASUKE))
                     continue;
 
                 if (!hasTeam && first) {

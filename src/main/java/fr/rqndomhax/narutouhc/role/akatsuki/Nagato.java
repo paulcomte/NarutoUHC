@@ -44,7 +44,7 @@ public class Nagato extends Akatsuki {
             if (gamePlayer.equals(getGamePlayer()))
                 continue;
 
-            if (!gamePlayer.isDead)
+            if (!gamePlayer.isInDead && !gamePlayer.isDead)
                 continue;
 
             if (gamePlayer.role == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))

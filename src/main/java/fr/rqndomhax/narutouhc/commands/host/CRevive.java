@@ -52,7 +52,7 @@ public class CRevive implements CommandExecutor {
             return false;
         }
 
-        if (!gamePlayer.isDead) {
+        if (!gamePlayer.isInDead && !gamePlayer.isDead) {
             sender.sendMessage(Messages.PLAYER_NOT_DEAD);
             return false;
         }

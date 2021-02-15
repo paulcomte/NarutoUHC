@@ -22,6 +22,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.HashMap;
 
@@ -72,16 +73,39 @@ public class RMinato implements Listener {
         if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(role.item.getType()))
             return;
 
-        int lastArrow = (int) ((role.lastArrow - System.currentTimeMillis()) / 1000);
-
-        if (lastArrow >= -20) {
-            player.sendMessage(Messages.ROLE_ITEM_COOLDOWN.replace("%time%", Chrono.timeToString(20 - Math.abs(lastArrow))));
-            e.setCancelled(true);
-            return;
-        }
         role.lastArrow = System.currentTimeMillis();
 
         arrows.put(player, arrow);
+    }
+
+    @EventHandler
+    public void onItemInteract(PlayerInteractEvent e) {
+        if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.MINATO))
+            return;
+
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
+
+        if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
+            return;
+
+        RoleInfo tmp = gamePlayer.role;
+        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+
+        if (!(tmp instanceof Minato))
+            return;
+
+        Minato role = (Minato) tmp;
+
+        if (e.getPlayer().getItemInHand() == null || !e.getPlayer().getItemInHand().hasItemMeta() || !e.getPlayer().getItemInHand().getItemMeta().hasDisplayName() || !e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !e.getPlayer().getItemInHand().getType().equals(role.item.getType()))
+            return;
+
+        int lastArrow = (int) ((role.lastArrow - System.currentTimeMillis()) / 1000);
+
+        if (lastArrow >= -20) {
+            e.getPlayer().sendMessage(Messages.ROLE_ITEM_COOLDOWN.replace("%time%", Chrono.timeToString(20 - Math.abs(lastArrow))));
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
