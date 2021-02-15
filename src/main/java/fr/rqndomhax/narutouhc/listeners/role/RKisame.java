@@ -53,7 +53,7 @@ public class RKisame implements Listener {
         if (!(tmp instanceof Kisame))
             return;
 
-        if (e.getTo().getBlock() == null || !e.getTo().getBlock().getType().equals(Material.WATER)) {
+        if (e.getTo().getBlock() == null || !e.getTo().getBlock().getType().equals(Material.WATER) && !e.getTo().getBlock().getType().equals(Material.STATIONARY_WATER)) {
             for (PotionEffect effect : e.getPlayer().getActivePotionEffects()) {
                 if (effect.getDuration() <= 24000)
                     continue;
@@ -64,9 +64,6 @@ public class RKisame implements Listener {
             }
             return;
         }
-
-        if (e.getTo().getBlock() == null || !e.getTo().getBlock().getType().equals(Material.WATER))
-            return;
 
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));

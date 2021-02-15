@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.role.akatsuki.Kisame;
 import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
 import fr.rqndomhax.narutouhc.role.shinobi.Fu;
 import org.bukkit.command.Command;

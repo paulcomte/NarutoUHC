@@ -33,14 +33,6 @@ public class Fu extends RoleInfo {
     }
 
     @Override
-    public void giveEffects() {
-        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
-        if (player == null) return;
-
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1000000, 0, false, false));
-    }
-
-    @Override
     public void onClaim() {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
@@ -69,7 +61,7 @@ public class Fu extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Fû.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage(ChatColor.BLUE + "Vous dispoez de l'effet résistance 1 et de no fall.");
+        player.sendMessage(ChatColor.BLUE + "Vous dispoez de l'effet no fall.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez de 3 toiles d'araignées: \"Prison de l'araignée\".");
         player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet régénération 2 tant que vous restez en contact avec.");
         if (!hasClaimed)

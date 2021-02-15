@@ -21,6 +21,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -46,7 +47,7 @@ public class ECancels implements Listener {
                 e.setCancelled(true);
     }
 
-    /*@EventHandler
+    @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         GameState gameState = setup.getGame().getGameState();
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
@@ -59,7 +60,6 @@ public class ECancels implements Listener {
         if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
             e.setCancelled(true);
     }
-     */
 
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
@@ -68,7 +68,13 @@ public class ECancels implements Listener {
             e.setCancelled(true);
     }
 
-    /*
+    @EventHandler
+    public void onBlockBurn(BlockBurnEvent e) {
+        GameState gameState = setup.getGame().getGameState();
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.setCancelled(true);
+    }
+
     @EventHandler
     public void onEntityDamage(EntityDamageEvent e) {
         if (!(e.getEntity() instanceof Player))
@@ -77,7 +83,6 @@ public class ECancels implements Listener {
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
                 || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
-     */
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
