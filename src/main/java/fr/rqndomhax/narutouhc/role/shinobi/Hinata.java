@@ -8,12 +8,12 @@
 package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -93,14 +93,14 @@ public class Hinata extends RoleInfo {
                 Villager villager = MVillagers.getVillager(gamePlayer);
                 if (villager == null)
                     continue;
-                if (DistanceRadius.getRadius(player.getLocation(), villager.getLocation()) <= 100*100) {
+                if (PlayerManager.getRadius(player.getLocation(), villager.getLocation()) <= 100*100) {
                     left--;
                     playerNames.add(ChatColor.DARK_GRAY + "(OFF) " + ChatColor.RESET + villager.getCustomName());
                 }
                 continue;
             }
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 100*100)
+            if (PlayerManager.getRadius(player.getLocation(), p.getLocation()) <= 100*100)
                 playerNames.add(p.getName());
 
             left--;

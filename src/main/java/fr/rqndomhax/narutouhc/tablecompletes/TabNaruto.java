@@ -75,10 +75,6 @@ public class TabNaruto implements TabCompleter {
             case KAKASHI_HATAKE:
                 list.add("kakashi");
                 break;
-            /*case OBITO:
-                list.add("obito");
-                break;
-             */
             case OROCHIMARU:
                 list.add("orochimaru");
                 break;

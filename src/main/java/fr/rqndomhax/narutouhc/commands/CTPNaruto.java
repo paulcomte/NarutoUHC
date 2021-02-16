@@ -9,11 +9,6 @@ package fr.rqndomhax.narutouhc.commands;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.role.akatsuki.Kisame;
-import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
-import fr.rqndomhax.narutouhc.role.shinobi.Fu;
-import fr.rqndomhax.narutouhc.role.shinobi.KillerBee;
-import fr.rqndomhax.narutouhc.role.shinobi.Minato;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

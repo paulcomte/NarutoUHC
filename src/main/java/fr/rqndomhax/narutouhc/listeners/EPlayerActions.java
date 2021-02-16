@@ -9,11 +9,10 @@ package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
-import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
@@ -101,7 +100,8 @@ public class EPlayerActions implements Listener {
             e.getDrops().clear();
             return;
         }
-        if (gamePlayer.isDead) {
+
+        if (gamePlayer.isDead || gamePlayer.isInDead) {
             e.setDroppedExp(0);
             e.getDrops().clear();
             return;

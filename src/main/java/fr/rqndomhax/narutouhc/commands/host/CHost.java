@@ -18,6 +18,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Locale;
+
 public class CHost implements CommandExecutor {
 
     private final Setup setup;
@@ -43,7 +45,7 @@ public class CHost implements CommandExecutor {
 
         GameState gameState = setup.getGame().getGameState();
 
-        switch (args[0]) {
+        switch (args[0].toLowerCase()) {
             case "del":
             case "delete":
                 return HRank.deleteHost(gameState, args, sender);

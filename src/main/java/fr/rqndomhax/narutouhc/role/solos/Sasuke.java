@@ -7,11 +7,10 @@
 package fr.rqndomhax.narutouhc.role.solos;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.inventories.role.ISasuke;
-import fr.rqndomhax.narutouhc.inventories.role.akatsuki.INagato;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;

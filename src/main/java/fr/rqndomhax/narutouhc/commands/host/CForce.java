@@ -9,7 +9,6 @@ package fr.rqndomhax.narutouhc.commands.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.game.tasks.TBorder;
 import fr.rqndomhax.narutouhc.game.tasks.TMain;

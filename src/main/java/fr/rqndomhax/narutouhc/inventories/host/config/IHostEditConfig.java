@@ -12,7 +12,6 @@ import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
-import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;

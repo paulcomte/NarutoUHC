@@ -9,13 +9,11 @@ package fr.rqndomhax.narutouhc.inventories.host.config;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.managers.config.MConfig;
-import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.PageController;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
@@ -28,10 +26,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;

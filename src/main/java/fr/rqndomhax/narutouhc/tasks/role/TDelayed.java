@@ -8,18 +8,12 @@
 package fr.rqndomhax.narutouhc.tasks.role;
 
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class TDelayed extends BukkitRunnable {
 

@@ -9,9 +9,9 @@ package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.inventories.enchant.IEnchant;
 import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.inventories.enchant.IEnchant;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

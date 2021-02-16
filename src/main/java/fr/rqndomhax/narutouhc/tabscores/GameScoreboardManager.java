@@ -9,29 +9,21 @@ package fr.rqndomhax.narutouhc.tabscores;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.game.tasks.TPreparation;
-import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.game.tasks.TBorder;
-import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.game.tasks.TPreparation;
 import fr.rqndomhax.narutouhc.managers.MGameStatus;
-import fr.rqndomhax.narutouhc.role.GameRole;
-import fr.rqndomhax.narutouhc.role.Role;
 import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import javax.management.relation.RoleInfo;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public abstract class GameScoreboardManager {
@@ -63,7 +55,7 @@ public abstract class GameScoreboardManager {
 
         if (gamePlayer != null) {
             if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0 && gamePlayer.role == null)
-                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
             else {
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
             }
@@ -73,10 +65,10 @@ public abstract class GameScoreboardManager {
 
 
         if (!(setup.getGame().getMainTask().task instanceof TPreparation))
-            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getGameRules().preparationDuration));
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getGameRules().preparationDuration));
         else {
             TPreparation preparation = (TPreparation) setup.getGame().getMainTask().task;
-            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToString(preparation.remainingTime));
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.BLUE + "Téléportation: " + ChatColor.WHITE + Chrono.timeToDigitalString(preparation.remainingTime));
         }
 
         board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
@@ -85,7 +77,7 @@ public abstract class GameScoreboardManager {
 
         board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().time));
 
         board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
     }
@@ -157,7 +149,7 @@ public abstract class GameScoreboardManager {
 
         if (gamePlayer != null) {
             if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0 && gamePlayer.role == null)
-                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
+                board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
             else {
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
                 pos++;
@@ -172,7 +164,7 @@ public abstract class GameScoreboardManager {
             board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_GREEN + "Bordure: " + ChatColor.WHITE + format.format(Bukkit.getWorld(GameInfo.currentMap.name()).getWorldBorder().getSize()));
         else {
             TBorder border = (TBorder) setup.getGame().getMainTask().task;
-            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.AQUA + "Bordure: " + ChatColor.WHITE + Chrono.timeToString(border.remainingTime));
+            board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.AQUA + "Bordure: " + ChatColor.WHITE + Chrono.timeToDigitalString(border.remainingTime));
         }
 
         board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
@@ -183,7 +175,7 @@ public abstract class GameScoreboardManager {
 
         board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
-        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToString(setup.getGame().getMainTask().time));
+        board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_PURPLE + "Temps: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().time));
 
         board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.LIGHT_PURPLE + "Épisode: " + ChatColor.WHITE + setup.getGame().getMainTask().episode);
     }

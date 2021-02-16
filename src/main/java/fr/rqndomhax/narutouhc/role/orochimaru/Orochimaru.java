@@ -8,14 +8,13 @@
 package fr.rqndomhax.narutouhc.role.orochimaru;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.infos.Team;
-import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,7 +22,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Orochimaru extends RoleInfo {
@@ -58,7 +56,7 @@ public class Orochimaru extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
+            if (PlayerManager.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 

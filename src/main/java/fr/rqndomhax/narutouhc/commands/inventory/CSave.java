@@ -9,11 +9,11 @@ package fr.rqndomhax.narutouhc.commands.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostDeathInventory;
 import fr.rqndomhax.narutouhc.inventories.host.inventory.IHostStartInventory;
-import fr.rqndomhax.narutouhc.game.GameRules;
-import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;

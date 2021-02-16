@@ -8,12 +8,11 @@
 package fr.rqndomhax.narutouhc.managers;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.tasks.role.TList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public abstract class MGamePublicRoles {

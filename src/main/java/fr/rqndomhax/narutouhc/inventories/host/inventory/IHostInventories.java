@@ -9,9 +9,9 @@ package fr.rqndomhax.narutouhc.inventories.host.inventory;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.enchantments.Enchantment;

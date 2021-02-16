@@ -8,12 +8,12 @@
 package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.shinobi.INeji;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -63,7 +63,7 @@ public class Neji extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(p.getLocation(), player.getLocation()) <= 10*10)
+            if (PlayerManager.getRadius(p.getLocation(), player.getLocation()) <= 10*10)
                 players.add(gamePlayer);
         }
 

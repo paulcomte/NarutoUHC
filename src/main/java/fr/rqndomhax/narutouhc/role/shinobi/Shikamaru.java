@@ -8,12 +8,12 @@
 package fr.rqndomhax.narutouhc.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.inventories.role.shinobi.IShikamaru;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -53,7 +53,7 @@ public class Shikamaru extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
+            if (PlayerManager.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 

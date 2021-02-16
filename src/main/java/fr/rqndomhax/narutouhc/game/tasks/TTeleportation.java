@@ -8,8 +8,8 @@
 package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MGameBuild;
 import org.bukkit.ChatColor;

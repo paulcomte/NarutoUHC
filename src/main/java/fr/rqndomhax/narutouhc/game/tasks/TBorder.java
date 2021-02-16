@@ -11,7 +11,6 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Villager;
 
 public class TBorder implements Task {
 

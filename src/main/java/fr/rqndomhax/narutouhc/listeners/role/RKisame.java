@@ -12,7 +12,6 @@ import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.akatsuki.Kisame;
-import fr.rqndomhax.narutouhc.role.shinobi.Fu;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

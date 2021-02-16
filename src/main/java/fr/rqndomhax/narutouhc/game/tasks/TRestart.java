@@ -10,7 +10,6 @@ package fr.rqndomhax.narutouhc.game.tasks;
 import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 public class TRestart implements Task {
 

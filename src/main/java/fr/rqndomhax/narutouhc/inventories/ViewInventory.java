@@ -20,8 +20,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.Arrays;
-
 public class ViewInventory extends RInventory {
 
     public ViewInventory(Setup setup, Player target, GamePlayer gamePlayer) {

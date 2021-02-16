@@ -8,9 +8,9 @@
 package fr.rqndomhax.narutouhc.tasks.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -8,10 +8,9 @@
 package fr.rqndomhax.narutouhc.inventories.host.border;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameBorder;
 import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
-import fr.rqndomhax.narutouhc.game.GameBorder;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.Banners;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;

@@ -8,13 +8,12 @@
 package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Maps;
+import fr.rqndomhax.narutouhc.game.tasks.TMain;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.config.ConfigLogos;
 import fr.rqndomhax.narutouhc.managers.config.HostConfig;
 import fr.rqndomhax.narutouhc.role.GameRole;
-import fr.rqndomhax.narutouhc.game.tasks.TMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

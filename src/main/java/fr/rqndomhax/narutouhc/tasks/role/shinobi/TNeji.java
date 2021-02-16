@@ -11,7 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.tasks.role.Timers;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -48,7 +48,7 @@ public class TNeji extends BukkitRunnable {
             return;
         }
 
-        if (DistanceRadius.getRadius(nejiPlayer.getLocation(), selectedPlayer.getLocation()) > 10) {
+        if (PlayerManager.getRadius(nejiPlayer.getLocation(), selectedPlayer.getLocation()) > 20) {
             // TODO NEJI CANCEL
             cancel();
             return;

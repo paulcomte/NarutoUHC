@@ -8,11 +8,11 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.world.ChunkUnloadListener;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -27,9 +27,16 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.weather.ThunderChangeEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.inventory.Inventory;
 
 public class ECancels implements Listener {
 
@@ -84,6 +91,20 @@ public class ECancels implements Listener {
     }
 
     @EventHandler
+    public void onDrop(PlayerDropItemEvent e) {
+        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
+            return;
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onThrow(ProjectileLaunchEvent e) {
+        GameState gameState = setup.getGame().getGameState();
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+            e.setCancelled(true);
+    }
+
+    @EventHandler
     public void onEntityDamage(EntityDamageEvent e) {
         if (!(e.getEntity() instanceof Player))
             return;
@@ -121,12 +142,26 @@ public class ECancels implements Listener {
 
    @EventHandler
    public void onChat(AsyncPlayerChatEvent e) {
-        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) || setup.getGame().getGameRules().allowChat || setup.getGame().getGameState().equals(GameState.GAME_FINISHED))
+        if (e.isCancelled())
+            return;
+
+        if (setup.getGame().getGameRules().allowChat || setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) || setup.getGame().getGameState().equals(GameState.GAME_FINISHED))
             return;
 
         e.setCancelled(true);
-        System.out.println("in");
         e.getPlayer().sendMessage(Messages.CHAT_DISABLED);
    }
+
+    @EventHandler
+    private void onThunder(ThunderChangeEvent e){
+        if(e.toThunderState())
+            e.setCancelled(true);
+    }
+
+    @EventHandler
+    private void onRain(WeatherChangeEvent e){
+        if(e.toWeatherState())
+            e.setCancelled(true);
+    }
 
 }

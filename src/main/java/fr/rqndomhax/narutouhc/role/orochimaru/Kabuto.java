@@ -8,15 +8,13 @@
 package fr.rqndomhax.narutouhc.role.orochimaru;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.infos.Team;
-import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IKabuto;
-import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IOrochimaru;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.inventories.role.orochimaru.IKabuto;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.tools.DistanceRadius;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -24,7 +22,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Kabuto extends RoleInfo {
@@ -60,7 +57,7 @@ public class Kabuto extends RoleInfo {
             if (p == null)
                 continue;
 
-            if (DistanceRadius.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
+            if (PlayerManager.getRadius(player.getLocation(), p.getLocation()) <= 50*50)
                 players.add(gamePlayer);
         }
 
@@ -115,7 +112,7 @@ public class Kabuto extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
         player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na kabuto.");
         player.sendMessage(ChatColor.BLUE + "Vous pourrez donner un effet de wither 2 pendant 5 secondes à un joueur se trouvant dans un rayon de 50 blocks autour de vous.");
-        player.sendMessage(ChatColor.BLUE + "Si Orochimaru vient à mourir, vous récupérerez obtiendrez son effet resistance 1.");
+        player.sendMessage(ChatColor.BLUE + "Si Orochimaru vient à mourir, vous obtiendrez son effet resistance 1.");
     }
 
     @Override

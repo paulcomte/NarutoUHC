@@ -23,7 +23,6 @@ import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.tablecompletes.TabHost;
 import fr.rqndomhax.narutouhc.tablecompletes.TabNaruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
-import fr.rqndomhax.narutouhc.utils.nms.BiomeSwapper;
 import fr.rqndomhax.narutouhc.utils.tools.WorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -134,7 +133,7 @@ public class Registers {
         setup.getMain().getCommand("msg").setExecutor(new CWhisper(setup));
 
         setup.getMain().getCommand("host").setExecutor(new CHost(setup));
-        setup.getMain().getCommand("host").setTabCompleter(new TabHost(setup));
+        setup.getMain().getCommand("host").setTabCompleter(new TabHost());
 
         setup.getMain().getCommand("heal").setExecutor(new CHeal(setup));
         setup.getMain().getCommand("save").setExecutor(new CSave(setup));
@@ -145,7 +144,6 @@ public class Registers {
         setup.getMain().getCommand("na").setExecutor(new CNaruto(setup));
         setup.getMain().getCommand("na").setTabCompleter(new TabNaruto(setup));
 
-        setup.getMain().getCommand("pregen").setExecutor(new CGenerate(setup));
         setup.getMain().getCommand("admininventory").setExecutor(new CAdminInventory(setup));
     }
 }

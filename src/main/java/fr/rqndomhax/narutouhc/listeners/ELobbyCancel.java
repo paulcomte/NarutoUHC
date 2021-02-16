@@ -8,17 +8,16 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.inventories.host.IHost;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.game.GameState;
-import org.bukkit.entity.Player;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -46,20 +45,14 @@ public class ELobbyCancel implements Listener {
     }
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
-            return;
-        e.setCancelled(true);
-    }
-
-    @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent e) {
         if (!setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
             return;
+        if (e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE))
+            return;
         if (e.getCurrentItem() == null)
             return;
-        if (e.getCurrentItem().equals(IInfos.MAIN_HOST_ITEM))
-            e.setCancelled(true);
+        e.setCancelled(true);
     }
 
     @EventHandler
@@ -74,17 +67,5 @@ public class ELobbyCancel implements Listener {
             e.setCancelled(true);
             e.getPlayer().closeInventory();
         }
-    }
-
-    @EventHandler
-    private void onThunder(ThunderChangeEvent e){
-        if(e.toThunderState())
-            e.setCancelled(true);
-    }
-
-    @EventHandler
-    private void onRain(WeatherChangeEvent e){
-        if(e.toWeatherState())
-            e.setCancelled(true);
     }
 }

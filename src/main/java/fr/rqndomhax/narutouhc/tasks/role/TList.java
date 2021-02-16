@@ -7,10 +7,9 @@
 
 package fr.rqndomhax.narutouhc.tasks.role;
 
-import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
@@ -19,7 +18,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
 
 import java.util.ArrayList;
 import java.util.HashSet;

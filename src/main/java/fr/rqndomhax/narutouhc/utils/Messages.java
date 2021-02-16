@@ -8,7 +8,6 @@
 package fr.rqndomhax.narutouhc.utils;
 
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

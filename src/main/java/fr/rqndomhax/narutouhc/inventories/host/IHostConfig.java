@@ -9,9 +9,8 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.ChatColor;

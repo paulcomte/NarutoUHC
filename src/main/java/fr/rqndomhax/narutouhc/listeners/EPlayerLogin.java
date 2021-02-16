@@ -8,11 +8,14 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.game.*;
-import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
+import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.game.SActions;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
+import fr.rqndomhax.narutouhc.managers.MVillagers;
+import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;

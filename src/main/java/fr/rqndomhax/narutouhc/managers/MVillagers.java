@@ -14,14 +14,11 @@ import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Level;
 
 public abstract class MVillagers {

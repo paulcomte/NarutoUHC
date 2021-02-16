@@ -8,16 +8,12 @@
 package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
-import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

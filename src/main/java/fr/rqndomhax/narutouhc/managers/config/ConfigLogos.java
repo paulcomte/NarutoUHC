@@ -7,9 +7,7 @@
 
 package fr.rqndomhax.narutouhc.managers.config;
 
-import net.minecraft.server.v1_8_R3.ItemSaddle;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 public enum ConfigLogos {

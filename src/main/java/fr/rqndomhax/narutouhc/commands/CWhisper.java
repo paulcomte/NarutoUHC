@@ -12,6 +12,7 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -64,6 +65,7 @@ public class CWhisper implements CommandExecutor {
         if (!(sender instanceof Player) || !sender.equals(player))
             sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "moi " + ChatColor.BLACK + "» " + ChatColor.GREEN + "" + player.getName() + ChatColor.BLACK + "] " + ChatColor.GRAY + message);
         player.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + sender.getName() + " " + ChatColor.BLACK + "» " + ChatColor.GREEN + "moi" + ChatColor.BLACK + "] " + ChatColor.GRAY + message);
+        player.playSound(player.getLocation(), Sound.NOTE_PLING,3,0);
 
         return true;
     }

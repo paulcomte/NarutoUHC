@@ -7,13 +7,13 @@
 
 package fr.rqndomhax.narutouhc.core;
 
-import fr.rqndomhax.narutouhc.tabscores.TabListManager;
+import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
-import fr.rqndomhax.narutouhc.managers.config.MConfig;
-import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.managers.MGameBuild;
+import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
+import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.tasks.TWait;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;

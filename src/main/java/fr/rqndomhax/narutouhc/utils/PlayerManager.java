@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,6 +28,12 @@ public abstract class PlayerManager {
             gamePlayer.role.giveEffects();
         player.setGameMode(GameMode.SURVIVAL);
         player.sendMessage(Messages.PLAYER_RESURRECTED);
+    }
+
+    public static double getRadius(Location firstLocation, Location secondLocation) {
+        Location first = firstLocation.clone();
+        first.setY(secondLocation.getY());
+        return first.distanceSquared(secondLocation);
     }
 
 }

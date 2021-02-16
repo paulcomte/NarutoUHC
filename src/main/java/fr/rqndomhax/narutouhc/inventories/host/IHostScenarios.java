@@ -9,8 +9,8 @@ package fr.rqndomhax.narutouhc.inventories.host;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.inventories.IInfos;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.inventory.PageController;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;

@@ -9,7 +9,6 @@ package fr.rqndomhax.narutouhc.tablecompletes;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,12 +22,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TabHost implements TabCompleter {
-
-    private final Setup setup;
-
-    public TabHost(Setup setup) {
-        this.setup = setup;
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String msg, String[] args) {

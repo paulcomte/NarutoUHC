@@ -76,7 +76,6 @@ public abstract class MGameActions {
     }
 
     public static void teleportPlayers2(Setup setup) {
-
         GameBorder border = setup.getGame().getGameRules().gameBorder;
         teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ(), setup.getMain());
     }

@@ -9,7 +9,6 @@ package fr.rqndomhax.narutouhc.managers.config;
 
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Roles;
-import fr.rqndomhax.narutouhc.game.GameRules;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
 import fr.rqndomhax.narutouhc.managers.rules.Drops;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;

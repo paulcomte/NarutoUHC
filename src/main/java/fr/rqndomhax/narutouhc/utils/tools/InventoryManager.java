@@ -46,11 +46,12 @@ public abstract class InventoryManager {
         player.getInventory().setChestplate(null);
         player.getInventory().setLeggings(null);
         player.getInventory().setBoots(null);
+        player.setItemOnCursor(null);
         player.updateInventory();
     }
 
     public static void giveInventory(ItemStack[] items, Player player) {
-        player.getInventory().clear();
+        clearInventory(player);
 
         for(int slot = 0; slot < 36; slot++){
             ItemStack item = items[slot];

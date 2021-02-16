@@ -60,6 +60,14 @@ public class CNaruto implements CommandExecutor {
             return true;
         }
 
+        if (gamePlayer.role instanceof KakashiHatake && args[0].equalsIgnoreCase("kakashi")) {
+            if (((KakashiHatake) gamePlayer.role).stolenRole == null)
+                gamePlayer.role.onDesc();
+            else
+                ((KakashiHatake) gamePlayer.role).stolenRole.onDesc();
+            return true;
+        }
+
         RoleInfo role = gamePlayer.role;
         if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
             role = ((KakashiHatake) gamePlayer.role).stolenRole;
@@ -125,24 +133,6 @@ public class CNaruto implements CommandExecutor {
                 }
                 role.onCommand(setup);
                 return true;
-            case KAKASHI_HATAKE:
-                if (!args[0].equalsIgnoreCase("kakashi")) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                if (((KakashiHatake) role).stolenRole == null)
-                    role.onDesc();
-                else
-                    ((KakashiHatake) role).stolenRole.onDesc();
-                return true;
-            /*case OBITO:
-                if (!args[0].equalsIgnoreCase("obito")) {
-                    player.sendMessage(Messages.NOT_YOUR_ROLE);
-                    return false;
-                }
-                role.onCommand(setup);
-                return true;
-             */ // TODO REMOVE
             case OROCHIMARU:
                 if (!args[0].equalsIgnoreCase("orochimaru")) {
                     player.sendMessage(Messages.NOT_YOUR_ROLE);

@@ -7,11 +7,9 @@
 
 package fr.rqndomhax.narutouhc.managers;
 
-import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.MBuilder;
 import fr.rqndomhax.narutouhc.infos.Maps;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
