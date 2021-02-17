@@ -11,12 +11,12 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
-import net.minecraft.server.v1_8_R3.GameProfileBanList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class GameScoreboard {
 
@@ -100,9 +100,6 @@ public abstract class GameScoreboard {
 
     private static void updateBoard(FastBoard board) {
 
-        if (setup.getGame().getMainTask() != null && setup.getGame().getMainTask().hasRoles && players == null)
-            initPlayers(setup.getGame().getGamePlayers());
-
         if (showCompo(board))
             return;
 
@@ -137,20 +134,32 @@ public abstract class GameScoreboard {
     }
 
     private static void runBoard() {
+
+        AtomicBoolean doClear = new AtomicBoolean(false);
+
         Bukkit.getServer().getScheduler().runTaskTimer(setup.getMain(), () -> {
+
+            if (setup.getGame().getMainTask() != null && setup.getGame().getMainTask().hasRoles && players == null)
+                initPlayers(setup.getGame().getGamePlayers());
+
+            if (players != null)
+                n++;
+
+            if (n - mainDuration >= nMax) {
+                n = 0;
+                doClear.set(true);
+            }
+
             for (FastBoard board : boards.values()) {
 
-                if (players != null)
-                    n++;
-
-                if (n - mainDuration >= nMax) {
-                    n = 0;
+                if (doClear.get())
                     board.updateLines(new ArrayList<>());
-                }
 
                 updateBoard(board);
 
             }
+
+            doClear.set(false);
         }, 0, 20);
     }
 
