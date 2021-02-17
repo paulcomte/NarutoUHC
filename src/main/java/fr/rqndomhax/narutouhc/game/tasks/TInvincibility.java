@@ -18,6 +18,8 @@ public class TInvincibility implements Task {
     public TInvincibility(TMain mainTask) {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
+        if (mainTask.episode == 0)
+            mainTask.episode++;
         remainingTime = mainTask.getSetup().getGame().getGameRules().invincibilityDuration;
         loop();
     }
