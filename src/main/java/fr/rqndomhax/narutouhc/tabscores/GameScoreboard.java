@@ -89,7 +89,7 @@ public abstract class GameScoreboard {
             else
                 compo.add(i, ChatColor.DARK_BLUE + "" + list.get(i).role.getRole().getRoleName());
         }
-        board.updateTitle("Composition " + (int) (current + 1) + "/" + list.size());
+        board.updateTitle("Composition " + (int) (current + 1) + "/" + players.size());
         board.updateLines(compo);
         return true;
     }

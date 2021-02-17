@@ -7,7 +7,6 @@
 
 package fr.rqndomhax.narutouhc.tablecompletes;
 
-import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

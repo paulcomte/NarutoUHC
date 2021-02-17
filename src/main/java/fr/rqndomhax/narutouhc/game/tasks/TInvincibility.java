@@ -7,8 +7,6 @@
 
 package fr.rqndomhax.narutouhc.game.tasks;
 
-import fr.rqndomhax.narutouhc.game.GameState;
-import fr.rqndomhax.narutouhc.tasks.TCenter;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 

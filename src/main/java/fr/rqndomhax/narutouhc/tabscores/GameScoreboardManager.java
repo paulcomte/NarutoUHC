@@ -18,13 +18,9 @@ import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Set;
 
 public abstract class GameScoreboardManager {
 

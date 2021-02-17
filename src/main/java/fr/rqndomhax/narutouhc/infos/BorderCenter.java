@@ -8,7 +8,6 @@
 package fr.rqndomhax.narutouhc.infos;
 
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
