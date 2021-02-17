@@ -33,8 +33,8 @@ public abstract class TUtils {
             mainTask.episode++;
 
             for (Player player : Bukkit.getOnlinePlayers()) {
-                new Title(ChatColor.AQUA + "Épisode " + mainTask.episode, "", 10,10,10);
-                player.playSound(player.getLocation(), Sound.ORB_PICKUP,3,0);
+                new Title(ChatColor.AQUA + "Épisode " + mainTask.episode, "", 10,10,10).send(player);
+                player.playSound(player.getLocation(), Sound.LEVEL_UP,3,1);
             }
 
             for (GamePlayer player : mainTask.getSetup().getGame().getGamePlayers()) {

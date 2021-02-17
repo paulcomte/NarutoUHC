@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.game;
 import fr.rqndomhax.narutouhc.infos.BorderCenter;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
@@ -31,6 +32,10 @@ public class GameBorder {
         wb.setSize(defaultSize);
         wb.setSize(finalSize, (long) ((defaultSize- finalSize)/speed));
         wb.setDamageAmount(damages);
+    }
+
+    public Location getLocation() {
+        return new Location(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), center.getX(), 0, center.getZ());
     }
 
 }

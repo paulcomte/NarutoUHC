@@ -14,7 +14,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public abstract class ProgressBar {
+public abstract class ActionBar {
+
+    public static void send(Player player, String msg){
+        PacketPlayOutChat packet = new PacketPlayOutChat(new ChatComponentText(msg), (byte)2);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+    }
 
     public static void displayProgressBar(String prefix, String end, int current, int full) {
         for (Player player : Bukkit.getOnlinePlayers())

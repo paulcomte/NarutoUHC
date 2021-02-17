@@ -93,7 +93,7 @@ public class IHost extends RInventory {
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
             }
             else {
-                if (Bukkit.getOnlinePlayers().size() != setup.getGame().getGameRules().activatedRoles.size()) {
+                /*if (Bukkit.getOnlinePlayers().size() != setup.getGame().getGameRules().activatedRoles.size()) {
                     player.sendMessage(Messages.HOST_NEED_MORE_PLAYERS);
                     player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
                     return;
@@ -103,6 +103,7 @@ public class IHost extends RInventory {
                     player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
                     return;
                 }
+                 */ //TODO REMOVE
                 setup.getGame().startTask(setup);
                 this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
             }

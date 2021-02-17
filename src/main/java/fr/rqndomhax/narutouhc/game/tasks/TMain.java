@@ -59,7 +59,7 @@ public class TMain extends BukkitRunnable {
         else
             if (task != null)
                 task.loop();
-        MGameStatus.checkWin(setup);
+        //MGameStatus.checkWin(setup); // TODO REMOVE
         rawTime++;
     }
 

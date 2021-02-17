@@ -13,7 +13,7 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
-import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
+import fr.rqndomhax.narutouhc.utils.tools.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -48,7 +48,7 @@ public class THidan extends BukkitRunnable {
         int current = 10*60 - remainingTime;
         int full = 10*60;
 
-        ProgressBar.displayProgressBar("Régénération", Chrono.timeToString(current), current, full, player);
+        ActionBar.displayProgressBar("Régénération", Chrono.timeToString(current), current, full, player);
 
         if (remainingTime == 0) {
             ItemStack[] inventory = new ItemStack[40];

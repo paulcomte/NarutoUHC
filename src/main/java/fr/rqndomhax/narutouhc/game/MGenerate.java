@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MGameBuild;
-import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
+import fr.rqndomhax.narutouhc.utils.tools.ActionBar;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -57,7 +57,7 @@ public class MGenerate extends BukkitRunnable {
         angle += delta;
         MGameActions.saveChunk(locations.get(0).getChunk());
         MGameBuild.placePlatform(locations.get(i));
-        ProgressBar.displayProgressBar("Génération", (i * 100) / players.size() + "%", i, players.size());
+        ActionBar.displayProgressBar("Génération", (i * 100) / players.size() + "%", i, players.size());
         i++;
     }
 }

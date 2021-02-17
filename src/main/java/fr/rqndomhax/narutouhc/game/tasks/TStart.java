@@ -145,6 +145,7 @@ public class TStart implements Task {
         updateRules();
 
         mainTask.roleRemainingTime = mainTask.getSetup().getGame().getGameRules().rolesAnnounce;
+        mainTask.episode++;
         mainTask.lastTaskFinished = true;
     }
 

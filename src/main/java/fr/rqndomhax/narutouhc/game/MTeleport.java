@@ -9,7 +9,7 @@ package fr.rqndomhax.narutouhc.game;
 
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
-import fr.rqndomhax.narutouhc.utils.tools.ProgressBar;
+import fr.rqndomhax.narutouhc.utils.tools.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -75,7 +75,7 @@ public class MTeleport extends BukkitRunnable {
 
         i++;
 
-        ProgressBar.displayProgressBar("Téléportation", (i * 100) / size + "%", i, size);
+        ActionBar.displayProgressBar("Téléportation", (i * 100) / size + "%", i, size);
     }
 
 }

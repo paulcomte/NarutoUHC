@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
+import fr.rqndomhax.narutouhc.tasks.TCenter;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 
@@ -22,6 +23,7 @@ public class TBorder implements Task {
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().gameBorder.timeBeforeResize;
+        new TCenter(mainTask.getSetup());
         loop();
     }
 
