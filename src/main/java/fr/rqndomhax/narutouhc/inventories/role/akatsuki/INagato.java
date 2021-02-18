@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.role.akatsuki.Nagato;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -60,8 +61,9 @@ public class INagato extends RInventory {
                 return;
             }
             player.closeInventory();
+            player.sendMessage(Messages.PREFIX + "Vous avez ressuscité " + selectedPlayer.getName());
+            player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
             nagato.hasUsedCapacity = true;
-            // TODO SEND CONFIRMATION MESSAGE
             ItemStack[] inventory = new ItemStack[40];
             inventory[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
             inventory[1] = new ItemStack(Material.GOLDEN_APPLE);
@@ -74,7 +76,6 @@ public class INagato extends RInventory {
             inventory[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             inventory[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             PlayerManager.revive(selectedPlayer, selected, inventory);
-            // TODO REVIVE MESSAGE
         };
     }
 

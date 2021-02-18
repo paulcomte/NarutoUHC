@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -55,7 +56,8 @@ public class ISakura extends RInventory {
                 return;
             }
             player.closeInventory();
-            // TODO SEND CONFIRMATION MESSAGE
+            player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
+            player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
             selected.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60*20, 1, false, false));
             selected.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 120*20, 0, false, false));
         };

@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.role.akatsuki;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -55,7 +56,8 @@ public class IDeidara extends RInventory {
                 return;
             }
             player.closeInventory();
-            // TODO SEND CONFIRMATION MESSAGE
+            player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
+            player.playSound(player.getLocation(), "random.explode", 2f,  1.3f);
             TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
             tnt.setFuseTicks(0);
         };

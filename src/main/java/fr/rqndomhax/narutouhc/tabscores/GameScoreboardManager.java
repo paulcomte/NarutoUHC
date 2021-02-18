@@ -24,9 +24,6 @@ import java.util.ArrayList;
 
 public abstract class GameScoreboardManager {
 
-    private static int pos = 0; // TODO TO SHOW ROLES IN GAME
-    private static int pages = 0;
-    private static final ArrayList<GamePlayer> playersList = new ArrayList<>();
     static DecimalFormat format = new DecimalFormat("#");
 
     public static void updateLobbyBoard(Setup setup, FastBoard board) {
@@ -97,10 +94,8 @@ public abstract class GameScoreboardManager {
         if (gamePlayer != null) {
             if (!setup.getGame().getMainTask().hasRoles || gamePlayer.role == null)
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
-            else {
+            else
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());
-                pos++;
-            }
 
             board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
             board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.RED + "Kills: " + ChatColor.WHITE + gamePlayer.kills.size());

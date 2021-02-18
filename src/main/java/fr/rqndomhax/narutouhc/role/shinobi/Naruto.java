@@ -19,6 +19,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Naruto extends RoleInfo {
 
+    public boolean isSasuke = false;
+
     public Naruto(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.NARUTO);
     }
@@ -41,7 +43,7 @@ public class Naruto extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous êtes Naruto.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1 et fire resistance.");
-        player.sendMessage(ChatColor.BLUE + "Si Sasuke vient à rejoindre l'akatsuki, vous obtiendrez l'effet strength 1."); // TODO CHECK SASUKE
+        player.sendMessage(ChatColor.BLUE + "Si Sasuke vient à rejoindre l'akatsuki, vous obtiendrez l'effet strength 1.");
     }
 
 }

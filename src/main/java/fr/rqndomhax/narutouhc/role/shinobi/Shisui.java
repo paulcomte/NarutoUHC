@@ -53,6 +53,6 @@ public class Shisui extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1.");
         player.sendMessage(ChatColor.BLUE + "Une fois toutes les 15 minutes, 3 pseudos aléatoires seont affichés dans votre chat.");
-        player.sendMessage(ChatColor.BLUE + "L'un des trois sera membre de l'akatsuki."); // TODO FIX TIMER
+        player.sendMessage(ChatColor.BLUE + "L'un des trois sera membre de l'akatsuki.");
     }
 }
