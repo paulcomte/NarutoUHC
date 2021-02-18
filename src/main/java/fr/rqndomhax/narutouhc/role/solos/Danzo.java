@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role.solos;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.tasks.role.solos.TDanzo;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -19,16 +20,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Danzo extends RoleInfo {
 
     public double maxHealth = 20;
-    public final List<GamePlayer> uchiwas = new ArrayList<>();
 
     public Danzo(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.DANZO);
+    }
+
+    @Override
+    public void onCommand(Setup setup) {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null)
+            return;
+
+        Messages.showList(player, MGamePublicRoles.uchihas);
     }
 
     @Override
@@ -37,12 +43,13 @@ public class Danzo extends RoleInfo {
         if (killed.role == null || player == null)
             return;
 
-        if (killed.role.getRole().equals(Roles.MADARA) || killed.role.getRole().equals(Roles.ITACHI) || killed.role.getRole().equals(Roles.SHISUI) || killed.role.getRole().equals(Roles.SASUKE)) {
-            maxHealth += 3;
+        Roles role = killed.role.getRole();
+
+        if (role.equals(Roles.MADARA) || role.equals(Roles.ITACHI) || role.equals(Roles.OBITO) || role.equals(Roles.SHISUI) || killed.role.getRole().equals(Roles.SASUKE)) {
+            maxHealth += 5;
             giveEffects();
             player.sendMessage(Messages.PREFIX + "Vous avez reçu 2.5 coeurs supplémentaires !");
         }
-
     }
 
     @Override
@@ -71,6 +78,6 @@ public class Danzo extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Lorsque vous tuez un Uchiha vous obtenez 2.5 coeurs supplémentaires.");
         player.sendMessage(ChatColor.BLUE + "Toutes les 10 minutes, vous connaîtrez le pseudo d'un Uchiha (Sasuke, Madara, Itachi, Obito, Shisui).");
         player.sendMessage(ChatColor.BLUE + "Vous pouvez consulter votre liste d'Uchiha connu avec /na danzo.");
-    } // TODO FIX UCHIHA TIMER
+    }
 
 }

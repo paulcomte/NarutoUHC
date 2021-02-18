@@ -95,7 +95,7 @@ public abstract class GameScoreboardManager {
         board.updateLine(++line, ChatColor.BLACK + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                    ");
 
         if (gamePlayer != null) {
-            if (setup.getGame().getGameRules().rolesAnnounce - setup.getGame().getMainTask().time > 0 && gamePlayer.role == null)
+            if (!setup.getGame().getMainTask().hasRoles || gamePlayer.role == null)
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + Chrono.timeToDigitalString(setup.getGame().getMainTask().roleRemainingTime - setup.getGame().getMainTask().time));
             else {
                 board.updateLine(++line, ChatColor.GOLD + "⦿ " + ChatColor.DARK_BLUE + "Rôle: " + ChatColor.WHITE + gamePlayer.role.getRole().getRoleName());

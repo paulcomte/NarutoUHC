@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.inventories.role.ISasuke;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.tasks.role.solos.TSasuke;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -31,12 +32,27 @@ public class Sasuke extends RoleInfo {
     boolean hasKilled = false;
     public int usagesLeft = 0;
     public final List<GamePlayer> list = new ArrayList<>();
+    private TSasuke task = null;
 
     public Team selectedTeam = null;
 
     public Sasuke(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.SASUKE);
         hasClaimed = true;
+    }
+
+    @Override
+    public void onPlayerDeath(GamePlayer gamePlayer) {
+        if (gamePlayer.role == null)
+            return;
+
+        if (gamePlayer.role.getRole().equals(Roles.DANZO))
+            task.cancel();
+    }
+
+    @Override
+    public void onInit(Setup setup) {
+        task = new TSasuke(setup, this);
     }
 
     @Override

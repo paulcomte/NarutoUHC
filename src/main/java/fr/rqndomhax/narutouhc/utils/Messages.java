@@ -58,7 +58,6 @@ public abstract class Messages {
     public static String WB_BORDER_RESIZING = PREFIX + "La réduction de la bordure vient de commencer, dirigez vous vers le centre !";
 
     public static String ROLES_ANNOUNCE_IN = PREFIX + "Annonce des rôles dans %time% secondes";
-    public static String ROLES_ANNOUNCED = PREFIX + "Les rôles ont été annoncés !";
 
     public static String ADMIN_ROLES_NOT_ENABLE = PREFIX + "Les rôles admins n'ont pas été activés !";
     public static String ADMIN_PLAYER_ROLE_NOT_PRESENT = PREFIX + "Ce joueur ne possède aucun rôle !";

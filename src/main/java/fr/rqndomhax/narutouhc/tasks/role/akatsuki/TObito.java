@@ -30,10 +30,11 @@ public class TObito extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (setup == null || setup.getGame() == null || setup.getGame().getGameState() == null || setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || gamePlayer == null || gamePlayer.isDead) {
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || gamePlayer == null || gamePlayer.isDead) {
             cancel();
             return;
         }
+
         if (remainingTime == 0) {
             Player player = Bukkit.getPlayer(gamePlayer.uuid);
             if (player == null) {

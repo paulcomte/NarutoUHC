@@ -33,6 +33,8 @@ public abstract class PlayerManager {
     public static double getRadius(Location firstLocation, Location secondLocation) {
         Location first = firstLocation.clone();
         first.setY(secondLocation.getY());
+        if (!firstLocation.getWorld().equals(secondLocation.getWorld()))
+            return Double.MAX_VALUE;
         return first.distanceSquared(secondLocation);
     }
 

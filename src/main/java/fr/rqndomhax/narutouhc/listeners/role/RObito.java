@@ -36,6 +36,25 @@ public class RObito implements Listener {
     }
 
     @EventHandler
+    public void onHit(EntityDamageByEntityEvent e) {
+        if (e.getEntity() == null || (!(e.getEntity() instanceof Player)))
+            return;
+
+        Player player = (Player) e.getEntity();
+
+        boolean hasEffect = false;
+
+        for (PotionEffect effect : player.getActivePotionEffects())
+            if (effect.getType().equals(PotionEffectType.INVISIBILITY)) {
+                hasEffect = true;
+                break;
+            }
+
+        if (hasEffect)
+            e.setCancelled(true);
+    }
+
+    @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e) {
 
         if (e.isCancelled())

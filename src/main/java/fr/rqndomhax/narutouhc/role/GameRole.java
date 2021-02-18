@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.role;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
@@ -29,7 +30,7 @@ public class GameRole {
         this.game = game;
     }
 
-    public void dispatchRoles() {
+    public void dispatchRoles(Setup setup) {
         availableRoles.clear();
         availableRoles.addAll(game.getGameRules().activatedRoles);
         for (GamePlayer player : game.getGamePlayers()) {
@@ -50,6 +51,11 @@ public class GameRole {
                 }
                 availableRoles.remove(0);
             }
+        }
+
+        for (GamePlayer player : game.getGamePlayers()) {
+            if (player.role != null)
+                player.role.onInit(setup);
         }
     }
 

@@ -6,6 +6,7 @@
  */
 package fr.rqndomhax.narutouhc.role.akatsuki;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
@@ -25,10 +26,18 @@ public class Obito extends Akatsuki {
 
     public final ItemStack item = new ItemBuilder(Material.LEATHER).setName(ChatColor.BLACK + "Ninjutsu Spatio-Temporel").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public boolean hasUsedCapacity = true;
-    public TObito task = null; // TODO FIX OBITO WITH TABLIST + FIX RIGHT CLICK IN AIR
+    public TObito task = null; // TODO FIX OBITO WITH TABLIST
 
     public Obito(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.OBITO);
+    }
+
+    @Override
+    public void onDeath(Setup setup) {
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player != null)
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                onlinePlayer.showPlayer(player);
     }
 
     @Override

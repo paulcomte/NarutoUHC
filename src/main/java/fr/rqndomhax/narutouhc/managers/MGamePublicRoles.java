@@ -19,6 +19,8 @@ public abstract class MGamePublicRoles {
 
     public static final List<GamePlayer> akatsukis = new ArrayList<>();
 
+    public static final List<GamePlayer> uchihas = new ArrayList<>();
+
     public static final List<GamePlayer> itachiAkatsukis = new ArrayList<>();
 
     public static final List<GamePlayer> orochimarus = new ArrayList<>();

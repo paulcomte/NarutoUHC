@@ -27,6 +27,7 @@ public abstract class GameScoreboard {
     public static int compoDuration = 5;
     public static int mainDuration = 15;
     private static List<List<GamePlayer>> players = null;
+    private static List<String> compo = new ArrayList<>();
 
     public static void init(Setup setup) {
         GameScoreboard.setup = setup;
@@ -62,6 +63,34 @@ public abstract class GameScoreboard {
         nMax = (compoDuration * players.size());
     }
 
+    private static void updateCompo() {
+        if (players == null)
+            return;
+
+        if (n == 0)
+            return;
+
+        if (n < mainDuration)
+            return;
+
+        double current = (double) (n - mainDuration) / compoDuration;
+
+        if (current % 1 != 0)
+            return;
+
+        List<GamePlayer> list = players.get((int) current);
+        GameScoreboard.compo.clear();
+        for (int i = 0; i < 16 && i < list.size(); i++) {
+            if (list.get(i) == null || list.get(i).role == null)
+                continue;
+
+            if (list.get(i).isDead)
+                compo.add(ChatColor.DARK_BLUE + "" + ChatColor.STRIKETHROUGH + list.get(i).role.getRole().getRoleName());
+            else
+                compo.add(i, ChatColor.DARK_BLUE + "" + list.get(i).role.getRole().getRoleName());
+        }
+    }
+
     private static boolean showCompo(FastBoard board) {
         if (players == null)
             return false;
@@ -77,18 +106,6 @@ public abstract class GameScoreboard {
         if (current % 1 != 0)
             return true;
 
-        List<GamePlayer> list = players.get((int) current);
-        List<String> compo = new ArrayList<>();
-
-        for (int i = 0; i < 16 && i < list.size(); i++) {
-            if (list.get(i) == null || list.get(i).role == null)
-                continue;
-
-            if (list.get(i).isDead)
-                compo.add(ChatColor.DARK_BLUE + "" + ChatColor.STRIKETHROUGH + list.get(i).role.getRole().getRoleName());
-            else
-                compo.add(i, ChatColor.DARK_BLUE + "" + list.get(i).role.getRole().getRoleName());
-        }
         board.updateTitle("Composition " + (int) (current + 1) + "/" + players.size());
         board.updateLines(compo);
         return true;
@@ -149,6 +166,8 @@ public abstract class GameScoreboard {
                 n = 0;
                 doClear.set(true);
             }
+
+            updateCompo();
 
             for (FastBoard board : boards.values()) {
 

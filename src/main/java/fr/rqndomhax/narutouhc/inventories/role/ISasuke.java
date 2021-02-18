@@ -51,6 +51,8 @@ public class ISasuke extends RInventory {
         return e -> {
             player.sendMessage(ChatColor.DARK_AQUA + "Rôle de " + ChatColor.GOLD + selected.name + ChatColor.DARK_AQUA + ": " + ChatColor.BLUE + ChatColor.UNDERLINE + selected.role.getRole().getRoleName());
             sasuke.usagesLeft--;
+            if (sasuke.usagesLeft == 0)
+                player.closeInventory();
         };
     }
 

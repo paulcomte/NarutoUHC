@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class TUtils {
 
@@ -82,10 +83,8 @@ public abstract class TUtils {
                         .replace("%time%", String.valueOf(r)));
         }
 
-        if (r == 0) {
-            mainTask.getSetup().getGame().getGameRole().dispatchRoles();
-            Bukkit.broadcastMessage(Messages.ROLES_ANNOUNCED);
-        }
+        if (r == 0)
+            mainTask.getSetup().getGame().getGameRole().dispatchRoles(mainTask.getSetup());
     }
 
 }

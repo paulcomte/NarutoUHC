@@ -168,7 +168,7 @@ public class EPlayerLogin implements Listener {
         }
 
         GamePlayer player = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
-        if (player != null && !player.isDead){
+        if (player != null && !player.isDead && !player.isInDead){
             InventoryManager.saveInventory(player.inventory, e.getPlayer(), false);
             MVillagers.createVillager(e.getPlayer().getLocation(), player);
         }

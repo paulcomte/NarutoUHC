@@ -132,7 +132,7 @@ public class EPlayerActions implements Listener {
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
-        if (gamePlayer == null || !gamePlayer.isDead) return;
+        if (gamePlayer == null || !gamePlayer.isDead && !gamePlayer.isInDead) return;
 
         e.setRespawnLocation(gamePlayer.deathLocation);
     }

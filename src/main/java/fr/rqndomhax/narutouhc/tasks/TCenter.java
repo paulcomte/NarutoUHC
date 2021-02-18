@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.tasks;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.utils.tools.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,6 +38,9 @@ public class TCenter extends BukkitRunnable {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getGameMode().equals(GameMode.SPECTATOR))
+                continue;
+
+            if(player.getWorld() == null || !player.getWorld().getName().equals(Maps.NARUTO_UNIVERSE.name()))
                 continue;
 
             ActionBar.send(player, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Centre " + updateArrow(player, setup.getGame().getGameRules().gameBorder.getLocation()));

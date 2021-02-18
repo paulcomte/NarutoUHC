@@ -10,8 +10,11 @@ package fr.rqndomhax.narutouhc.tasks.role.shinobi;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.tasks.role.Timers;
+import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -30,26 +33,34 @@ public class TNeji extends BukkitRunnable {
         this.selected = selected;
         this.nejiPlayer = nejiPlayer;
         this.selectedPlayer = selectedPlayer;
-        // TODO SEND MESSAGE ANALYZING
+        nejiPlayer.sendMessage(Messages.PREFIX + "Début de l'analyse de " + selectedPlayer.getName());
         runTaskTimerAsynchronously(setup.getMain(), 0, 20);
     }
 
     @Override
     public void run() {
 
-        if (setup == null || setup.getGame() == null || setup.getGame().getGameState() == null || setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || nejiPlayer == null || neji == null || neji.isDead) {
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || nejiPlayer == null || neji == null || neji.isDead) {
             cancel();
             return;
         }
 
         if (selectedPlayer == null || remainingTime == 0) {
-            // TODO NEJI VERIFIED
+            if (selected.role.getRole().getTeam().equals(Team.AKATSUKI) || selected.role.getRole().getTeam().equals(Team.OROCHIMARU)) {
+                nejiPlayer.sendMessage(Messages.PREFIX + "Le joueur " + selected.name + " est " + ChatColor.RED + "suspect " + ChatColor.RESET + "!");
+                nejiPlayer.playSound(nejiPlayer.getLocation(), "mob.wither.death", 2, 0f);
+            }
+            else {
+                nejiPlayer.sendMessage(Messages.PREFIX + "Le joueur " + selected.name + " est " + ChatColor.GREEN + "gentil " + ChatColor.RESET + "!");
+                nejiPlayer.playSound(nejiPlayer.getLocation(), "portal.trigger", 2, 2f);
+            }
             cancel();
             return;
         }
 
-        if (PlayerManager.getRadius(nejiPlayer.getLocation(), selectedPlayer.getLocation()) > 20) {
-            // TODO NEJI CANCEL
+        if (PlayerManager.getRadius(nejiPlayer.getLocation(), selectedPlayer.getLocation()) > 15*15) {
+            nejiPlayer.sendMessage(Messages.PREFIX + "Le joueur " + selected.name + " s'est " + ChatColor.DARK_RED + "échappé " + ChatColor.RESET + "!");
+            nejiPlayer.playSound(nejiPlayer.getLocation(), "random.break", 2, 1f);
             cancel();
             return;
         }

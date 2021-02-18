@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.inventories.role.shinobi;
 
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.role.shinobi.Neji;
 import fr.rqndomhax.narutouhc.tasks.role.shinobi.TNeji;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventory;
 import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
@@ -56,7 +57,9 @@ public class INeji extends RInventory {
                 return;
             }
             player.closeInventory();
+            ((Neji) neji.role).commandUses--;
             new TNeji(setup, neji, selected, player, selectedPlayer);
+            player.playSound(player.getLocation(), "random.levelup", 2, 2f);
         };
     }
 

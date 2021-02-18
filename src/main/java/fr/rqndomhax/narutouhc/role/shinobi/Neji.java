@@ -25,7 +25,7 @@ import java.util.Set;
 
 public class Neji extends RoleInfo {
 
-    int commandUses = 2;
+    public int commandUses = 2;
 
     public Neji(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.NEJI);
@@ -79,8 +79,6 @@ public class Neji extends RoleInfo {
         }
 
         player.openInventory(new INeji(setup, player, getGamePlayer(), players, inventory_size*9).getInventory());
-
-        commandUses--;
     }
 
     @Override

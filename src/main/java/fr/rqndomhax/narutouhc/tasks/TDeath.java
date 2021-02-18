@@ -80,7 +80,7 @@ public class TDeath extends BukkitRunnable {
         }
 
         for (GamePlayer p : setup.getGame().getGamePlayers()) {
-            if (p.isDead || p.role == null)
+            if (p.role == null || p.isInDead || p.isDead)
                 continue;
 
             p.role.onPlayerDeath(gamePlayer);

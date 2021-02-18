@@ -26,8 +26,12 @@ public class Shisui extends RoleInfo {
     }
 
     @Override
-    public void onRoleGiven(Setup setup) {
+    public void onInit(Setup setup) {
         new TShisui(setup, getGamePlayer());
+    }
+
+    @Override
+    public void onRoleGiven(Setup setup) {
         super.onRoleGiven(setup);
     }
 
