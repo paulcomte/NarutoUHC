@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.role.shinobi.Neji;
 import fr.rqndomhax.narutouhc.tasks.role.Timers;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
@@ -21,13 +22,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class TNeji extends BukkitRunnable {
 
     private final Setup setup;
-    private final GamePlayer neji;
+    private final Neji neji;
     private final GamePlayer selected;
     private final Player nejiPlayer;
     private final Player selectedPlayer;
     int remainingTime = Timers.NEJI;
 
-    public TNeji(Setup setup, GamePlayer neji, GamePlayer selected, Player nejiPlayer, Player selectedPlayer) {
+    public TNeji(Setup setup, Neji neji, GamePlayer selected, Player nejiPlayer, Player selectedPlayer) {
         this.setup = setup;
         this.neji = neji;
         this.selected = selected;
@@ -40,7 +41,7 @@ public class TNeji extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || nejiPlayer == null || neji == null || neji.isDead) {
+        if (setup.getGame().getGameState().equals(GameState.GAME_FINISHED) || nejiPlayer == null || neji == null || neji.getGamePlayer().isDead) {
             cancel();
             return;
         }

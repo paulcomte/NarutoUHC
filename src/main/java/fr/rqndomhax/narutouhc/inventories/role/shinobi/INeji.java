@@ -24,11 +24,11 @@ import java.util.function.Consumer;
 public class INeji extends RInventory {
 
     private final Setup setup;
-    private final GamePlayer neji;
+    private final Neji neji;
     private final Set<GamePlayer> players;
     private final Player player;
 
-    public INeji(Setup setup, Player player, GamePlayer neji, Set<GamePlayer> players, int size) {
+    public INeji(Setup setup, Player player, Neji neji, Set<GamePlayer> players, int size) {
         super(null, "Analyse", size);
         this.setup = setup;
         this.player = player;
@@ -57,7 +57,7 @@ public class INeji extends RInventory {
                 return;
             }
             player.closeInventory();
-            ((Neji) neji.role).commandUses--;
+            neji.commandUses--;
             new TNeji(setup, neji, selected, player, selectedPlayer);
             player.playSound(player.getLocation(), "random.levelup", 2, 2f);
         };

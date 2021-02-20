@@ -48,7 +48,7 @@ public class Nagato extends Akatsuki {
                 continue;
 
             if (gamePlayer.role == null || !gamePlayer.role.getRole().getTeam().equals(Team.AKATSUKI))
-                return;
+                continue;
 
             Player p = Bukkit.getPlayer(gamePlayer.uuid);
 

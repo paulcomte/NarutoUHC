@@ -46,7 +46,7 @@ public class Sasuke extends RoleInfo {
         if (gamePlayer.role == null)
             return;
 
-        if (gamePlayer.role.getRole().equals(Roles.DANZO))
+        if (gamePlayer.role.getRole().equals(Roles.DANZO) && task != null)
             task.cancel();
     }
 

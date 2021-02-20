@@ -12,6 +12,8 @@ import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Roles;
+import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.role.shinobi.Naruto;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 
@@ -43,9 +45,6 @@ public class GameRole {
             if (player.role == null) {
                 try {
                     player.role = (RoleInfo) role.getRoleInfo().getDeclaredConstructors()[0].newInstance(player);
-                    player.role.onDesc();
-                    player.role.giveEffects();
-                    player.role.onTeam();
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
@@ -54,8 +53,18 @@ public class GameRole {
         }
 
         for (GamePlayer player : game.getGamePlayers()) {
-            if (player.role != null)
+            if (player.role instanceof Naruto) {
+                GamePlayer sasuke = game.getGamePlayerFromRole(Roles.SASUKE);
+
+                if (sasuke != null && (sasuke.role.getRole().getTeam().equals(Team.AKATSUKI)))
+                    ((Naruto) player.role).isSasuke = true;
+            }
+            if (player.role != null) {
                 player.role.onInit(setup);
+                player.role.onDesc();
+                player.role.giveEffects();
+                player.role.onTeam();
+            }
         }
     }
 

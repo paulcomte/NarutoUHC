@@ -78,7 +78,7 @@ public class Neji extends RoleInfo {
             size++;
         }
 
-        player.openInventory(new INeji(setup, player, getGamePlayer(), players, inventory_size*9).getInventory());
+        player.openInventory(new INeji(setup, player, this, players, inventory_size*9).getInventory());
     }
 
     @Override
