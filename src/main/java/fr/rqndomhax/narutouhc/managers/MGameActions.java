@@ -21,6 +21,7 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class MGameActions {
 
@@ -77,13 +78,13 @@ public abstract class MGameActions {
 
     public static void teleportPlayers2(Setup setup) {
         GameBorder border = setup.getGame().getGameRules().gameBorder;
-        teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers(), border.center.getX(), border.center.getZ(), setup.getMain());
+        teleportPlayers(Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()), border.defaultSize/2, setup.getGame().getGamePlayers().stream().filter(o -> !o.isDead).collect(Collectors.toSet()), border.center.getX(), border.center.getZ(), setup.getMain());
     }
 
     public static void teleportPlayers1(Setup setup) {
         World world = Bukkit.getWorld(Maps.NO_PVP.name());
 
-        teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers(), 0, 0, setup.getMain());
+        teleportPlayers(world, (int) (world.getWorldBorder().getSize()/2), setup.getGame().getGamePlayers().stream().filter(o -> !o.isDead).collect(Collectors.toSet()), 0, 0, setup.getMain());
     }
 
     public static void sendInfo(GamePlayer gamePlayer, int i) {

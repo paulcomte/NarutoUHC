@@ -20,6 +20,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
+import java.util.Arrays;
+
 public class ViewInventory extends RInventory {
 
     public ViewInventory(Setup setup, Player target, GamePlayer gamePlayer) {
@@ -37,7 +39,7 @@ public class ViewInventory extends RInventory {
         this.setItem(38, target.getInventory().getLeggings());
         this.setItem(39, target.getInventory().getBoots());
 
-        this.setItem(45, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).setSkullOwner(target.getName()).setName(ChatColor.GREEN + "Pseudo: " + ChatColor.YELLOW + "" + target.getName()).setLore(ChatColor.GOLD + "Mort: " + (gamePlayer.isDead ? ChatColor.GREEN + "Oui" : ChatColor.RED + "Non") + "\n" + ChatColor.RED + "Rôle: " + (gamePlayer.role == null ? "Aucun" : gamePlayer.role.getRole().getRoleName())).toItemStack());
+        this.setItem(45, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).setSkullOwner(target.getName()).setName(ChatColor.GREEN + "Pseudo: " + ChatColor.YELLOW + "" + target.getName()).setLore(Arrays.asList(ChatColor.GOLD + "Mort: " + (gamePlayer.isDead ? ChatColor.GREEN + "Oui" : ChatColor.RED + "Non"), ChatColor.RED + "Rôle: " + (gamePlayer.role == null ? "Aucun" : gamePlayer.role.getRole().getRoleName())).toString()).toItemStack());
         this.setItem(46, new ItemBuilder(Material.APPLE, (int) target.getHealth()).setName(ChatColor.RED + "Vie: " + (int)target.getHealth() + " / " + (int)target.getMaxHealth()).toItemStack());
         this.setItem(47, new ItemBuilder(Material.COOKED_BEEF, target.getFoodLevel()).setName(ChatColor.GOLD + "Faim: " + target.getFoodLevel()).toItemStack());
         ItemBuilder itemBuilder = new ItemBuilder(Material.POTION, 1, (byte) 8265).setName(ChatColor.YELLOW + "Effets").addItemFlag(ItemFlag.HIDE_POTION_EFFECTS);

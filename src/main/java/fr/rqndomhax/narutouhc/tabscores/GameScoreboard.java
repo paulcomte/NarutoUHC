@@ -42,7 +42,7 @@ public abstract class GameScoreboard {
     }
 
     private static void initPlayers(Set<GamePlayer> gamePlayers) {
-        int size = 16;
+        int size = 10;
         int n = -1;
 
         players = new ArrayList<>();
@@ -51,7 +51,7 @@ public abstract class GameScoreboard {
             if (player.role == null)
                 continue;
 
-            if (size == 16) {
+            if (size == 10) {
                 size = 0;
                 n++;
                 players.add(new ArrayList<>());
@@ -80,14 +80,14 @@ public abstract class GameScoreboard {
 
         List<GamePlayer> list = players.get((int) current);
         GameScoreboard.compo.clear();
-        for (int i = 0; i < 16 && i < list.size(); i++) {
+        for (int i = 0; i < 10 && i < list.size(); i++) {
             if (list.get(i) == null || list.get(i).role == null)
                 continue;
 
             if (list.get(i).isDead)
-                compo.add(ChatColor.DARK_BLUE + "" + ChatColor.STRIKETHROUGH + list.get(i).role.getRole().getRoleName());
+                compo.add(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + list.get(i).role.getRole().getRoleName());
             else
-                compo.add(i, ChatColor.DARK_BLUE + "" + list.get(i).role.getRole().getRoleName());
+                compo.add(i, ChatColor.BLUE + "" + list.get(i).role.getRole().getRoleName());
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class GameScoreboard {
         if (current % 1 != 0)
             return true;
 
-        board.updateTitle("Composition " + (int) (current + 1) + "/" + players.size());
+        board.updateTitle(ChatColor.GOLD + "Composition " + (int) (current + 1) + "/" + players.size());
         board.updateLines(compo);
         return true;
     }

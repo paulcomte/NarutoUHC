@@ -89,7 +89,7 @@ public class Registers {
         World noPVP = Bukkit.getWorld(Maps.NO_PVP.name());
 
         noPVP.getWorldBorder().setCenter(0, 0);
-        noPVP.getWorldBorder().setSize(20000);
+        noPVP.getWorldBorder().setSize(5000);
 
         noPVP.setPVP(false);
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
@@ -101,7 +101,6 @@ public class Registers {
         PluginManager pm = Bukkit.getPluginManager();
 
         // SETTINGS
-        pm.registerEvents(new EPrefix(), setup.getMain());
         pm.registerEvents(new ECancels(setup), setup.getMain());
         pm.registerEvents(new EListener(setup), setup.getMain());
 
