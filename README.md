@@ -42,33 +42,33 @@ server.properties
 
 ## Console
 
-### `/host set <player>`
-This command sets the `<player>` as the game's host, the original game's host needs to be disconnected.
+> ### `/host set <player>`
+> This command sets the `<player>` as the game's host, the original game's host needs to be disconnected.
 
 ## Host
 
-### `/host kick <player>`
-This command kicks the `<player>` from the game.
+> #### `/host kick <player>`
+> This command kicks the `<player>` from the game.
 
-### `/host ban <player>`
-This command bans the `<player>` from the game.
+> #### `/host ban <player>`
+> This command bans the `<player>` from the game.
 
-### `/host unban <player>`
-This commands cancel the ban of the `<player>`.
+> #### `/host unban <player>`
+> This commands cancel the ban of the `<player>`.
 
-### `/host promote <player>`
-This command promotes the `<player>` as a co-host of the game.
+> #### `/host promote <player>`
+> This command promotes the `<player>` as a co-host of the game.
 
-### `/host delete <player>`
-This command demotes the `<player>` from co-host of the game.
+> #### `/host delete <player>`
+> This command demotes the `<player>` from co-host of the game.
 
 ## Host - Co-Host
 
-### `/heal`
-This command heals all the players.
+> #### `/heal`
+> This command heals all the players.
 
-### `/revive <player>`
-This command revives the `<player>` with his inventory.
+> #### `/revive <player>`
+> This command revives the `<player>` with his inventory.
 
-### `/host say <message>`
-This command broadcasts a `<message>`.
+> #### `/host say <message>`
+> This command broadcasts a `<message>`.
