@@ -80,6 +80,7 @@ public class Obito extends Akatsuki {
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez d'un objet \"Ninjutsu Spatio-Temporel\" permettant de vous rendrez invisible, et d'obtenir l'effet speed 1.");
         player.sendMessage(ChatColor.BLUE + "L'invisibilité fonctionne même avec l'armure, ces effets ne dureront que 2 minutes, au premier coup donné, vous redeviendrez visible.");
+        player.sendMessage(ChatColor.BLUE + "Si jamais vous venez à attaquer un joueur durant cette période d'invisibilité, vous obtiendrez les effets strength 1 et speed 1 pendant 10 secondes.");
         player.sendMessage(ChatColor.BLUE + "Vous ne pouvez utiliser cet objet qu'une fois par épisode.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Ninjutsu Spatio-Temporel\".");

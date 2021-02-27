@@ -101,7 +101,13 @@ public class RObito implements Listener {
                 player.removePotionEffect(effect.getType());
         }
 
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+        if (player.getActivePotionEffects().stream().noneMatch(effect -> effect.getType().equals(PotionEffectType.SPEED)))
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10*20, 0, false, false));
+
+        if (player.getActivePotionEffects().stream().noneMatch(effect -> effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)))
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 10*20, 0, false, false));
+
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.playSound(player.getLocation(), "mob.guardian.death", 2, 0.4f);
             onlinePlayer.showPlayer(player);
         }

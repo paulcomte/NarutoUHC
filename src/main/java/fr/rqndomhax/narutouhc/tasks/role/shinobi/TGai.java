@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TGai extends BukkitRunnable {
 
-    private int remainingTime = 10*60;
+    private int remainingTime = 7*60;
     private final Setup setup;
     private final GamePlayer player;
 

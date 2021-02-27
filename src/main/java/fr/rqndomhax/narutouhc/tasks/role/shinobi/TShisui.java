@@ -7,7 +7,6 @@
 
 package fr.rqndomhax.narutouhc.tasks.role.shinobi;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
@@ -16,11 +15,12 @@ import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerChatTabCompleteEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 public class TShisui extends BukkitRunnable {
 

@@ -75,6 +75,6 @@ public class Konan extends Akatsuki {
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 livre power 5, 64 flèches et 64 feuilles.");
         else
-            player.sendMessage(ChatColor.RED + "/na claim: " + "1 livre depth strider 3, et 32 bottles d'xp.");
+            player.sendMessage(ChatColor.RED + "/na claim: " + "1 livre power 5, 64 flèches et 64 feuilles.");
     }
 }

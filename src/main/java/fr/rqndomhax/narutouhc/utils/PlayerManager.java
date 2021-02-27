@@ -24,7 +24,7 @@ public abstract class PlayerManager {
         gamePlayer.isInDead = false;
         player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
         InventoryManager.giveInventory(inventory, player);
-        if (gamePlayer.role != null && gamePlayer.role.getRole() != null)
+        if (gamePlayer.role != null)
             gamePlayer.role.giveEffects();
         player.setGameMode(GameMode.SURVIVAL);
         player.sendMessage(Messages.PLAYER_RESURRECTED);

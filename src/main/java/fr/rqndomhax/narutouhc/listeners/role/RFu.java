@@ -113,7 +113,7 @@ public class RFu implements Listener {
             return;
 
         ParticleEffect.HEART.display(e.getBlockPlaced().getLocation());
-        player.getLocation().getWorld().playSound(e.getBlockPlaced().getLocation(), Sound.CAT_MEOW, 10, 1.5f);
+        player.getLocation().getWorld().playSound(e.getBlockPlaced().getLocation(), Sound.CAT_MEOW, 2, 1.5f);
         webs.computeIfAbsent(player, k -> new HashSet<>());
         webs.get(player).add(e.getBlock());
     }

@@ -39,7 +39,7 @@ public class Kisame extends Akatsuki {
 
         long nSpace = Arrays.stream(player.getInventory().getContents()).filter(Objects::isNull).count();
         if (nSpace < 2) {
-            player.sendMessage(Messages.ROLE_ITEMS_NEED_SPACE.replace("%n%", "1").replace("objets", "objet"));
+            player.sendMessage(Messages.ROLE_ITEMS_NEED_SPACE.replace("%n%", "2"));
             return;
         }
 
