@@ -1,14 +1,14 @@
 # NarutoUHC by RqndomHax
 
-## Getting Started
+# Getting Started
 
 You server need to run `Spigot-1.8.8.jar`.
 
-# Installation
+## Installation
 
 Build the sources with maven and copy the `NarutoUHC.jar` to your `plugins` server's folder.
 
-# Prerequiresites
+## Prerequiresites
 
 Download the `NarutoUHC` map here: https://www.planetminecraft.com/project/naruto-shinobi-legend-s-map/
 Create a `original` folder in your server's root.
@@ -36,16 +36,16 @@ server.properties
 ...
 ```
 
-# Run your server
+## Run your server
 
-## Commands
+# Commands
 
-# Console
+## Console
 
 ### `/host set <player>`
 This command sets the `<player>` as the game's host, the original game's host needs to be disconnected.
 
-# Host
+## Host
 
 ### `/host kick <player>`
 This command kicks the `<player>` from the game.
@@ -62,7 +62,7 @@ This command promotes the `<player>` as a co-host of the game.
 ### `/host delete <player>`
 This command demotes the `<player>` from co-host of the game.
 
-# Host - Co-Host
+## Host - Co-Host
 
 ### `/heal`
 This command heals all the players.
