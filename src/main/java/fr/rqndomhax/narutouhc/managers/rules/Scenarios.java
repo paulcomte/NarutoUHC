@@ -9,7 +9,6 @@ package fr.rqndomhax.narutouhc.managers.rules;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 public enum Scenarios {
