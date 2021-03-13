@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.game.tasks;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.Timers;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +24,7 @@ public abstract class TUtils {
     public static void checkEpisode(TMain mainTask) {
         if (mainTask.episode == 0)
             return;
-        int remaining = ((5*60 * mainTask.episode) - (mainTask.time));
+        int remaining = ((Timers.EPISODE_LENGTH * mainTask.episode) - (mainTask.time));
 
         if (remaining == 30)
             Bukkit.broadcastMessage(Messages.EPISODE_FINISHED_30S.replace("%episode%", String.valueOf(mainTask.episode)));

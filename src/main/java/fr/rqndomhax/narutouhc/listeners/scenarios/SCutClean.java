@@ -73,20 +73,21 @@ public class SCutClean implements Listener {
             case GOLD_ORE:
                 if (!e.getPlayer().getItemInHand().getType().equals(Material.DIAMOND_PICKAXE) && !e.getPlayer().getItemInHand().getType().equals(Material.IRON_PICKAXE))
                     return;
+                e.getBlock().setType(Material.AIR);
+                e.getBlock().getState().update();
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GOLD_INGOT));
                 e.getBlock().getWorld().spawn(e.getBlock().getLocation(), ExperienceOrb.class).setExperience(3);
                 break;
             case IRON_ORE:
                 if (!e.getPlayer().getItemInHand().getType().equals(Material.DIAMOND_PICKAXE) && !e.getPlayer().getItemInHand().getType().equals(Material.IRON_PICKAXE) && !e.getPlayer().getItemInHand().getType().equals(Material.STONE_PICKAXE))
                     return;
+                e.getBlock().setType(Material.AIR);
+                e.getBlock().getState().update();
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_INGOT));
                 e.getBlock().getWorld().spawn(e.getBlock().getLocation(), ExperienceOrb.class).setExperience(3);
                 break;
             default:
                 break;
         }
-
-        e.getBlock().setType(Material.AIR);
-        e.getBlock().getState().update();
     }
 }

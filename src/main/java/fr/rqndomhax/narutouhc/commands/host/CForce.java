@@ -114,7 +114,7 @@ public class CForce implements CommandExecutor {
     }
 
     private boolean forceTeleport(CommandSender sender, GameState gameState, TMain mainTask) {
-        if (gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY) || gameState.equals(GameState.GAME_BORDER) || gameState.equals(GameState.GAME_MEETUP)) {
+        if (gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY) || gameState.equals(GameState.GAME_BORDER) || gameState.equals(GameState.GAME_MEETUP)) {
             sender.sendMessage(Messages.TELEPORT_ALREADY_ACTIVATED);
             return false;
         }

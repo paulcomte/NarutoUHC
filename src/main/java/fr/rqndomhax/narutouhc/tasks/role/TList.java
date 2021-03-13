@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.Timers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,7 +31,7 @@ public class TList extends BukkitRunnable {
     public final Set<GamePlayer> players;
     private final JavaPlugin plugin;
     public final Set<TDelayed> delayedTasks = new HashSet<>();
-    int remainingTime = 10*60;
+    int remainingTime = Timers.TEAM_LENGTH;
 
 
     public TList(Set<GamePlayer> players, JavaPlugin plugin) {
@@ -86,7 +87,7 @@ public class TList extends BukkitRunnable {
                 cancel();
                 return;
             }
-            remainingTime = 10*60;
+            remainingTime = Timers.TEAM_LENGTH;
         }
 
         remainingTime--;

@@ -108,6 +108,15 @@ public class KakashiHatake extends RoleInfo {
     }
 
     @Override
+    public void onTeam() {
+        if (stolenRole == null)
+            return;
+        if (!stolenRole.getRole().equals(Roles.SASUKE))
+            return;
+        super.onTeam();
+    }
+
+    @Override
     public void onPlayerJoin() {
         if (stolenRole != null)
             stolenRole.onPlayerJoin();

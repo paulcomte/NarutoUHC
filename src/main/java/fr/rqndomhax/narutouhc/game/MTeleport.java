@@ -64,7 +64,8 @@ public class MTeleport extends BukkitRunnable {
 
             player.teleport(locations.get(0));
 
-            player.setGameMode(GameMode.SURVIVAL);
+            if (!gamePlayer.isDead)
+                player.setGameMode(GameMode.SURVIVAL);
 
             player.playSound(player.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         }

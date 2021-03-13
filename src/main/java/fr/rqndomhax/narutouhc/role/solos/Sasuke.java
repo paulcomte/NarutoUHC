@@ -28,7 +28,6 @@ import java.util.*;
 
 public class Sasuke extends RoleInfo {
 
-    double maxHealth = 20;
     boolean hasKilled = false;
     public int usagesLeft = 0;
     public final List<GamePlayer> list = new ArrayList<>();
@@ -61,7 +60,8 @@ public class Sasuke extends RoleInfo {
         if (player == null) return;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
-        player.setMaxHealth(maxHealth);
+        if (getRole().getTeam().equals(Team.SASUKE))
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
     }
 
     @Override

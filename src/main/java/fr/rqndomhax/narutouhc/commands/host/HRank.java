@@ -49,7 +49,7 @@ public abstract class HRank {
             return false;
 
         if (!GameInfo.gameCoHost.contains(coHost.getUniqueId())) {
-            sender.sendMessage(Messages.HOST_ALREADY_CO_HOST.replace("%player%", coHost.getName()));
+            sender.sendMessage(Messages.HOST_ALREADY_NOT_CO_HOST.replace("%player%", coHost.getName()));
             return false;
         }
 

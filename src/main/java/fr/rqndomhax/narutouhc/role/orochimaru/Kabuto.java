@@ -85,7 +85,7 @@ public class Kabuto extends RoleInfo {
         if (gamePlayer.role.getRole().equals(Roles.OROCHIMARU)) {
             isOrochimaruDead = true;
             giveEffects();
-            Player player = Bukkit.getPlayer(gamePlayer.uuid);
+            Player player = Bukkit.getPlayer(getGamePlayer().uuid);
             if (player != null)
                 player.sendMessage(Messages.PREFIX + "Vous avez reçu l'effet resistance d'Orochimaru !");
         }

@@ -12,6 +12,8 @@ import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
 import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.rules.DayCycle;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
+import fr.rqndomhax.narutouhc.utils.Timers;
 import fr.rqndomhax.narutouhc.utils.title.Title;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -119,7 +121,7 @@ public class TStart implements Task {
 
         for (World world : Bukkit.getWorlds()) {
             world.setGameRuleValue("doEntityDrops", "true");
-            world.setGameRuleValue("doFireTick", "true");
+            world.setGameRuleValue("doFireTick", "false");
             world.setGameRuleValue("doMobLoot", "true");
             world.setGameRuleValue("doMobSpawning", "true");
             world.setGameRuleValue("doTileDrops", "true");
@@ -140,9 +142,17 @@ public class TStart implements Task {
         }
     }
 
+    private void updateScenarios() {
+        if (mainTask.getSetup().getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_EPISODE))
+            Timers.EPISODE_LENGTH = 5*60;
+        if (mainTask.getSetup().getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_TEAM))
+            Timers.TEAM_LENGTH = 5*60;
+    }
+
     private void startGame() {
         MGameActions.sendInfos(mainTask.getSetup().getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Téléportation...", Instrument.BASS_DRUM, true, 1, Note.Tone.E);
         updateRules();
+        updateScenarios();
 
         mainTask.roleRemainingTime = mainTask.getSetup().getGame().getGameRules().rolesAnnounce;
         mainTask.lastTaskFinished = true;

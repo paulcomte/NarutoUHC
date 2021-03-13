@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
+import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Maps;
@@ -16,6 +17,8 @@ import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -29,6 +32,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
@@ -53,37 +57,44 @@ public class ECancels implements Listener {
     }
 
     @EventHandler
+    public void onBucket(PlayerBucketEmptyEvent e) {
+        GameState gameState = setup.getGame().getGameState();
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
+            e.setCancelled(true);
+    }
+
+    @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         GameState gameState = setup.getGame().getGameState();
-        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
             e.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         GameState gameState = setup.getGame().getGameState();
-        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
             e.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent e) {
         GameState gameState = setup.getGame().getGameState();
-        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
             e.setCancelled(true);
     }
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) {
         GameState gameState = setup.getGame().getGameState();
-        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
             e.blockList().clear();
     }
 
     @EventHandler
     public void onBlockBurn(BlockBurnEvent e) {
         GameState gameState = setup.getGame().getGameState();
-        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING))
+        if (gameState.equals(GameState.LOBBY_WAITING) || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2))
             e.setCancelled(true);
     }
 
@@ -107,14 +118,39 @@ public class ECancels implements Listener {
             return;
         GameState gameState = setup.getGame().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
-                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
+                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
     }
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
         GameState gameState = setup.getGame().getGameState();
         e.setCancelled(gameState.equals(GameState.GAME_INVINCIBILITY) || gameState.equals(GameState.LOBBY_WAITING)
-                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
+                || gameState.equals(GameState.LOBBY_TELEPORTING) || gameState.equals(GameState.GAME_TELEPORTING2) || gameState.equals(GameState.GAME_TELEPORTATION_INVINCIBILITY));
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        if (e.isCancelled())
+            return;
+
+        Material type = e.getBlock().getType();
+        if (e.getBlock() == null || (!type.equals(Material.EMERALD_ORE) && !type.equals(Material.EMERALD_BLOCK) &&
+                !type.equals(Material.IRON_ORE) && !type.equals(Material.IRON_BLOCK) &&
+                !type.equals(Material.GOLD_ORE) && !type.equals(Material.GOLD_BLOCK) &&
+                !type.equals(Material.COAL_ORE) && !type.equals(Material.COAL_BLOCK) &&
+                !type.equals(Material.LAPIS_ORE) && !type.equals(Material.LAPIS_BLOCK) &&
+                !type.equals(Material.REDSTONE_ORE) && !type.equals(Material.REDSTONE_BLOCK) &&
+                !type.equals(Material.DIAMOND_ORE) && !type.equals(Material.DIAMOND_BLOCK) &&
+                !type.equals(Material.WEB) &&
+                !type.equals(Material.BOOKSHELF)))
+            return;
+
+        World currentWorld = Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name());
+        if (!e.getPlayer().getWorld().equals(currentWorld))
+            return;
+
+        e.getBlock().setType(Material.AIR);
+        e.getBlock().getState().update();
     }
 
    @EventHandler
@@ -122,7 +158,7 @@ public class ECancels implements Listener {
        GameState gameState = setup.getGame().getGameState();
        if (!gameState.equals(GameState.LOBBY_TELEPORTING)
                && !gameState.equals(GameState.LOBBY_WAITING)
-               && !gameState.equals(GameState.GAME_TELEPORTING))
+               && !gameState.equals(GameState.GAME_TELEPORTING2))
             return;
 
        if (e.getTo().getY() > 220)

@@ -141,6 +141,7 @@ public abstract class GameScoreboard {
             case GAME_INVINCIBILITY:
             case GAME_PREPARATION:
             case GAME_TELEPORTING:
+            case GAME_TELEPORTING2:
                 GameScoreboardManager.updatePreparationBoard(setup, board);
                 break;
             default:

@@ -9,6 +9,7 @@ package fr.rqndomhax.narutouhc.managers.rules;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 public enum Scenarios {
@@ -17,7 +18,9 @@ public enum Scenarios {
     MEETUP(ChatColor.RED + "Meetup", new ItemStack(Material.REDSTONE)),
     CUTCLEAN(ChatColor.DARK_GRAY + "CutClean", new ItemStack(Material.IRON_INGOT)),
     REVIVE_BEFORETP(ChatColor.LIGHT_PURPLE + "Auto Revive - Preparation", new ItemStack(Material.IRON_CHESTPLATE)),
-    FINAL_HEAL_TELEPORT(ChatColor.GREEN + "Final Heal - TP", new ItemStack(Material.GHAST_TEAR));
+    FINAL_HEAL_TELEPORT(ChatColor.GREEN + "Final Heal - TP", new ItemStack(Material.GHAST_TEAR)),
+    FASTER_EPISODE(ChatColor.GOLD + "Faster episode", new ItemStack(Material.EMERALD)),
+    FASTER_TEAM(ChatColor.DARK_BLUE + "Faster team", new ItemStack(Material.WATCH));
 
     private final String description;
     private final ItemStack item;

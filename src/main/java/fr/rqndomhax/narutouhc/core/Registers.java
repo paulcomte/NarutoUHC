@@ -93,6 +93,7 @@ public class Registers {
 
         noPVP.setPVP(false);
         Bukkit.getWorld(Maps.NARUTO_UNIVERSE.name()).setPVP(true);
+        noPVP.setGameRuleValue("doFireTick", "false");
 
         return true;
     }

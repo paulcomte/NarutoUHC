@@ -19,6 +19,7 @@ import org.bukkit.Note;
 public class TTeleportation implements Task {
 
     private final TMain mainTask;
+    boolean hasChanged = false;
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
@@ -36,6 +37,11 @@ public class TTeleportation implements Task {
     public void loop() {
         if (mainTask == null || !MGameActions.teleportationFinished)
             return;
+
+        if (!hasChanged) {
+            mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING2);
+            hasChanged = true;
+        }
 
         if (!mainTask.lobbyRemoved) {
             MGameBuild.removeLobby(mainTask.getSetup().getMain());

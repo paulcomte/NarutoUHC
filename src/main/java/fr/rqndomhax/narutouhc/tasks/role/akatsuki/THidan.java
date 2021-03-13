@@ -59,8 +59,8 @@ public class THidan extends BukkitRunnable {
         if (akatsukis.stream().allMatch(o -> o.isDead))
             return;
 
-        int current = 10*60 - remainingTime;
-        int full = 10*60;
+        int current = 7*60 - remainingTime;
+        int full = 7*60;
 
         ActionBar.displayProgressBar("Régénération", Chrono.timeToString(current), current, full, player);
 

@@ -68,12 +68,8 @@ public class CNaruto implements CommandExecutor {
             return true;
         }
 
-        RoleInfo role = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            role = ((KakashiHatake) gamePlayer.role).stolenRole;
-
         if (args[0].equalsIgnoreCase("team")) {
-            role.onTeam();
+            gamePlayer.role.onTeam();
             return true;
         }
 
@@ -86,9 +82,13 @@ public class CNaruto implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("claim")) {
-            role.onClaim();
+            gamePlayer.role.onClaim();
             return true;
         }
+
+        RoleInfo role = gamePlayer.role;
+        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
+            role = ((KakashiHatake) gamePlayer.role).stolenRole;
 
         switch(role.getRole()) {
             case SHIKAMARU:

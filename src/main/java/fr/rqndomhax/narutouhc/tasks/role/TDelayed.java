@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.tasks.role;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.Timers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +20,7 @@ public class TDelayed extends BukkitRunnable {
 
     private final GamePlayer incoming;
     private final GamePlayer itachi;
-    int remainingTime = 10*60;
+    int remainingTime = Timers.TEAM_LENGTH;
 
 
     public TDelayed(GamePlayer incoming, GamePlayer itachi, JavaPlugin plugin) {

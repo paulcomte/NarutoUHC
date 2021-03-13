@@ -68,13 +68,13 @@ public class TShisui extends BukkitRunnable {
                         return;
                     }
                     knownPlayers.remove(gp.get());
-                    sb.append(gp.get().name);
+                    sb.append(gp.get().name).append(" ");
                 }
                 else {
                     Optional<GamePlayer> gp = knownPlayers.stream().filter(o -> !o.isDead && o.role != null && !o.role.getRole().equals(Roles.SHISUI) && !o.role.getRole().getTeam().equals(Team.AKATSUKI)).findFirst();
                     gp.ifPresent(gamePlayer -> {
                         knownPlayers.remove(gp.get());
-                        sb.append(gamePlayer.name);
+                        sb.append(gamePlayer.name).append(" ");
                     });
                 }
             }
