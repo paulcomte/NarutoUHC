@@ -17,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class IInfos {
 
-    public static String MAIN_HOST_NAME = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Configuration";
-    public static String ENCHANT_HOST = ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "UHC " + ChatColor.DARK_PURPLE + ">> " + ChatColor.GOLD + "Forge des dieux";
+    public static String MAIN_HOST_NAME = ChatColor.GOLD + "Configuration";
+    public static String ENCHANT_HOST = ChatColor.GOLD + "Forge des dieux";
 
     public static ItemStack ENCHANT_ITEM = new ItemBuilder(Material.ANVIL).setName(ChatColor.GOLD + "Forge des dieux").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public static ItemStack ENCHANT_RENAME = new ItemBuilder(Material.NAME_TAG).setName("Renommer").toItemStack();
