@@ -58,8 +58,10 @@ public class IDeidara extends RInventory {
             player.closeInventory();
             player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
             player.playSound(player.getLocation(), "random.explode", 2f,  1.3f);
-            TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
-            tnt.setFuseTicks(0);
+            for (int i = 1; i <= 2; i++) {
+                TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
+                tnt.setFuseTicks(0);
+            }
         };
     }
 

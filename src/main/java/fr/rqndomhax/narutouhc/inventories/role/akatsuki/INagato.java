@@ -17,6 +17,7 @@ import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -64,17 +65,30 @@ public class INagato extends RInventory {
             player.sendMessage(Messages.PREFIX + "Vous avez ressuscité " + selectedPlayer.getName());
             player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
             nagato.hasUsedCapacity = true;
-            ItemStack[] inventory = new ItemStack[40];
-            inventory[0] = new ItemBuilder(Material.IRON_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).toItemStack();
-            inventory[1] = new ItemStack(Material.GOLDEN_APPLE);
-            inventory[2] = new ItemStack(Material.COOKED_BEEF, 64);
-            inventory[3] = new ItemStack(Material.WATER_BUCKET);
-            inventory[4] = new ItemStack(Material.COBBLESTONE, 64);
-            inventory[5] = new ItemStack(Material.COBBLESTONE, 64);
-            inventory[36] = new ItemBuilder(Material.IRON_HELMET).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            inventory[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            inventory[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            inventory[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
+            ItemStack[] inventory = selected.inventory.clone();
+            int firstGoldenApple = -1;
+            int firstEmptySlot = -1;
+            for(int slot = 0; slot < 36; slot++){
+                // Check if slot is empty
+                if (inventory[slot] == null) {
+                    // Check if it's the firstEmptySlot
+                    if (firstEmptySlot == -1)
+                        firstEmptySlot = slot;
+                    continue;
+                }
+                // Check if player has slot for golden apple
+                ItemStack item = inventory[slot];
+                if (item.getType().equals(Material.GOLDEN_APPLE)) {
+                    if (firstGoldenApple == -1)
+                        firstGoldenApple = slot;
+                    inventory[slot] = null;
+                }
+            }
+            if (firstGoldenApple != -1)
+                inventory[firstGoldenApple] = new ItemStack(Material.GOLDEN_APPLE, 2);
+            else if (firstEmptySlot != -1)
+                inventory[firstEmptySlot] = new ItemStack(Material.GOLDEN_APPLE, 2);
+
             PlayerManager.revive(setup, selectedPlayer, selected, inventory);
         };
     }
