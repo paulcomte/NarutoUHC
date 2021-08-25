@@ -73,7 +73,7 @@ public abstract class MGameStatus {
         if (GameInfo.gameHost == null)
             return;
 
-        DiscordWebhook webhook = new DiscordWebhook("https://discord.com/api/webhooks/811564135933280286/TWppP8AfQvrb5ayVfcP_jh-ctbsRwMNAspEkO5nUqeJq5jmKrWSfJnt_0Msp578TgvV7");
+        DiscordWebhook webhook = new DiscordWebhook("https://discord.com/api/webhooks/880087270525390878/CmMhranW3WkuY36Q4RNTwp_EEMtQmcIwKGG8jeQFXwEELTDdFOuopshU-Ahk6FtrTRAG");
         OfflinePlayer host = Bukkit.getOfflinePlayer(GameInfo.gameHost);
         webhook.setUsername("Partie de " + host.getName());
         webhook.setAvatarUrl("https://minotar.net/avatar/" + host.getName());
