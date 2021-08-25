@@ -23,8 +23,6 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (PlayerList playerList : TabListManager.playersTablist.values())
-            playerList.clearCustomTabs();
         for (Player player : Bukkit.getOnlinePlayers())
             player.kickPlayer("Reloading those damn epic Naruto UHCs");
         super.onDisable();

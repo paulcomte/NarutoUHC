@@ -20,6 +20,7 @@ import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -88,8 +89,6 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
-        TabListManager.initTab(e.getPlayer());
-
         if (GameInfo.gameHost == null && e.getPlayer().isOp()) {
             GameInfo.gameHost = e.getPlayer().getUniqueId();
             setup.getGame().getGameRules().hasWhitelist = true;
@@ -116,9 +115,15 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (GamePlayer gamePlayer : setup.getGame().getGamePlayers())
+                TabListManager.sendPlayers(gamePlayer.name, gamePlayer.uuid, player);
+        }
+
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
         if (gamePlayer == null) {
+            TabListManager.sendPlayers(e.getPlayer().getName(), e.getPlayer().getUniqueId(), e.getPlayer());
             e.getPlayer().sendMessage(Messages.GAME_ALREADY_STARTED);
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
@@ -154,7 +159,17 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
-        TabListManager.unregisterTab(e.getPlayer());
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (GamePlayer gamePlayer : setup.getGame().getGamePlayers())
+                        TabListManager.sendPlayers(gamePlayer.name, gamePlayer.uuid, player);
+                }
+            }
+        }.runTaskLaterAsynchronously(setup.getMain(), 1);
+
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;

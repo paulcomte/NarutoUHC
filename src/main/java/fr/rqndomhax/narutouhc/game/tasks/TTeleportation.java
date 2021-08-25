@@ -8,13 +8,17 @@
 package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.game.GameInfo;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MGameBuild;
+import fr.rqndomhax.narutouhc.tabscores.TabListManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Instrument;
 import org.bukkit.Note;
+import org.bukkit.entity.Player;
 
 public class TTeleportation implements Task {
 
@@ -23,6 +27,10 @@ public class TTeleportation implements Task {
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (GamePlayer gamePlayer : mainTask.getSetup().getGame().getGamePlayers())
+                TabListManager.sendPlayers(gamePlayer.name, gamePlayer.uuid, player);
+        }
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
