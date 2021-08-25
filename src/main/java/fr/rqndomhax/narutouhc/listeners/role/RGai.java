@@ -65,9 +65,9 @@ public class RGai implements Listener {
 
         ParticleEffect.EXPLOSION_HUGE.display(player.getLocation());
         player.getLocation().getWorld().playSound(player.getLocation(), Sound.EXPLODE, 1, 1);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 7*60*20, 1, true, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 7*60*20, 0, true, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 7*60*20, 0, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 7*60*20, 1, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 7*60*20, 0, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 7*60*20, 0, false, false));
         ((Gai) tmp).task = new TGai(setup, gamePlayer);
     }
 }

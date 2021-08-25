@@ -37,6 +37,11 @@ public class EPlayerLogin implements Listener {
     }
 
     @EventHandler
+    public void playerJoinMessage(PlayerJoinEvent e) {
+
+    }
+
+    @EventHandler
     public void onPlayerLogin(PlayerLoginEvent e) {
 
         if (setup.getGame().getGameState().equals(GameState.LOADING)) {
@@ -78,7 +83,7 @@ public class EPlayerLogin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
 
-        e.setJoinMessage(Messages.PLAYER_JOIN.replace("%player%", e.getPlayer().getName()));
+        e.setJoinMessage(null);
 
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
@@ -88,6 +93,7 @@ public class EPlayerLogin implements Listener {
         }
 
         if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
+            e.setJoinMessage(Messages.PLAYER_JOIN.replace("%player%", e.getPlayer().getName()));
             if (setup.getGame().getMainTask() != null) {
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
                 setup.getGame().removeTask();
@@ -141,7 +147,7 @@ public class EPlayerLogin implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
 
-        e.setQuitMessage(Messages.PLAYER_LEFT.replace("%player%", e.getPlayer().getName()));
+        e.setQuitMessage(null);
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
@@ -153,6 +159,7 @@ public class EPlayerLogin implements Listener {
         GameInfo.gameCoHost.remove(e.getPlayer().getUniqueId());
 
         if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING)) {
+            e.setQuitMessage(Messages.PLAYER_LEFT.replace("%player%", e.getPlayer().getName()));
             if (setup.getGame().getMainTask() != null) {
                 MGameActions.sendInfos(setup.getGame().getGamePlayers(), ChatColor.BLACK + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC", ChatColor.DARK_AQUA + "Démarrage " + ChatColor.RED + "annulé", Instrument.BASS_DRUM, true, 0, Note.Tone.B);
                 setup.getGame().removeTask();

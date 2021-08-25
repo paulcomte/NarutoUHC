@@ -65,8 +65,8 @@ public class RKillerBee implements Listener {
 
         ParticleEffect.EXPLOSION_HUGE.display(player.getLocation());
         player.getLocation().getWorld().playSound(player.getLocation(), Sound.EXPLODE, 1, 1);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 4*60*20, 0, true, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 4*60*20, 3, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 4*60*20, 0, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 4*60*20, 3, false, false));
         ((KillerBee) tmp).itemUsedStamp = System.currentTimeMillis();
     }
 }
