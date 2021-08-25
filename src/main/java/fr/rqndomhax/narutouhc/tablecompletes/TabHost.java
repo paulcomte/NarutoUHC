@@ -56,7 +56,7 @@ public class TabHost implements TabCompleter {
                     if (p.equals(player))
                         continue;
 
-                    if (GameInfo.gameCoHost != null && GameInfo.gameCoHost.contains(p.getUniqueId()))
+                    if (GameInfo.gameCoHost.contains(p.getUniqueId()))
                         continue;
 
                     arrayList.add(p.getName());

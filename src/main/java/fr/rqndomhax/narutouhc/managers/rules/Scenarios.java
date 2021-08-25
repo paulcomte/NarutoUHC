@@ -19,6 +19,7 @@ public enum Scenarios {
     REVIVE_BEFORETP(ChatColor.LIGHT_PURPLE + "Auto Revive - Preparation", new ItemStack(Material.IRON_CHESTPLATE)),
     FINAL_HEAL_TELEPORT(ChatColor.GREEN + "Final Heal - TP", new ItemStack(Material.GHAST_TEAR)),
     FASTER_EPISODE(ChatColor.GOLD + "Faster episode", new ItemStack(Material.EMERALD)),
+    HIDDEN_ROLES(ChatColor.BLACK + "Hidden compo", new ItemStack(Material.ROTTEN_FLESH)),
     FASTER_TEAM(ChatColor.DARK_BLUE + "Faster team", new ItemStack(Material.WATCH));
 
     private final String description;

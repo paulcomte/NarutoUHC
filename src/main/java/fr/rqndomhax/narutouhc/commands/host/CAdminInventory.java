@@ -41,6 +41,13 @@ public class CAdminInventory implements CommandExecutor {
             return false;
         }
 
+        GamePlayer tmp = setup.getGame().getGamePlayer(player.getUniqueId());
+
+        if (tmp != null && !tmp.isDead) {
+            player.sendMessage(Messages.PREFIX + "Vous ne pouvez pas accéder à cette commande si vous jouez la partie !");
+            return false;
+        }
+
         if (args.length != 1) {
             player.sendMessage(Messages.PREFIX + "Veuillez respecter la sytnaxe suivante: /ainv <player>");
             return false;

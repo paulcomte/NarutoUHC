@@ -11,6 +11,7 @@ import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -19,6 +20,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class CNaruto implements CommandExecutor {
@@ -33,6 +35,8 @@ public class CNaruto implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
         if (!(sender instanceof Player)) {
+            if (args[0].equalsIgnoreCase("compo"))
+                return showCompo(sender);
             sender.sendMessage(Messages.NEED_PLAYER);
             return false;
         }
@@ -74,8 +78,11 @@ public class CNaruto implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("compo"))
+        if (args[0].equalsIgnoreCase("compo")) {
+            if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_TEAM))
+                return showHiddenCompo(player);
             return showCompo(player);
+        }
 
         if (gamePlayer.isDead) {
             player.sendMessage(Messages.PLAYER_DEAD);
@@ -166,7 +173,12 @@ public class CNaruto implements CommandExecutor {
         }
     }
 
-    private boolean showCompo(Player player) {
+    private boolean showHiddenCompo(CommandSender sender) {
+        sender.sendMessage(Messages.HIDDEN_COMPO);
+        return true;
+    }
+
+    private boolean showCompo(CommandSender sender) {
         StringBuilder sb = new StringBuilder();
         boolean hasTeam = false;
         boolean first = true;
@@ -220,13 +232,13 @@ public class CNaruto implements CommandExecutor {
             hasTeam = false;
         }
 
-        player.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
+        sender.sendMessage(ChatColor.BLACK + "----- " + ChatColor.GOLD + "Rôles " + ChatColor.BLACK + "-----");
         if (hasSolos) {
             if (!first)
                 sb.append("\n");
             sb.append(solo.toString());
         }
-        player.sendMessage(sb.toString());
+        sender.sendMessage(sb.toString());
         return true;
     }
 

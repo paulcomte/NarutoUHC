@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.tabscores;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.scoreboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -95,7 +96,7 @@ public abstract class GameScoreboard {
         if (players == null)
             return false;
 
-        if (n == 0)
+        if (n == 0 || setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.HIDDEN_ROLES))
             return false;
 
         if (n < mainDuration)
@@ -160,7 +161,7 @@ public abstract class GameScoreboard {
             if (setup.getGame().getMainTask() != null && setup.getGame().getMainTask().hasRoles && players == null)
                 initPlayers(setup.getGame().getGamePlayers());
 
-            if (players != null)
+            if (players != null && !setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.HIDDEN_ROLES))
                 n++;
 
             if (n - mainDuration >= nMax) {

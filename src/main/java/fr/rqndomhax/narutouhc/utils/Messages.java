@@ -134,6 +134,7 @@ public abstract class Messages {
     public static String ROLE_CLAIM = PREFIX + "Vous avez accès à votre /na claim";
     public static String NO_ROLE = PREFIX + "Vous ne possédez pas de rôle !";
     public static String NOT_YOUR_ROLE = PREFIX + "Cette commande n'appartient pas à votre rôle !";
+    public static String HIDDEN_COMPO = PREFIX + "La composition est cachée !";
     public static String ROLES_NOT_GAVE = PREFIX + "Les rôles n'ont pas été encore attribués !";
     public static String ROLE_NO_ITEMS = PREFIX + "Votre rôle ne dispose d'aucun équipement supplémentaire !";
     public static String ROLE_ITEMS_NEED_SPACE = PREFIX + "Votre inventaire doit avoir la place nécessaire pour récupérer %n% objets";
