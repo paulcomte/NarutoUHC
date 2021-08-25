@@ -69,7 +69,7 @@ public class RMinato implements Listener {
 
         Minato role = (Minato) tmp;
 
-        if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(role.item.getType()))
+        if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(Roles.MINATO.getRoleItem().getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(Roles.MINATO.getRoleItem().getType()))
             return;
 
         role.lastArrow = System.currentTimeMillis();
@@ -94,7 +94,7 @@ public class RMinato implements Listener {
 
         Minato role = (Minato) tmp;
 
-        if (e.getPlayer().getItemInHand() == null || !e.getPlayer().getItemInHand().hasItemMeta() || !e.getPlayer().getItemInHand().getItemMeta().hasDisplayName() || !e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(role.item.getItemMeta().getDisplayName()) || !e.getPlayer().getItemInHand().getType().equals(role.item.getType()))
+        if (e.getPlayer().getItemInHand() == null || !e.getPlayer().getItemInHand().hasItemMeta() || !e.getPlayer().getItemInHand().getItemMeta().hasDisplayName() || !e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(Roles.MINATO.getRoleItem().getItemMeta().getDisplayName()) || !e.getPlayer().getItemInHand().getType().equals(Roles.MINATO.getRoleItem().getType()))
             return;
 
         int lastArrow = (int) ((role.lastArrow - System.currentTimeMillis()) / 1000);

@@ -153,9 +153,9 @@ public abstract class Messages {
     public static void showDeath(GamePlayer player, boolean showRoleOnDeath) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                         ");
         if (player.role == null || !showRoleOnDeath)
-            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort");
+            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + ChatColor.MAGIC + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.RESET + ChatColor.BOLD + ChatColor.DARK_GREEN + " est mort");
         else
-            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.DARK_GREEN + " est mort et il était "
+            Bukkit.broadcastMessage(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + ChatColor.MAGIC + Bukkit.getOfflinePlayer(player.uuid).getName() + ChatColor.RESET + ChatColor.BOLD + ChatColor.DARK_GREEN + " est mort et il était "
                 + ChatColor.BOLD + player.role.getRole().getRoleName());
         Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "                         ");
     }

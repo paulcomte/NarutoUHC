@@ -24,8 +24,6 @@ import java.util.Objects;
 
 public class Fu extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.WEB).setName(ChatColor.DARK_GRAY + "Prison de l'araignée").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
-
     public Fu(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.FU);
     }
@@ -46,7 +44,7 @@ public class Fu extends RoleInfo {
             return;
         }
 
-        for (int i = 0; i < 3; player.getInventory().addItem(item), i++);
+        for (int i = 0; i < 3; player.getInventory().addItem(Roles.FU.getRoleItem()), i++);
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }

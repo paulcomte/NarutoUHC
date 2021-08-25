@@ -26,7 +26,6 @@ import java.util.Objects;
 
 public class KillerBee extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.RABBIT_FOOT).setName(ChatColor.YELLOW + "Hachibi").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public long itemUsedStamp = 0;
 
 
@@ -51,7 +50,7 @@ public class KillerBee extends RoleInfo {
         }
 
         player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
-        player.getInventory().addItem(item);
+        player.getInventory().addItem(Roles.KILLER_BEE.getRoleItem());
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }

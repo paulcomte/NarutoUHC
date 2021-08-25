@@ -26,7 +26,6 @@ import java.util.Objects;
 
 public class Minato extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.BOW).setName(ChatColor.YELLOW + "Kunaï").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().setDurability((short) 50).toItemStack();
     public long lastArrow = 0;
 
     public Minato(GamePlayer gamePlayer) {
@@ -57,7 +56,7 @@ public class Minato extends RoleInfo {
             return;
         }
 
-        player.getInventory().addItem(item);
+        player.getInventory().addItem(Roles.MINATO.getRoleItem());
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }

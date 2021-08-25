@@ -104,7 +104,7 @@ public class RFu implements Listener {
         if (e.getItemInHand() == null)
             return;
 
-        ItemStack clonedItem = ((Fu) tmp).item.clone();
+        ItemStack clonedItem = Roles.FU.getRoleItem().clone();
 
         clonedItem.setAmount(e.getItemInHand().getAmount());
 

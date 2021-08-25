@@ -25,7 +25,6 @@ import java.util.Objects;
 
 public class Gai extends RoleInfo {
 
-    public final ItemStack item = new ItemBuilder(Material.IRON_DOOR).setName(ChatColor.DARK_AQUA + "Huit portes").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public TGai task = null;
 
     public Gai(GamePlayer gamePlayer) {
@@ -48,7 +47,7 @@ public class Gai extends RoleInfo {
             return;
         }
 
-        player.getInventory().addItem(item);
+        player.getInventory().addItem(Roles.GAI.getRoleItem());
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }

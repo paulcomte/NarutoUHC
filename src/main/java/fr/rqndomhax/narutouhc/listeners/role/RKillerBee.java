@@ -56,7 +56,7 @@ public class RKillerBee implements Listener {
         if (!(tmp instanceof KillerBee))
             return;
 
-        if (!player.getItemInHand().equals(((KillerBee) tmp).item))
+        if (!player.getItemInHand().equals(Roles.KILLER_BEE.getRoleItem()))
             return;
 
         e.setCancelled(true);

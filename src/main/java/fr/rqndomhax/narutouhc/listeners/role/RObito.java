@@ -191,7 +191,7 @@ public class RObito implements Listener {
         if (!(tmp instanceof Obito))
             return;
 
-        if (!player.getItemInHand().equals(((Obito) tmp).item))
+        if (!player.getItemInHand().equals(Roles.OBITO.getRoleItem()))
             return;
 
         if (((Obito) tmp).hasUsedCapacity) {

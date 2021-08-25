@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class Obito extends Akatsuki {
 
-    public final ItemStack item = new ItemBuilder(Material.LEATHER).setName(ChatColor.BLACK + "Ninjutsu Spatio-Temporel").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public boolean hasUsedCapacity = true;
     public TObito task = null;
 
@@ -65,7 +64,7 @@ public class Obito extends Akatsuki {
             return;
         }
 
-        player.getInventory().addItem(item);
+        player.getInventory().addItem(Roles.OBITO.getRoleItem());
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }

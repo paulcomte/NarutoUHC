@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.utils.tools;
 
+import fr.rqndomhax.narutouhc.infos.Roles;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,6 +18,8 @@ public abstract class InventoryManager {
         for(int slot = 0; slot < items.length; slot++){
             ItemStack item = items[slot];
             if (item == null)
+                continue;
+            if (Roles.isRoleItem(item))
                 continue;
             if (dropNaturally)
                 dropLocation.getWorld().dropItemNaturally(dropLocation, item);
