@@ -23,7 +23,7 @@ public abstract class HRank {
         if (coHost == null)
             return false;
 
-        if (GameInfo.gameCoHost.contains(coHost.getUniqueId())) {
+        if ((GameInfo.gameHost != null && GameInfo.gameHost.equals(coHost.getUniqueId())) || GameInfo.gameCoHost.contains(coHost.getUniqueId())) {
             sender.sendMessage(Messages.HOST_ALREADY_CO_HOST.replace("%player%", coHost.getName()));
             return false;
         }
