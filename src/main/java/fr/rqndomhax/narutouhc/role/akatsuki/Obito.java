@@ -26,7 +26,7 @@ public class Obito extends Akatsuki {
 
     public final ItemStack item = new ItemBuilder(Material.LEATHER).setName(ChatColor.BLACK + "Ninjutsu Spatio-Temporel").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
     public boolean hasUsedCapacity = true;
-    public TObito task = null; // TODO FIX OBITO WITH TABLIST
+    public TObito task = null;
 
     public Obito(GamePlayer gamePlayer) {
         super(gamePlayer, Roles.OBITO);

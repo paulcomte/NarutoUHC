@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.role.shinobi.KillerBee;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,9 +51,7 @@ public class RKillerBee implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof KillerBee))
             return;

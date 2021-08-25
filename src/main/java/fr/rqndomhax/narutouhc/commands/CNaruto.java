@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -86,9 +87,7 @@ public class CNaruto implements CommandExecutor {
             return true;
         }
 
-        RoleInfo role = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            role = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo role = PlayerManager.getRole(gamePlayer.role);
 
         switch(role.getRole()) {
             case SHIKAMARU:

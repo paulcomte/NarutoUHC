@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.role.shinobi.Minato;
 import fr.rqndomhax.narutouhc.utils.Chrono;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -61,9 +62,7 @@ public class RMinato implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof Minato))
             return;
@@ -88,9 +87,7 @@ public class RMinato implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null || gamePlayer.role.getRole() == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof Minato))
             return;

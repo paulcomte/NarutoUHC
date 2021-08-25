@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.xenondevs.particle.ParticleEffect;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class RObito implements Listener {
 
@@ -81,9 +85,7 @@ public class RObito implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof Obito))
             return;
@@ -120,26 +122,18 @@ public class RObito implements Listener {
         if (!setup.getGame().getGameRules().activatedRoles.contains(Roles.OBITO))
             return;
 
-        GamePlayer obito = null;
-
-        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers())
-            if (gamePlayer.role instanceof Obito) {
-                obito = gamePlayer;
-                break;
+        for (GamePlayer gamePlayer : setup.getGame().getGamePlayers()) {
+            RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
+            if (tmp instanceof Obito) {
+                Player player = Bukkit.getPlayer(gamePlayer.uuid);
+                if (player == null)
+                    continue;
+                if (((Obito) tmp).task != null)
+                    e.getPlayer().hidePlayer(player);
+                else
+                    e.getPlayer().showPlayer(player);
             }
-
-        if (obito == null)
-            return;
-
-        Player player = Bukkit.getPlayer(obito.uuid);
-
-        if (player == null)
-            return;
-
-        if (((Obito) obito.role).task != null)
-            e.getPlayer().hidePlayer(player);
-        else
-            e.getPlayer().showPlayer(player);
+        }
     }
 
     @EventHandler
@@ -149,15 +143,18 @@ public class RObito implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof Obito))
             return;
 
-        if (((Obito) tmp).task != null)
+        if (((Obito) tmp).task != null) {
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2 * 60 * 20, 0, false, false));
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 2 * 60 * 20, 0, false, false));
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                onlinePlayer.hidePlayer(e.getPlayer());
             return;
+        }
 
         for (PotionEffect effect : e.getPlayer().getActivePotionEffects()) {
             if (effect.getType().equals(PotionEffectType.INVISIBILITY) && effect.getAmplifier() == 0)
@@ -189,9 +186,7 @@ public class RObito implements Listener {
         if (gamePlayer == null || gamePlayer.isDead || gamePlayer.role == null)
             return;
 
-        RoleInfo tmp = gamePlayer.role;
-        if ((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-            tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+        RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
         if (!(tmp instanceof Obito))
             return;

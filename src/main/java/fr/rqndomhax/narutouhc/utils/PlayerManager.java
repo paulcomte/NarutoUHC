@@ -12,6 +12,8 @@ import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.SActions;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
+import fr.rqndomhax.narutouhc.role.RoleInfo;
+import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -39,6 +41,12 @@ public abstract class PlayerManager {
         if (!firstLocation.getWorld().equals(secondLocation.getWorld()))
             return Double.MAX_VALUE;
         return first.distanceSquared(secondLocation);
+    }
+
+    public static RoleInfo getRole(RoleInfo role) {
+        if ((role instanceof KakashiHatake) && ((KakashiHatake) role).stolenRole != null)
+            role = ((KakashiHatake) role).stolenRole;
+        return role;
     }
 
 }

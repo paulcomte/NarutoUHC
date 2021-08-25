@@ -14,6 +14,7 @@ import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.Timers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -65,9 +66,7 @@ public class TList extends BukkitRunnable {
                 if (gamePlayer.role == null)
                     continue;
 
-                RoleInfo tmp = gamePlayer.role;
-                if((gamePlayer.role instanceof KakashiHatake) && ((KakashiHatake) gamePlayer.role).stolenRole != null)
-                    tmp = ((KakashiHatake) gamePlayer.role).stolenRole;
+                RoleInfo tmp = PlayerManager.getRole(gamePlayer.role);
 
                 if (tmp.getRole().equals(Roles.ITACHI)) {
                     delayedTasks.add(new TDelayed(incoming, gamePlayer, plugin));
