@@ -76,7 +76,7 @@ public class THidan extends BukkitRunnable {
             inventory[37] = new ItemBuilder(Material.IRON_CHESTPLATE).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             inventory[38] = new ItemBuilder(Material.IRON_LEGGINGS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
             inventory[39] = new ItemBuilder(Material.IRON_BOOTS).addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).toItemStack();
-            PlayerManager.revive(player, hidan, inventory);
+            PlayerManager.revive(setup, player, hidan, inventory);
         }
         remainingTime--;
     }

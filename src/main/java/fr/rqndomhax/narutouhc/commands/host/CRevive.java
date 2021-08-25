@@ -54,7 +54,7 @@ public class CRevive implements CommandExecutor {
         }
 
         Player player = Bukkit.getPlayer(gamePlayer.uuid);
-        PlayerManager.revive(player, gamePlayer, gamePlayer.inventory);
+        PlayerManager.revive(setup, player, gamePlayer, gamePlayer.inventory);
         sender.sendMessage(Messages.PLAYER_NOW_RESURRECTED.replace("%player%", player.getName()));
         Bukkit.broadcastMessage(Messages.PLAYER_HAS_BEEN_REVIVED.replace("%player%", player.getName()));
         return true;

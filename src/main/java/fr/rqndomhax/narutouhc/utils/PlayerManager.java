@@ -7,8 +7,10 @@
 
 package fr.rqndomhax.narutouhc.utils;
 
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.SActions;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
@@ -19,13 +21,14 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class PlayerManager {
 
-    public static void revive(Player player, GamePlayer gamePlayer, ItemStack[] inventory) {
+    public static void revive(Setup setup, Player player, GamePlayer gamePlayer, ItemStack[] inventory) {
         gamePlayer.isDead = false;
         gamePlayer.isInDead = false;
         player.teleport(MGameActions.teleportToRandomLocation(Bukkit.getWorld(GameInfo.currentMap.name())));
         InventoryManager.giveInventory(inventory, player);
         if (gamePlayer.role != null)
             gamePlayer.role.giveEffects();
+        SActions.giveScenariosEffect(setup.getGame().getGameRules().activatedScenarios, gamePlayer);
         player.setGameMode(GameMode.SURVIVAL);
         player.sendMessage(Messages.PLAYER_RESURRECTED);
     }
