@@ -15,6 +15,7 @@ import fr.rqndomhax.narutouhc.managers.config.MConfig;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
 import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.tasks.TWait;
+import fr.rqndomhax.narutouhc.utils.EasterEggs;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryHandler;
 import fr.rqndomhax.narutouhc.utils.inventory.RInventoryManager;
@@ -76,6 +77,8 @@ public class Setup {
         GameScoreboard.init(this);
 
         TabListManager.registerTab(main, game);
+
+        EasterEggs.init();
 
         RInventoryManager rInventoryManager = new RInventoryManager();
 

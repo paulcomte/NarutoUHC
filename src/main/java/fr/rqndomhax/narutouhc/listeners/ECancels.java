@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.listeners.world.ChunkUnloadListener;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
+import fr.rqndomhax.narutouhc.utils.EasterEggs;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -176,6 +177,11 @@ public class ECancels implements Listener {
    public void onChat(AsyncPlayerChatEvent e) {
         if (e.isCancelled())
             return;
+
+        if (EasterEggs.Hyside.hysideChat(e)) {
+            e.setCancelled(true);
+            return;
+        }
 
         if (setup.getGame().getGameRules().allowChat || setup.getGame().getGameState().equals(GameState.LOBBY_WAITING) || setup.getGame().getGameState().equals(GameState.GAME_FINISHED))
             return;
