@@ -118,7 +118,6 @@ public class Registers {
         pm.registerEvents(new RGai(setup), setup.getMain());
         pm.registerEvents(new RFu(setup), setup.getMain());
         pm.registerEvents(new RObito(setup), setup.getMain());
-        pm.registerEvents(new RKisame(setup), setup.getMain());
         pm.registerEvents(new RMinato(setup), setup.getMain());
         pm.registerEvents(new RNoFall(setup), setup.getMain());
         pm.registerEvents(new RKillerBee(setup), setup.getMain());

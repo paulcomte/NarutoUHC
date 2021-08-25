@@ -31,7 +31,7 @@ public enum Roles {
     DEIDARA("Deidara", Team.AKATSUKI, new ItemBuilder(Material.TNT).setName("Deidara").toItemStack(), null, Deidara.class),
     NAGATO("Nagato", Team.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Nagato").toItemStack(), null, Nagato.class),
     KAKUZU("Kakuzu", Team.AKATSUKI, new ItemBuilder(Material.APPLE).setName("Kakuzu").toItemStack(), null, Kakuzu.class),
-    KISAME("Kisame", Team.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), null, Kisame.class),
+    KISAME("Kisame", Team.AKATSUKI, new ItemBuilder(Material.WATER_BUCKET).setName("Kisame").toItemStack(), new ItemBuilder(Material.DIAMOND_SWORD).addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1).setName(ChatColor.AQUA + "Samehada").toItemStack(), Kisame.class),
     OBITO("Obito", Team.AKATSUKI, new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setName("Obito").toItemStack(), new ItemBuilder(Material.LEATHER).setName(ChatColor.BLACK + "Ninjutsu Spatio-Temporel").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack(), Obito.class),
     KONAN("Konan", Team.AKATSUKI, new ItemBuilder(Material.PAPER).setName("Konan").toItemStack(), null, Konan.class),
     HIDAN("Hidan", Team.AKATSUKI, new ItemBuilder(Material.BONE).setName("Hidan").toItemStack(), null, Hidan.class),

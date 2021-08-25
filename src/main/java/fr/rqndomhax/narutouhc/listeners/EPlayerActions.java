@@ -21,6 +21,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -36,6 +37,17 @@ public class EPlayerActions implements Listener {
 
     public EPlayerActions(Setup setup) {
         this.setup = setup;
+    }
+
+    @EventHandler
+    public void onEntityHitEvent(EntityDamageByEntityEvent e) {
+        if (!(e.getDamager() instanceof Player)) return;
+        GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getDamager().getUniqueId());
+        if (gamePlayer == null) return;
+        if (gamePlayer.role == null) return;
+
+        if (!e.isCancelled())
+            gamePlayer.role.onEntityHit(e);
     }
 
     @EventHandler

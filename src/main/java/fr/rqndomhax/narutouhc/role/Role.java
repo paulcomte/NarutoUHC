@@ -10,6 +10,7 @@ package fr.rqndomhax.narutouhc.role;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import org.bukkit.Location;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public interface Role {
 
@@ -22,6 +23,8 @@ public interface Role {
     void onClaim();
 
     void giveEffects();
+
+    void onEntityHit(EntityDamageByEntityEvent event);
 
     void onHit(GamePlayer gamePlayer);
 

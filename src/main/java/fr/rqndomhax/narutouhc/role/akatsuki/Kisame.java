@@ -15,7 +15,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -38,13 +41,14 @@ public class Kisame extends Akatsuki {
         }
 
         long nSpace = Arrays.stream(player.getInventory().getContents()).filter(Objects::isNull).count();
-        if (nSpace < 2) {
+        if (nSpace < 3) {
             player.sendMessage(Messages.ROLE_ITEMS_NEED_SPACE.replace("%n%", "2"));
             return;
         }
 
         player.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).addStoredEnchant(Enchantment.DEPTH_STRIDER, 3).toItemStack());
         player.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 32));
+        player.getInventory().addItem(Roles.KISAME.getRoleItem());
         hasClaimed = true;
         player.sendMessage(Messages.ROLE_ITEMS_OBTAINED);
     }
@@ -57,10 +61,20 @@ public class Kisame extends Akatsuki {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Kisame.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'akatsuki.");
-        player.sendMessage(ChatColor.BLUE + "Sous l'eau vous disposez d'un effet speed 1 et strength 1.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez d'une épée en diamant Sharpness 1 \"Sahameda\" qui régénère 0.5 coeur par coup.");
         if (!hasClaimed)
-            player.sendMessage(ChatColor.GREEN + "/na claim: " + "1 livre depth strider 3 et 32 bottles d'xp.");
+            player.sendMessage(ChatColor.GREEN + "/na claim: " + "\"Sahameda\", 1 livre depth strider 3 et 32 bottles d'xp.");
         else
-            player.sendMessage(ChatColor.RED + "/na claim: " + "1 livre depth strider 3 et 32 bottles d'xp.");
+            player.sendMessage(ChatColor.RED + "/na claim: " + "\"Sahameda\", 1 livre depth strider 3 et 32 bottles d'xp.");
+    }
+
+    @Override
+    public void onEntityHit(EntityDamageByEntityEvent event) {
+        if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK))
+            return;
+        Player player = (Player) event.getDamager();
+        if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(Roles.KISAME.getRoleItem().getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(Roles.KISAME.getRoleItem().getType()))
+            return;
+        player.setHealth(player.getHealth() + 1);
     }
 }
