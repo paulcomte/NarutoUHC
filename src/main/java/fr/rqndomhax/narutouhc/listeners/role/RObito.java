@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
+import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
@@ -153,6 +154,7 @@ public class RObito implements Listener {
             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 2 * 60 * 20, 0, false, false));
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.hidePlayer(e.getPlayer());
+            TabListManager.sendTabPlayers(e.getPlayer());
             return;
         }
 
@@ -207,6 +209,9 @@ public class RObito implements Listener {
             onlinePlayer.playSound(player.getLocation(), "mob.guardian.curse", 2, 0.6f);
             onlinePlayer.hidePlayer(player);
         }
+
+        TabListManager.sendTabPlayers(e.getPlayer());
+
         ParticleEffect.SMOKE_LARGE.display(player.getLocation());
 
         if (((Obito) tmp).task != null)

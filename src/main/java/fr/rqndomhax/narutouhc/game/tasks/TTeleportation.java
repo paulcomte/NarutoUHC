@@ -27,10 +27,7 @@ public class TTeleportation implements Task {
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            for (GamePlayer gamePlayer : mainTask.getSetup().getGame().getGamePlayers())
-                TabListManager.sendPlayers(gamePlayer.name, gamePlayer.uuid, player);
-        }
+        TabListManager.sendTabPlayers(null);
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;

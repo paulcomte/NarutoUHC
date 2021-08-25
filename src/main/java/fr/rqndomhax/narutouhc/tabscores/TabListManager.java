@@ -50,46 +50,6 @@ public abstract class TabListManager {
 
     }
 
-    public static void sendPlayers(String playerName, UUID playerId, Player client) {
-
-        MinecraftServer server = MinecraftServer.getServer();
-        WorldServer worldserver = (WorldServer) server.getWorld();
-        GameProfile profile = new GameProfile(playerId, playerName);
-
-        PlayerInteractManager interact = new PlayerInteractManager(
-                server.getWorld());
-
-        final EntityPlayer lui = new EntityPlayer(server, worldserver, profile,
-                interact);
-
-        // Remove
-
-        Player target = Bukkit.getPlayer(playerId);
-        PacketPlayOutPlayerInfo removePacket = null;
-
-        if (target == null || !target.isOnline())
-            removePacket = new PacketPlayOutPlayerInfo(
-                    PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
-                    lui);
-        else
-            removePacket = new PacketPlayOutPlayerInfo(
-                    PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
-                    ((CraftPlayer) target).getHandle());
-
-        // Add
-        final PacketPlayOutPlayerInfo addPacket = new PacketPlayOutPlayerInfo(
-                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, lui);
-
-        final CraftPlayer clientCP = ((CraftPlayer) client).getHandle().playerConnection
-                    .getPlayer();
-
-        // Send Packet Remove
-        clientCP.getHandle().playerConnection.sendPacket(removePacket);
-
-        // Send Packet Add
-        clientCP.getHandle().playerConnection.sendPacket(addPacket);
-        }
-
     private static PacketPlayOutPlayerListHeaderFooter sendHeaderFooter() {
         PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
         Object header = new ChatComponentText(
@@ -123,6 +83,54 @@ public abstract class TabListManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static void sendPlayers(UUID playerId, Player client) {
+
+        MinecraftServer server = MinecraftServer.getServer();
+
+        PlayerInteractManager interact = new PlayerInteractManager(
+                server.getWorld());
+
+        EntityPlayer newPlayer = null;
+
+        Player target = Bukkit.getPlayer(playerId);
+
+        if (target == null || !target.isOnline())
+            newPlayer = new EntityPlayer(server, (WorldServer) server.getWorld(),
+                    MinecraftServer.getServer().aD().fillProfileProperties(new GameProfile(playerId, null), true),
+                    interact);
+        else
+            newPlayer = ((CraftPlayer) target).getHandle();
+
+        // Remove
+
+        PacketPlayOutPlayerInfo removePacket = new PacketPlayOutPlayerInfo(
+                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
+                newPlayer);
+
+        // Add
+        final PacketPlayOutPlayerInfo addPacket = new PacketPlayOutPlayerInfo(
+                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, newPlayer);
+
+        final CraftPlayer clientCP = ((CraftPlayer) client).getHandle().playerConnection
+                .getPlayer();
+
+        // Send Packet Remove
+        clientCP.getHandle().playerConnection.sendPacket(removePacket);
+
+        // Send Packet Add
+        clientCP.getHandle().playerConnection.sendPacket(addPacket);
+    }
+
+    public static void sendTabPlayers(Player requester) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (GamePlayer gamePlayer : game.getGamePlayers())
+                sendPlayers(gamePlayer.uuid, player);
+            // for game spectators
+            if (requester != null && player == requester && game.getGamePlayer(requester.getUniqueId()) == null)
+                sendPlayers(requester.getUniqueId(), requester);
+        }
     }
 
     private static String colorAdAt() {
