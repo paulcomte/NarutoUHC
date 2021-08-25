@@ -26,6 +26,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 public abstract class MGameStatus {
@@ -164,7 +165,7 @@ public abstract class MGameStatus {
         MGamePublicRoles.stopList();
     }
 
-    private static Team winningTeam(Set<GamePlayer> players) {
+    private static Team winningTeam(List<GamePlayer> players) {
         Team team = null;
         for (GamePlayer gamePlayer : players) {
             if (gamePlayer == null || gamePlayer.role == null || gamePlayer.isDead)

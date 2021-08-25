@@ -41,7 +41,7 @@ public abstract class GameScoreboard {
         boards.put(player.getUniqueId(), fb);
     }
 
-    private static void initPlayers(Set<GamePlayer> gamePlayers) {
+    private static void initPlayers(List<GamePlayer> gamePlayers) {
         int size = 10;
         int n = -1;
 

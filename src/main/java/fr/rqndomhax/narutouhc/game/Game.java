@@ -18,9 +18,7 @@ import fr.rqndomhax.narutouhc.role.GameRole;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class Game {
 
@@ -28,7 +26,7 @@ public class Game {
     private TMain mainTask;
     private HostConfig currentConfig;
     private GameRole gameRole;
-    private final Set<GamePlayer> gamePlayers = new HashSet<>();
+    private final List<GamePlayer> gamePlayers = new ArrayList<>();
 
     public Game createGame() {
         currentConfig = new HostConfig(new GameRules(), "Default", ConfigLogos.DEFAULT, "default.cfg");
@@ -75,7 +73,7 @@ public class Game {
         return null;
     }
 
-    public Set<GamePlayer> getGamePlayers() {
+    public List<GamePlayer> getGamePlayers() {
         return gamePlayers;
     }
 

@@ -29,13 +29,13 @@ import java.util.Set;
 public class TList extends BukkitRunnable {
 
     private final List<GamePlayer> knownPlayers = new ArrayList<>();
-    public final Set<GamePlayer> players;
+    public final List<GamePlayer> players;
     private final JavaPlugin plugin;
     public final Set<TDelayed> delayedTasks = new HashSet<>();
     int remainingTime = Timers.TEAM_LENGTH;
 
 
-    public TList(Set<GamePlayer> players, JavaPlugin plugin) {
+    public TList(List<GamePlayer> players, JavaPlugin plugin) {
         this.players = players;
         this.plugin = plugin;
 

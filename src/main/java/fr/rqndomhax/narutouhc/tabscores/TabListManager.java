@@ -7,6 +7,10 @@
 
 package fr.rqndomhax.narutouhc.tabscores;
 
+import fr.rqndomhax.narutouhc.game.Game;
+import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameRules;
+import fr.rqndomhax.narutouhc.utils.tools.PlayerList;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
@@ -17,56 +21,63 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class TabListManager {
 
     private static int cooldown;
     private static int siteCharIndex;
 
-    public static void registerTab(JavaPlugin plugin) {
+    public static HashMap<Player, PlayerList> playersTablist = new HashMap<>();
+    private static Game game = null;
 
+    public static void registerTab(JavaPlugin plugin, Game game) {
+        if (TabListManager.game == null)
+            TabListManager.game = game;
         new BukkitRunnable() {
 
             @Override
             public void run() {
-                PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
-                Object header = new ChatComponentText(
-                        ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≫ " + ChatColor.BLACK + "" + ChatColor.BOLD + "Naruto" + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC " + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≪ " +
-                                "\n " +
-                                "\n" + ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«");
+                for (PlayerList playerList : playersTablist.values()) {
+                    playerList.setHeaderFooter(
 
-                Object footer = new ChatComponentText(
-                        ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«" +
-                                "\n " +
-                                "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Concept par " + ChatColor.WHITE + "" + ChatColor.BOLD + "Laynoks, Syknos et Losgateaux " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
-                                "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Développé par " + ChatColor.WHITE + "" + ChatColor.BOLD + "RqndomHax " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
-                                "\n" + colorAdAt() + "");
+                            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≫ " + ChatColor.BLACK + "" + ChatColor.BOLD + "Naruto" + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC " + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "≪ " +
+                            "\n " +
+                            "\n" + ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«",
 
-                try {
+                            ChatColor.RESET + "" + ChatColor.DARK_GRAY +"»" + ChatColor.DARK_GRAY + ChatColor.STRIKETHROUGH + "                                   " + ChatColor.RESET + "" + ChatColor.DARK_GRAY + "«" +
+                                    "\n " +
+                                    "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Concept par " + ChatColor.WHITE + "" + ChatColor.BOLD + "Laynoks, Syknos et Losgateaux " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
+                                    "\n " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "● " + ChatColor.RESET + "" + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Développé par " + ChatColor.WHITE + "" + ChatColor.BOLD + "RqndomHax " + ChatColor.RESET + "" + ChatColor.GOLD + "" + ChatColor.BOLD + "●" +
+                                    "\n" + colorAdAt() + "");
 
-                    Field a = packet.getClass().getDeclaredField("a");
-                    a.setAccessible(true);
-                    Field b = packet.getClass().getDeclaredField("b");
-                    b.setAccessible(true);
-
-                    a.set(packet, header);
-                    b.set(packet, footer);
-
-                    if (Bukkit.getOnlinePlayers().size() == 0) return;
-                    for (Player player : Bukkit.getOnlinePlayers())
-                        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-
-                    a.setAccessible(false);
-                    b.setAccessible(false);
-
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    e.printStackTrace();
+                    for (int i = 0; i < game.getGamePlayers().size(); i++)
+                        playerList.updateSlot(i, game.getGamePlayers().get(i).name, true);
                 }
 
             }
 
         }.runTaskTimerAsynchronously(plugin, 0, 1);
+    }
 
+    public static void initTab(Player player) {
+        if (playersTablist.containsKey(player))
+            return;
+
+        PlayerList playerList = new PlayerList(player, PlayerList.SIZE_DEFAULT);
+
+        playerList.initTable();
+        playersTablist.put(player, playerList);
+        for (int i = 0; i < TabListManager.game.getGamePlayers().size(); i++)
+            playerList.updateSlot(i, TabListManager.game.getGamePlayers().get(i).name, true);
+    }
+
+    public static void unregisterTab(Player player) {
+        if (!playersTablist.containsKey(player))
+            return;
+        playersTablist.get(player).clearCustomTabs();
+        playersTablist.remove(player);
     }
 
     private static String colorAdAt() {

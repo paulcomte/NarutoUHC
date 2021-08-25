@@ -16,6 +16,7 @@ import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
+import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
@@ -87,6 +88,8 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
+        TabListManager.initTab(e.getPlayer());
+
         if (GameInfo.gameHost == null && e.getPlayer().isOp()) {
             GameInfo.gameHost = e.getPlayer().getUniqueId();
             setup.getGame().getGameRules().hasWhitelist = true;
@@ -150,6 +153,8 @@ public class EPlayerLogin implements Listener {
         e.setQuitMessage(null);
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
+
+        TabListManager.unregisterTab(e.getPlayer());
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;

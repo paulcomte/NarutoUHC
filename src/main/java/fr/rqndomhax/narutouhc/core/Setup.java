@@ -75,7 +75,7 @@ public class Setup {
 
         GameScoreboard.init(this);
 
-        TabListManager.registerTab(main);
+        TabListManager.registerTab(main, game);
 
         RInventoryManager rInventoryManager = new RInventoryManager();
 

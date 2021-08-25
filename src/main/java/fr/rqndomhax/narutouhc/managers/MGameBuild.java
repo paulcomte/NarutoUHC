@@ -15,6 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public abstract class MGameBuild {
         }
     }
 
-    public static void removePlatform(Set<GamePlayer> players) {
+    public static void removePlatform(List<GamePlayer> players) {
 
         for (GamePlayer gamePlayer : players) {
             if (gamePlayer == null) continue;

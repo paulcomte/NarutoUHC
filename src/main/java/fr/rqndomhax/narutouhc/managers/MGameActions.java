@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -98,7 +99,7 @@ public abstract class MGameActions {
         new Title(ChatColor.GOLD + String.valueOf(i), "", 3, 20, 2).send(player);
     }
 
-    public static void sendInfos(Set<GamePlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
+    public static void sendInfos(List<GamePlayer> players, String title, String desc, Instrument instrument, boolean playNote, int octave, Note.Tone tone) {
         for (GamePlayer gamePlayer : players) {
 
             Player player = Bukkit.getPlayer(gamePlayer.uuid);
