@@ -69,10 +69,14 @@ public class Kisame extends Akatsuki {
     }
 
     @Override
-    public void onEntityHit(EntityDamageByEntityEvent event) {
-        if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK))
+    public void onHit(GamePlayer gamePlayer) {
+        if (gamePlayer == null)
             return;
-        Player player = (Player) event.getDamager();
+
+        Player player = Bukkit.getPlayer(getGamePlayer().uuid);
+        if (player == null || !player.isOnline())
+            return;
+
         if (player.getItemInHand() == null || !player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName() || !player.getItemInHand().getItemMeta().getDisplayName().equals(Roles.KISAME.getRoleItem().getItemMeta().getDisplayName()) || !player.getItemInHand().getType().equals(Roles.KISAME.getRoleItem().getType()))
             return;
         player.setHealth(player.getHealth() + 1);

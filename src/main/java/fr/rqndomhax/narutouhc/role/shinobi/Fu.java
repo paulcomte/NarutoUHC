@@ -59,7 +59,7 @@ public class Fu extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Vous dispoez de l'effet no fall.");
         player.sendMessage(ChatColor.BLUE + "Vous disposez de 3 toiles d'araignées: \"Prison de l'araignée\".");
-        player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet régénération 2 tant que vous restez en contact avec.");
+        player.sendMessage(ChatColor.BLUE + "Cet item vous donnera l'effet régénération 4 tant que vous restez en contact avec.");
         if (!hasClaimed)
             player.sendMessage(ChatColor.GREEN + "/na claim: " + "3 toiles d'araignées: \"Prison de l'araignée\".");
         else

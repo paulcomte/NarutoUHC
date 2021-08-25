@@ -75,7 +75,7 @@ public class RFu implements Listener {
         if (currentBlock == null)
             return;
 
-        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 1000000, 1, false, false));
+        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 1000000, 3, false, false));
     }
 
     @EventHandler
