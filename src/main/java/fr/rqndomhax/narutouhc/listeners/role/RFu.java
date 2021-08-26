@@ -49,7 +49,7 @@ public class RFu implements Listener {
 
         if (e.getTo().getBlock() == null || !e.getTo().getBlock().getType().equals(Material.WEB)) {
             for (PotionEffect effect : e.getPlayer().getActivePotionEffects()) {
-                if (!effect.getType().equals(PotionEffectType.REGENERATION) || effect.getAmplifier() != 1)
+                if (!effect.getType().equals(PotionEffectType.REGENERATION) || effect.getAmplifier() != 3)
                     continue;
                 if (effect.getDuration() > 24000)
                     e.getPlayer().removePotionEffect(effect.getType());
