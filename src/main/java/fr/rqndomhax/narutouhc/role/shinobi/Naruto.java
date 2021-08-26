@@ -30,7 +30,6 @@ public class Naruto extends RoleInfo {
         Player player = Bukkit.getPlayer(getGamePlayer().uuid);
         if (player == null) return;
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 0, false, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1000000, 0, false, false));
         if (isSasuke)
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, false, false));
@@ -44,7 +43,7 @@ public class Naruto extends RoleInfo {
         player.sendMessage(Messages.SEPARATORS);
         player.sendMessage(ChatColor.BLUE + "Vous êtes Naruto.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
-        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet speed 1 et fire resistance.");
+        player.sendMessage(ChatColor.BLUE + "Vous disposez de l'effet fire resistance.");
         if (isSasuke)
             player.sendMessage(ChatColor.BLUE + "Comme Sasuke est membre de l'Akatsuki, vous possédez l'effet strength 1.");
     }

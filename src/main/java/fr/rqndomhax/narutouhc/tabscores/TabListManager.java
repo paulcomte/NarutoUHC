@@ -8,10 +8,11 @@
 package fr.rqndomhax.narutouhc.tabscores;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import net.minecraft.server.v1_8_R3.*;
+import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -27,13 +28,11 @@ public abstract class TabListManager {
 
     private static int cooldown;
     private static int siteCharIndex;
-    private static int tabCooldown;
     private static Set<EntityPlayer> players;
 
     private static Game game = null;
 
     public static void registerTab(JavaPlugin plugin, Game game) {
-        tabCooldown = 0;
         cooldown = 0;
         players = new HashSet<>();
         if (TabListManager.game == null)
@@ -51,10 +50,7 @@ public abstract class TabListManager {
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
                 }
-                if (tabCooldown++ == 20) {
-                    sendTabPlayers();
-                    tabCooldown = 0;
-                }
+                sendTabPlayers();
             }
 
         }.runTaskTimerAsynchronously(plugin, 0, 1);
@@ -99,6 +95,7 @@ public abstract class TabListManager {
     private static void sendPlayers(UUID playerId, Player client, boolean isGamePlayer) {
 
         MinecraftServer server = MinecraftServer.getServer();
+        String oldname = null;
 
         PlayerInteractManager interact = new PlayerInteractManager(
                 server.getWorld());
@@ -119,8 +116,13 @@ public abstract class TabListManager {
             players.add(newPlayer);
         }
 
-        if (isGamePlayer)
+        if (isGamePlayer) {
             newPlayer.getBukkitEntity().setGameMode(GameMode.SURVIVAL);
+            if (game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG)) {
+                oldname = newPlayer.getName();
+                changeName(newPlayer.getProfile(), RandomStringUtils.randomAlphanumeric(10));
+            }
+        }
 
         newPlayer.ping = 20;
 
@@ -132,6 +134,9 @@ public abstract class TabListManager {
         // Send Packet Add
         clientCP.getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerInfo(
                 PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, newPlayer));
+
+        if (game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG))
+            changeName(newPlayer.getProfile(), oldname);
     }
 
     public static void sendTabPlayers() {
@@ -196,6 +201,19 @@ public abstract class TabListManager {
             }
     }
 
+    private static void changeName(GameProfile profile, final String name) {
+        if (name == null)
+            return;
+        try {
+            Field field = profile.getClass().getDeclaredField("name");
+            field.setAccessible(true);
+            field.set(profile, name);
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static String colorAdAt() {
         String ad = "github.com/RqndomHax";
 
@@ -209,9 +227,8 @@ public abstract class TabListManager {
         if (siteCharIndex > 0) {
             formattedIp.append(ad, 0, siteCharIndex - 1);
             formattedIp.append(ChatColor.GOLD).append(ad.charAt(siteCharIndex - 1));
-        } else {
+        } else
             formattedIp.append(ad, 0, siteCharIndex);
-        }
 
         formattedIp.append(ChatColor.RED).append(ad.charAt(siteCharIndex));
 

