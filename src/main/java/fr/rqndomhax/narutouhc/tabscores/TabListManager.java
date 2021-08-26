@@ -122,6 +122,8 @@ public abstract class TabListManager {
         if (isGamePlayer)
             newPlayer.getBukkitEntity().setGameMode(GameMode.SURVIVAL);
 
+        newPlayer.ping = 20;
+
         // Send packet remove
         clientCP.getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerInfo(
                 PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
