@@ -83,7 +83,7 @@ public class Shikamaru extends RoleInfo {
         player.sendMessage(ChatColor.BLUE + "Vous êtes Shikamaru.");
         player.sendMessage(ChatColor.BLUE + "Votre but est de gagner avec l'alliance shinobi.");
         player.sendMessage(ChatColor.BLUE + "Chaque épisode vous aurez la possibilité d'utiliser la commande /na shikamaru.");
-        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner 7 secondes de blindness 1 et slowness 2 à un joueur autour de vous dans un rayon de 50 blocks.");
+        player.sendMessage(ChatColor.BLUE + "Vous pourrez donner 10 secondes de blindness 1 et slowness 2 à un joueur autour de vous dans un rayon de 50 blocks.");
     }
 
     @Override

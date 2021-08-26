@@ -59,8 +59,8 @@ public class IShikamaru extends RInventory {
             player.closeInventory();
             player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
             player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 7*20, 0, false, false));
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 7*20, 1, false, false));
+            selected.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10*20, 0, false, false));
+            selected.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10*20, 1, false, false));
         };
     }
 
