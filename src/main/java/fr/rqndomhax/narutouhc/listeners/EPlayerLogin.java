@@ -115,7 +115,12 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        TabListManager.sendTabPlayers();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                TabListManager.sendTabPlayers();
+            }
+        }.runTaskLaterAsynchronously(setup.getMain(), 2);
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
@@ -126,6 +131,8 @@ public class EPlayerLogin implements Listener {
             Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId() && !player.getGameMode().equals(GameMode.SPECTATOR)).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
             return;
         }
+
+        e.getPlayer().setCustomNameVisible(false);
 
         if (gamePlayer.isDead) {
             MGameActions.clearPlayer(e.getPlayer());
@@ -160,7 +167,7 @@ public class EPlayerLogin implements Listener {
             public void run() {
                 TabListManager.sendTabPlayers();
             }
-        }.runTaskLaterAsynchronously(setup.getMain(), 1);
+        }.runTaskLaterAsynchronously(setup.getMain(), 2);
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;
