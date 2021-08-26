@@ -79,7 +79,7 @@ public class CNaruto implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("compo")) {
-            if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_TEAM))
+            if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.HIDDEN_ROLES))
                 return showHiddenCompo(player);
             return showCompo(player);
         }
