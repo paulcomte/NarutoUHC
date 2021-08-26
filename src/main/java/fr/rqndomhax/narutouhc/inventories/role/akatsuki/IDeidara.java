@@ -17,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Set;
 import java.util.function.Consumer;
@@ -57,12 +58,21 @@ public class IDeidara extends RInventory {
             }
             player.closeInventory();
             player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
-            player.playSound(player.getLocation(), "random.explode", 2f,  1.3f);
-            for (int i = 1; i <= 2; i++) {
-                TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
-                tnt.setFuseTicks(0);
-            }
+            runTask(selected);
         };
+    }
+
+    private void runTask(Player selected) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.playSound(player.getLocation(), "random.explode", 2f,  1.3f);
+                for (int i = 1; i <= 2; i++) {
+                    TNTPrimed tnt = selected.getLocation().getWorld().spawn(selected.getLocation(), TNTPrimed.class);
+                    tnt.setFuseTicks(0);
+                }
+            }
+        }.runTaskLater(setup.getMain(), 5*20);
     }
 
 }

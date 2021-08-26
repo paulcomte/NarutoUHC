@@ -15,9 +15,11 @@ import fr.rqndomhax.narutouhc.utils.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Set;
 import java.util.function.Consumer;
@@ -58,9 +60,18 @@ public class IKabuto extends RInventory {
             }
             player.closeInventory();
             player.sendMessage(Messages.PREFIX + "Vous avez utilisé votre effet sur " + selected.getName());
-            player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
-            selected.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 5*20, 1, false, false));
+            runTask(selected);
         };
+    }
+
+    private void runTask(Player selected) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.playSound(player.getLocation(), "mob.wither.shoot", 2f,  1.8f);
+                selected.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 5*20, 1, false, false));
+            }
+        }.runTaskLater(setup.getMain(), 5*20);
     }
 
 }
