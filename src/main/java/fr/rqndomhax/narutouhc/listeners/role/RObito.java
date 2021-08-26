@@ -154,7 +154,7 @@ public class RObito implements Listener {
             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 2 * 60 * 20, 0, false, false));
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.hidePlayer(e.getPlayer());
-            TabListManager.sendTabPlayers(e.getPlayer());
+            TabListManager.sendTabPlayers();
             return;
         }
 
@@ -210,7 +210,7 @@ public class RObito implements Listener {
             onlinePlayer.hidePlayer(player);
         }
 
-        TabListManager.sendTabPlayers(e.getPlayer());
+        TabListManager.sendTabPlayers();
 
         ParticleEffect.SMOKE_LARGE.display(player.getLocation());
 

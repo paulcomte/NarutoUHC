@@ -27,7 +27,7 @@ public class TTeleportation implements Task {
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
-        TabListManager.sendTabPlayers(null);
+        TabListManager.sendTabPlayers();
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;

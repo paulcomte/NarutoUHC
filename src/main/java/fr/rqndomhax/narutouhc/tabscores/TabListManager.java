@@ -19,16 +19,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class TabListManager {
 
     private static int cooldown;
     private static int siteCharIndex;
+    private static int tabCooldown;
 
     private static Game game = null;
 
     public static void registerTab(JavaPlugin plugin, Game game) {
+        tabCooldown = 0;
+        cooldown = 0;
         if (TabListManager.game == null)
             TabListManager.game = game;
 
@@ -43,6 +48,10 @@ public abstract class TabListManager {
                     for (Player player : Bukkit.getOnlinePlayers())
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
+                }
+                if (tabCooldown++ == 10) {
+                    sendTabPlayers();
+                    tabCooldown = 0;
                 }
             }
 
@@ -123,14 +132,18 @@ public abstract class TabListManager {
         clientCP.getHandle().playerConnection.sendPacket(addPacket);
     }
 
-    public static void sendTabPlayers(Player requester) {
+    public static void sendTabPlayers() {
+        List<Player> spectators = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (game.getGamePlayer(player.getUniqueId()) == null)
+                spectators.add(player);
             for (GamePlayer gamePlayer : game.getGamePlayers())
                 sendPlayers(gamePlayer.uuid, player);
-            // for game spectators
-            if (requester != null && player == requester && game.getGamePlayer(requester.getUniqueId()) == null)
-                sendPlayers(requester.getUniqueId(), requester);
         }
+        for (Player spectator : spectators)
+            for (Player spectator2 : spectators)
+                if (spectator != spectator2)
+                    sendPlayers(spectator.getUniqueId(), spectator2);
     }
 
     private static String colorAdAt() {

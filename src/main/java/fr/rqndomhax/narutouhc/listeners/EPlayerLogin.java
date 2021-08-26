@@ -115,7 +115,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        TabListManager.sendTabPlayers(e.getPlayer());
+        TabListManager.sendTabPlayers();
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
@@ -155,14 +155,12 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
-
         new BukkitRunnable() {
             @Override
             public void run() {
-                TabListManager.sendTabPlayers(null);
+                TabListManager.sendTabPlayers();
             }
         }.runTaskLaterAsynchronously(setup.getMain(), 1);
-
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;
