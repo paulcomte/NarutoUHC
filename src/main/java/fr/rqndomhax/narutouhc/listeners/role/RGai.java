@@ -12,7 +12,6 @@ import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.Gai;
-import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.tasks.role.shinobi.TGai;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import org.bukkit.Sound;

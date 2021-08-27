@@ -12,7 +12,6 @@ import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.managers.MGameStatus;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;

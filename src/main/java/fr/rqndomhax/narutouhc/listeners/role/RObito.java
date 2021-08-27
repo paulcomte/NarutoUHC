@@ -12,8 +12,6 @@ import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.akatsuki.Obito;
-import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
-import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.tasks.role.akatsuki.TObito;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
@@ -28,9 +26,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.xenondevs.particle.ParticleEffect;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class RObito implements Listener {
 

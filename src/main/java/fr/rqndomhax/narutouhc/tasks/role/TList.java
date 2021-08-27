@@ -12,7 +12,6 @@ import fr.rqndomhax.narutouhc.infos.Roles;
 import fr.rqndomhax.narutouhc.infos.Team;
 import fr.rqndomhax.narutouhc.managers.MGamePublicRoles;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
-import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.Timers;

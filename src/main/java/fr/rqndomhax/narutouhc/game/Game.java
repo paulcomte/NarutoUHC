@@ -18,7 +18,9 @@ import fr.rqndomhax.narutouhc.role.GameRole;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Game {
 
