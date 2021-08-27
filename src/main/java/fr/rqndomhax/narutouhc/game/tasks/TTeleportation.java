@@ -7,6 +7,7 @@
 
 package fr.rqndomhax.narutouhc.game.tasks;
 
+import com.comphenix.protocol.ProtocolLibrary;
 import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
@@ -27,8 +28,8 @@ public class TTeleportation implements Task {
     int remainingTime;
 
     public TTeleportation(TMain mainTask) {
-        TabListManager.sendTabPlayers();
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
+        TabListManager.registerProtocols(mainTask.getSetup(), ProtocolLibrary.getProtocolManager());
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().narutoTeleportingDuration;

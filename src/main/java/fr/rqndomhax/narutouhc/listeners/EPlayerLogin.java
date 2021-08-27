@@ -20,7 +20,6 @@ import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -115,13 +114,6 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                TabListManager.sendTabPlayers();
-            }
-        }.runTaskLaterAsynchronously(setup.getMain(), 2);
-
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
 
         if (gamePlayer == null) {
@@ -162,12 +154,7 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                TabListManager.sendTabPlayers();
-            }
-        }.runTaskLaterAsynchronously(setup.getMain(), 2);
+        TabListManager.tabPlayers.remove(e.getPlayer());
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;

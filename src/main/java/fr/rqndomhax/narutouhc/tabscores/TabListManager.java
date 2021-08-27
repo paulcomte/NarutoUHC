@@ -7,15 +7,21 @@
 
 package fr.rqndomhax.narutouhc.tabscores;
 
-import com.mojang.authlib.GameProfile;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.PlayerInfoData;
+import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
-import net.minecraft.server.v1_8_R3.*;
-import org.apache.commons.lang.RandomStringUtils;
+import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +37,8 @@ public abstract class TabListManager {
     private static Set<EntityPlayer> players;
 
     private static Game game = null;
+
+    public static final HashMap<Player, Set<UUID>> tabPlayers = new HashMap<>();
 
     public static void registerTab(JavaPlugin plugin, Game game) {
         cooldown = 0;
@@ -50,7 +58,6 @@ public abstract class TabListManager {
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
                 }
-                sendTabPlayers();
             }
 
         }.runTaskTimerAsynchronously(plugin, 0, 1);
@@ -92,126 +99,51 @@ public abstract class TabListManager {
         return null;
     }
 
-    private static void sendPlayers(UUID playerId, Player client, boolean isGamePlayer) {
+    public static void registerProtocols(Setup setup, ProtocolManager protocolManager) {
+        protocolManager.addPacketListener(
+                new PacketAdapter(setup.getMain(), ListenerPriority.NORMAL,
+                        PacketType.Play.Server.PLAYER_INFO) {
+                    @Override
+                    public void onPacketSending(PacketEvent event) {
 
-        MinecraftServer server = MinecraftServer.getServer();
-        String oldname = null;
+                        if (event.isCancelled())
+                            return;
 
-        PlayerInteractManager interact = new PlayerInteractManager(
-                server.getWorld());
+                        if (!tabPlayers.containsKey(event.getPlayer())) {
+                            tabPlayers.put(event.getPlayer(), new HashSet<>());
+                        }
+                        Set<UUID> players = tabPlayers.get(event.getPlayer());
 
-        final CraftPlayer clientCP = ((CraftPlayer) client).getHandle().playerConnection
-                .getPlayer();
+                        EnumWrappers.PlayerInfoAction action = event.getPacket().getPlayerInfoAction().read(0);
+                        List<PlayerInfoData> datas = event.getPacket().getPlayerInfoDataLists().read(0);
+                        GamePlayer gameplayer = setup.getGame().getGamePlayer(event.getPlayer().getUniqueId());
 
-        EntityPlayer newPlayer = null;
+                        for (PlayerInfoData data : datas)
+                            checkPlayer(setup, event, gameplayer, players, data, action == EnumWrappers.PlayerInfoAction.ADD_PLAYER);
 
-        for (EntityPlayer player : players)
-            if (player.getBukkitEntity().getUniqueId().equals(playerId))
-                newPlayer = player;
-
-        if (newPlayer == null) {
-            newPlayer = new EntityPlayer(server, (WorldServer) server.getWorld(),
-                    MinecraftServer.getServer().aD().fillProfileProperties(new GameProfile(playerId, null), true),
-                    interact);
-            players.add(newPlayer);
-        }
-
-        if (isGamePlayer) {
-            newPlayer.getBukkitEntity().setGameMode(GameMode.SURVIVAL);
-            if (game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG)) {
-                oldname = newPlayer.getName();
-                changeName(newPlayer.getProfile(), RandomStringUtils.randomAlphanumeric(10));
-            }
-        }
-
-        newPlayer.ping = 20;
-
-        // Send packet remove
-        clientCP.getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerInfo(
-                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
-                newPlayer));
-
-        // Send Packet Add
-        clientCP.getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerInfo(
-                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, newPlayer));
-
-        if (game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG))
-            changeName(newPlayer.getProfile(), oldname);
+                        tabPlayers.put(event.getPlayer(), players);
+                    }
+                });
     }
 
-    public static void sendTabPlayers() {
-        HashMap<Player, Set<Player>> toClear = new HashMap<>();
-        List<Player> spectators = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
+    private static void checkPlayer(Setup setup, PacketEvent event, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
 
-            Set<Player> players = getPlayers(player);
-            toClear.put(player, players);
-
-            if (game.getGamePlayer(player.getUniqueId()) == null)
-                spectators.add(player);
-
-            for (GamePlayer gamePlayer : game.getGamePlayers())
-                if (!gamePlayer.uuid.equals(player.getUniqueId())) {
-                    sendPlayers(gamePlayer.uuid, player, true);
-                    removePlayer(players, gamePlayer.uuid);
-                }
-        }
-
-        for (Player spectator : spectators) {
-            Set<Player> players = toClear.get(spectator);
-            for (Player spectator2 : spectators)
-                if (!spectator.equals(spectator2)) {
-                    sendPlayers(spectator.getUniqueId(), spectator2, false);
-                    players.remove(spectator2);
-                }
-        }
-
-        for (Player player : Bukkit.getOnlinePlayers())
-            clearTab(player, toClear.get(player));
-    }
-
-    private static void clearTab(Player player, Set<Player> players) {
-        final CraftPlayer clientCP = ((CraftPlayer) player).getHandle().playerConnection
-                .getPlayer();
-        for (Player target : players) {
-            if (target.equals(player))
-                continue;
-            clientCP.getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerInfo(
-                    PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
-                    ((CraftPlayer) target).getHandle()));
-        }
-    }
-
-    private static Set<Player> getPlayers(Player player) {
-        Set<Player> players = new HashSet<>();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!p.equals(player))
-                players.add(p);
-        }
-        return players;
-    }
-
-    private static void removePlayer(Set<Player> players, UUID playerID) {
-        if (players == null)
+        // Skip player's packet
+        if (data.getProfile().getUUID().equals(event.getPlayer().getUniqueId()))
             return;
-        for (Player player : players)
-            if (player.getUniqueId().equals(playerID)) {
-                players.remove(player);
-                break;
-            }
-    }
 
-    private static void changeName(GameProfile profile, final String name) {
-        if (name == null)
+        if (setup.getGame().getGamePlayer(data.getProfile().getUUID()) == null) {
+            if (gamePlayer != null)
+                event.setCancelled(true);
             return;
-        try {
-            Field field = profile.getClass().getDeclaredField("name");
-            field.setAccessible(true);
-            field.set(profile, name);
-            field.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
         }
+
+        if (players.contains(data.getProfile().getUUID()) || !doesAdd) {
+            event.setCancelled(true);
+            return;
+        }
+
+        players.add(data.getProfile().getUUID());
     }
 
     private static String colorAdAt() {

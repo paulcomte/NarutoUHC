@@ -3,6 +3,7 @@ author: RqndomHax
 version: 0.1
 main: fr.rqndomhax.narutouhc.core.Main
 load: POSTWORLD
+depend: [ProtocolLib]
 commands:
   help:
   rules:

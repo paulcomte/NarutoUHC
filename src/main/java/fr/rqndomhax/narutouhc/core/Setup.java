@@ -30,7 +30,7 @@ public class Setup {
 
     private final Main main;
     private Game game;
-
+    
     public Setup(Main main) {
         this.main = main;
         setup();
