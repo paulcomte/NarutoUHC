@@ -99,7 +99,7 @@ public abstract class TabListManager {
         return null;
     }
 
-    public static void registerProtocols(Setup setup, ProtocolManager protocolManager) {
+    public static void activatePlayerList(Setup setup, ProtocolManager protocolManager) {
         protocolManager.addPacketListener(
                 new PacketAdapter(setup.getMain(), ListenerPriority.NORMAL,
                         PacketType.Play.Server.PLAYER_INFO) {
