@@ -17,9 +17,12 @@ import com.comphenix.protocol.wrappers.PlayerInfoData;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
+import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
+import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -35,6 +38,7 @@ public abstract class TabListManager {
     private static int cooldown;
     private static int siteCharIndex;
     private static Set<EntityPlayer> players;
+    private static int scenarioCooldown = 0;
 
     private static Game game = null;
 
@@ -42,6 +46,7 @@ public abstract class TabListManager {
 
     public static void registerTab(JavaPlugin plugin, Game game) {
         cooldown = 0;
+        scenarioCooldown = 0;
         players = new HashSet<>();
         if (TabListManager.game == null)
             TabListManager.game = game;
@@ -52,11 +57,18 @@ public abstract class TabListManager {
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() == 0) return;
 
+                boolean updateScenarioTab = !game.getGameState().equals(GameState.LOBBY_WAITING) && game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG) && scenarioCooldown++ >= 2;
+
                 PacketPlayOutPlayerListHeaderFooter headerFooter = sendHeaderFooter();
                 if (headerFooter != null) {
-                    for (Player player : Bukkit.getOnlinePlayers())
+                    for (Player player : Bukkit.getOnlinePlayers()) {
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
+                        if (updateScenarioTab) {
+                            player.setPlayerListName(RandomStringUtils.randomAlphabetic(8));
+                            scenarioCooldown = 0;
+                        }
+                    }
                 }
             }
 
