@@ -8,6 +8,8 @@
 package fr.rqndomhax.narutouhc.game.tasks;
 
 import fr.rqndomhax.narutouhc.game.GameState;
+import fr.rqndomhax.narutouhc.listeners.serverping.Pings;
+import fr.rqndomhax.narutouhc.listeners.serverping.ServerPing;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.tasks.TCenter;
 import fr.rqndomhax.narutouhc.utils.Messages;
@@ -20,6 +22,7 @@ public class TBorder implements Task {
 
     public TBorder(TMain mainTask) {
         mainTask.getSetup().getGame().setGameState(GameState.GAME_BORDER);
+        ServerPing.currentPing = Pings.MEETUP;
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().gameBorder.timeBeforeResize;

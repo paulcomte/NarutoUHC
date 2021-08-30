@@ -12,19 +12,25 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import com.comphenix.protocol.wrappers.PlayerInfoData;
+import com.comphenix.protocol.wrappers.*;
+import com.google.common.collect.Multimap;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,6 +45,7 @@ public abstract class TabListManager {
     private static int siteCharIndex;
     private static Set<EntityPlayer> players;
     private static int scenarioCooldown = 0;
+    public static Property randomSkin = null;
 
     private static Game game = null;
 
@@ -112,6 +119,12 @@ public abstract class TabListManager {
     }
 
     public static void activatePlayerList(Setup setup, ProtocolManager protocolManager) {
+        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
+            Player player = PlayerManager.getPlayer(new Random().nextInt(Bukkit.getOnlinePlayers().size()));
+            if (player != null)
+                randomSkin = ((CraftPlayer) player).getHandle().getProfile().getProperties().get("textures").iterator().next();
+            System.out.println("randomSkin = [" + randomSkin + "]");
+        }
         protocolManager.addPacketListener(
                 new PacketAdapter(setup.getMain(), ListenerPriority.NORMAL,
                         PacketType.Play.Server.PLAYER_INFO) {
@@ -128,34 +141,80 @@ public abstract class TabListManager {
 
                         EnumWrappers.PlayerInfoAction action = event.getPacket().getPlayerInfoAction().read(0);
                         List<PlayerInfoData> datas = event.getPacket().getPlayerInfoDataLists().read(0);
+                        List<PlayerInfoData> newDatas = new ArrayList<>();
                         GamePlayer gameplayer = setup.getGame().getGamePlayer(event.getPlayer().getUniqueId());
 
-                        for (PlayerInfoData data : datas)
-                            checkPlayer(setup, event, gameplayer, players, data, action == EnumWrappers.PlayerInfoAction.ADD_PLAYER);
+                        for (PlayerInfoData data : datas) {
+                            // Skip player's packet
+                            if (data.getProfile().getUUID().equals(event.getPlayer().getUniqueId())) {
+                                newDatas.add(data);
+                                continue;
+                            }
+                            event.setCancelled(checkPlayer(setup, event, newDatas, gameplayer, players, data, action == EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+                        }
 
                         tabPlayers.put(event.getPlayer(), players);
+
+                        for (GamePlayer gamePlayer : game.getGamePlayers()) {
+                            if (gamePlayer.uuid.equals(event.getPlayer().getUniqueId()) || players.contains(gamePlayer.uuid))
+                                continue;
+                            Player player = Bukkit.getPlayer(gamePlayer.uuid);
+                            if (player != null)
+                                createDataFromPlayer(newDatas, player);
+                            //else
+                                //createDataFromOfflinePlayer(newDatas, Bukkit.getOfflinePlayer(gamePlayer.uuid));
+                        }
+
+                        event.getPacket().getPlayerInfoDataLists().write(0, newDatas);
                     }
                 });
     }
 
-    private static void checkPlayer(Setup setup, PacketEvent event, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
-
-        // Skip player's packet
-        if (data.getProfile().getUUID().equals(event.getPlayer().getUniqueId()))
-            return;
-
-        if (setup.getGame().getGamePlayer(data.getProfile().getUUID()) == null) {
-            if (gamePlayer != null)
-                event.setCancelled(true);
-            return;
+    private static void createData(List<PlayerInfoData> newData, PlayerInfoData data) {
+        WrappedGameProfile newProfile = new WrappedGameProfile(data.getProfile().getUUID(), data.getProfile().getName());
+        newProfile.getProperties().putAll(data.getProfile().getProperties());
+        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
+        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
+            newProfile.getProperties().remove("textures", textures);
+            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
         }
 
-        if (players.contains(data.getProfile().getUUID()) || !doesAdd) {
-            event.setCancelled(true);
-            return;
+        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, data.getDisplayName()));
+    }
+
+    private static void createDataFromOfflinePlayer(List<PlayerInfoData> newData, OfflinePlayer offlinePlayer) {
+        WrappedGameProfile newProfile = WrappedGameProfile.fromOfflinePlayer(offlinePlayer);
+        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
+        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
+            newProfile.getProperties().remove("textures", textures);
+            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
         }
 
+        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(offlinePlayer.getName())));
+    }
+
+    private static void createDataFromPlayer(List<PlayerInfoData> newData, Player player) {
+        WrappedGameProfile newProfile = WrappedGameProfile.fromPlayer(player);
+        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
+        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
+            newProfile.getProperties().remove("textures", textures);
+            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
+        }
+
+        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(player.getName())));
+    }
+
+    private static boolean checkPlayer(Setup setup, PacketEvent event, List<PlayerInfoData> newData, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
+
+        if (setup.getGame().getGamePlayer(data.getProfile().getUUID()) == null)
+            return gamePlayer != null;
+
+        if (players.contains(data.getProfile().getUUID()) || !doesAdd)
+            return true;
+
+        createData(newData, data);
         players.add(data.getProfile().getUUID());
+        return false;
     }
 
     private static String colorAdAt() {
@@ -189,6 +248,16 @@ public abstract class TabListManager {
         }
 
         return ChatColor.YELLOW + formattedIp.toString();
+    }
+
+    public static void reloadPlayers() {
+        for (Player player : Bukkit.getOnlinePlayers())
+            for (Player target : Bukkit.getOnlinePlayers()) {
+                if (player.equals(target))
+                    continue;
+                player.hidePlayer(target);
+                player.showPlayer(target);
+            }
     }
 
 }

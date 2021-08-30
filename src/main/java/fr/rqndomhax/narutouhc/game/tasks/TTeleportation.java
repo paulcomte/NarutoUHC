@@ -26,7 +26,9 @@ public class TTeleportation implements Task {
 
     public TTeleportation(TMain mainTask) {
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
+        mainTask.getSetup().getGame().getGameRules().hasWhitelist = false;
         TabListManager.activatePlayerList(mainTask.getSetup(), ProtocolLibrary.getProtocolManager());
+        TabListManager.reloadPlayers();
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().narutoTeleportingDuration;

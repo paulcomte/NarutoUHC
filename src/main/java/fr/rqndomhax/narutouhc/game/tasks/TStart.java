@@ -144,9 +144,9 @@ public class TStart implements Task {
 
     private void updateScenarios() {
         if (mainTask.getSetup().getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_EPISODE))
-            Timers.EPISODE_LENGTH = 5*60;
+            Timers.EPISODE_LENGTH = 10*60;
         if (mainTask.getSetup().getGame().getGameRules().activatedScenarios.contains(Scenarios.FASTER_TEAM))
-            Timers.TEAM_LENGTH = 5*60;
+            Timers.TEAM_LENGTH = 10*60;
     }
 
     private void startGame() {

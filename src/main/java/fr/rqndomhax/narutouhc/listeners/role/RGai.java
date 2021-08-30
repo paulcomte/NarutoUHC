@@ -54,9 +54,8 @@ public class RGai implements Listener {
         if (!(tmp instanceof Gai))
             return;
 
-        if (!e.getItemInHand().equals(Roles.GAI.getRoleItem())) {
+        if (!e.getItemInHand().equals(Roles.GAI.getRoleItem()))
             return;
-        }
 
         e.setCancelled(true);
 

@@ -34,7 +34,7 @@ public class CNaruto implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 
         if (!(sender instanceof Player)) {
-            if (args[0].equalsIgnoreCase("compo"))
+            if (args.length == 1 && args[0].equalsIgnoreCase("compo"))
                 return showCompo(sender);
             sender.sendMessage(Messages.NEED_PLAYER);
             return false;

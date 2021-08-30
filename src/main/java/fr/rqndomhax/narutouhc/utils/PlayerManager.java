@@ -49,4 +49,12 @@ public abstract class PlayerManager {
         return role;
     }
 
+    public static Player getPlayer(int index) {
+        int n = 0;
+        for (Player player : Bukkit.getOnlinePlayers())
+            if (n++ == index)
+                return (player);
+        return null;
+    }
+
 }
