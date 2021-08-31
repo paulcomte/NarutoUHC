@@ -52,7 +52,7 @@ public class GameRules {
     public DayCycle dayCycle = DayCycle.NORMAL;
 
     public String gameTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Naruto " + ChatColor.GOLD + "" + ChatColor.BOLD + "UHC";
-    public int maxCoHost = 3;
+    public int maxCoHost = 4;
 
     public int startDuration = 10;
 

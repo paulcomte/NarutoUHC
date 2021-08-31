@@ -8,10 +8,7 @@
 package fr.rqndomhax.narutouhc.listeners;
 
 import fr.rqndomhax.narutouhc.core.Setup;
-import fr.rqndomhax.narutouhc.game.GameInfo;
-import fr.rqndomhax.narutouhc.game.GamePlayer;
-import fr.rqndomhax.narutouhc.game.GameState;
-import fr.rqndomhax.narutouhc.game.SActions;
+import fr.rqndomhax.narutouhc.game.*;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
@@ -41,11 +38,6 @@ public class EPlayerLogin implements Listener {
     }
 
     @EventHandler
-    public void playerJoinMessage(PlayerJoinEvent e) {
-
-    }
-
-    @EventHandler
     public void onPlayerLogin(PlayerLoginEvent e) {
 
         if (setup.getGame().getGameState().equals(GameState.LOADING)) {
@@ -63,7 +55,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameRules().hasWhitelist && !GameInfo.whitelistedPlayers.contains(e.getPlayer().getUniqueId()) && !e.getPlayer().isOp()) {
+        if (setup.getGame().getGameRules().hasWhitelist && !Bukkit.getWhitelistedPlayers().contains(e.getPlayer()) && !e.getPlayer().isOp() && !GameInfo.gameHost.equals(e.getPlayer().getName())) {
             e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
             return;
         }
@@ -92,7 +84,7 @@ public class EPlayerLogin implements Listener {
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
         if (GameInfo.gameHost == null && e.getPlayer().isOp()) {
-            GameInfo.gameHost = e.getPlayer().getUniqueId();
+            GameInfo.gameHost = e.getPlayer().getName();
             setup.getGame().getGameRules().hasWhitelist = true;
         }
 

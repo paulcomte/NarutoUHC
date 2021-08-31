@@ -87,6 +87,8 @@ public class Setup {
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_GENERATING_LOBBY);
         ServerPing.currentPing = Pings.LOBBY_GENERATING;
 
+        Bukkit.getWhitelistedPlayers().clear();
+
         MGameBuild.placeLobby(main);
 
         new TWait(this);

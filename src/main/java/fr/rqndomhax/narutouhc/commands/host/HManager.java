@@ -50,23 +50,22 @@ public abstract class HManager {
             return false;
         }
 
-        if (Bukkit.getPlayer(GameInfo.gameHost) != null) {
+        if (GameInfo.gameHost != null && Bukkit.getPlayer(GameInfo.gameHost) != null) {
             sender.sendMessage(Messages.HOST_NEED_OFFLINE.replace("%player%", Bukkit.getPlayer(GameInfo.gameHost).getName()));
             return false;
         }
 
-        Player player = Bukkit.getPlayer(args[1]);
-
-        if (player == null) {
-            sender.sendMessage(Messages.PLAYER_NOT_EXIST);
-            return false;
+        GameInfo.gameHost = args[1];
+        Player player = Bukkit.getPlayer(GameInfo.gameHost);
+        if (player != null) {
+            player.sendMessage(Messages.HOST_SET);
+            if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
+                MGameActions.clearPlayerLobby(player);
         }
-
-        GameInfo.gameHost = player.getUniqueId();
-        player.sendMessage(Messages.HOST_SET);
-        if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
-            MGameActions.clearPlayerLobby(player);
-        sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", player.getName()));
+        if (player != null)
+            sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", player.getName()));
+        else
+            sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", GameInfo.gameHost));
 
         return true;
     }
