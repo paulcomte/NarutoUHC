@@ -40,7 +40,6 @@ public abstract class TabListManager {
     private static int cooldown;
     private static int siteCharIndex;
     private static Set<EntityPlayer> players;
-    private static int scenarioCooldown = 0;
     public static Property randomSkin = null;
 
     private static Game game = null;
@@ -49,7 +48,6 @@ public abstract class TabListManager {
 
     public static void registerTab(JavaPlugin plugin, Game game) {
         cooldown = 0;
-        scenarioCooldown = 0;
         players = new HashSet<>();
         if (TabListManager.game == null)
             TabListManager.game = game;
@@ -60,17 +58,11 @@ public abstract class TabListManager {
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() == 0) return;
 
-                boolean updateScenarioTab = !game.getGameState().equals(GameState.LOBBY_WAITING) && game.getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG) && scenarioCooldown++ >= 2;
-
                 PacketPlayOutPlayerListHeaderFooter headerFooter = sendHeaderFooter();
                 if (headerFooter != null) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
-                        if (updateScenarioTab) {
-                            player.setPlayerListName(RandomStringUtils.randomAlphabetic(8));
-                            scenarioCooldown = 0;
-                        }
                     }
                 }
             }
