@@ -44,12 +44,6 @@ public class Setup {
 
         Registers registers = new Registers(this);
 
-        if (registers == null) {
-            Bukkit.getLogger().log(Level.SEVERE, Messages.CANNOT_INIT);
-            main.getPluginLoader().disablePlugin(main);
-            return;
-        }
-
         new NMSPatcher();
 
         Bukkit.getLogger().log(Level.INFO, Messages.PLUGIN_CREATING_WORLDS);

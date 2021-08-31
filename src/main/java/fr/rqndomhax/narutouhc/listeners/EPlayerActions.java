@@ -13,6 +13,7 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.tasks.TDeath;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
@@ -105,6 +106,7 @@ public class EPlayerActions implements Listener {
 
         e.getDrops().clear();
         player.setGameMode(GameMode.SPECTATOR);
+        PlayerManager.setVisibilityToPlayers(player, true);
 
         if (gamePlayer == null) {
             e.setDroppedExp(0);
@@ -155,7 +157,6 @@ public class EPlayerActions implements Listener {
             return;
 
         GamePlayer gamePlayer = setup.getGame().getGamePlayer(e.getPlayer().getUniqueId());
-
 
         if (gamePlayer == null || gamePlayer.isDead)
             return;

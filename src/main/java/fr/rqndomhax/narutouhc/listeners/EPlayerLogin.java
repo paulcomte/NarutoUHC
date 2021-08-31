@@ -15,9 +15,11 @@ import fr.rqndomhax.narutouhc.game.SActions;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MVillagers;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.tabscores.GameScoreboard;
 import fr.rqndomhax.narutouhc.tabscores.TabListManager;
 import fr.rqndomhax.narutouhc.utils.Messages;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
 import org.bukkit.entity.Villager;
@@ -74,7 +76,7 @@ public class EPlayerLogin implements Listener {
 
         if (gamePlayer == null || gamePlayer.isDead) {
             if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
-                    return;
+                return;
             if (!setup.getGame().getGameRules().allowSpectators && !e.getPlayer().isOp())
                 e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.NOT_ALLOWED);
         }
@@ -121,10 +123,12 @@ public class EPlayerLogin implements Listener {
             MGameActions.clearPlayer(e.getPlayer());
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId() != e.getPlayer().getUniqueId() && !player.getGameMode().equals(GameMode.SPECTATOR)).findAny().ifPresent(player -> e.getPlayer().teleport(player.getLocation()));
+            PlayerManager.setVisibilityToPlayers(e.getPlayer(), true);
             return;
         }
 
-        e.getPlayer().setCustomNameVisible(false);
+        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG))
+            PlayerManager.setNameTagVisible(e.getPlayer(), false);
 
         if (gamePlayer.isDead) {
             MGameActions.clearPlayer(e.getPlayer());
@@ -155,6 +159,8 @@ public class EPlayerLogin implements Listener {
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
         TabListManager.tabPlayers.remove(e.getPlayer());
+
+        PlayerManager.setNameTagVisible(e.getPlayer(), true);
 
         if (Bukkit.getOnlinePlayers().size() == 1) {
             setup.getGame().getGameRules().hasWhitelist = false;

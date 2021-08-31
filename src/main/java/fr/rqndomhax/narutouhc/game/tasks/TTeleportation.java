@@ -13,10 +13,14 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.infos.Maps;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
 import fr.rqndomhax.narutouhc.managers.MGameBuild;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.tabscores.TabListManager;
+import fr.rqndomhax.narutouhc.utils.PlayerManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Instrument;
 import org.bukkit.Note;
+import org.bukkit.entity.Player;
 
 public class TTeleportation implements Task {
 
@@ -28,7 +32,11 @@ public class TTeleportation implements Task {
         mainTask.getSetup().getGame().setGameState(GameState.GAME_TELEPORTING);
         mainTask.getSetup().getGame().getGameRules().hasWhitelist = false;
         TabListManager.activatePlayerList(mainTask.getSetup(), ProtocolLibrary.getProtocolManager());
-        TabListManager.reloadPlayers();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            TabListManager.reloadPlayer(player);
+            if (mainTask.getSetup().getGame().getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG))
+                PlayerManager.setNameTagVisible(player, false);
+        }
         this.mainTask = mainTask;
         mainTask.lastTaskFinished = false;
         remainingTime = mainTask.getSetup().getGame().getGameRules().narutoTeleportingDuration;

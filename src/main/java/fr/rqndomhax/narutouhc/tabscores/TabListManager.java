@@ -13,10 +13,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.*;
-import com.google.common.collect.Multimap;
-import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.properties.PropertyMap;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.Game;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
@@ -24,7 +21,6 @@ import fr.rqndomhax.narutouhc.game.GameState;
 import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
-import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.apache.commons.lang.RandomStringUtils;
@@ -134,9 +130,9 @@ public abstract class TabListManager {
                         if (event.isCancelled())
                             return;
 
-                        if (!tabPlayers.containsKey(event.getPlayer())) {
+                        if (!tabPlayers.containsKey(event.getPlayer()))
                             tabPlayers.put(event.getPlayer(), new HashSet<>());
-                        }
+
                         Set<UUID> players = tabPlayers.get(event.getPlayer());
 
                         EnumWrappers.PlayerInfoAction action = event.getPacket().getPlayerInfoAction().read(0);
@@ -170,38 +166,28 @@ public abstract class TabListManager {
                 });
     }
 
+    private static void createDataFromProfile(WrappedGameProfile profile, List<PlayerInfoData> newData) {
+        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
+            if (profile.getProperties().containsKey("textures"))
+                profile.getProperties().remove("textures", profile.getProperties().get("textures").iterator().next());
+            profile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
+        }
+        newData.add(new PlayerInfoData(profile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(profile.getName())));
+    }
+
     private static void createData(List<PlayerInfoData> newData, PlayerInfoData data) {
         WrappedGameProfile newProfile = new WrappedGameProfile(data.getProfile().getUUID(), data.getProfile().getName());
         newProfile.getProperties().putAll(data.getProfile().getProperties());
-        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
-        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
-            newProfile.getProperties().remove("textures", textures);
-            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
-        }
-
-        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, data.getDisplayName()));
+        createDataFromProfile(newProfile, newData);
     }
 
     private static void createDataFromOfflinePlayer(List<PlayerInfoData> newData, OfflinePlayer offlinePlayer) {
-        WrappedGameProfile newProfile = WrappedGameProfile.fromOfflinePlayer(offlinePlayer);
-        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
-        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
-            newProfile.getProperties().remove("textures", textures);
-            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
-        }
-
-        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(offlinePlayer.getName())));
+        WrappedGameProfile profile = WrappedGameProfile.fromOfflinePlayer(offlinePlayer);
+        createDataFromProfile(WrappedGameProfile.fromOfflinePlayer(offlinePlayer), newData);
     }
 
     private static void createDataFromPlayer(List<PlayerInfoData> newData, Player player) {
-        WrappedGameProfile newProfile = WrappedGameProfile.fromPlayer(player);
-        WrappedSignedProperty textures = newProfile.getProperties().get("textures").iterator().next();
-        if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
-            newProfile.getProperties().remove("textures", textures);
-            newProfile.getProperties().put("textures", new WrappedSignedProperty(randomSkin.getName(), randomSkin.getValue(), randomSkin.getSignature()));
-        }
-
-        newData.add(new PlayerInfoData(newProfile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(player.getName())));
+        createDataFromProfile(WrappedGameProfile.fromPlayer(player), newData);
     }
 
     private static boolean checkPlayer(Setup setup, PacketEvent event, List<PlayerInfoData> newData, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
@@ -250,14 +236,13 @@ public abstract class TabListManager {
         return ChatColor.YELLOW + formattedIp.toString();
     }
 
-    public static void reloadPlayers() {
-        for (Player player : Bukkit.getOnlinePlayers())
-            for (Player target : Bukkit.getOnlinePlayers()) {
-                if (player.equals(target))
-                    continue;
-                player.hidePlayer(target);
-                player.showPlayer(target);
-            }
+    public static void reloadPlayer(Player target) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (target.equals(player))
+                continue;
+            player.hidePlayer(target);
+            player.showPlayer(target);
+        }
     }
 
 }
