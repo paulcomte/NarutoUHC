@@ -59,12 +59,10 @@ public abstract class TabListManager {
                 if (Bukkit.getOnlinePlayers().size() == 0) return;
 
                 PacketPlayOutPlayerListHeaderFooter headerFooter = sendHeaderFooter();
-                if (headerFooter != null) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
+                if (headerFooter != null)
+                    for (Player player : Bukkit.getOnlinePlayers())
                         ((CraftPlayer) player).getHandle().playerConnection
                                 .getPlayer().getHandle().playerConnection.sendPacket(headerFooter);
-                    }
-                }
             }
 
         }.runTaskTimerAsynchronously(plugin, 0, 1);
@@ -111,7 +109,6 @@ public abstract class TabListManager {
             Player player = PlayerManager.getPlayer(new Random().nextInt(Bukkit.getOnlinePlayers().size()));
             if (player != null)
                 randomSkin = ((CraftPlayer) player).getHandle().getProfile().getProperties().get("textures").iterator().next();
-            System.out.println("randomSkin = [" + randomSkin + "]");
         }
         protocolManager.addPacketListener(
                 new PacketAdapter(setup.getMain(), ListenerPriority.NORMAL,
@@ -135,6 +132,8 @@ public abstract class TabListManager {
                         for (PlayerInfoData data : datas) {
                             // Skip player's packet
                             if (data.getProfile().getUUID().equals(event.getPlayer().getUniqueId())) {
+                                if (gameplayer != null)
+                                    gameplayer.wrappedGameProfile = data.getProfile();
                                 newDatas.add(data);
                                 continue;
                             }
@@ -146,16 +145,18 @@ public abstract class TabListManager {
                         for (GamePlayer gamePlayer : game.getGamePlayers()) {
                             if (gamePlayer.uuid.equals(event.getPlayer().getUniqueId()) || players.contains(gamePlayer.uuid))
                                 continue;
-                            Player player = Bukkit.getPlayer(gamePlayer.uuid);
-                            if (player != null)
-                                createDataFromPlayer(newDatas, player);
-                            //else
-                                //createDataFromOfflinePlayer(newDatas, Bukkit.getOfflinePlayer(gamePlayer.uuid));
+                            createDataFromGamePlayer(newDatas, gamePlayer);
                         }
 
                         event.getPacket().getPlayerInfoDataLists().write(0, newDatas);
                     }
                 });
+    }
+
+    private static void createData(List<PlayerInfoData> newData, PlayerInfoData data) {
+        WrappedGameProfile newProfile = new WrappedGameProfile(data.getProfile().getUUID(), data.getProfile().getName());
+        newProfile.getProperties().putAll(data.getProfile().getProperties());
+        createDataFromProfile(newProfile, newData);
     }
 
     private static void createDataFromProfile(WrappedGameProfile profile, List<PlayerInfoData> newData) {
@@ -167,19 +168,13 @@ public abstract class TabListManager {
         newData.add(new PlayerInfoData(profile, 20, EnumWrappers.NativeGameMode.NOT_SET, WrappedChatComponent.fromText(profile.getName())));
     }
 
-    private static void createData(List<PlayerInfoData> newData, PlayerInfoData data) {
-        WrappedGameProfile newProfile = new WrappedGameProfile(data.getProfile().getUUID(), data.getProfile().getName());
-        newProfile.getProperties().putAll(data.getProfile().getProperties());
-        createDataFromProfile(newProfile, newData);
-    }
+    private static void createDataFromGamePlayer(List<PlayerInfoData> newData, GamePlayer gamePlayer) {
+        Player player = Bukkit.getPlayer(gamePlayer.uuid);
 
-    private static void createDataFromOfflinePlayer(List<PlayerInfoData> newData, OfflinePlayer offlinePlayer) {
-        WrappedGameProfile profile = WrappedGameProfile.fromOfflinePlayer(offlinePlayer);
-        createDataFromProfile(WrappedGameProfile.fromOfflinePlayer(offlinePlayer), newData);
-    }
-
-    private static void createDataFromPlayer(List<PlayerInfoData> newData, Player player) {
-        createDataFromProfile(WrappedGameProfile.fromPlayer(player), newData);
+        WrappedGameProfile profile = gamePlayer.wrappedGameProfile;
+        if (player != null)
+            profile = WrappedGameProfile.fromPlayer(player);
+        createDataFromProfile(profile, newData);
     }
 
     private static boolean checkPlayer(Setup setup, PacketEvent event, List<PlayerInfoData> newData, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {

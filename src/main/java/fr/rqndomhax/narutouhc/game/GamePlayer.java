@@ -7,6 +7,9 @@
 
 package fr.rqndomhax.narutouhc.game;
 
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
+import com.comphenix.protocol.wrappers.WrappedSignedProperty;
+import com.google.common.collect.Multimap;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
@@ -28,6 +31,7 @@ public class GamePlayer {
     public ItemStack[] inventory = new ItemStack[40];
     public Location location;
     public Location deathLocation;
+    public WrappedGameProfile wrappedGameProfile;
 
     public GamePlayer(UUID uuid, String name) {
         this.uuid = uuid;

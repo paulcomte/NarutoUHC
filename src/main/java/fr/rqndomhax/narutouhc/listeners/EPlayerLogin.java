@@ -22,6 +22,7 @@ import fr.rqndomhax.narutouhc.utils.Messages;
 import fr.rqndomhax.narutouhc.utils.PlayerManager;
 import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -155,6 +156,7 @@ public class EPlayerLogin implements Listener {
     public void onPlayerQuit(PlayerQuitEvent e) {
 
         e.setQuitMessage(null);
+        ((CraftPlayer) e.getPlayer()).getHandle().getProfile().getProperties();
 
         GameScoreboard.removeGameScoreboard(e.getPlayer());
 
