@@ -34,7 +34,8 @@ public class TDelayed extends BukkitRunnable {
     public void run() {
 
         if (remainingTime == 0) {
-            MGamePublicRoles.itachiAkatsukis.add(incoming);
+            if (!MGamePublicRoles.itachiAkatsukis.contains(incoming))
+                MGamePublicRoles.itachiAkatsukis.add(incoming);
 
             Player p = Bukkit.getPlayer(itachi.uuid);
 
