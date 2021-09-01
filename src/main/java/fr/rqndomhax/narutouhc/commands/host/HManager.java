@@ -55,9 +55,11 @@ public abstract class HManager {
             return false;
         }
 
-        GameInfo.gameHost = args[1];
-        Player player = Bukkit.getPlayer(GameInfo.gameHost);
+        GameInfo.tmpGameHost = args[1];
+        Player player = Bukkit.getPlayer(GameInfo.tmpGameHost);
         if (player != null) {
+            GameInfo.gameHost = player.getUniqueId();
+            GameInfo.tmpGameHost = null;
             player.sendMessage(Messages.HOST_SET);
             if (setup.getGame().getGameState().equals(GameState.LOBBY_WAITING))
                 MGameActions.clearPlayerLobby(player);
@@ -65,7 +67,7 @@ public abstract class HManager {
         if (player != null)
             sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", player.getName()));
         else
-            sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", GameInfo.gameHost));
+            sender.sendMessage(Messages.HOST_NOW_SET.replace("%player%", GameInfo.tmpGameHost));
 
         return true;
     }

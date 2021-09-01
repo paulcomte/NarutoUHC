@@ -55,7 +55,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameRules().hasWhitelist && !Bukkit.getWhitelistedPlayers().contains(e.getPlayer()) && !e.getPlayer().isOp() && !GameInfo.gameHost.equals(e.getPlayer().getName())) {
+        if (setup.getGame().getGameRules().hasWhitelist && !Bukkit.getWhitelistedPlayers().contains(e.getPlayer()) && !e.getPlayer().isOp() && !GameInfo.gameHost.equals(e.getPlayer().getUniqueId()) && !GameInfo.tmpGameHost.equals(e.getPlayer().getName())) {
             e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
             return;
         }
@@ -83,8 +83,9 @@ public class EPlayerLogin implements Listener {
 
         GameScoreboard.newGameScoreboard(e.getPlayer());
 
-        if (GameInfo.gameHost == null && e.getPlayer().isOp()) {
-            GameInfo.gameHost = e.getPlayer().getName();
+        if (GameInfo.gameHost == null && (e.getPlayer().isOp() || e.getPlayer().getName().equals(GameInfo.tmpGameHost))) {
+            GameInfo.gameHost = e.getPlayer().getUniqueId();
+            GameInfo.tmpGameHost = null;
             setup.getGame().getGameRules().hasWhitelist = true;
         }
 

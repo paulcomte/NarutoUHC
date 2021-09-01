@@ -15,7 +15,8 @@ import java.util.UUID;
 
 public abstract class GameInfo {
 
-    public static String gameHost = null;
+    public static UUID gameHost = null;
+    public static String tmpGameHost = null;
     public static final Set<UUID> gameCoHost = new HashSet<>();
     public static final Set<UUID> bannedPlayers = new HashSet<>();
     public static Maps currentMap = Maps.NO_PVP;
