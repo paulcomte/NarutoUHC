@@ -66,6 +66,8 @@ public class THidan extends BukkitRunnable {
             ItemStack[] inventory = hidan.inventory.clone();
             for(int slot = 0; slot < 36; slot++){
                 ItemStack item = inventory[slot];
+                if (item == null)
+                    continue;
                 if (item.getType().equals(Material.GOLDEN_APPLE))
                     inventory[slot] = null;
             }
