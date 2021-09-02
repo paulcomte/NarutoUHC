@@ -7,11 +7,13 @@
 
 package fr.rqndomhax.narutouhc.utils;
 
+import com.mojang.authlib.properties.Property;
 import fr.rqndomhax.narutouhc.core.Setup;
 import fr.rqndomhax.narutouhc.game.GameInfo;
 import fr.rqndomhax.narutouhc.game.GamePlayer;
 import fr.rqndomhax.narutouhc.game.SActions;
 import fr.rqndomhax.narutouhc.managers.MGameActions;
+import fr.rqndomhax.narutouhc.managers.rules.Scenarios;
 import fr.rqndomhax.narutouhc.role.RoleInfo;
 import fr.rqndomhax.narutouhc.role.shinobi.KakashiHatake;
 import fr.rqndomhax.narutouhc.tabscores.TabListManager;
@@ -19,11 +21,14 @@ import fr.rqndomhax.narutouhc.utils.tools.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import java.util.*;
 
 public abstract class PlayerManager {
 
@@ -71,6 +76,22 @@ public abstract class PlayerManager {
                     player.hidePlayer(target);
                 else
                     player.showPlayer(target);
+    }
+
+    public static Property getRandomSkin(Set<Player> players, Setup setup) {
+        if (players.size() == 0) {
+            setup.getGame().getGameRules().activatedScenarios.remove(Scenarios.RANDOM_SKIN);
+            return null;
+        }
+
+        Optional<Player> player = players.stream().findAny();
+
+        if ((!((CraftPlayer) player.get()).getHandle().getProfile().getProperties().get("textures").iterator().hasNext())) {
+            players.remove(player.get());
+            return getRandomSkin(players, setup);
+        }
+
+        return ((CraftPlayer) player.get()).getHandle().getProfile().getProperties().get("textures").iterator().next();
     }
 
     public static void setNameTagVisible(Player target, boolean isVisible) {

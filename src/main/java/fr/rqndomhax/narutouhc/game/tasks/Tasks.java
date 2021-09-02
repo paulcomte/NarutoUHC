@@ -32,7 +32,7 @@ public enum Tasks {
     }
 
     public static boolean startNextTask(TMain mainTask) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        if (mainTask == null ||mainTask.remainingTasks.isEmpty())
+        if (mainTask == null || mainTask.remainingTasks.isEmpty())
             return false;
         mainTask.task = (Task) mainTask.remainingTasks.get(0).getRunnable().getDeclaredConstructors()[0].newInstance(mainTask);
         mainTask.remainingTasks.remove(0);

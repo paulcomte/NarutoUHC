@@ -55,7 +55,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameRules().hasWhitelist && !Bukkit.getWhitelistedPlayers().contains(e.getPlayer()) && !e.getPlayer().isOp() && !GameInfo.gameHost.equals(e.getPlayer().getUniqueId()) && !GameInfo.tmpGameHost.equals(e.getPlayer().getName())) {
+        if (setup.getGame().getGameRules().hasWhitelist && !Bukkit.getWhitelistedPlayers().contains(e.getPlayer()) && !e.getPlayer().isOp() && (GameInfo.gameHost == null || !GameInfo.gameHost.equals(e.getPlayer().getUniqueId())) && (GameInfo.tmpGameHost == null || !GameInfo.tmpGameHost.equals(e.getPlayer().getName()))) {
             e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Messages.NOT_ALLOWED);
             return;
         }
@@ -121,8 +121,7 @@ public class EPlayerLogin implements Listener {
             return;
         }
 
-        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG))
-            PlayerManager.setNameTagVisible(e.getPlayer(), false);
+        PlayerManager.setNameTagVisible(e.getPlayer(), !setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.NO_NAME_TAG));
 
         if (gamePlayer.isDead) {
             MGameActions.clearPlayer(e.getPlayer());

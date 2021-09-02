@@ -105,11 +105,8 @@ public abstract class TabListManager {
     }
 
     public static void activatePlayerList(Setup setup, ProtocolManager protocolManager) {
-        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
-            Player player = PlayerManager.getPlayer(new Random().nextInt(Bukkit.getOnlinePlayers().size()));
-            if (player != null)
-                randomSkin = ((CraftPlayer) player).getHandle().getProfile().getProperties().get("textures").iterator().next();
-        }
+        if (setup.getGame().getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN))
+            PlayerManager.getRandomSkin(new HashSet<>(Bukkit.getOnlinePlayers()), setup);
         protocolManager.addPacketListener(
                 new PacketAdapter(setup.getMain(), ListenerPriority.NORMAL,
                         PacketType.Play.Server.PLAYER_INFO) {
@@ -137,13 +134,20 @@ public abstract class TabListManager {
                                 newDatas.add(data);
                                 continue;
                             }
-                            event.setCancelled(checkPlayer(setup, event, newDatas, gameplayer, players, data, action == EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+                            event.setCancelled(checkPlayer(setup, newDatas, gameplayer, players, data, action == EnumWrappers.PlayerInfoAction.ADD_PLAYER));
                         }
 
                         tabPlayers.put(event.getPlayer(), players);
 
                         for (GamePlayer gamePlayer : game.getGamePlayers()) {
-                            if (gamePlayer.uuid.equals(event.getPlayer().getUniqueId()) || players.contains(gamePlayer.uuid))
+                            // Check if gamePlayer is not player receiving packet
+                            if (gameplayer.uuid.equals(event.getPlayer().getUniqueId()))
+                                continue;
+                            // Check if gamePlayer is contained in players
+                            if (players.contains(gamePlayer.uuid))
+                                continue;
+                            // Check if newData already contains the gamePlayer
+                            if (newDatas.stream().anyMatch(a -> a.getProfile() != null && a.getProfile().getUUID().equals(gameplayer.uuid)))
                                 continue;
                             createDataFromGamePlayer(newDatas, gamePlayer);
                         }
@@ -160,6 +164,8 @@ public abstract class TabListManager {
     }
 
     private static void createDataFromProfile(WrappedGameProfile profile, List<PlayerInfoData> newData) {
+        if (profile == null)
+            return;
         if (game.getGameRules().activatedScenarios.contains(Scenarios.RANDOM_SKIN)) {
             if (profile.getProperties().containsKey("textures"))
                 profile.getProperties().remove("textures", profile.getProperties().get("textures").iterator().next());
@@ -177,10 +183,15 @@ public abstract class TabListManager {
         createDataFromProfile(profile, newData);
     }
 
-    private static boolean checkPlayer(Setup setup, PacketEvent event, List<PlayerInfoData> newData, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
+    private static boolean checkPlayer(Setup setup, List<PlayerInfoData> newData, GamePlayer gamePlayer, Set<UUID> players, PlayerInfoData data, boolean doesAdd) {
 
-        if (setup.getGame().getGamePlayer(data.getProfile().getUUID()) == null)
-            return gamePlayer != null;
+        if (setup.getGame().getGamePlayer(data.getProfile().getUUID()) == null) {
+            if (gamePlayer == null) {
+                newData.add(data);
+                return false;
+            }
+            return true;
+        }
 
         if (players.contains(data.getProfile().getUUID()) || !doesAdd)
             return true;
